@@ -2,53 +2,82 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#f8f2ec">
   <title>Come With Me</title>
-
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html, body {
-      width: 100%;
-      min-height: 100%;
-    }
-
-    body {
-      min-height: 100vh;
-      background: #F8F2EC;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .splash {
-      width: 100%;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 32px;
-    }
-
-    .logo {
-      display: block;
-      width: min(78vw, 620px);
-      height: auto;
-    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{font-family:"Trebuchet MS",system-ui,sans-serif;color:#28364f}
+    body{min-height:100vh;background:#f8f2ec;overflow-x:hidden}
+    button{font:inherit}
+    .splash{position:fixed;inset:0;z-index:20;display:grid;place-items:center;background:#f8f2ec;transition:opacity .65s ease,visibility .65s ease}
+    .splash.hide{opacity:0;visibility:hidden}
+    .splash img{width:min(76vw,520px);height:auto}
+    .app{min-height:100svh;background:linear-gradient(#bfe9ff 0 32%,#e9f6c8 57%,#b8dd8c 100%);position:relative;overflow:hidden;padding:18px 16px 32px}
+    .sun{position:absolute;width:92px;height:92px;border-radius:50%;background:#ffd75b;top:120px;left:-18px;box-shadow:0 0 45px #ffe78a}
+    .moon{position:absolute;width:76px;height:76px;border-radius:50%;background:#fff3c8;top:120px;right:18px;box-shadow:0 0 34px #fff6d7}
+    .hill{position:absolute;left:-10%;right:-10%;bottom:0;height:52%;background:linear-gradient(145deg,#9bd278,#5ea76e);border-radius:50% 50% 0 0/28% 28% 0 0}
+    .top{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;max-width:760px;margin:auto}
+    .brand{width:150px;max-width:36vw}
+    .adult{border:0;border-radius:22px;padding:9px 13px;background:#fff8edcc;color:#4d5260;font-weight:700;box-shadow:0 4px 12px #36522b22}
+    .hello{position:relative;z-index:2;margin:16px auto 10px;width:min(92%,620px);background:#fffdf5e8;border-radius:28px;padding:12px 20px;text-align:center;font-weight:800;font-size:clamp(18px,4.6vw,28px);box-shadow:0 5px 15px #49683d22}
+    .worlds{position:relative;z-index:3;display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:720px;margin:18px auto 0}
+    .world{border:0;border-radius:26px;padding:16px 10px;min-height:108px;box-shadow:0 7px 0 #42613c33,0 9px 20px #34542f25;color:#28364f;font-weight:900;cursor:pointer;transition:transform .16s ease}
+    .world:active{transform:translateY(4px) scale(.98)}
+    .world .icon{font-size:31px;display:block;margin-bottom:5px}
+    .world strong{display:block;font-size:clamp(18px,5vw,28px)}
+    .world small{display:block;font-weight:700;margin-top:3px;opacity:.72}
+    .go{background:linear-gradient(145deg,#fff2a7,#ffc96b)}
+    .quiet{background:linear-gradient(145deg,#e7d9ff,#b9a8ed)}
+    .story{background:linear-gradient(145deg,#ffe3ae,#f2bd72)}
+    .play{background:linear-gradient(145deg,#bfeec0,#83d3a0)}
+    .mimi-zone{position:relative;z-index:2;min-height:280px;max-width:720px;margin:0 auto;display:flex;align-items:flex-end;justify-content:center}
+    .path{position:absolute;bottom:-55px;width:210px;height:350px;background:#ead7a6;clip-path:polygon(42% 0,58% 0,100% 100%,0 100%);opacity:.85}
+    .mimi-placeholder{position:relative;margin-bottom:18px;width:190px;height:190px;border-radius:50%;display:grid;place-items:center;background:#fff9e9dd;border:5px solid #fff;box-shadow:0 10px 25px #35502d33;text-align:center;padding:18px}
+    .mimi-placeholder .cat{font-size:70px;line-height:1}
+    .mimi-placeholder b{display:block;margin-top:7px;font-size:16px}
+    .status{position:relative;z-index:4;margin:-4px auto 0;max-width:520px;min-height:48px;background:#fff9e8dd;border-radius:22px;padding:12px 18px;text-align:center;font-weight:800;box-shadow:0 5px 15px #35502d22}
+    @media(min-width:700px){.app{padding-top:28px}.worlds{gap:18px}.world{min-height:125px}.mimi-zone{min-height:320px}.brand{width:185px}}
   </style>
 </head>
-
 <body>
-  <main class="splash">
-    <img
-      class="logo"
-      src="cwm-logo.png"
-      alt="Come With Me"
-    >
+  <section class="splash" id="splash" aria-label="Come With Me">
+    <img src="cwm-logo.png" alt="Come With Me">
+  </section>
+
+  <main class="app">
+    <div class="sun" aria-hidden="true"></div><div class="moon" aria-hidden="true"></div><div class="hill" aria-hidden="true"></div>
+    <header class="top">
+      <img class="brand" src="cwm-logo.png" alt="Come With Me">
+      <button class="adult" type="button" data-message="Зона для дорослих буде наступним окремим екраном.">⚙ Для дорослих</button>
+    </header>
+
+    <div class="hello">Мімі: «Ходімо зі мною! Що будемо робити?»</div>
+
+    <section class="worlds" aria-label="Куди підемо з Мімі">
+      <button class="world go" data-world="Рушаймо!"><span class="icon">🎵</span><strong>Рушаймо!</strong><small>пісні • рух • пригоди</small></button>
+      <button class="world quiet" data-world="Тихіше…"><span class="icon">🌙</span><strong>Тихіше…</strong><small>колискові • перед сном</small></button>
+      <button class="world story" data-world="Розкажи мені"><span class="icon">📖</span><strong>Розкажи мені</strong><small>казки • історії</small></button>
+      <button class="world play" data-world="Пограймо!"><span class="icon">⭐</span><strong>Пограймо!</strong><small>ігри • букви • цифри</small></button>
+    </section>
+
+    <section class="mimi-zone" aria-label="Мімі">
+      <div class="path" aria-hidden="true"></div>
+      <div class="mimi-placeholder"><div><div class="cat">🐱🎒</div><b>Тут буде наш справжній Мімі</b></div></div>
+    </section>
+    <div class="status" id="status">Обери, куди підемо сьогодні ✨</div>
   </main>
+
+  <script>
+    const splash=document.getElementById('splash');
+    const status=document.getElementById('status');
+    window.addEventListener('load',()=>setTimeout(()=>splash.classList.add('hide'),1500));
+    document.querySelectorAll('[data-world]').forEach(button=>{
+      button.addEventListener('click',()=>{
+        status.textContent=`Мімі: «${button.dataset.world} Ходімо!» 🐾`;
+      });
+    });
+    document.querySelector('[data-message]').addEventListener('click',e=>status.textContent=e.currentTarget.dataset.message);
+  </script>
 </body>
 </html>
