@@ -62,3 +62,27 @@ document.querySelectorAll('[data-story-section]').forEach(button=>button.addEven
   document.getElementById('storyHomeNote').textContent=`${labels[button.dataset.storySection]} — сюди рушаємо далі 🐾`;
   button.animate([{transform:'scale(1)'},{transform:'scale(.97)'},{transform:'scale(1)'}],{duration:260,easing:'ease-out'});
 }));
+
+const shapesWorld=document.getElementById('shapesWorld');
+const shapesMainButton=document.querySelector('[data-play-section="shapes"]');
+if(shapesMainButton&&shapesWorld){
+  shapesMainButton.addEventListener('click',event=>{
+    event.stopImmediatePropagation();
+    playWorld.hidden=true;
+    shapesWorld.hidden=false;
+    window.scrollTo(0,0);
+  },true);
+}
+const shapesBack=document.getElementById('shapesBack');
+if(shapesBack){
+  shapesBack.addEventListener('click',()=>{
+    shapesWorld.hidden=true;
+    playWorld.hidden=false;
+    window.scrollTo(0,0);
+  });
+}
+document.querySelectorAll('[data-shapes-section]').forEach(button=>button.addEventListener('click',()=>{
+  const labels={song:'Пісню про фігури',games:'Ігри з фігурами'};
+  document.getElementById('shapesNote').textContent=`${labels[button.dataset.shapesSection]} — відкриємо наступними 🐾`;
+  button.animate([{transform:'scale(1)'},{transform:'scale(.97)'},{transform:'scale(1)'}],{duration:260,easing:'ease-out'});
+}));
