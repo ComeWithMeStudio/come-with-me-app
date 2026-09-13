@@ -221,7 +221,8 @@
       }
       .world-panel[hidden],
       .go-world[hidden],
-      .quiet-world[hidden] {
+      .quiet-world[hidden],
+      .story-world[hidden] {
         display: none;
       }
       .back {
@@ -809,6 +810,118 @@
         padding: 6px 8px;
       }
     }
+    /* Tell Me */
+    .story-world {
+      position: fixed;
+      z-index: 27;
+      inset: 0;
+      overflow: auto;
+      background: #31243f;
+      color: #49362d;
+    }
+    .story-scene {
+      position: relative;
+      width: min(100vw, 760px);
+      aspect-ratio: 1216/1294;
+      margin: auto;
+      background: #31243f url("story-home-bg.webp") center/cover no-repeat;
+      overflow: hidden;
+      box-shadow: 0 0 70px #1d102c88;
+    }
+    .story-heading {
+      position: absolute;
+      z-index: 6;
+      left: 50%;
+      top: 2.7%;
+      transform: translateX(-50%);
+      margin: 0;
+      padding: 9px 22px;
+      border-radius: 999px;
+      background: #fff9e9e8;
+      color: #49362d;
+      font-size: clamp(20px, 4.5vw, 34px);
+      line-height: 1;
+      font-weight: 900;
+      box-shadow: 0 4px 16px #28153855;
+      white-space: nowrap;
+    }
+    .story-home-back {
+      position: absolute;
+      z-index: 8;
+      right: 2.8%;
+      top: 2.7%;
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 15px;
+      background: #fff9e9e8;
+      color: #49362d;
+      font-weight: 900;
+      box-shadow: 0 4px 14px #28153855;
+      cursor: pointer;
+    }
+    .story-choice {
+      position: absolute;
+      z-index: 7;
+      width: 31%;
+      border: 0;
+      border-radius: 34px;
+      padding: 0 4px 8%;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .story-choice::after {
+      content: attr(data-label);
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: #fff9e9ec;
+      color: #49362d;
+      font-size: clamp(13px, 2.5vw, 20px);
+      font-weight: 900;
+      line-height: 1.05;
+      white-space: nowrap;
+      box-shadow: 0 4px 13px #28153855;
+      transition: transform 0.18s ease;
+    }
+    .story-choice:hover::after,
+    .story-choice:focus-visible::after {
+      transform: scale(1.05);
+    }
+    .story-adventures {
+      left: 1.5%;
+      top: 23%;
+      height: 45%;
+    }
+    .story-learning {
+      left: 34.5%;
+      top: 18%;
+      height: 39%;
+      padding-bottom: 2%;
+    }
+    .story-life {
+      right: 1.5%;
+      top: 23%;
+      height: 45%;
+    }
+    .story-home-note {
+      position: absolute;
+      z-index: 8;
+      left: 50%;
+      bottom: 2.3%;
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: 86%;
+      padding: 9px 16px;
+      border-radius: 999px;
+      background: #fff9e9ee;
+      color: #49362d;
+      font-size: clamp(11px, 2vw, 15px);
+      font-weight: 900;
+      text-align: center;
+      box-shadow: 0 4px 14px #28153855;
+    }
     /* Let's Play */
     .play-world {
       position: fixed;
@@ -923,6 +1036,33 @@
       box-shadow: 0 4px 14px #315f3340;
     }
     @media (max-width: 700px) and (orientation: portrait) {
+      .story-world {
+        display: grid;
+        place-items: start center;
+      }
+      .story-scene {
+        width: 100vw;
+      }
+      .story-heading {
+        top: 2%;
+        font-size: clamp(17px, 5.4vw, 27px);
+        padding: 7px 13px;
+      }
+      .story-home-back {
+        top: 2%;
+        right: 2%;
+        padding: 8px 10px;
+        font-size: clamp(10px, 2.8vw, 14px);
+      }
+      .story-choice::after {
+        padding: 6px 8px;
+        font-size: clamp(10px, 3.1vw, 15px);
+      }
+      .story-home-note {
+        bottom: 2%;
+        padding: 7px 11px;
+        font-size: clamp(10px, 2.8vw, 13px);
+      }
       .play-world {
         display: grid;
         place-items: start center;
@@ -1126,6 +1266,30 @@
         ></button>
         <div class="quiet-note" id="quietNote">
           Обери, що послухаємо сьогодні ✨
+        </div>
+      </div>
+    </section>
+    <section class="story-world" id="storyWorld" hidden>
+      <div class="story-scene">
+        <h1 class="story-heading">Розкажи мені</h1>
+        <button class="story-home-back" id="storyHomeBack">← До Мімі</button>
+        <button
+          class="story-choice story-adventures"
+          data-story-section="adventures"
+          data-label="🗺️ Пригоди Мімі"
+        ></button>
+        <button
+          class="story-choice story-learning"
+          data-story-section="learning"
+          data-label="🌍 Пізнаваймо світ"
+        ></button>
+        <button
+          class="story-choice story-life"
+          data-story-section="life"
+          data-label="💛 Буває й так"
+        ></button>
+        <div class="story-home-note" id="storyHomeNote">
+          Обери, про що розповісти сьогодні ✨
         </div>
       </div>
     </section>
