@@ -778,7 +778,21 @@
       display: none;
     }
     .play-note {
-      display: none;
+      position: absolute;
+      z-index: 8;
+      left: 50%;
+      bottom: 1.8%;
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: 86%;
+      padding: 9px 16px;
+      border-radius: 999px;
+      background: #fff9e9ee;
+      color: #49362d;
+      font-size: clamp(11px, 2vw, 15px);
+      font-weight: 900;
+      text-align: center;
+      box-shadow: 0 4px 14px #315f3340;
     }
     @media (max-width: 700px) and (orientation: portrait) {
       .play-world {
@@ -820,7 +834,7 @@
         margin-top: 5px;
       }
       .play-note {
-        bottom: 2%;
+        bottom: 1.6%;
         font-size: clamp(10px, 2.8vw, 13px);
         padding: 7px 11px;
       }
