@@ -36,3 +36,29 @@ cardEls.forEach((card,i)=>{card.addEventListener('click',()=>{if(activeIndex===i
 play.addEventListener('click',()=>{if(activeIndex<0){select(0,true);return}if(lullabyAudio.paused)lullabyAudio.play().catch(()=>{});else lullabyAudio.pause()});
 const move=direction=>{let i=activeIndex<0?0:activeIndex+direction;while(i>=0&&i<cardEls.length&&cardEls[i].dataset.free!=='true')i+=direction;if(i>=0&&i<cardEls.length)select(i,true)};prev.addEventListener('click',()=>move(-1));next.addEventListener('click',()=>move(1));repeat.addEventListener('click',()=>{repeatOne=!repeatOne;repeat.classList.toggle('active',repeatOne)});progress.addEventListener('input',()=>{if(lullabyAudio.duration)lullabyAudio.currentTime=(Number(progress.value)/100)*lullabyAudio.duration});lullabyAudio.addEventListener('ended',()=>{if(repeatOne){lullabyAudio.currentTime=0;lullabyAudio.play().catch(()=>{});return}move(1)});['timeupdate','loadedmetadata','play','pause'].forEach(event=>lullabyAudio.addEventListener(event,refresh));lullabyOverlay.querySelector('.lullaby-back').addEventListener('click',()=>{lullabyAudio.pause();lullabyOverlay.hidden=true;if(quietWorld)quietWorld.hidden=false;document.body.classList.add('quiet-open');window.scrollTo(0,0)});}
 function openLullabies(){buildLullabyOverlay();stopSong();if(storyAudio)storyAudio.pause();if(storyOverlay)storyOverlay.hidden=true;if(quietWorld)quietWorld.hidden=true;lullabyOverlay.hidden=false;document.body.classList.remove('quiet-open');window.scrollTo(0,0)}
+
+const storyHomeWorld=document.getElementById('storyWorld');
+const storyMainButton=document.querySelector('[data-world="story"]');
+if(storyMainButton&&storyHomeWorld){
+  storyMainButton.addEventListener('click',event=>{
+    event.stopImmediatePropagation();
+    worldPanel.hidden=true;
+    storyHomeWorld.hidden=false;
+    document.body.classList.add('story-open');
+    window.scrollTo(0,0);
+  },true);
+}
+const storyHomeBack=document.getElementById('storyHomeBack');
+if(storyHomeBack){
+  storyHomeBack.addEventListener('click',()=>{
+    storyHomeWorld.hidden=true;
+    document.body.classList.remove('story-open');
+    status.textContent=translations[language].choose;
+    window.scrollTo(0,0);
+  });
+}
+document.querySelectorAll('[data-story-section]').forEach(button=>button.addEventListener('click',()=>{
+  const labels={adventures:'Пригоди Мімі',learning:'Пізнаваймо світ',life:'Буває й так'};
+  document.getElementById('storyHomeNote').textContent=`${labels[button.dataset.storySection]} — сюди рушаємо далі 🐾`;
+  button.animate([{transform:'scale(1)'},{transform:'scale(.97)'},{transform:'scale(1)'}],{duration:260,easing:'ease-out'});
+}));
