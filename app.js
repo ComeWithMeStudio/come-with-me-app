@@ -86,3 +86,12 @@ document.querySelectorAll('[data-shapes-section]').forEach(button=>button.addEve
   document.getElementById('shapesNote').textContent=`${labels[button.dataset.shapesSection]} — відкриємо наступними 🐾`;
   button.animate([{transform:'scale(1)'},{transform:'scale(.97)'},{transform:'scale(1)'}],{duration:260,easing:'ease-out'});
 }));
+
+if(location.hash==='#figures'&&shapesWorld){
+  window.addEventListener('load',()=>{
+    worldPanel.hidden=true;
+    if(playWorld)playWorld.hidden=true;
+    shapesWorld.hidden=false;
+    window.scrollTo(0,0);
+  });
+}
