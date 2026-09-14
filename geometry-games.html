@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="uk" style="color-scheme:only light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#9eddf4">
+  <title>Майстерня фігур — Come With Me</title>
+  <style>
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"Trebuchet MS",system-ui,sans-serif;color:#49362d;background:#8fd7f3}button{font:inherit}.game{width:min(100%,760px);min-height:100vh;margin:auto;padding:18px 16px 34px;background:radial-gradient(circle at 15% 8%,#fff3b4 0 6%,transparent 18%),linear-gradient(180deg,#aee6fb 0 45%,#dff4c5 45% 100%);overflow:hidden}.top{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:9px}.pill{border:0;border-radius:999px;padding:10px 14px;background:#fff9e9ed;color:#49362d;font-weight:900;box-shadow:0 5px 14px #49362d25;text-decoration:none}.title{margin:0;text-align:center;font-size:clamp(23px,5.6vw,38px)}.progress{margin:16px auto 11px;display:flex;justify-content:center;gap:9px}.dot{width:13px;height:13px;border-radius:50%;background:#fff9;border:2px solid #fff}.dot.done{background:#62bb73}.dot.active{background:#ffbe45;transform:scale(1.22)}.instruction{text-align:center;margin:8px auto 12px;font-size:clamp(17px,4.3vw,25px);font-weight:900}.board{position:relative;width:100%;height:min(52vh,430px);min-height:330px;border:5px solid #fff7e8;border-radius:34px;background:linear-gradient(#bdeaff 0 66%,#b9df85 66%);box-shadow:0 14px 30px #416f7230,inset 0 0 35px #fff8;overflow:hidden}.board:before{content:"";position:absolute;left:8%;top:10%;width:66px;height:31px;border-radius:50px;background:#fff9;box-shadow:48px 8px 0 6px #fff9}.board:after{content:"";position:absolute;left:0;right:0;bottom:21%;height:7px;background:#ebc17f;box-shadow:0 5px 0 #d4a25d}.mimi{position:absolute;right:1%;bottom:4%;width:24%;max-width:150px;z-index:2;filter:drop-shadow(0 7px 8px #3455)}.assembly{position:absolute;inset:0;transition:transform .75s ease}.assembly.cart.complete{animation:drive 1.5s ease-in-out .25s}.assembly.rocket.complete{animation:fly 1.5s ease-in .3s forwards}.assembly.house.complete .slot[data-kind="circle"]{box-shadow:0 0 25px 10px #ffe172}.slot{position:absolute;display:grid;place-items:center;border:3px dashed #7f8c8d88;background:#ffffff48;color:#59666b66;transition:.22s;clip-path:var(--clip,none)}.slot.selected{outline:5px solid #ffcf55aa;outline-offset:4px}.slot.filled{border-style:solid;border-color:#fff8;background:var(--color);box-shadow:inset 0 5px 8px #fff7,inset 0 -6px 9px #7c3b2522,0 5px 7px #49362d33}.slot.circle{border-radius:50%}.slot.square,.slot.rectangle{border-radius:12px}.slot.triangle{--clip:polygon(50% 0,100% 100%,0 100%);border:0;background:#71808655}.slot.trapezoid{--clip:polygon(18% 0,82% 0,100% 100%,0 100%);border:0;background:#71808655}.tray-wrap{margin-top:15px;padding:13px;border-radius:28px;background:#fff9e9db;box-shadow:0 9px 22px #49362d24}.tray-title{text-align:center;font-weight:900;margin-bottom:10px}.tray{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px;min-height:102px}.piece{--color:#ff7f91;width:74px;height:74px;border:0;background:var(--color);box-shadow:inset 0 6px 9px #fff7,inset 0 -7px 10px #7c3b2527,0 7px 11px #49362d32;touch-action:none;cursor:grab;transition:transform .18s,opacity .18s;clip-path:var(--clip,none)}.piece:active{cursor:grabbing}.piece.chosen{outline:5px solid #fff;outline-offset:4px;transform:translateY(-5px)}.piece.used{opacity:.18;pointer-events:none;transform:scale(.7)}.piece.circle{border-radius:50%}.piece.square,.piece.rectangle{border-radius:12px}.piece.rectangle{width:100px;height:62px}.piece.triangle{--clip:polygon(50% 0,100% 100%,0 100%)}.piece.trapezoid{--clip:polygon(18% 0,82% 0,100% 100%,0 100%)}.ghost{position:fixed;z-index:1000;pointer-events:none;opacity:.86;transform:translate(-50%,-50%) scale(.9)}.message{min-height:48px;margin:13px 0 4px;display:grid;place-items:center;text-align:center;font-size:18px;font-weight:900}.actions{display:flex;justify-content:center;gap:12px}.action{border:0;border-radius:999px;padding:12px 20px;background:#fff9e9;color:#49362d;font-weight:900;box-shadow:0 5px 14px #49362d25}.next{background:#ffcf58}.celebrate{animation:pop .55s ease}.spark{position:absolute;z-index:8;font-size:30px;animation:spark 1s ease-out forwards;pointer-events:none}@keyframes pop{50%{transform:scale(1.06)}}@keyframes spark{to{transform:translateY(-85px) rotate(35deg);opacity:0}}@keyframes drive{50%{transform:translateX(22%) rotate(-1deg)}100%{transform:translateX(0)}}@keyframes fly{to{transform:translateY(-125%) scale(.84)}}
+    @media(max-width:520px){.game{padding:12px 10px 26px}.top{grid-template-columns:auto 1fr}.top .reset{grid-column:1/3;grid-row:2;padding:7px 12px;justify-self:center}.board{height:390px;min-height:0;border-radius:27px}.mimi{width:26%}.piece{width:62px;height:62px}.piece.rectangle{width:86px;height:55px}.tray{min-height:92px}.pill{padding:9px 11px;font-size:13px}}
+  </style>
+</head>
+<body>
+<main class="game">
+  <header class="top"><a class="pill" href="index.html#figures">← До фігур</a><h1 class="title">Майстерня фігур</h1><button class="pill reset" id="reset">↻ Спочатку</button></header>
+  <div class="progress" id="progress"></div>
+  <p class="instruction" id="instruction"></p>
+  <section class="board" id="board" aria-label="Поле гри"><div class="assembly" id="assembly"></div><img class="mimi" src="mimi-run-transparent-v2b.webp" alt="Мімі"></section>
+  <section class="tray-wrap"><div class="tray-title">Обери фігуру й постав на її місце</div><div class="tray" id="tray"></div></section>
+  <div class="message" id="message">Мімі: «Спробуємо?» 🐾</div>
+  <div class="actions"><button class="action next" id="next" hidden>Наступна конструкція →</button></div>
+</main>
+<script>
+const levels=[
+ {name:'Возик',className:'cart',prompt:'Допоможи Мімі скласти возик',parts:[
+  {kind:'rectangle',x:26,y:46,w:42,h:18,color:'#f29b3f'},
+  {kind:'circle',x:31,y:62,w:14,h:14,color:'#45a9d6'},
+  {kind:'circle',x:52,y:62,w:14,h:14,color:'#45a9d6'}]},
+ {name:'Будиночок',className:'house',prompt:'Збудуй для Мімі затишний будиночок',parts:[
+  {kind:'square',x:29,y:36,w:38,h:36,color:'#f3a45d'},
+  {kind:'triangle',x:25,y:17,w:46,h:24,color:'#ef6f65'},
+  {kind:'rectangle',x:45,y:53,w:10,h:19,color:'#8d654b'},
+  {kind:'circle',x:35,y:44,w:10,h:10,color:'#66c4e8'}]},
+ {name:'Ракета',className:'rocket',prompt:'Склади ракету — вирушаємо до зірок!',parts:[
+  {kind:'rectangle',x:38,y:31,w:22,h:37,color:'#f7eee1'},
+  {kind:'triangle',x:38,y:15,w:22,h:18,color:'#ef6f65'},
+  {kind:'triangle',x:29,y:54,w:17,h:19,color:'#f3a13b'},
+  {kind:'triangle',x:52,y:54,w:17,h:19,color:'#f3a13b'},
+  {kind:'circle',x:43,y:38,w:12,h:12,color:'#56bde5'},
+  {kind:'circle',x:43,y:52,w:12,h:12,color:'#56bde5'}]}
+];
+let levelIndex=0,selected=null,filled=0;const board=document.getElementById('board'),assembly=document.getElementById('assembly'),tray=document.getElementById('tray'),message=document.getElementById('message'),next=document.getElementById('next'),instruction=document.getElementById('instruction');
+const shuffle=a=>a.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+function render(){selected=null;filled=0;next.hidden=true;message.textContent='Мімі: «Спробуємо?» 🐾';const l=levels[levelIndex];instruction.textContent=l.prompt;assembly.className='assembly '+l.className;assembly.innerHTML='';tray.innerHTML='';document.getElementById('progress').innerHTML=levels.map((_,i)=>`<span class="dot ${i<levelIndex?'done':i===levelIndex?'active':''}"></span>`).join('');
+ l.parts.forEach((p,i)=>{const s=document.createElement('button');s.className='slot '+p.kind;s.dataset.kind=p.kind;s.dataset.index=i;s.style.cssText=`left:${p.x}%;top:${p.y}%;width:${p.w}%;height:${p.h}%`;s.setAttribute('aria-label','Місце для фігури');s.onclick=()=>placeSelected(s);assembly.appendChild(s)});
+ shuffle(l.parts.map((p,i)=>({...p,source:i}))).forEach(p=>{const b=document.createElement('button');b.className='piece '+p.kind;b.dataset.kind=p.kind;b.dataset.source=p.source;b.style.setProperty('--color',p.color);b.setAttribute('aria-label',p.kind);b.onclick=()=>choose(b);enableDrag(b);tray.appendChild(b)});
+}
+function choose(piece){if(piece.classList.contains('used'))return;document.querySelectorAll('.piece').forEach(x=>x.classList.remove('chosen'));selected=piece;piece.classList.add('chosen');message.textContent='Тепер знайди для неї місце ✨'}
+function placeSelected(slot){if(!selected||slot.classList.contains('filled'))return;if(selected.dataset.kind!==slot.dataset.kind){message.textContent='Мімі: «Майже! Спробуй інше місце» 🐾';slot.animate([{transform:'translateX(0)'},{transform:'translateX(-7px)'},{transform:'translateX(7px)'},{transform:'translateX(0)'}],{duration:330});return}fill(slot,selected)}
+function fill(slot,piece){const p=levels[levelIndex].parts[Number(slot.dataset.index)];slot.classList.add('filled');slot.style.setProperty('--color',p.color);piece.classList.add('used');piece.classList.remove('chosen');selected=null;filled++;message.textContent='Так! Фігура на своєму місці ⭐';if(filled===levels[levelIndex].parts.length)complete()}
+function complete(){assembly.classList.add('complete');board.classList.add('celebrate');message.textContent=`Готово! Це ${levels[levelIndex].name.toLowerCase()}! 🎉`;for(let i=0;i<8;i++){const s=document.createElement('span');s.className='spark';s.textContent=['⭐','✨','●'][i%3];s.style.left=(18+Math.random()*62)+'%';s.style.top=(25+Math.random()*45)+'%';board.appendChild(s);setTimeout(()=>s.remove(),1100)}setTimeout(()=>board.classList.remove('celebrate'),600);next.hidden=levelIndex===levels.length-1; if(levelIndex===levels.length-1)setTimeout(()=>message.textContent='Мімі: «Ми збудували все! Які ми майстри!» ❤️🐾',1600)}
+function enableDrag(piece){let ghost=null,moved=false;piece.addEventListener('pointerdown',e=>{if(piece.classList.contains('used'))return;moved=false;ghost=piece.cloneNode();ghost.classList.add('ghost');ghost.style.left=e.clientX+'px';ghost.style.top=e.clientY+'px';document.body.appendChild(ghost);piece.setPointerCapture(e.pointerId)});piece.addEventListener('pointermove',e=>{if(!ghost)return;moved=true;ghost.style.left=e.clientX+'px';ghost.style.top=e.clientY+'px'});piece.addEventListener('pointerup',e=>{if(!ghost)return;ghost.remove();ghost=null;piece.releasePointerCapture(e.pointerId);if(!moved){choose(piece);return}const hit=document.elementFromPoint(e.clientX,e.clientY)?.closest('.slot');if(hit){selected=piece;placeSelected(hit)}else choose(piece)})}
+next.onclick=()=>{levelIndex++;render()};document.getElementById('reset').onclick=()=>render();render();
+</script>
+</body>
+</html>
