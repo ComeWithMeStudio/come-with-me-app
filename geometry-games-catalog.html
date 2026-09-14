@@ -29,10 +29,9 @@
     <div class="message" id="lockedMessage" hidden>Ця гра входить до платної колекції Come With Me Studio ❤️</div>
   </main>
   <script>
-    const params=new URLSearchParams(location.search),isAuthor=params.get('preview')==='alona';
+    const params=new URLSearchParams(location.search);if(params.get('preview')==='alona')sessionStorage.setItem('cwm-author-preview','1');const isAuthor=sessionStorage.getItem('cwm-author-preview')==='1';
     const cards=[...document.querySelectorAll('.paid-card')],message=document.getElementById('lockedMessage');
     cards.forEach(card=>{if(isAuthor){card.querySelector('.badge').textContent='РЕЖИМ АВТОРА';card.querySelector('.lock').textContent='🔓';card.href=card.dataset.target}else card.addEventListener('click',event=>{event.preventDefault();message.hidden=false;message.scrollIntoView({behavior:'smooth',block:'center'})})});
-    document.getElementById('backToShapes').addEventListener('click',event=>{if(document.referrer&&new URL(document.referrer).origin===location.origin){event.preventDefault();history.back()}});
   </script>
 </body>
 </html>
