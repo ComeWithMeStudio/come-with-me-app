@@ -48,7 +48,30 @@ const levels=[
   {kind:'square',x:51,y:29,w:23,h:20,color:'#3b82e6'},
   {kind:'square',x:28,y:35,w:12,h:13,color:'#ffd23f'},
   {kind:'circle',x:30,y:63,w:14,h:14,color:'#25a9df'},
-  {kind:'circle',x:57,y:63,w:14,h:14,color:'#25a9df'}]}
+  {kind:'circle',x:57,y:63,w:14,h:14,color:'#25a9df'}]},
+ {name:'Дерево',className:'tree',prompt:'Посади для Мімі зелене деревце',parts:[
+  {kind:'rectangle',x:45,y:50,w:11,h:27,color:'#925535'},
+  {kind:'circle',x:32,y:24,w:25,h:25,color:'#3fbd62'},
+  {kind:'circle',x:47,y:17,w:25,h:25,color:'#24a957'},
+  {kind:'circle',x:53,y:32,w:25,h:25,color:'#63c95b'}]},
+ {name:'Морозиво',className:'icecream',prompt:'Склади смачне морозиво з фігур',parts:[
+  {kind:'trapezoid',x:39,y:48,w:24,h:29,color:'#e89a48'},
+  {kind:'circle',x:37,y:27,w:27,h:27,color:'#ff6f9e'},
+  {kind:'circle',x:47,y:20,w:17,h:17,color:'#ffd45a'}]},
+ {name:'Робот',className:'robot',prompt:'Збери веселого робота-помічника',parts:[
+  {kind:'square',x:37,y:21,w:27,h:23,color:'#7a68df'},
+  {kind:'rectangle',x:34,y:45,w:33,h:27,color:'#32b9d6'},
+  {kind:'circle',x:42,y:28,w:6,h:6,color:'#ffd23f'},
+  {kind:'circle',x:54,y:28,w:6,h:6,color:'#ffd23f'},
+  {kind:'rectangle',x:24,y:49,w:10,h:8,color:'#ff704d'},
+  {kind:'rectangle',x:67,y:49,w:10,h:8,color:'#ff704d'}]},
+ {name:'Замок',className:'castle',prompt:'Побудуй казковий замок для Мімі',parts:[
+  {kind:'rectangle',x:35,y:38,w:31,h:35,color:'#8e70df'},
+  {kind:'square',x:19,y:46,w:18,h:27,color:'#54b7e8'},
+  {kind:'square',x:64,y:46,w:18,h:27,color:'#54b7e8'},
+  {kind:'triangle',x:18,y:29,w:20,h:19,color:'#ff5b69'},
+  {kind:'triangle',x:63,y:29,w:20,h:19,color:'#ff5b69'},
+  {kind:'rectangle',x:46,y:57,w:10,h:16,color:'#7b4a39'}]}
 ];
 let levelIndex=0,selected=null,filled=0;const board=document.getElementById('board'),assembly=document.getElementById('assembly'),tray=document.getElementById('tray'),message=document.getElementById('message'),next=document.getElementById('next'),instruction=document.getElementById('instruction');
 const shuffle=a=>a.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
