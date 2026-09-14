@@ -12,7 +12,7 @@
 </head>
 <body>
 <main class="game">
-  <header class="top"><a class="pill" href="index.html#figures">← До фігур</a><h1 class="title">Майстерня фігур</h1><button class="pill reset" id="reset">↻ Спочатку</button></header>
+  <header class="top"><a class="pill" id="backToShapes" href="index.html#figures">← До фігур</a><h1 class="title">Майстерня фігур</h1><button class="pill reset" id="reset">↻ Спочатку</button></header>
   <div class="progress" id="progress"></div>
   <p class="instruction" id="instruction"></p>
   <section class="board" id="board" aria-label="Поле гри"><div class="assembly" id="assembly"></div><img class="mimi" src="mimi-run-transparent-v2b.webp" alt="Мімі"></section>
@@ -50,7 +50,9 @@ function placeSelected(slot){if(!selected||slot.classList.contains('filled'))ret
 function fill(slot,piece){const p=levels[levelIndex].parts[Number(slot.dataset.index)];slot.classList.add('filled');slot.style.setProperty('--color',p.color);piece.classList.add('used');piece.classList.remove('chosen');selected=null;filled++;message.textContent='Так! Фігура на своєму місці ⭐';if(filled===levels[levelIndex].parts.length)complete()}
 function complete(){assembly.classList.add('complete');board.classList.add('celebrate');message.textContent=`Готово! Це ${levels[levelIndex].name.toLowerCase()}! 🎉`;for(let i=0;i<8;i++){const s=document.createElement('span');s.className='spark';s.textContent=['⭐','✨','●'][i%3];s.style.left=(18+Math.random()*62)+'%';s.style.top=(25+Math.random()*45)+'%';board.appendChild(s);setTimeout(()=>s.remove(),1100)}setTimeout(()=>board.classList.remove('celebrate'),600);next.hidden=levelIndex===levels.length-1; if(levelIndex===levels.length-1)setTimeout(()=>message.textContent='Мімі: «Ми збудували все! Які ми майстри!» ❤️🐾',1600)}
 function enableDrag(piece){let ghost=null,moved=false;piece.addEventListener('pointerdown',e=>{if(piece.classList.contains('used'))return;moved=false;ghost=piece.cloneNode();ghost.classList.add('ghost');ghost.style.left=e.clientX+'px';ghost.style.top=e.clientY+'px';document.body.appendChild(ghost);piece.setPointerCapture(e.pointerId)});piece.addEventListener('pointermove',e=>{if(!ghost)return;moved=true;ghost.style.left=e.clientX+'px';ghost.style.top=e.clientY+'px'});piece.addEventListener('pointerup',e=>{if(!ghost)return;ghost.remove();ghost=null;piece.releasePointerCapture(e.pointerId);if(!moved){choose(piece);return}const hit=document.elementFromPoint(e.clientX,e.clientY)?.closest('.slot');if(hit){selected=piece;placeSelected(hit)}else choose(piece)})}
-next.onclick=()=>{levelIndex++;render()};document.getElementById('reset').onclick=()=>render();render();
+next.onclick=()=>{levelIndex++;render()};document.getElementById('reset').onclick=()=>render();
+document.getElementById('backToShapes').addEventListener('click',event=>{if(document.referrer&&new URL(document.referrer).origin===location.origin){event.preventDefault();history.back()}});
+render();
 </script>
 </body>
 </html>
