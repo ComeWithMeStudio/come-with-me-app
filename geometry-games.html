@@ -37,7 +37,18 @@ const levels=[
   {kind:'triangle',x:29,y:54,w:17,h:19,color:'#ff861e'},
   {kind:'triangle',x:52,y:54,w:17,h:19,color:'#ff861e'},
   {kind:'circle',x:43,y:38,w:12,h:12,color:'#149fda'},
-  {kind:'circle',x:43,y:52,w:12,h:12,color:'#149fda'}]}
+  {kind:'circle',x:43,y:52,w:12,h:12,color:'#149fda'}]},
+ {name:'Кораблик',className:'boat',prompt:'Склади кораблик — вирушаємо в плавання!',parts:[
+  {kind:'trapezoid',x:22,y:55,w:56,h:18,color:'#168bd2'},
+  {kind:'rectangle',x:48,y:25,w:5,h:31,color:'#8d5638'},
+  {kind:'triangle',x:51,y:28,w:27,h:25,color:'#ff5b69'},
+  {kind:'circle',x:34,y:58,w:10,h:10,color:'#ffd23f'}]},
+ {name:'Паровозик',className:'train',prompt:'Збудуй веселий паровозик для Мімі',parts:[
+  {kind:'rectangle',x:23,y:47,w:51,h:20,color:'#ff6a2f'},
+  {kind:'square',x:51,y:29,w:23,h:20,color:'#3b82e6'},
+  {kind:'square',x:28,y:35,w:12,h:13,color:'#ffd23f'},
+  {kind:'circle',x:30,y:63,w:14,h:14,color:'#25a9df'},
+  {kind:'circle',x:57,y:63,w:14,h:14,color:'#25a9df'}]}
 ];
 let levelIndex=0,selected=null,filled=0;const board=document.getElementById('board'),assembly=document.getElementById('assembly'),tray=document.getElementById('tray'),message=document.getElementById('message'),next=document.getElementById('next'),instruction=document.getElementById('instruction');
 const shuffle=a=>a.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
