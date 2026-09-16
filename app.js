@@ -4,6 +4,58 @@ let language=localStorage.getItem('cwm-language')||'uk',repeatCurrent=false;cons
 const quietScene=document.querySelector('.quiet-scene'),quietLogo=document.querySelector('.quiet-logo');if(quietScene)quietScene.style.backgroundImage="url('quiet-home-bg.png?v=20260909-tailfix')";if(quietLogo)quietLogo.remove();
 let storyOverlay=null,storyAudio=null;
 function buildStoryOverlay(){if(storyOverlay)return;const style=document.createElement('style');style.textContent=`.story-overlay{position:fixed;inset:0;z-index:50;background:linear-gradient(180deg,#f4e9df,#e9dcf0);overflow:auto;padding:18px;box-sizing:border-box;color:#493f4c}.story-shell{width:min(680px,100%);margin:0 auto}.story-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}.story-head h2{margin:0;font-size:clamp(28px,6vw,42px)}.story-back{border:0;border-radius:999px;padding:10px 16px;background:#fff9;box-shadow:0 3px 12px #0002;font-weight:700;color:#493f4c}.story-free{font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#6d5c78;margin:4px 0 10px}.story-card{background:#fff9;border:1px solid #fff;border-radius:24px;padding:18px;box-shadow:0 8px 26px #604f7022}.story-row{display:flex;align-items:center;gap:14px}.story-play{flex:0 0 54px;width:54px;height:54px;border:0;border-radius:50%;font-size:23px;background:#fff;box-shadow:0 4px 14px #0002}.story-info{min-width:0;flex:1}.story-title{font-size:19px;font-weight:800;line-height:1.2}.story-meta{margin-top:6px;font-size:14px;opacity:.72}.story-progress{width:100%;margin-top:16px;accent-color:#75627f}.story-time{display:flex;justify-content:space-between;font-size:12px;opacity:.65;margin-top:3px}.story-empty{margin-top:18px;text-align:center;opacity:.65;font-size:14px}`;document.head.appendChild(style);storyOverlay=document.createElement('section');storyOverlay.className='story-overlay';storyOverlay.hidden=true;storyOverlay.innerHTML=`<div class="story-shell"><div class="story-head"><h2>Казки 📖</h2><button class="story-back" type="button">← Тихіше</button></div><div class="story-free">Безкоштовно</div><article class="story-card" data-free="true" data-published="2026-09-09"><div class="story-row"><button class="story-play" type="button" aria-label="Відтворити казку">▶️</button><div class="story-info"><div class="story-title">Мімі й ніч, яка загубила тишу</div><div class="story-meta">Аудіоказка • 7:43 • безкоштовно</div></div></div><input class="story-progress" type="range" min="0" max="100" value="0" aria-label="Прогрес казки"><div class="story-time"><span class="story-current">0:00</span><span>7:43</span></div><audio class="story-audio" preload="metadata" src="mimi_night_story_audio.m4a"></audio></article><div class="story-empty">Друга безкоштовна казка скоро оселиться тут 🐾🌙</div></div>`;document.body.appendChild(storyOverlay);storyAudio=storyOverlay.querySelector('.story-audio');const play=storyOverlay.querySelector('.story-play'),progress=storyOverlay.querySelector('.story-progress'),now=storyOverlay.querySelector('.story-current');const refresh=()=>{if(!storyAudio)return;play.textContent=storyAudio.paused?'▶️':'⏸';now.textContent=formatTime(storyAudio.currentTime);progress.value=storyAudio.duration?(storyAudio.currentTime/storyAudio.duration)*100:0};play.addEventListener('click',()=>{if(storyAudio.paused)storyAudio.play().catch(()=>{});else storyAudio.pause()});progress.addEventListener('input',()=>{if(storyAudio.duration)storyAudio.currentTime=(Number(progress.value)/100)*storyAudio.duration});storyAudio.addEventListener('timeupdate',refresh);storyAudio.addEventListener('play',refresh);storyAudio.addEventListener('pause',refresh);storyAudio.addEventListener('ended',refresh);storyOverlay.querySelector('.story-back').addEventListener('click',()=>{storyAudio.pause();storyOverlay.hidden=true;if(quietWorld)quietWorld.hidden=false;document.body.classList.add('quiet-open');window.scrollTo(0,0)});}
+const buildSingleStoryOverlay=buildStoryOverlay;
+buildStoryOverlay=function(){
+  if(storyOverlay)return;
+  buildSingleStoryOverlay();
+  const spacing=document.createElement('style');
+  spacing.textContent='.story-card+.story-card{margin-top:14px}';
+  document.head.appendChild(spacing);
+
+  const original=storyOverlay.querySelector('.story-card');
+  const first=original.cloneNode(true);
+  original.replaceWith(first);
+
+  const second=first.cloneNode(true);
+  second.dataset.published='2026-09-16';
+  second.querySelector('.story-title').textContent='Я поруч';
+  second.querySelector('.story-meta').textContent='Музична аудіоказка • 6:00 • безкоштовно';
+  second.querySelector('.story-play').setAttribute('aria-label','Відтворити казку Я поруч');
+  second.querySelector('.story-progress').setAttribute('aria-label','Прогрес казки Я поруч');
+  second.querySelector('.story-time span:last-child').textContent='6:00';
+  second.querySelector('.story-audio').src='ya-poruch-audio-story.mp3';
+  const empty=storyOverlay.querySelector('.story-empty');
+  empty.textContent='Наступна казка скоро оселиться тут 🐾🌙';
+  empty.before(second);
+
+  const cards=[first,second];
+  const audios=cards.map(card=>card.querySelector('.story-audio'));
+  cards.forEach((card,index)=>{
+    const audio=audios[index];
+    const play=card.querySelector('.story-play');
+    const progress=card.querySelector('.story-progress');
+    const now=card.querySelector('.story-current');
+    const duration=card.querySelector('.story-time span:last-child');
+    const refresh=()=>{
+      play.textContent=audio.paused?'▶️':'⏸';
+      now.textContent=formatTime(audio.currentTime);
+      if(Number.isFinite(audio.duration))duration.textContent=formatTime(audio.duration);
+      progress.value=audio.duration?(audio.currentTime/audio.duration)*100:0;
+    };
+    play.addEventListener('click',()=>{
+      if(audio.paused){
+        audios.forEach(other=>{if(other!==audio)other.pause()});
+        storyAudio=audio;
+        audio.play().catch(()=>{});
+      }else audio.pause();
+    });
+    progress.addEventListener('input',()=>{
+      if(audio.duration)audio.currentTime=(Number(progress.value)/100)*audio.duration;
+    });
+    ['timeupdate','loadedmetadata','play','pause','ended'].forEach(event=>audio.addEventListener(event,refresh));
+  });
+  storyAudio=audios[0];
+};
 function openStories(){buildStoryOverlay();stopSong();if(lullabyAudio)lullabyAudio.pause();if(lullabyOverlay)lullabyOverlay.hidden=true;if(quietWorld)quietWorld.hidden=true;storyOverlay.hidden=false;document.body.classList.remove('quiet-open');window.scrollTo(0,0)}
 function playlist(){return songCards.filter(card=>card.dataset.lang===language&&!card.hidden)}
 function formatTime(seconds){if(!Number.isFinite(seconds))return'0:00';const m=Math.floor(seconds/60),s=Math.floor(seconds%60);return`${m}:${String(s).padStart(2,'0')}`}
