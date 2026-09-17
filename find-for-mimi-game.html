@@ -51,11 +51,11 @@ const levelBank=[
 ];
 
 const correctFeedback=[
- {text:'Так! Молодець! ⭐',audio:null},
- {text:'Правильно! Чудова робота! ⭐',audio:null},
- {text:'У тебе вийшло! ⭐',audio:null},
- {text:'Супер! Ти дуже уважний! ⭐',audio:null},
- {text:'Так тримати! ⭐',audio:null}
+ {text:'Так! Молодець! ⭐',audio:'audio/games/common/correct-1.mp3'},
+ {text:'Правильно! Чудова робота! ⭐',audio:'audio/games/common/correct-2.mp3'},
+ {text:'У тебе все вийшло! ⭐',audio:'audio/games/common/correct-3.mp3'},
+ {text:'Супер! Ти все помічаєш! ⭐',audio:'audio/games/common/correct-4.mp3'},
+ {text:'Так тримати! ⭐',audio:'audio/games/common/correct-5.mp3'}
 ];
 const retryFeedback=[
  {text:'Майже! Подивись ще раз 🐾',audio:null},
@@ -68,9 +68,16 @@ const pick=list=>list[Math.floor(Math.random()*list.length)];
 let levels=[],level=0,answered=false;
 const question=document.getElementById('question'),choices=document.getElementById('choices'),message=document.getElementById('message'),next=document.getElementById('next'),scene=document.getElementById('scene');
 
+const audioCache=new Map();
+[...correctFeedback,...retryFeedback].forEach(feedback=>{if(feedback.audio){const voice=new Audio(feedback.audio);voice.preload='auto';audioCache.set(feedback.audio,voice)}});
+let activeVoice=null;
 function showFeedback(feedback){
  message.textContent=feedback.text;
- if(feedback.audio){const voice=new Audio(feedback.audio);voice.play().catch(()=>{})}
+ if(feedback.audio){
+  if(activeVoice){activeVoice.pause();activeVoice.currentTime=0}
+  const voice=audioCache.get(feedback.audio);
+  voice.currentTime=0;voice.play().catch(()=>{});activeVoice=voice
+ }
 }
 function render(){
  answered=false;next.hidden=true;message.textContent='Мімі: «Дивись уважно!» 🐾';
