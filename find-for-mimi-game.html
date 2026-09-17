@@ -66,6 +66,7 @@ const musicTrack='audio/games/find-for-mimi/music/level-2.mp3';
 const MUSIC_VOLUME=.22,DUCKED_MUSIC_VOLUME=.08;
 
 const auditMode=new URLSearchParams(location.search).get('test')==='1';
+const requestedStart=Math.max(1,Math.min(30,Number(new URLSearchParams(location.search).get('start'))||1));
 const shuffle=list=>{const copy=[...list];for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]]}return copy};
 const pick=list=>list[Math.floor(Math.random()*list.length)];
 let levels=[],level=0,answered=false;
@@ -111,7 +112,7 @@ function answer(button,correct){
  for(let i=0;i<7;i++){const s=document.createElement('span');s.className='spark';s.textContent=['⭐','✨','●'][i%3];s.style.left=(14+Math.random()*68)+'%';s.style.top=(28+Math.random()*48)+'%';scene.appendChild(s);setTimeout(()=>s.remove(),1100)}
  if(level<levels.length-1)next.hidden=false;else setTimeout(()=>message.textContent='Мімі: «Ти все знайшов! Який уважний!» ❤️🐾',900)
 }
-function startGame(){levels=auditMode?[...levelBank]:shuffle(levelBank).slice(0,20);level=0;render()}
+function startGame(){levels=auditMode?[...levelBank]:shuffle(levelBank).slice(0,20);level=auditMode?requestedStart-1:0;render()}
 let started=false;
 next.onclick=()=>{if(!started){started=true;next.textContent='Далі →';startGame();return}level++;render()};
 document.getElementById('reset').onclick=()=>{started=true;next.textContent='Далі →';startGame()};
