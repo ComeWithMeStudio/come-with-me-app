@@ -18,36 +18,36 @@
 </main>
 <script>
 const levelBank=[
- {question:'Знайди великий м’яч',choices:[{html:'<i class="ball big"></i>',label:'Великий',correct:true},{html:'<i class="ball small"></i>',label:'Маленький'}]},
- {question:'Знайди маленький м’яч',choices:[{html:'<i class="ball big"></i>',label:'Великий'},{html:'<i class="ball small"></i>',label:'Маленький',correct:true}]},
- {question:'Знайди високий кубик',choices:[{html:'<i class="block short"></i>',label:'Низький'},{html:'<i class="block tall"></i>',label:'Високий',correct:true}]},
- {question:'Знайди низький кубик',choices:[{html:'<i class="block short"></i>',label:'Низький',correct:true},{html:'<i class="block tall"></i>',label:'Високий'}]},
- {question:'Хто знаходиться вище?',choices:[{html:'<i class="item low flower">🌸</i>',label:'Квітка'},{html:'<i class="item high">🦋</i>',label:'Метелик',correct:true}]},
- {question:'Хто знаходиться нижче?',choices:[{html:'<i class="item low flower">🌸</i>',label:'Квітка',correct:true},{html:'<i class="item high">🦋</i>',label:'Метелик'}]},
- {question:'Знайди круглу фігуру',choices:[{html:'<i class="shape square"></i>',label:'Квадрат'},{html:'<i class="shape circle"></i>',label:'Коло',correct:true},{html:'<i class="shape triangle"></i>',label:'Трикутник'}]},
- {question:'Знайди квадратну фігуру',choices:[{html:'<i class="shape square"></i>',label:'Квадрат',correct:true},{html:'<i class="shape circle"></i>',label:'Коло'},{html:'<i class="shape triangle"></i>',label:'Трикутник'}]},
- {question:'Куди покладемо великий м’яч?',choices:[{html:'<i class="basket small"></i>',label:'Малий кошик'},{html:'<i class="basket"></i>',label:'Великий кошик',correct:true}]},
- {question:'Знайди довгу доріжку',choices:[{html:'<i class="bar short"></i>',label:'Коротка'},{html:'<i class="bar long"></i>',label:'Довга',correct:true}]},
- {question:'Знайди коротку доріжку',choices:[{html:'<i class="bar short"></i>',label:'Коротка',correct:true},{html:'<i class="bar long"></i>',label:'Довга'}]},
- {question:'Знайди широку фігуру',choices:[{html:'<i class="panel narrow"></i>',label:'Вузька'},{html:'<i class="panel wide"></i>',label:'Широка',correct:true}]},
- {question:'Хто знаходиться ближче?',choices:[{html:'<i class="distance near">🐞</i>',label:'Близько',correct:true},{html:'<i class="distance far">🐞</i>',label:'Далеко'}]},
- {question:'Де зірочка над поличкою?',choices:[{html:'<i class="spatial above"><b>⭐</b><em></em></i>',label:'Над',correct:true},{html:'<i class="spatial below"><b>⭐</b><em></em></i>',label:'Під'}]},
- {question:'Де зірочка під поличкою?',choices:[{html:'<i class="spatial above"><b>⭐</b><em></em></i>',label:'Над'},{html:'<i class="spatial below"><b>⭐</b><em></em></i>',label:'Під',correct:true}]},
- {question:'Де зірочка ліворуч від будиночка?',choices:[{html:'<i class="lr left"><b>⭐</b><em>🏠</em></i>',label:'Ліворуч',correct:true},{html:'<i class="lr right"><b>⭐</b><em>🏠</em></i>',label:'Праворуч'}]},
- {question:'Де зірочка праворуч від будиночка?',choices:[{html:'<i class="lr left"><b>⭐</b><em>🏠</em></i>',label:'Ліворуч'},{html:'<i class="lr right"><b>⭐</b><em>🏠</em></i>',label:'Праворуч',correct:true}]},
- {question:'Де м’ячик усередині?',choices:[{html:'<i class="place inside"><b>🔴</b></i>',label:'Усередині',correct:true},{html:'<i class="place outside"><b>🔴</b></i>',label:'Зовні'}]},
- {question:'Де м’ячик зовні?',choices:[{html:'<i class="place inside"><b>🔴</b></i>',label:'Усередині'},{html:'<i class="place outside"><b>🔴</b></i>',label:'Зовні',correct:true}]},
- {question:'Де кружечків менше?',choices:[{html:'<i class="count few">● ●</i>',label:'Менше',correct:true},{html:'<i class="count">● ● ● ● ● ●</i>',label:'Більше'}]},
- {question:'Де кружечків більше?',choices:[{html:'<i class="count few">● ●</i>',label:'Менше'},{html:'<i class="count">● ● ● ● ● ●</i>',label:'Більше',correct:true}]},
- {question:'Знайди вузьку фігуру',choices:[{html:'<i class="panel narrow"></i>',label:'Вузька',correct:true},{html:'<i class="panel wide"></i>',label:'Широка'}]},
- {question:'Хто знаходиться далі?',choices:[{html:'<i class="distance near">🐞</i>',label:'Близько'},{html:'<i class="distance far">🐞</i>',label:'Далеко',correct:true}]},
- {question:'Знайди великий предмет',choices:[{html:'<i class="star-size big">⭐</i>',label:'Велика',correct:true},{html:'<i class="star-size small">⭐</i>',label:'Маленька'}]},
- {question:'Знайди маленький предмет',choices:[{html:'<i class="star-size big">⭐</i>',label:'Велика'},{html:'<i class="star-size small">⭐</i>',label:'Маленька',correct:true}]},
- {question:'Знайди трикутник',choices:[{html:'<i class="shape circle"></i>',label:'Коло'},{html:'<i class="shape triangle"></i>',label:'Трикутник',correct:true},{html:'<i class="shape square"></i>',label:'Квадрат'}]},
- {question:'Знайди ромб',choices:[{html:'<i class="shape diamond"></i>',label:'Ромб',correct:true},{html:'<i class="shape circle"></i>',label:'Коло'},{html:'<i class="shape square"></i>',label:'Квадрат'}]},
- {question:'Знайди шестикутник',choices:[{html:'<i class="shape triangle"></i>',label:'Трикутник'},{html:'<i class="shape hexagon"></i>',label:'Шестикутник',correct:true},{html:'<i class="shape square"></i>',label:'Квадрат'}]},
- {question:'Знайди товстий олівець',choices:[{html:'<i class="pencil thick"></i>',label:'Товстий',correct:true},{html:'<i class="pencil thin"></i>',label:'Тонкий'}]},
- {question:'Знайди тонкий олівець',choices:[{html:'<i class="pencil thick"></i>',label:'Товстий'},{html:'<i class="pencil thin"></i>',label:'Тонкий',correct:true}]}
+ {question:'Знайди великий м’яч',audio:'audio/games/find-for-mimi/questions/question-01.mp3',choices:[{html:'<i class="ball big"></i>',label:'Великий',correct:true},{html:'<i class="ball small"></i>',label:'Маленький'}]},
+ {question:'Знайди маленький м’яч',audio:'audio/games/find-for-mimi/questions/question-02.mp3',choices:[{html:'<i class="ball big"></i>',label:'Великий'},{html:'<i class="ball small"></i>',label:'Маленький',correct:true}]},
+ {question:'Знайди високий кубик',audio:'audio/games/find-for-mimi/questions/question-03.mp3',choices:[{html:'<i class="block short"></i>',label:'Низький'},{html:'<i class="block tall"></i>',label:'Високий',correct:true}]},
+ {question:'Знайди низький кубик',audio:'audio/games/find-for-mimi/questions/question-04.mp3',choices:[{html:'<i class="block short"></i>',label:'Низький',correct:true},{html:'<i class="block tall"></i>',label:'Високий'}]},
+ {question:'Хто знаходиться вище?',audio:'audio/games/find-for-mimi/questions/question-05.mp3',choices:[{html:'<i class="item low flower">🌸</i>',label:'Квітка'},{html:'<i class="item high">🦋</i>',label:'Метелик',correct:true}]},
+ {question:'Хто знаходиться нижче?',audio:'audio/games/find-for-mimi/questions/question-06.mp3',choices:[{html:'<i class="item low flower">🌸</i>',label:'Квітка',correct:true},{html:'<i class="item high">🦋</i>',label:'Метелик'}]},
+ {question:'Знайди круглу фігуру',audio:'audio/games/find-for-mimi/questions/question-07.mp3',choices:[{html:'<i class="shape square"></i>',label:'Квадрат'},{html:'<i class="shape circle"></i>',label:'Коло',correct:true},{html:'<i class="shape triangle"></i>',label:'Трикутник'}]},
+ {question:'Знайди квадратну фігуру',audio:'audio/games/find-for-mimi/questions/question-08.mp3',choices:[{html:'<i class="shape square"></i>',label:'Квадрат',correct:true},{html:'<i class="shape circle"></i>',label:'Коло'},{html:'<i class="shape triangle"></i>',label:'Трикутник'}]},
+ {question:'Куди покладемо великий м’яч?',audio:'audio/games/find-for-mimi/questions/question-09.mp3',choices:[{html:'<i class="basket small"></i>',label:'Малий кошик'},{html:'<i class="basket"></i>',label:'Великий кошик',correct:true}]},
+ {question:'Знайди довгу доріжку',audio:'audio/games/find-for-mimi/questions/question-10.mp3',choices:[{html:'<i class="bar short"></i>',label:'Коротка'},{html:'<i class="bar long"></i>',label:'Довга',correct:true}]},
+ {question:'Знайди коротку доріжку',audio:'audio/games/find-for-mimi/questions/question-11.mp3',choices:[{html:'<i class="bar short"></i>',label:'Коротка',correct:true},{html:'<i class="bar long"></i>',label:'Довга'}]},
+ {question:'Знайди широку фігуру',audio:'audio/games/find-for-mimi/questions/question-12.mp3',choices:[{html:'<i class="panel narrow"></i>',label:'Вузька'},{html:'<i class="panel wide"></i>',label:'Широка',correct:true}]},
+ {question:'Хто знаходиться ближче?',audio:'audio/games/find-for-mimi/questions/question-13.mp3',choices:[{html:'<i class="distance near">🐞</i>',label:'Близько',correct:true},{html:'<i class="distance far">🐞</i>',label:'Далеко'}]},
+ {question:'Де зірочка над поличкою?',audio:'audio/games/find-for-mimi/questions/question-14.mp3',choices:[{html:'<i class="spatial above"><b>⭐</b><em></em></i>',label:'Над',correct:true},{html:'<i class="spatial below"><b>⭐</b><em></em></i>',label:'Під'}]},
+ {question:'Де зірочка під поличкою?',audio:'audio/games/find-for-mimi/questions/question-15.mp3',choices:[{html:'<i class="spatial above"><b>⭐</b><em></em></i>',label:'Над'},{html:'<i class="spatial below"><b>⭐</b><em></em></i>',label:'Під',correct:true}]},
+ {question:'Де зірочка ліворуч від будиночка?',audio:'audio/games/find-for-mimi/questions/question-16.mp3',choices:[{html:'<i class="lr left"><b>⭐</b><em>🏠</em></i>',label:'Ліворуч',correct:true},{html:'<i class="lr right"><b>⭐</b><em>🏠</em></i>',label:'Праворуч'}]},
+ {question:'Де зірочка праворуч від будиночка?',audio:'audio/games/find-for-mimi/questions/question-17.mp3',choices:[{html:'<i class="lr left"><b>⭐</b><em>🏠</em></i>',label:'Ліворуч'},{html:'<i class="lr right"><b>⭐</b><em>🏠</em></i>',label:'Праворуч',correct:true}]},
+ {question:'Де м’ячик усередині?',audio:'audio/games/find-for-mimi/questions/question-18.mp3',choices:[{html:'<i class="place inside"><b>🔴</b></i>',label:'Усередині',correct:true},{html:'<i class="place outside"><b>🔴</b></i>',label:'Зовні'}]},
+ {question:'Де м’ячик зовні?',audio:'audio/games/find-for-mimi/questions/question-19.mp3',choices:[{html:'<i class="place inside"><b>🔴</b></i>',label:'Усередині'},{html:'<i class="place outside"><b>🔴</b></i>',label:'Зовні',correct:true}]},
+ {question:'Де кружків менше?',audio:'audio/games/find-for-mimi/questions/question-20.mp3',choices:[{html:'<i class="count few">● ●</i>',label:'Менше',correct:true},{html:'<i class="count">● ● ● ● ● ●</i>',label:'Більше'}]},
+ {question:'Де кружків більше?',audio:'audio/games/find-for-mimi/questions/question-21.mp3',choices:[{html:'<i class="count few">● ●</i>',label:'Менше'},{html:'<i class="count">● ● ● ● ● ●</i>',label:'Більше',correct:true}]},
+ {question:'Знайди вузьку фігуру',audio:'audio/games/find-for-mimi/questions/question-22.mp3',choices:[{html:'<i class="panel narrow"></i>',label:'Вузька',correct:true},{html:'<i class="panel wide"></i>',label:'Широка'}]},
+ {question:'Хто знаходиться далі?',audio:'audio/games/find-for-mimi/questions/question-23.mp3',choices:[{html:'<i class="distance near">🐞</i>',label:'Близько'},{html:'<i class="distance far">🐞</i>',label:'Далеко',correct:true}]},
+ {question:'Знайди великий предмет',audio:'audio/games/find-for-mimi/questions/question-24.mp3',choices:[{html:'<i class="star-size big">⭐</i>',label:'Велика',correct:true},{html:'<i class="star-size small">⭐</i>',label:'Маленька'}]},
+ {question:'Знайди маленький предмет',audio:'audio/games/find-for-mimi/questions/question-25.mp3',choices:[{html:'<i class="star-size big">⭐</i>',label:'Велика'},{html:'<i class="star-size small">⭐</i>',label:'Маленька',correct:true}]},
+ {question:'Знайди фігуру, у якої три кути',audio:'audio/games/find-for-mimi/questions/question-26.mp3',choices:[{html:'<i class="shape circle"></i>',label:'Коло'},{html:'<i class="shape triangle"></i>',label:'Трикутник',correct:true},{html:'<i class="shape square"></i>',label:'Квадрат'}]},
+ {question:'Знайди ромб',audio:'audio/games/find-for-mimi/questions/question-27.mp3',choices:[{html:'<i class="shape diamond"></i>',label:'Ромб',correct:true},{html:'<i class="shape circle"></i>',label:'Коло'},{html:'<i class="shape square"></i>',label:'Квадрат'}]},
+ {question:'Знайди шестикутник',audio:'audio/games/find-for-mimi/questions/question-28.mp3',choices:[{html:'<i class="shape triangle"></i>',label:'Трикутник'},{html:'<i class="shape hexagon"></i>',label:'Шестикутник',correct:true},{html:'<i class="shape square"></i>',label:'Квадрат'}]},
+ {question:'Знайди товстий олівець',audio:'audio/games/find-for-mimi/questions/question-29.mp3',choices:[{html:'<i class="pencil thick"></i>',label:'Товстий',correct:true},{html:'<i class="pencil thin"></i>',label:'Тонкий'}]},
+ {question:'Знайди тонкий олівець',audio:'audio/games/find-for-mimi/questions/question-30.mp3',choices:[{html:'<i class="pencil thick"></i>',label:'Товстий'},{html:'<i class="pencil thin"></i>',label:'Тонкий',correct:true}]}
 ];
 
 const correctFeedback=[
@@ -62,6 +62,12 @@ const retryFeedback=[
  {text:'Спробуй іще раз — у тебе вийде 🐾',audio:'audio/games/common/retry-2.mp3'},
  {text:'Не поспішай. Поглянь уважніше 🐾',audio:'audio/games/common/retry-3.mp3'}
 ];
+const musicTracks=[
+ 'audio/games/find-for-mimi/music/level-1.mp3',
+ 'audio/games/find-for-mimi/music/level-2.mp3',
+ 'audio/games/find-for-mimi/music/level-3.mp3',
+ 'audio/games/find-for-mimi/music/level-4.mp3'
+];
 
 const shuffle=list=>{const copy=[...list];for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]]}return copy};
 const pick=list=>list[Math.floor(Math.random()*list.length)];
@@ -69,22 +75,37 @@ let levels=[],level=0,answered=false;
 const question=document.getElementById('question'),choices=document.getElementById('choices'),message=document.getElementById('message'),next=document.getElementById('next'),scene=document.getElementById('scene');
 
 const audioCache=new Map();
-[...correctFeedback,...retryFeedback].forEach(feedback=>{if(feedback.audio){const voice=new Audio(feedback.audio);voice.preload='auto';audioCache.set(feedback.audio,voice)}});
-let activeVoice=null;
+[...levelBank,...correctFeedback,...retryFeedback].forEach(item=>{if(item.audio){const voice=new Audio(item.audio);voice.preload='auto';audioCache.set(item.audio,voice)}});
+let activeVoice=null,currentMusic=null,currentMusicPath='';
+function playVoice(path){
+ if(!path)return;
+ if(activeVoice){activeVoice.pause();activeVoice.currentTime=0}
+ const voice=audioCache.get(path);
+ if(!voice)return;
+ if(currentMusic)currentMusic.volume=.025;
+ voice.currentTime=0;
+ voice.onended=()=>{if(currentMusic)currentMusic.volume=.08};
+ voice.play().catch(()=>{if(currentMusic)currentMusic.volume=.08});
+ activeVoice=voice
+}
+function updateMusic(){
+ const path=musicTracks[Math.min(3,Math.floor(level/5))];
+ if(path===currentMusicPath&&currentMusic)return;
+ if(currentMusic){currentMusic.pause();currentMusic.currentTime=0}
+ currentMusic=new Audio(path);currentMusic.loop=true;currentMusic.volume=.08;currentMusicPath=path;
+ currentMusic.play().catch(()=>{})
+}
 function showFeedback(feedback){
  message.textContent=feedback.text;
- if(feedback.audio){
-  if(activeVoice){activeVoice.pause();activeVoice.currentTime=0}
-  const voice=audioCache.get(feedback.audio);
-  voice.currentTime=0;voice.play().catch(()=>{});activeVoice=voice
- }
+ playVoice(feedback.audio)
 }
 function render(){
  answered=false;next.hidden=true;message.textContent='Мімі: «Дивись уважно!» 🐾';
  question.textContent=levels[level].question;
  document.getElementById('progress').innerHTML=levels.map((_,i)=>`<span class="dot ${i<level?'done':i===level?'active':''}"></span>`).join('');
  choices.innerHTML='';
- shuffle(levels[level].choices).forEach(c=>{const b=document.createElement('button');b.className='choice';b.innerHTML=`${c.html}<small>${c.label}</small>`;b.onclick=()=>answer(b,c.correct);choices.appendChild(b)})
+ shuffle(levels[level].choices).forEach(c=>{const b=document.createElement('button');b.className='choice';b.innerHTML=`${c.html}<small>${c.label}</small>`;b.onclick=()=>answer(b,c.correct);choices.appendChild(b)});
+ updateMusic();playVoice(levels[level].audio)
 }
 function answer(button,correct){
  if(answered)return;
@@ -94,9 +115,10 @@ function answer(button,correct){
  if(level<levels.length-1)next.hidden=false;else setTimeout(()=>message.textContent='Мімі: «Ти все знайшов! Який уважний!» ❤️🐾',900)
 }
 function startGame(){levels=shuffle(levelBank).slice(0,20);level=0;render()}
-next.onclick=()=>{level++;render()};
-document.getElementById('reset').onclick=startGame;
-startGame();
+let started=false;
+next.onclick=()=>{if(!started){started=true;next.textContent='Далі →';startGame();return}level++;render()};
+document.getElementById('reset').onclick=()=>{started=true;next.textContent='Далі →';startGame()};
+question.textContent='Готові грати?';message.textContent='Натисни «Почати», щоб почути завдання й музику 🎵';next.hidden=false;next.textContent='Почати ▶';
 </script>
 </body>
 </html>
