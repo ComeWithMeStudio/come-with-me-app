@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="uk" style="color-scheme:only light">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#aee6fb">
+  <title>Знайди колір — Come With Me</title>
+  <style>
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"Trebuchet MS",system-ui,sans-serif;color:#49362d;background:#8fd7f3}button{font:inherit}.game{width:min(100%,760px);min-height:100vh;margin:auto;padding:13px 11px 28px;background:radial-gradient(circle at 12% 7%,#fff2a6 0 5%,transparent 18%),linear-gradient(180deg,#aee7fb 0 45%,#dff5c6 45%);overflow:hidden}.top{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px}.pill{border:0;border-radius:999px;padding:10px 14px;background:#fff9e9ed;color:#49362d;font-weight:900;box-shadow:0 5px 14px #49362d25;text-decoration:none}.title{margin:0;text-align:center;font-size:clamp(22px,5vw,36px)}.level-badge{width:max-content;margin:11px auto 5px;padding:7px 14px;border-radius:999px;background:#fff9e9dd;color:#654c72;font-weight:900}.progress{margin:8px auto 9px;display:flex;justify-content:center;gap:9px}.dot{width:13px;height:13px;border-radius:50%;background:#fff9;border:2px solid #fff}.dot.done{background:#62bb73}.dot.active{background:#ffb72f;transform:scale(1.22)}.question{min-height:56px;display:grid;place-items:center;text-align:center;margin:3px auto 10px;font-size:clamp(21px,4.8vw,31px);font-weight:900}.scene{position:relative;min-height:390px;border:5px solid #fff7e8;border-radius:34px;padding:36px 12px 72px;background:linear-gradient(#bdeaff 0 62%,#b9df85 62%);box-shadow:0 14px 30px #416f7230,inset 0 0 35px #fff8;overflow:hidden}.scene:before{content:"";position:absolute;left:7%;top:9%;width:60px;height:28px;border-radius:50px;background:#fff9;box-shadow:44px 8px 0 5px #fff9}.scene:after{content:"";position:absolute;left:0;right:0;bottom:18%;height:7px;background:#ebc17f;box-shadow:0 5px 0 #d4a25d}.choices{position:relative;z-index:2;min-height:270px;display:flex;align-items:center;justify-content:center;gap:clamp(8px,2.5vw,24px)}.choice{width:min(31%,180px);min-width:92px;min-height:178px;border:4px solid #fff;background:#fff9e9df;border-radius:28px;padding:17px 7px 13px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;box-shadow:0 10px 20px #49362d25;cursor:pointer;transition:.2s}.choice:active{transform:scale(.96)}.choice.good{outline:7px solid #63c875;animation:pop .45s}.choice.bad{animation:shake .35s}.choice small{font-weight:900;font-size:clamp(13px,2.6vw,17px);text-align:center}.swatch{display:block;width:105px;height:105px;border-radius:25px;background:var(--c);box-shadow:inset 8px 8px 13px #fff7,inset -9px -10px 14px #49362d22,0 8px 10px #49362d25}.swatch.white{border:3px solid #b9c8d1}.object{font-size:clamp(58px,12vw,92px);line-height:1;filter:drop-shadow(0 7px 5px #49362d35)}.message{min-height:50px;margin:12px 0 3px;display:grid;place-items:center;text-align:center;font-size:18px;font-weight:900}.actions{display:flex;justify-content:center}.next{border:0;border-radius:999px;padding:13px 22px;background:#ffcb4d;color:#49362d;font-weight:900;box-shadow:0 5px 14px #49362d25}.level-card{width:min(90%,440px);align-self:center;padding:28px;border-radius:32px;background:#fff9e9e8;text-align:center;box-shadow:0 12px 28px #49362d25}.level-card strong{display:block;font-size:28px}.level-card span{display:block;margin-top:12px;font-size:18px;font-weight:900}.palette{margin-top:18px;font-size:34px;letter-spacing:5px}.spark{position:absolute;z-index:8;font-size:28px;animation:spark 1s ease-out forwards;pointer-events:none}@keyframes pop{50%{transform:scale(1.08)}}@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}@keyframes spark{to{transform:translateY(-90px) rotate(35deg);opacity:0}}@media(max-width:520px){.game{padding:9px 7px 23px}.top{grid-template-columns:auto 1fr}.top .reset{grid-column:1/3;grid-row:2;padding:7px 12px;justify-self:center}.pill{font-size:13px;padding:9px 11px}.scene{min-height:380px;border-radius:27px;padding:31px 5px 70px}.choices{gap:6px}.choice{min-width:0;width:32%;min-height:160px;padding:13px 3px 11px}.swatch{width:76px;height:76px;border-radius:20px}.object{font-size:62px}}
+  </style>
+</head>
+<body><main class="game">
+  <header class="top"><a class="pill" href="geometry-games-catalog.html">← До ігор</a><h1 class="title">Знайди колір</h1><button class="pill reset" id="reset">↻ Спочатку</button></header>
+  <div class="level-badge" id="levelBadge">Три рівні</div><div class="progress" id="progress"></div><div class="question" id="question"></div>
+  <section class="scene" id="scene"><div class="choices" id="choices"></div></section>
+  <div class="message" id="message"></div><div class="actions"><button class="next" id="next">Почати ▶</button></div>
+</main>
+<script>
+const C=(name,label,color,correct=false)=>({kind:'color',name,label,color,correct});
+const O=(icon,label,correct=false)=>({kind:'object',icon,label,correct});
+const levelOne=[
+ {question:'Знайди червоний колір',choices:[C('red','Червоний','#ef5360',true),C('blue','Синій','#269bd5'),C('green','Зелений','#55b96b')]},
+ {question:'Знайди синій колір',choices:[C('yellow','Жовтий','#f5c52e'),C('blue','Синій','#269bd5',true),C('purple','Фіолетовий','#8858d3')]},
+ {question:'Знайди жовтий колір',choices:[C('orange','Помаранчевий','#f39a35'),C('yellow','Жовтий','#f5c52e',true),C('green','Зелений','#55b96b')]},
+ {question:'Знайди зелений колір',choices:[C('pink','Рожевий','#ee76ad'),C('green','Зелений','#55b96b',true),C('blue','Синій','#269bd5')]},
+ {question:'Знайди помаранчевий колір',choices:[C('orange','Помаранчевий','#f39a35',true),C('yellow','Жовтий','#f5c52e'),C('red','Червоний','#ef5360')]},
+ {question:'Знайди фіолетовий колір',choices:[C('blue','Синій','#269bd5'),C('pink','Рожевий','#ee76ad'),C('purple','Фіолетовий','#8858d3',true)]},
+ {question:'Знайди рожевий колір',choices:[C('red','Червоний','#ef5360'),C('pink','Рожевий','#ee76ad',true),C('purple','Фіолетовий','#8858d3')]},
+ {question:'Знайди коричневий колір',choices:[C('brown','Коричневий','#9a6543',true),C('orange','Помаранчевий','#f39a35'),C('black','Чорний','#31343b')]},
+ {question:'Знайди білий колір',choices:[C('gray','Сірий','#9ca5ad'),C('white','Білий','#f9fcff',true),C('black','Чорний','#31343b')]},
+ {question:'Знайди чорний колір',choices:[C('brown','Коричневий','#9a6543'),C('white','Білий','#f9fcff'),C('black','Чорний','#31343b',true)]}
+];
+const levelTwo=[
+ {question:'Знайди червоний предмет',choices:[O('🍎','Яблуко',true),O('🍌','Банан'),O('🥦','Броколі')]},
+ {question:'Знайди синій предмет',choices:[O('🍓','Полуниця'),O('🫐','Ягоди',true),O('🍋','Лимон')]},
+ {question:'Знайди жовтий предмет',choices:[O('🍇','Виноград'),O('🍌','Банан',true),O('🥒','Огірок')]},
+ {question:'Знайди зелений предмет',choices:[O('🍊','Апельсин'),O('🍏','Яблуко',true),O('🍓','Полуниця')]},
+ {question:'Знайди помаранчевий предмет',choices:[O('🥦','Броколі'),O('🍊','Апельсин',true),O('🍇','Виноград')]},
+ {question:'Знайди фіолетовий предмет',choices:[O('🍌','Банан'),O('🍇','Виноград',true),O('🍎','Яблуко')]},
+ {question:'Знайди рожевий предмет',choices:[O('🌻','Соняшник'),O('🌸','Квітка',true),O('🍃','Листочок')]},
+ {question:'Знайди коричневий предмет',choices:[O('🐥','Курчатко'),O('🐻','Ведмедик',true),O('🐳','Кит')]},
+ {question:'Знайди білий предмет',choices:[O('☁️','Хмаринка',true),O('☀️','Сонечко'),O('🌳','Дерево')]},
+ {question:'Знайди чорний предмет',choices:[O('🐈‍⬛','Котик',true),O('🐥','Курчатко'),O('🐟','Рибка')]}
+];
+const levelThree=[
+ {question:'Знайди червоне яблуко',choices:[O('🍎','Червоне яблуко',true),O('🍏','Зелене яблуко'),O('🍓','Червона полуниця')]},
+ {question:'Знайди зелене яблуко',choices:[O('🍏','Зелене яблуко',true),O('🍎','Червоне яблуко'),O('🍃','Зелений листок')]},
+ {question:'Знайди жовте сердечко',choices:[O('💛','Жовте сердечко',true),O('💙','Синє сердечко'),O('⭐','Жовта зірочка')]},
+ {question:'Знайди синє сердечко',choices:[O('💜','Фіолетове сердечко'),O('💙','Синє сердечко',true),O('🔵','Синій кружечок')]},
+ {question:'Знайди фіолетове сердечко',choices:[O('💜','Фіолетове сердечко',true),O('💛','Жовте сердечко'),O('🍇','Фіолетовий виноград')]},
+ {question:'Знайди рожеву квітку',choices:[O('🌸','Рожева квітка',true),O('🌻','Жовта квітка'),O('🩷','Рожеве сердечко')]},
+ {question:'Знайди помаранчевий кружечок',choices:[O('🟠','Помаранчевий кружечок',true),O('🔴','Червоний кружечок'),O('🍊','Помаранчевий апельсин')]},
+ {question:'Знайди коричневого ведмедика',choices:[O('🐻','Коричневий ведмедик',true),O('🐻‍❄️','Білий ведмедик'),O('🟫','Коричневий квадрат')]},
+ {question:'Знайди білий кружечок',choices:[O('⚪','Білий кружечок',true),O('⚫','Чорний кружечок'),O('🤍','Біле сердечко')]},
+ {question:'Знайди чорного котика',choices:[O('🐈‍⬛','Чорний котик',true),O('🐈','Рудий котик'),O('⚫','Чорний кружечок')]}
+];
+const allLevels=[levelOne,levelTwo,levelThree];
+const correctFeedback=[{text:'Так! Молодець! ⭐',audio:'audio/games/common/correct-1.mp3'},{text:'Правильно! Чудова робота! ⭐',audio:'audio/games/common/correct-2.mp3'},{text:'У тебе все вийшло! ⭐',audio:'audio/games/common/correct-3.mp3'},{text:'Супер! Ти все помічаєш! ⭐',audio:'audio/games/common/correct-4.mp3'},{text:'Так тримати! ⭐',audio:'audio/games/common/correct-5.mp3'}];
+const retryFeedback=[{text:'Майже! Подивись ще раз 🐾',audio:'audio/games/common/retry-1.mp3'},{text:'Спробуй іще раз — у тебе вийде 🐾',audio:'audio/games/common/retry-2.mp3'},{text:'Не поспішай. Поглянь уважніше 🐾',audio:'audio/games/common/retry-3.mp3'}];
+const auditMode=new URLSearchParams(location.search).get('test')==='1',requestedStart=Math.max(1,Math.min(30,Number(new URLSearchParams(location.search).get('start'))||1));
+const shuffle=list=>{const copy=[...list];for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]]}return copy},pick=list=>list[Math.floor(Math.random()*list.length)];
+const question=document.getElementById('question'),choices=document.getElementById('choices'),message=document.getElementById('message'),next=document.getElementById('next'),scene=document.getElementById('scene'),progress=document.getElementById('progress'),levelBadge=document.getElementById('levelBadge');
+let phase=0,tasks=[],task=0,answered=false,mode='intro',activeVoice=null,currentMusic=null;
+const audioCache=new Map();[...correctFeedback,...retryFeedback].forEach(item=>{const a=new Audio(item.audio);a.preload='auto';audioCache.set(item.audio,a)});
+function playVoice(path){if(activeVoice){activeVoice.pause();activeVoice.currentTime=0}const voice=audioCache.get(path);if(!voice)return;if(currentMusic)currentMusic.volume=.08;voice.currentTime=0;voice.onended=()=>{if(currentMusic)currentMusic.volume=.20};voice.play().catch(()=>{});activeVoice=voice}
+function startMusic(){if(currentMusic)return;currentMusic=new Audio('audio/games/find-for-mimi/music/level-2.mp3');currentMusic.loop=true;currentMusic.volume=.20;currentMusic.play().catch(()=>{})}
+function render(){mode='task';answered=false;next.hidden=true;const names=['Кольори','Кольори у предметах','Колір і предмет'];levelBadge.textContent=`Рівень ${phase+1} з 3 — ${names[phase]}`;question.textContent=tasks[task].question;message.textContent='Дивись уважно й обирай 🎨';progress.innerHTML=tasks.map((_,i)=>`<span class="dot ${i<task?'done':i===task?'active':''}"></span>`).join('');choices.innerHTML='';const list=auditMode?tasks[task].choices:shuffle(tasks[task].choices);list.forEach(c=>{const b=document.createElement('button');b.className='choice';b.innerHTML=c.kind==='color'?`<i class="swatch ${c.name==='white'?'white':''}" style="--c:${c.color}"></i><small>${c.label}</small>`:`<span class="object">${c.icon}</span><small>${c.label}</small>`;b.onclick=()=>answer(b,c.correct);choices.appendChild(b)})}
+function answer(button,correct){if(answered)return;if(!correct){button.classList.remove('bad');void button.offsetWidth;button.classList.add('bad');const f=pick(retryFeedback);message.textContent=f.text;playVoice(f.audio);return}answered=true;button.classList.add('good');for(let i=0;i<7;i++){const s=document.createElement('span');s.className='spark';s.textContent=['⭐','✨','●'][i%3];s.style.left=(14+Math.random()*68)+'%';s.style.top=(28+Math.random()*48)+'%';scene.appendChild(s);setTimeout(()=>s.remove(),1100)}const f=pick(correctFeedback);message.textContent=f.text;playVoice(f.audio);if(phase===2&&task===tasks.length-1){mode='done';return}next.hidden=false;if(task===tasks.length-1){mode='toBreak';next.textContent='До наступного рівня →'}}
+function startLevel(number,startAt=0){phase=number;tasks=auditMode?[...allLevels[number]]:shuffle(allLevels[number]);task=startAt;render()}
+function showBreak(){mode='break';progress.innerHTML='';const nextLevel=phase+2;levelBadge.textContent=`Рівень ${phase+1} пройдено!`;question.textContent=phase===0?'Тепер шукаємо кольори у предметах':'Тепер поєднуємо колір і предмет';choices.innerHTML=`<div class="level-card"><strong>Рівень ${nextLevel} 🎨</strong><span>${phase===0?'Кольори живуть у всьому навколо':'Дивись і на колір, і на сам предмет'}</span><div class="palette">🔴 🟡 🟢 🔵 🟣</div></div>`;message.textContent='Готові продовжувати?';next.hidden=false;next.textContent=`Почати рівень ${nextLevel} →`}
+next.onclick=()=>{startMusic();if(mode==='intro'){const startPhase=auditMode?Math.floor((requestedStart-1)/10):0,startTask=auditMode?(requestedStart-1)%10:0;startLevel(startPhase,startTask);return}if(mode==='task'){task++;render();return}if(mode==='toBreak'){showBreak();return}if(mode==='break'){startLevel(phase+1)}};
+function reset(){if(activeVoice){activeVoice.pause();activeVoice.currentTime=0}phase=0;task=0;mode='intro';levelBadge.textContent=auditMode?'Послідовна перевірка — 30 завдань':'Три рівні по 10 завдань';progress.innerHTML='';question.textContent='Готові шукати кольори?';choices.innerHTML='<div class="level-card"><strong>Знайди колір</strong><span>Від простих кольорів — до уважної місії</span><div class="palette">🔴 🟡 🟢 🔵 🟣</div></div>';message.textContent=auditMode?'Усі завдання йтимуть по порядку 🔎':'Починаємо з кольорових карток';next.hidden=false;next.textContent='Почати ▶'}
+document.getElementById('reset').onclick=reset;reset();
+</script></body></html>
