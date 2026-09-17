@@ -69,7 +69,8 @@ const QUESTION_AUDIO_VERSION='20260917-clean2';
 const auditMode=new URLSearchParams(location.search).get('test')==='1';
 const requestedStart=Math.max(1,Math.min(30,Number(new URLSearchParams(location.search).get('start'))||1));
 const shuffle=list=>{const copy=[...list];for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]]}return copy};
-const pick=list=>list[Math.floor(Math.random()*list.length)];
+const makeFeedbackBag=list=>{let bag=[],last=null;return()=>{if(!bag.length){bag=shuffle(list);if(bag.length>1&&bag[bag.length-1]===last)[bag[0],bag[bag.length-1]]=[bag[bag.length-1],bag[0]]}last=bag.pop();return last}};
+const nextCorrectFeedback=makeFeedbackBag(correctFeedback),nextRetryFeedback=makeFeedbackBag(retryFeedback);
 let levels=[],level=0,answered=false;
 const question=document.getElementById('question'),choices=document.getElementById('choices'),message=document.getElementById('message'),next=document.getElementById('next'),scene=document.getElementById('scene');
 
@@ -108,8 +109,8 @@ function render(){
 }
 function answer(button,correct){
  if(answered)return;
- if(!correct){button.classList.remove('bad');void button.offsetWidth;button.classList.add('bad');showFeedback(pick(retryFeedback));return}
- answered=true;button.classList.add('good');showFeedback(pick(correctFeedback));
+ if(!correct){button.classList.remove('bad');void button.offsetWidth;button.classList.add('bad');showFeedback(nextRetryFeedback());return}
+ answered=true;button.classList.add('good');showFeedback(nextCorrectFeedback());
  for(let i=0;i<7;i++){const s=document.createElement('span');s.className='spark';s.textContent=['⭐','✨','●'][i%3];s.style.left=(14+Math.random()*68)+'%';s.style.top=(28+Math.random()*48)+'%';scene.appendChild(s);setTimeout(()=>s.remove(),1100)}
  if(level<levels.length-1)next.hidden=false;else setTimeout(()=>message.textContent='Мімі: «Ти все знайшов! Який уважний!» ❤️🐾',900)
 }
