@@ -69,6 +69,7 @@ const musicTracks=[
  'audio/games/find-for-mimi/music/level-4.mp3'
 ];
 
+const auditMode=new URLSearchParams(location.search).get('test')==='1';
 const shuffle=list=>{const copy=[...list];for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]]}return copy};
 const pick=list=>list[Math.floor(Math.random()*list.length)];
 let levels=[],level=0,answered=false;
@@ -104,7 +105,7 @@ function render(){
  question.textContent=levels[level].question;
  document.getElementById('progress').innerHTML=levels.map((_,i)=>`<span class="dot ${i<level?'done':i===level?'active':''}"></span>`).join('');
  choices.innerHTML='';
- shuffle(levels[level].choices).forEach(c=>{const b=document.createElement('button');b.className='choice';b.innerHTML=`${c.html}<small>${c.label}</small>`;b.onclick=()=>answer(b,c.correct);choices.appendChild(b)});
+ (auditMode?levels[level].choices:shuffle(levels[level].choices)).forEach(c=>{const b=document.createElement('button');b.className='choice';b.innerHTML=`${c.html}<small>${c.label}</small>`;b.onclick=()=>answer(b,c.correct);choices.appendChild(b)});
  updateMusic();playVoice(levels[level].audio)
 }
 function answer(button,correct){
@@ -114,11 +115,11 @@ function answer(button,correct){
  for(let i=0;i<7;i++){const s=document.createElement('span');s.className='spark';s.textContent=['⭐','✨','●'][i%3];s.style.left=(14+Math.random()*68)+'%';s.style.top=(28+Math.random()*48)+'%';scene.appendChild(s);setTimeout(()=>s.remove(),1100)}
  if(level<levels.length-1)next.hidden=false;else setTimeout(()=>message.textContent='Мімі: «Ти все знайшов! Який уважний!» ❤️🐾',900)
 }
-function startGame(){levels=shuffle(levelBank).slice(0,20);level=0;render()}
+function startGame(){levels=auditMode?[...levelBank]:shuffle(levelBank).slice(0,20);level=0;render()}
 let started=false;
 next.onclick=()=>{if(!started){started=true;next.textContent='Далі →';startGame();return}level++;render()};
 document.getElementById('reset').onclick=()=>{started=true;next.textContent='Далі →';startGame()};
-question.textContent='Готові грати?';message.textContent='Натисни «Почати», щоб почути завдання й музику 🎵';next.hidden=false;next.textContent='Почати ▶';
+question.textContent=auditMode?'Перевірка всіх 30 завдань':'Готові грати?';message.textContent=auditMode?'Завдання й відповіді йтимуть у фіксованому порядку 🔎':'Натисни «Почати», щоб почути завдання й музику 🎵';next.hidden=false;next.textContent='Почати ▶';
 </script>
 </body>
 </html>
