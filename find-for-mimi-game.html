@@ -62,12 +62,8 @@ const retryFeedback=[
  {text:'Спробуй іще раз — у тебе вийде 🐾',audio:'audio/games/common/retry-2.mp3'},
  {text:'Не поспішай. Поглянь уважніше 🐾',audio:'audio/games/common/retry-3.mp3'}
 ];
-const musicTracks=[
- 'audio/games/find-for-mimi/music/level-1.mp3',
- 'audio/games/find-for-mimi/music/level-2.mp3',
- 'audio/games/find-for-mimi/music/level-3.mp3',
- 'audio/games/find-for-mimi/music/level-4.mp3'
-];
+const musicTrack='audio/games/find-for-mimi/music/level-2.mp3';
+const MUSIC_VOLUME=.22,DUCKED_MUSIC_VOLUME=.08;
 
 const auditMode=new URLSearchParams(location.search).get('test')==='1';
 const shuffle=list=>{const copy=[...list];for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]]}return copy};
@@ -83,17 +79,17 @@ function playVoice(path){
  if(activeVoice){activeVoice.pause();activeVoice.currentTime=0}
  const voice=audioCache.get(path);
  if(!voice)return;
- if(currentMusic)currentMusic.volume=.025;
+ if(currentMusic)currentMusic.volume=DUCKED_MUSIC_VOLUME;
  voice.currentTime=0;
- voice.onended=()=>{if(currentMusic)currentMusic.volume=.08};
- voice.play().catch(()=>{if(currentMusic)currentMusic.volume=.08});
+ voice.onended=()=>{if(currentMusic)currentMusic.volume=MUSIC_VOLUME};
+ voice.play().catch(()=>{if(currentMusic)currentMusic.volume=MUSIC_VOLUME});
  activeVoice=voice
 }
 function updateMusic(){
- const path=musicTracks[Math.min(3,Math.floor(level/5))];
+ const path=musicTrack;
  if(path===currentMusicPath&&currentMusic)return;
  if(currentMusic){currentMusic.pause();currentMusic.currentTime=0}
- currentMusic=new Audio(path);currentMusic.loop=true;currentMusic.volume=.08;currentMusicPath=path;
+ currentMusic=new Audio(path);currentMusic.loop=true;currentMusic.volume=MUSIC_VOLUME;currentMusicPath=path;
  currentMusic.play().catch(()=>{})
 }
 function showFeedback(feedback){
