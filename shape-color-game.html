@@ -13,7 +13,7 @@
 <main class="game">
   <header class="top"><a class="pill" href="geometry-games-catalog.html">← До ігор</a><h1 class="title">Знайди фігуру</h1><button class="pill reset" id="reset">↻ Спочатку</button></header>
   <div class="level-badge" id="levelBadge">Два рівні</div><div class="progress" id="progress"></div><div class="question" id="question"></div>
-  <section class="scene" id="scene"><div class="choices" id="choices"></div><img class="mimi" src="mimi-run-transparent-v2b.webp" alt="Мімі"></section>
+  <section class="scene" id="scene"><div class="choices" id="choices"></div></section>
   <div class="message" id="message">Спочатку впізнаємо фігури, а потім — їхні кольори 🎨</div><div class="actions"><button class="next" id="next">Почати ▶</button></div>
 </main>
 <script>
@@ -40,7 +40,7 @@ const levelTwo=[
  {question:'Знайди червоний шестикутник',choices:[S('hexagon','Червоний шестикутник',true,'red'),S('diamond','Червоний ромб',false,'red'),S('hexagon','Жовтий шестикутник',false,'yellow')]},
  {question:'Знайди рожевий овал',choices:[S('oval','Синій овал',false,'blue'),S('oval','Рожевий овал',true,'pink'),S('circle','Рожеве коло',false,'pink')]},
  {question:'Знайди синій ромб',choices:[S('diamond','Синій ромб',true,'blue'),S('square','Синій квадрат',false,'blue'),S('diamond','Фіолетовий ромб',false,'purple')]},
- {question:'Знайди жовтий шестикутник',choices:[S('hexagon','Помаранчевий шестикутник',false,'orange'),S('triangle','Жовтий трикутник',false,'yellow'),S('hexagon','Жовтий шестикутник',true,'yellow')]}
+ {question:'Знайди жовтий шестикутник',choices:[S('hexagon','Фіолетовий шестикутник',false,'purple'),S('triangle','Жовтий трикутник',false,'yellow'),S('hexagon','Жовтий шестикутник',true,'yellow')]}
 ];
 const correctFeedback=[
  {text:'Так! Молодець! ⭐',audio:'audio/games/common/correct-1.mp3'},{text:'Правильно! Чудова робота! ⭐',audio:'audio/games/common/correct-2.mp3'},{text:'У тебе все вийшло! ⭐',audio:'audio/games/common/correct-3.mp3'},{text:'Супер! Ти все помічаєш! ⭐',audio:'audio/games/common/correct-4.mp3'},{text:'Так тримати! ⭐',audio:'audio/games/common/correct-5.mp3'}
