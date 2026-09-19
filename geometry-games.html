@@ -29,8 +29,17 @@
 @keyframes snowmanWiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}75%{transform:rotate(-2deg)}}
 @keyframes chickHop{0%,100%{transform:translateY(0) rotate(0)}30%{transform:translateY(-10%) rotate(-3deg)}55%{transform:translateY(0) rotate(3deg)}75%{transform:translateY(-5%) rotate(0)}}
 @keyframes castleMagic{0%{transform:scale(.96)}35%{transform:scale(1.04) translateY(-2%)}65%{transform:scale(1.01) translateY(0)}100%{transform:scale(1)}}
+@keyframes catHello{0%,100%{transform:rotate(0) scale(1)}30%{transform:rotate(-3deg) scale(1.03)}60%{transform:rotate(3deg) scale(1.03)}}
+@keyframes butterflyFloat{0%,100%{transform:translateY(0) rotate(0)}30%{transform:translateY(-7%) rotate(-3deg)}65%{transform:translateY(-3%) rotate(3deg)}}
+@keyframes helicopterLift{0%{transform:translateY(0)}35%{transform:translateY(-8%)}100%{transform:translateY(-125%) translateX(18%) scale(.9)}}
+@keyframes sunShine{0%,100%{transform:scale(1) rotate(0);filter:brightness(1)}45%{transform:scale(1.08) rotate(8deg);filter:brightness(1.35)}}
+@keyframes carDrive{0%{transform:translateX(0)}30%{transform:translateX(14%)}50%{transform:translateX(7%)}100%{transform:translateX(125%)}}
+@keyframes windmillHappy{0%,100%{transform:scale(1) rotate(0)}35%{transform:scale(1.04) rotate(-2deg)}70%{transform:scale(1.03) rotate(2deg)}}
     @media(max-width:520px){.game{padding:12px 10px 26px}.top{grid-template-columns:auto 1fr}.top .reset{grid-column:1/3;grid-row:2;padding:7px 12px;justify-self:center}.board{height:390px;min-height:0;border-radius:27px}.mimi{width:26%}.piece{width:62px;height:62px}.piece.rectangle{width:86px;height:55px}.tray{min-height:92px}.pill{padding:9px 11px;font-size:13px}}
     .slot.boatHull{clip-path:polygon(0 0,100% 0,82% 100%,18% 100%);border:0;background:#71808655}.slot.boatHull.filled{background:var(--color);box-shadow:inset 0 5px 8px #fff7,inset 0 -6px 9px #7c3b2538,0 6px 9px #49362d44}.slot.mast{border-radius:9px}.piece.mast{width:28px;height:82px;border-radius:9px}.piece.boatHull{width:110px;height:52px;clip-path:polygon(0 0,100% 0,82% 100%,18% 100%)}.slot.oval,.piece.oval{border-radius:50%}.piece.oval{width:105px;height:65px}.slot.fishTail,.piece.fishTail{clip-path:polygon(0 0,100% 25%,100% 75%,0 100%)}.slot.topFin,.piece.topFin{clip-path:polygon(50% 0,100% 100%,0 100%)}.slot.bottomFin,.piece.bottomFin{clip-path:polygon(0 0,100% 0,50% 100%)}.slot.fishTail,.slot.topFin,.slot.bottomFin{border:0;background:#71808655}.slot.fishTail.filled,.slot.topFin.filled,.slot.bottomFin.filled{background:var(--color)}.piece.fishTail{width:72px;height:70px}.piece.topFin,.piece.bottomFin{width:68px;height:58px}.slot.noseStick,.piece.noseStick{border-radius:999px}.piece.noseStick{width:78px;height:24px}.slot.bucket,.piece.bucket{clip-path:polygon(10% 0,90% 0,100% 100%,0 100%)}.piece.bucket{width:54px;height:72px}.slot.leftWing,.piece.leftWing{clip-path:polygon(100% 0,100% 100%,0 50%)}.slot.rightWing,.piece.rightWing,.slot.beak,.piece.beak{clip-path:polygon(0 0,100% 50%,0 100%)}.slot.leftWing,.slot.rightWing,.slot.beak,.slot.bucket{border:0;background:#71808655}.slot.leftWing.filled,.slot.rightWing.filled,.slot.beak.filled,.slot.bucket.filled{background:var(--color)}.piece.leftWing,.piece.rightWing{width:68px;height:62px}.piece.beak{width:62px;height:48px}
+.slot.branchLeft,.piece.branchLeft,.slot.branchRight,.piece.branchRight{border-radius:9px}.piece.branchLeft,.piece.branchRight{width:78px;height:25px}.slot.branchLeft,.piece.branchLeft{transform:rotate(-30deg)}.slot.branchRight,.piece.branchRight{transform:rotate(30deg)}
+.slot.coneDown,.piece.coneDown,.slot.triangleDown,.piece.triangleDown{clip-path:polygon(0 0,100% 0,50% 100%);border:0}.slot.triangleLeft,.piece.triangleLeft{clip-path:polygon(100% 0,100% 100%,0 50%);border:0}.slot.triangleRight,.piece.triangleRight{clip-path:polygon(0 0,100% 50%,0 100%);border:0}.slot.triangleUpBlade,.piece.triangleUpBlade{clip-path:polygon(50% 0,100% 100%,0 100%);border:0}.slot.coneDown,.slot.triangleDown,.slot.triangleLeft,.slot.triangleRight,.slot.triangleUpBlade{background:#71808655}.slot.coneDown.filled,.slot.triangleDown.filled,.slot.triangleLeft.filled,.slot.triangleRight.filled,.slot.triangleUpBlade.filled{background:var(--color)}.piece.coneDown{width:72px;height:82px}.piece.triangleDown,.piece.triangleLeft,.piece.triangleRight,.piece.triangleUpBlade{width:64px;height:64px}
+.assembly.catshape.complete{animation:catHello 1.5s ease-in-out .2s}.assembly.butterfly.complete{animation:butterflyFloat 1.7s ease-in-out .2s}.assembly.helicopter.complete{animation:helicopterLift 1.8s ease-in .2s forwards}.assembly.sun.complete{animation:sunShine 1.5s ease-in-out .2s}.assembly.carshape.complete{animation:carDrive 1.7s ease-in .2s forwards}.assembly.windmill.complete{animation:windmillHappy 1.5s ease-in-out .2s}
   </style>
 </head>
 <body>
@@ -46,9 +55,11 @@
 <script>
 const levels=[
  {name:'Возик',className:'cart',prompt:'Допоможи Мімі скласти возик',parts:[
-  {kind:'rectangle',x:26,y:46,w:42,h:18,color:'#ff8b24'},
-  {kind:'circle',x:31,y:62,w:14,h:14,color:'#149fda'},
-  {kind:'circle',x:52,y:62,w:14,h:14,color:'#149fda'}]},
+  {kind:'rectangle',x:23,y:49,w:54,h:17,color:'#ff8b24'},
+  {kind:'circle',x:29,y:63,w:14,h:14,color:'#149fda'},
+  {kind:'circle',x:58,y:63,w:14,h:14,color:'#149fda'},
+  {kind:'triangle',x:29,y:35,w:18,h:16,color:'#ffd23f'},
+  {kind:'square',x:48,y:34,w:17,h:17,color:'#45a958'}]},
  {name:'Будиночок',className:'house',prompt:'Збудуй для Мімі затишний будиночок',parts:[
   {kind:'square',x:29,y:36,w:38,h:36,color:'#ff9838'},
   {kind:'triangle',x:25,y:17,w:46,h:24,color:'#f04455'},
@@ -63,8 +74,9 @@ const levels=[
   {kind:'circle',x:43,y:52,w:12,h:12,color:'#149fda'}]},
  {name:'Кораблик',className:'boat',prompt:'Склади кораблик — вирушаємо в плавання!',parts:[
   {kind:'boatHull',x:20,y:57,w:60,h:18,color:'#168bd2'},
-  {kind:'mast',x:48,y:25,w:7,h:33,color:'#8d5638'},
-  {kind:'triangle',x:53,y:28,w:27,h:25,color:'#ff5b69'},
+  {kind:'mast',x:48,y:24,w:7,h:34,color:'#8d5638'},
+  {kind:'triangle',x:53,y:27,w:27,h:25,color:'#ff5b69'},
+  {kind:'triangle',x:26,y:30,w:22,h:22,color:'#ffd23f'},
   {kind:'circle',x:30,y:61,w:8,h:8,color:'#ffd23f'},
   {kind:'circle',x:46,y:61,w:8,h:8,color:'#ffd23f'},
   {kind:'circle',x:62,y:61,w:8,h:8,color:'#ffd23f'}]},
@@ -75,14 +87,18 @@ const levels=[
   {kind:'circle',x:30,y:63,w:14,h:14,color:'#25a9df'},
   {kind:'circle',x:57,y:63,w:14,h:14,color:'#25a9df'}]},
  {name:'Дерево',className:'tree',prompt:'Посади для Мімі зелене деревце',parts:[
-  {kind:'rectangle',x:45,y:50,w:11,h:27,color:'#925535'},
-  {kind:'circle',x:32,y:24,w:25,h:25,color:'#3fbd62'},
-  {kind:'circle',x:47,y:17,w:25,h:25,color:'#24a957'},
-  {kind:'circle',x:53,y:32,w:25,h:25,color:'#63c95b'}]},
+  {kind:'rectangle',x:45,y:48,w:11,h:29,color:'#925535'},
+  {kind:'branchLeft',x:33,y:39,w:17,h:7,color:'#925535'},
+  {kind:'branchRight',x:53,y:38,w:17,h:7,color:'#925535'},
+  {kind:'circle',x:25,y:26,w:22,h:22,color:'#3fbd62'},
+  {kind:'circle',x:41,y:18,w:22,h:22,color:'#24a957'},
+  {kind:'circle',x:57,y:26,w:22,h:22,color:'#63c95b'},
+  {kind:'circle',x:41,y:34,w:22,h:22,color:'#4fbe58'}]},
  {name:'Морозиво',className:'icecream',prompt:'Склади смачне морозиво з фігур',parts:[
-  {kind:'trapezoid',x:39,y:48,w:24,h:29,color:'#e89a48'},
-  {kind:'circle',x:37,y:27,w:27,h:27,color:'#ff6f9e'},
-  {kind:'circle',x:47,y:20,w:17,h:17,color:'#ffd45a'}]},
+  {kind:'coneDown',x:39,y:51,w:24,h:28,color:'#e89a48'},
+  {kind:'circle',x:30,y:34,w:23,h:23,color:'#ff6f9e'},
+  {kind:'circle',x:48,y:34,w:23,h:23,color:'#63c95b'},
+  {kind:'circle',x:39,y:20,w:23,h:23,color:'#ffd45a'}]},
  {name:'Робот',className:'robot',prompt:'Збери веселого робота-помічника',parts:[
   {kind:'square',x:37,y:21,w:27,h:23,color:'#7a68df'},
   {kind:'rectangle',x:34,y:45,w:33,h:27,color:'#32b9d6'},
@@ -91,12 +107,13 @@ const levels=[
   {kind:'rectangle',x:24,y:49,w:10,h:8,color:'#ff704d'},
   {kind:'rectangle',x:67,y:49,w:10,h:8,color:'#ff704d'}]},
  {name:'Квіточка',className:'flower',prompt:'Склади для Мімі яскраву квіточку',parts:[
-  {kind:'mast',x:48,y:49,w:7,h:25,color:'#45a958'},
-  {kind:'circle',x:43,y:31,w:17,h:17,color:'#ffd23f'},
-  {kind:'circle',x:43,y:17,w:17,h:17,color:'#ff79a8'},
-  {kind:'circle',x:29,y:31,w:17,h:17,color:'#ff79a8'},
-  {kind:'circle',x:57,y:31,w:17,h:17,color:'#ff79a8'},
-  {kind:'circle',x:43,y:45,w:17,h:17,color:'#ff79a8'}]},
+  {kind:'mast',x:48,y:52,w:7,h:24,color:'#45a958'},
+  {kind:'circle',x:43,y:34,w:17,h:17,color:'#ffd23f'},
+  {kind:'circle',x:43,y:18,w:17,h:17,color:'#ff79a8'},
+  {kind:'circle',x:28,y:29,w:17,h:17,color:'#ff79a8'},
+  {kind:'circle',x:58,y:29,w:17,h:17,color:'#ff79a8'},
+  {kind:'circle',x:34,y:46,w:17,h:17,color:'#ff79a8'},
+  {kind:'circle',x:52,y:46,w:17,h:17,color:'#ff79a8'}]},
  {name:'Рибка',className:'fish',prompt:'Склади веселу рибку з фігур',parts:[
   {kind:'oval',x:31,y:37,w:39,h:25,color:'#35b9d0'},
   {kind:'fishTail',x:18,y:40,w:15,h:20,color:'#ff8b38'},
@@ -128,7 +145,53 @@ const levels=[
   {kind:'square',x:64,y:46,w:18,h:27,color:'#54b7e8'},
   {kind:'triangle',x:18,y:29,w:20,h:19,color:'#ff5b69'},
   {kind:'triangle',x:63,y:29,w:20,h:19,color:'#ff5b69'},
-  {kind:'rectangle',x:46,y:57,w:10,h:16,color:'#7b4a39'}]}
+  {kind:'rectangle',x:46,y:57,w:10,h:16,color:'#7b4a39'}]},
+ {name:'Котик',className:'catshape',prompt:'Склади котика з геометричних фігур',parts:[
+  {kind:'circle',x:37,y:27,w:28,h:28,color:'#ffd08a'},
+  {kind:'triangle',x:35,y:18,w:12,h:13,color:'#ff9f8f'},
+  {kind:'triangle',x:56,y:18,w:12,h:13,color:'#ff9f8f'},
+  {kind:'circle',x:42,y:36,w:6,h:6,color:'#49362d'},
+  {kind:'circle',x:55,y:36,w:6,h:6,color:'#49362d'},
+  {kind:'triangle',x:48,y:44,w:7,h:6,color:'#f06b7c'},
+  {kind:'circle',x:40,y:49,w:10,h:10,color:'#ffb5a7'},
+  {kind:'circle',x:53,y:49,w:10,h:10,color:'#ffb5a7'}]},
+ {name:'Метелик',className:'butterfly',prompt:'Склади барвистого метелика',parts:[
+  {kind:'mast',x:48,y:31,w:7,h:35,color:'#7b4a39'},
+  {kind:'circle',x:29,y:27,w:22,h:22,color:'#ff79a8'},
+  {kind:'circle',x:55,y:27,w:22,h:22,color:'#ff79a8'},
+  {kind:'triangle',x:27,y:48,w:20,h:19,color:'#8e70df'},
+  {kind:'triangle',x:56,y:48,w:20,h:19,color:'#ffd23f'},
+  {kind:'circle',x:45,y:24,w:13,h:13,color:'#7b4a39'}]},
+ {name:'Гелікоптер',className:'helicopter',prompt:'Склади гелікоптер з фігур',parts:[
+  {kind:'oval',x:34,y:39,w:35,h:24,color:'#ffd23f'},
+  {kind:'circle',x:55,y:40,w:20,h:20,color:'#149fda'},
+  {kind:'triangle',x:22,y:43,w:15,h:16,color:'#f04455'},
+  {kind:'mast',x:48,y:29,w:6,h:12,color:'#7b4a39'},
+  {kind:'rectangle',x:25,y:22,w:32,h:7,color:'#3b82e6'},
+  {kind:'rectangle',x:54,y:22,w:32,h:7,color:'#3b82e6'},
+  {kind:'rectangle',x:39,y:63,w:31,h:6,color:'#8d5638'}]},
+ {name:'Сонечко',className:'sun',prompt:'Склади яскраве сонечко',parts:[
+  {kind:'circle',x:38,y:33,w:27,h:27,color:'#ffd23f'},
+  {kind:'triangle',x:44,y:18,w:14,h:13,color:'#ff9f24'},
+  {kind:'triangleDown',x:44,y:61,w:14,h:13,color:'#ff9f24'},
+  {kind:'triangleLeft',x:26,y:39,w:13,h:14,color:'#ff9f24'},
+  {kind:'triangleRight',x:64,y:39,w:13,h:14,color:'#ff9f24'},
+  {kind:'triangle',x:29,y:24,w:12,h:12,color:'#ff9f24'},
+  {kind:'triangle',x:62,y:24,w:12,h:12,color:'#ff9f24'}]},
+ {name:'Машинка',className:'carshape',prompt:'Склади маленьку машинку',parts:[
+  {kind:'rectangle',x:25,y:46,w:52,h:19,color:'#f04455'},
+  {kind:'trapezoid',x:37,y:32,w:31,h:17,color:'#3b82e6'},
+  {kind:'circle',x:31,y:62,w:14,h:14,color:'#49362d'},
+  {kind:'circle',x:58,y:62,w:14,h:14,color:'#49362d'},
+  {kind:'square',x:22,y:51,w:8,h:8,color:'#ffd23f'}]},
+ {name:'Вітрячок',className:'windmill',prompt:'Склади веселий вітрячок',parts:[
+  {kind:'square',x:39,y:53,w:24,h:22,color:'#54b7e8'},
+  {kind:'triangle',x:37,y:43,w:28,h:13,color:'#f04455'},
+  {kind:'circle',x:47,y:31,w:9,h:9,color:'#7b4a39'},
+  {kind:'triangleUpBlade',x:44,y:13,w:15,h:19,color:'#ffd23f'},
+  {kind:'triangleRight',x:56,y:27,w:19,h:15,color:'#ff8b24'},
+  {kind:'triangleDown',x:44,y:39,w:15,h:19,color:'#8e70df'},
+  {kind:'triangleLeft',x:28,y:27,w:19,h:15,color:'#ff79a8'}]}
 ];
 const requestedLevel=Math.max(1,Math.min(levels.length,Number(new URLSearchParams(location.search).get('level'))||1));
 let levelIndex=requestedLevel-1,selected=null,filled=0;const board=document.getElementById('board'),assembly=document.getElementById('assembly'),tray=document.getElementById('tray'),message=document.getElementById('message'),next=document.getElementById('next'),instruction=document.getElementById('instruction');
