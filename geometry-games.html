@@ -40,6 +40,7 @@
 .slot.branchLeft,.piece.branchLeft,.slot.branchRight,.piece.branchRight,.slot.branchUpLeft,.piece.branchUpLeft,.slot.branchUpRight,.piece.branchUpRight,.slot.branchVertical,.piece.branchVertical{border-radius:9px}.piece.branchLeft,.piece.branchRight,.piece.branchUpLeft,.piece.branchUpRight,.piece.branchVertical{width:78px;height:25px}.slot.branchLeft,.piece.branchLeft{transform:rotate(23deg)}.slot.branchRight,.piece.branchRight{transform:rotate(-23deg)}.slot.branchUpLeft,.piece.branchUpLeft{transform:rotate(51deg)}.slot.branchUpRight,.piece.branchUpRight{transform:rotate(-43deg)}.slot.branchVertical,.piece.branchVertical{transform:rotate(90deg)}
 .slot.sailLeft,.piece.sailLeft{clip-path:polygon(100% 0,100% 100%,0 100%);border:0}.slot.sailRight,.piece.sailRight{clip-path:polygon(0 0,100% 100%,0 100%);border:0}.slot.sailLeft,.slot.sailRight{background:#71808655}.slot.sailLeft.filled,.slot.sailRight.filled{background:var(--color)}.piece.sailLeft,.piece.sailRight{width:82px;height:72px}
 .slot.catEarLeft,.piece.catEarLeft,.slot.catEarRight,.piece.catEarRight{clip-path:polygon(50% 0,100% 100%,0 100%);border:0}.slot.catEarLeft,.slot.catEarRight{background:#71808655}.slot.catEarLeft.filled,.slot.catEarRight.filled{background:var(--color)}.piece.catEarLeft,.piece.catEarRight{width:62px;height:70px}.slot.catEarLeft,.piece.catEarLeft{transform:rotate(-12deg)}.slot.catEarRight,.piece.catEarRight{transform:rotate(12deg)}
+.slot.whiskerLeftUp,.piece.whiskerLeftUp,.slot.whiskerLeftDown,.piece.whiskerLeftDown,.slot.whiskerRightUp,.piece.whiskerRightUp,.slot.whiskerRightDown,.piece.whiskerRightDown{border-radius:999px}.piece.whiskerLeftUp,.piece.whiskerLeftDown,.piece.whiskerRightUp,.piece.whiskerRightDown{width:78px;height:14px}.slot.whiskerLeftUp,.piece.whiskerLeftUp{transform:rotate(10deg)}.slot.whiskerLeftDown,.piece.whiskerLeftDown{transform:rotate(-10deg)}.slot.whiskerRightUp,.piece.whiskerRightUp{transform:rotate(-10deg)}.slot.whiskerRightDown,.piece.whiskerRightDown{transform:rotate(10deg)}
 .slot.wingLeft,.piece.wingLeft{clip-path:polygon(100% 0,100% 100%,0 50%);border:0}.slot.wingRight,.piece.wingRight{clip-path:polygon(0 0,100% 50%,0 100%);border:0}.slot.wingLeft,.slot.wingRight{background:#71808655}.slot.wingLeft.filled,.slot.wingRight.filled{background:var(--color)}.piece.wingLeft,.piece.wingRight{width:72px;height:68px}
 .slot.sunRayN,.piece.sunRayN,.slot.sunRayNE,.piece.sunRayNE,.slot.sunRayE,.piece.sunRayE,.slot.sunRaySE,.piece.sunRaySE,.slot.sunRayS,.piece.sunRayS,.slot.sunRaySW,.piece.sunRaySW,.slot.sunRayW,.piece.sunRayW,.slot.sunRayNW,.piece.sunRayNW{clip-path:polygon(50% 0,100% 100%,0 100%);border:0}.slot.sunRayN,.slot.sunRayNE,.slot.sunRayE,.slot.sunRaySE,.slot.sunRayS,.slot.sunRaySW,.slot.sunRayW,.slot.sunRayNW{background:#71808655}.slot.sunRayN.filled,.slot.sunRayNE.filled,.slot.sunRayE.filled,.slot.sunRaySE.filled,.slot.sunRayS.filled,.slot.sunRaySW.filled,.slot.sunRayW.filled,.slot.sunRayNW.filled{background:var(--color)}.piece.sunRayN,.piece.sunRayNE,.piece.sunRayE,.piece.sunRaySE,.piece.sunRayS,.piece.sunRaySW,.piece.sunRayW,.piece.sunRayNW{width:56px;height:60px}.slot.sunRayNE,.piece.sunRayNE{transform:rotate(45deg)}.slot.sunRayE,.piece.sunRayE{transform:rotate(90deg)}.slot.sunRaySE,.piece.sunRaySE{transform:rotate(135deg)}.slot.sunRayS,.piece.sunRayS{transform:rotate(180deg)}.slot.sunRaySW,.piece.sunRaySW{transform:rotate(225deg)}.slot.sunRayW,.piece.sunRayW{transform:rotate(270deg)}.slot.sunRayNW,.piece.sunRayNW{transform:rotate(315deg)}
 .slot.coneDown,.piece.coneDown,.slot.triangleDown,.piece.triangleDown{clip-path:polygon(0 0,100% 0,50% 100%);border:0}.slot.triangleLeft,.piece.triangleLeft{clip-path:polygon(100% 0,100% 100%,0 50%);border:0}.slot.triangleRight,.piece.triangleRight{clip-path:polygon(0 0,100% 50%,0 100%);border:0}.slot.triangleUpBlade,.piece.triangleUpBlade{clip-path:polygon(50% 0,100% 100%,0 100%);border:0}.slot.coneDown,.slot.triangleDown,.slot.triangleLeft,.slot.triangleRight,.slot.triangleUpBlade{background:#71808655}.slot.coneDown.filled,.slot.triangleDown.filled,.slot.triangleLeft.filled,.slot.triangleRight.filled,.slot.triangleUpBlade.filled{background:var(--color)}.piece.coneDown{width:72px;height:82px}.piece.triangleDown,.piece.triangleLeft,.piece.triangleRight,.piece.triangleUpBlade{width:64px;height:64px}
@@ -152,14 +153,18 @@ const levels=[
   {kind:'triangle',x:63,y:29,w:20,h:19,color:'#ff5b69'},
   {kind:'rectangle',x:46,y:57,w:10,h:16,color:'#7b4a39'}]},
  {name:'Котик',className:'catshape',prompt:'Склади котика з геометричних фігур',parts:[
+  {kind:'catEarLeft',x:28,y:16,w:13,h:15,color:'#ff9f8f'},
+  {kind:'catEarRight',x:61,y:16,w:13,h:15,color:'#ff9f8f'},
   {kind:'circle',x:30,y:23,w:42,h:42,color:'#ffd08a'},
-  {kind:'catEarLeft',x:32,y:18,w:13,h:15,color:'#ff9f8f'},
-  {kind:'catEarRight',x:57,y:18,w:13,h:15,color:'#ff9f8f'},
-  {kind:'circle',x:40,y:36,w:7,h:7,color:'#49362d'},
-  {kind:'circle',x:55,y:36,w:7,h:7,color:'#49362d'},
-  {kind:'triangleDown',x:47,y:45,w:7,h:6,color:'#f06b7c'},
-  {kind:'circle',x:40,y:49,w:11,h:11,color:'#ffb5a7'},
-  {kind:'circle',x:51,y:49,w:11,h:11,color:'#ffb5a7'}]},
+  {kind:'circle',x:40,y:36,w:7,h:7,color:'#49362d',front:true},
+  {kind:'circle',x:55,y:36,w:7,h:7,color:'#49362d',front:true},
+  {kind:'whiskerLeftUp',x:25,y:50,w:16,h:2.2,color:'#7b4a39',front:true},
+  {kind:'whiskerLeftDown',x:25,y:56,w:16,h:2.2,color:'#7b4a39',front:true},
+  {kind:'whiskerRightUp',x:61,y:50,w:16,h:2.2,color:'#7b4a39',front:true},
+  {kind:'whiskerRightDown',x:61,y:56,w:16,h:2.2,color:'#7b4a39',front:true},
+  {kind:'circle',x:38.5,y:47.5,w:14,h:14,color:'#ffb5a7',front:true},
+  {kind:'circle',x:49.5,y:47.5,w:14,h:14,color:'#ffb5a7',front:true},
+  {kind:'triangleDown',x:47,y:45.5,w:7,h:6,color:'#f06b7c',front:true}]},
  {name:'Метелик',className:'butterfly',prompt:'Склади барвистого метелика',parts:[
   {kind:'wingLeft',x:30,y:44,w:23,h:24,color:'#8e70df'},
   {kind:'wingRight',x:50,y:44,w:23,h:24,color:'#ffd23f'},
