@@ -173,15 +173,15 @@ const levels=[
   {kind:'rectangle',x:54,y:22,w:32,h:7,color:'#3b82e6'},
   {kind:'rectangle',x:39,y:63,w:31,h:6,color:'#8d5638'}]},
  {name:'Сонечко',className:'sun',prompt:'Склади яскраве сонечко',parts:[
-  {kind:'circle',x:38,y:34,w:28,h:28,color:'#ffd23f'},
-  {kind:'sunRayN',x:46,y:21,w:12,h:14,color:'#ff9f24'},
-  {kind:'sunRayNE',x:62,y:27,w:12,h:14,color:'#ff9f24'},
-  {kind:'sunRayE',x:67,y:42,w:12,h:14,color:'#ff9f24'},
-  {kind:'sunRaySE',x:61,y:57,w:12,h:14,color:'#ff9f24'},
-  {kind:'sunRayS',x:46,y:62,w:12,h:14,color:'#ff9f24'},
-  {kind:'sunRaySW',x:31,y:57,w:12,h:14,color:'#ff9f24'},
-  {kind:'sunRayW',x:25,y:42,w:12,h:14,color:'#ff9f24'},
-  {kind:'sunRayNW',x:31,y:27,w:12,h:14,color:'#ff9f24'}]},
+  {kind:'sunRayN',x:46,y:20,w:12,h:18,color:'#ff9f24'},
+  {kind:'sunRayNE',x:61,y:26,w:12,h:18,color:'#ff9f24'},
+  {kind:'sunRayE',x:66,y:41,w:12,h:18,color:'#ff9f24'},
+  {kind:'sunRaySE',x:60,y:56,w:12,h:18,color:'#ff9f24'},
+  {kind:'sunRayS',x:46,y:61,w:12,h:18,color:'#ff9f24'},
+  {kind:'sunRaySW',x:32,y:56,w:12,h:18,color:'#ff9f24'},
+  {kind:'sunRayW',x:26,y:41,w:12,h:18,color:'#ff9f24'},
+  {kind:'sunRayNW',x:32,y:26,w:12,h:18,color:'#ff9f24'},
+  {kind:'circle',x:36,y:31,w:32,h:32,color:'#ffd23f',front:true}]},
  {name:'Машинка',className:'carshape',prompt:'Склади маленьку машинку',parts:[
   {kind:'rectangle',x:25,y:46,w:52,h:19,color:'#f04455'},
   {kind:'trapezoid',x:37,y:32,w:31,h:17,color:'#3b82e6'},
@@ -202,7 +202,7 @@ const requestedLevel=Math.max(1,Math.min(levels.length,Number(new URLSearchParam
 let levelIndex=requestedLevel-1,selected=null,filled=0;const board=document.getElementById('board'),assembly=document.getElementById('assembly'),tray=document.getElementById('tray'),message=document.getElementById('message'),next=document.getElementById('next'),instruction=document.getElementById('instruction');
 const shuffle=a=>a.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
 function render(){selected=null;filled=0;next.hidden=true;message.textContent='Мімі: «Спробуємо?» 🐾';const l=levels[levelIndex];instruction.textContent=l.prompt;assembly.className='assembly '+l.className;assembly.innerHTML='';tray.innerHTML='';document.getElementById('progress').innerHTML=levels.map((_,i)=>`<span class="dot ${i<levelIndex?'done':i===levelIndex?'active':''}"></span>`).join('');
- l.parts.forEach((p,i)=>{const s=document.createElement('button');s.className='slot '+p.kind;s.dataset.kind=p.kind;s.dataset.index=i;s.style.cssText=`left:${p.x}%;top:${p.y}%;width:${p.w}%;height:${p.h}%`;s.setAttribute('aria-label','Місце для фігури');s.onclick=()=>placeSelected(s);assembly.appendChild(s)});
+ l.parts.forEach((p,i)=>{const s=document.createElement('button');s.className='slot '+p.kind;s.dataset.kind=p.kind;s.dataset.index=i;s.style.cssText=`left:${p.x}%;top:${p.y}%;width:${p.w}%;height:${p.h}%;${p.front?'z-index:3;':''}`;s.setAttribute('aria-label','Місце для фігури');s.onclick=()=>placeSelected(s);assembly.appendChild(s)});
  shuffle(l.parts.map((p,i)=>({...p,source:i}))).forEach(p=>{const b=document.createElement('button');b.className='piece '+p.kind;b.dataset.kind=p.kind;b.dataset.source=p.source;b.style.setProperty('--color',p.color);b.setAttribute('aria-label',p.kind);b.onclick=()=>choose(b);enableDrag(b);tray.appendChild(b)});
 }
 function choose(piece){if(piece.classList.contains('used'))return;document.querySelectorAll('.piece').forEach(x=>x.classList.remove('chosen'));selected=piece;piece.classList.add('chosen');message.textContent='Тепер знайди для неї місце ✨'}
