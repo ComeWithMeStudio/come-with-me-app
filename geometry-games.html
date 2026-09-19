@@ -19,7 +19,7 @@
 .assembly.chick.complete{animation:chickHop 1.4s ease-in-out .2s}
 .assembly.castle.complete{animation:castleMagic 1.6s ease-in-out .2s}.slot{position:absolute;display:grid;place-items:center;border:3px dashed #7f8c8d88;background:#ffffff48;color:#59666b66;transition:.22s;clip-path:var(--clip,none)}.slot.selected{outline:5px solid #ffcf55aa;outline-offset:4px}.slot.filled{border-style:solid;border-color:#fff8;background:var(--color);box-shadow:inset 0 5px 8px #fff7,inset 0 -6px 9px #7c3b2522,0 5px 7px #49362d33}.slot.circle{border-radius:50%}.slot.square,.slot.rectangle{border-radius:12px}.slot.triangle{--clip:polygon(50% 0,100% 100%,0 100%);border:0;background:#71808655}.slot.trapezoid{--clip:polygon(18% 0,82% 0,100% 100%,0 100%);border:0;background:#71808655}.slot.triangle.filled,.slot.trapezoid.filled{background:var(--color);box-shadow:inset 0 5px 8px #fff7,inset 0 -6px 9px #7c3b2538,0 6px 9px #49362d44}.tray-wrap{margin-top:15px;padding:13px;border-radius:28px;background:#fff9e9db;box-shadow:0 9px 22px #49362d24}.tray-title{text-align:center;font-weight:900;margin-bottom:10px}.tray{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px;min-height:102px}.piece{--color:#ff7f91;width:74px;height:74px;border:0;background:var(--color);box-shadow:inset 0 6px 9px #fff7,inset 0 -7px 10px #7c3b2527,0 7px 11px #49362d32;touch-action:none;cursor:grab;transition:transform .18s,opacity .18s;clip-path:var(--clip,none)}.piece:active{cursor:grabbing}.piece.chosen{outline:5px solid #fff;outline-offset:4px;transform:translateY(-5px)}.piece.used{opacity:.18;pointer-events:none;transform:scale(.7)}.piece.circle{border-radius:50%}.piece.square,.piece.rectangle{border-radius:12px}.piece.rectangle{width:100px;height:62px}.piece.triangle{--clip:polygon(50% 0,100% 100%,0 100%)}.piece.trapezoid{--clip:polygon(18% 0,82% 0,100% 100%,0 100%)}.ghost{position:fixed;z-index:1000;pointer-events:none;opacity:.86;transform:translate(-50%,-50%) scale(.9)}.message{min-height:48px;margin:13px 0 4px;display:grid;place-items:center;text-align:center;font-size:18px;font-weight:900}.actions{display:flex;justify-content:center;gap:12px}.action{border:0;border-radius:999px;padding:12px 20px;background:#fff9e9;color:#49362d;font-weight:900;box-shadow:0 5px 14px #49362d25}.next{background:#ffcf58}.celebrate{animation:pop .55s ease}.spark{position:absolute;z-index:8;font-size:30px;animation:spark 1s ease-out forwards;pointer-events:none}@keyframes pop{50%{transform:scale(1.06)}}@keyframes spark{to{transform:translateY(-85px) rotate(35deg);opacity:0}}@keyframes drive{0%{transform:translateX(0) rotate(0)}28%{transform:translateX(14%) rotate(-1deg)}48%{transform:translateX(7%) rotate(1deg)}100%{transform:translateX(125%) rotate(-1deg)}}@keyframes fly{to{transform:translateY(-125%) scale(.84)}}@keyframes windowGlow{0%{box-shadow:0 0 0 0 #ffe17200;filter:brightness(1)}35%{box-shadow:0 0 34px 16px #ffe172cc;filter:brightness(1.65)}70%{box-shadow:0 0 44px 22px #ffe172ee;filter:brightness(1.9)}100%{box-shadow:0 0 34px 17px #ffe172dd;filter:brightness(1.7)}}
 @keyframes boatSail{0%{transform:translateX(0) translateY(0) rotate(0)}25%{transform:translateX(8%) translateY(-3%) rotate(2deg)}45%{transform:translateX(3%) translateY(2%) rotate(-2deg)}65%{transform:translateX(14%) translateY(-2%) rotate(2deg)}100%{transform:translateX(125%) translateY(1%) rotate(-1deg)}}
-@keyframes trainRide{0%{transform:translateX(0)}22%{transform:translateX(9%) translateY(-1%)}40%{transform:translateX(3%)}58%{transform:translateX(17%) translateY(-1%)}100%{transform:translateX(125%)}}
+@keyframes trainRide{0%{transform:translateX(0)}18%{transform:translateX(-8%)}34%{transform:translateX(-8%)}55%{transform:translateX(10%) translateY(-1%)}100%{transform:translateX(125%)}}
 @keyframes treeSway{0%,100%{transform:rotate(0);transform-origin:50% 72%}22%{transform:rotate(-7deg);transform-origin:50% 72%}48%{transform:rotate(7deg);transform-origin:50% 72%}72%{transform:rotate(-5deg);transform-origin:50% 72%}88%{transform:rotate(3deg);transform-origin:50% 72%}}
 @keyframes icecreamHappy{0%,100%{transform:translateY(0) scale(1)}35%{transform:translateY(-7%) rotate(-3deg) scale(1.04)}70%{transform:translateY(-3%) rotate(3deg) scale(1.02)}}
 @keyframes robotDance{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-4%) rotate(-3deg)}50%{transform:translateY(0) rotate(3deg)}75%{transform:translateY(-4%) rotate(-2deg)}}
@@ -38,6 +38,9 @@
     @media(max-width:520px){.game{padding:12px 10px 26px}.top{grid-template-columns:auto 1fr}.top .reset{grid-column:1/3;grid-row:2;padding:7px 12px;justify-self:center}.board{height:390px;min-height:0;border-radius:27px}.mimi{width:26%}.piece{width:62px;height:62px}.piece.rectangle{width:86px;height:55px}.tray{min-height:92px}.pill{padding:9px 11px;font-size:13px}}
     .slot.boatHull{clip-path:polygon(0 0,100% 0,82% 100%,18% 100%);border:0;background:#71808655}.slot.boatHull.filled{background:var(--color);box-shadow:inset 0 5px 8px #fff7,inset 0 -6px 9px #7c3b2538,0 6px 9px #49362d44}.slot.mast{border-radius:9px}.piece.mast{width:28px;height:82px;border-radius:9px}.piece.boatHull{width:110px;height:52px;clip-path:polygon(0 0,100% 0,82% 100%,18% 100%)}.slot.oval,.piece.oval{border-radius:50%}.piece.oval{width:105px;height:65px}.slot.fishTail,.piece.fishTail{clip-path:polygon(0 0,100% 25%,100% 75%,0 100%)}.slot.topFin,.piece.topFin{clip-path:polygon(50% 0,100% 100%,0 100%)}.slot.bottomFin,.piece.bottomFin{clip-path:polygon(0 0,100% 0,50% 100%)}.slot.fishTail,.slot.topFin,.slot.bottomFin{border:0;background:#71808655}.slot.fishTail.filled,.slot.topFin.filled,.slot.bottomFin.filled{background:var(--color)}.piece.fishTail{width:72px;height:70px}.piece.topFin,.piece.bottomFin{width:68px;height:58px}.slot.noseStick,.piece.noseStick{border-radius:999px}.piece.noseStick{width:78px;height:24px}.slot.bucket,.piece.bucket{clip-path:polygon(10% 0,90% 0,100% 100%,0 100%)}.piece.bucket{width:54px;height:72px}.slot.leftWing,.piece.leftWing{clip-path:polygon(100% 0,100% 100%,0 50%)}.slot.rightWing,.piece.rightWing,.slot.beak,.piece.beak{clip-path:polygon(0 0,100% 50%,0 100%)}.slot.leftWing,.slot.rightWing,.slot.beak,.slot.bucket{border:0;background:#71808655}.slot.leftWing.filled,.slot.rightWing.filled,.slot.beak.filled,.slot.bucket.filled{background:var(--color)}.piece.leftWing,.piece.rightWing{width:68px;height:62px}.piece.beak{width:62px;height:48px}
 .slot.branchLeft,.piece.branchLeft,.slot.branchRight,.piece.branchRight{border-radius:9px}.piece.branchLeft,.piece.branchRight{width:78px;height:25px}.slot.branchLeft,.piece.branchLeft{transform:rotate(-30deg)}.slot.branchRight,.piece.branchRight{transform:rotate(30deg)}
+.slot.sailLeft,.piece.sailLeft{clip-path:polygon(100% 0,100% 100%,0 100%);border:0}.slot.sailRight,.piece.sailRight{clip-path:polygon(0 0,100% 100%,0 100%);border:0}.slot.sailLeft,.slot.sailRight{background:#71808655}.slot.sailLeft.filled,.slot.sailRight.filled{background:var(--color)}.piece.sailLeft,.piece.sailRight{width:82px;height:72px}
+.slot.catEarLeft,.piece.catEarLeft,.slot.catEarRight,.piece.catEarRight{clip-path:polygon(50% 0,100% 100%,0 100%);border:0}.slot.catEarLeft,.slot.catEarRight{background:#71808655}.slot.catEarLeft.filled,.slot.catEarRight.filled{background:var(--color)}.piece.catEarLeft,.piece.catEarRight{width:62px;height:70px}.slot.catEarLeft,.piece.catEarLeft{transform:rotate(-12deg)}.slot.catEarRight,.piece.catEarRight{transform:rotate(12deg)}
+.slot.wingLeft,.piece.wingLeft{clip-path:polygon(100% 0,100% 100%,0 50%);border:0}.slot.wingRight,.piece.wingRight{clip-path:polygon(0 0,100% 50%,0 100%);border:0}.slot.wingLeft,.slot.wingRight{background:#71808655}.slot.wingLeft.filled,.slot.wingRight.filled{background:var(--color)}.piece.wingLeft,.piece.wingRight{width:72px;height:68px}
 .slot.coneDown,.piece.coneDown,.slot.triangleDown,.piece.triangleDown{clip-path:polygon(0 0,100% 0,50% 100%);border:0}.slot.triangleLeft,.piece.triangleLeft{clip-path:polygon(100% 0,100% 100%,0 50%);border:0}.slot.triangleRight,.piece.triangleRight{clip-path:polygon(0 0,100% 50%,0 100%);border:0}.slot.triangleUpBlade,.piece.triangleUpBlade{clip-path:polygon(50% 0,100% 100%,0 100%);border:0}.slot.coneDown,.slot.triangleDown,.slot.triangleLeft,.slot.triangleRight,.slot.triangleUpBlade{background:#71808655}.slot.coneDown.filled,.slot.triangleDown.filled,.slot.triangleLeft.filled,.slot.triangleRight.filled,.slot.triangleUpBlade.filled{background:var(--color)}.piece.coneDown{width:72px;height:82px}.piece.triangleDown,.piece.triangleLeft,.piece.triangleRight,.piece.triangleUpBlade{width:64px;height:64px}
 .assembly.catshape.complete{animation:catHello 1.5s ease-in-out .2s}.assembly.butterfly.complete{animation:butterflyFloat 1.7s ease-in-out .2s}.assembly.helicopter.complete{animation:helicopterLift 1.8s ease-in .2s forwards}.assembly.sun.complete{animation:sunShine 1.5s ease-in-out .2s}.assembly.carshape.complete{animation:carDrive 1.7s ease-in .2s forwards}.assembly.windmill.complete{animation:windmillHappy 1.5s ease-in-out .2s}
   </style>
@@ -55,11 +58,9 @@
 <script>
 const levels=[
  {name:'Возик',className:'cart',prompt:'Допоможи Мімі скласти возик',parts:[
-  {kind:'rectangle',x:23,y:49,w:54,h:17,color:'#ff8b24'},
-  {kind:'circle',x:29,y:63,w:14,h:14,color:'#149fda'},
-  {kind:'circle',x:58,y:63,w:14,h:14,color:'#149fda'},
-  {kind:'triangle',x:29,y:35,w:18,h:16,color:'#ffd23f'},
-  {kind:'square',x:48,y:34,w:17,h:17,color:'#45a958'}]},
+  {kind:'rectangle',x:26,y:46,w:42,h:18,color:'#ff8b24'},
+  {kind:'circle',x:31,y:62,w:14,h:14,color:'#149fda'},
+  {kind:'circle',x:52,y:62,w:14,h:14,color:'#149fda'}]},
  {name:'Будиночок',className:'house',prompt:'Збудуй для Мімі затишний будиночок',parts:[
   {kind:'square',x:29,y:36,w:38,h:36,color:'#ff9838'},
   {kind:'triangle',x:25,y:17,w:46,h:24,color:'#f04455'},
@@ -74,9 +75,9 @@ const levels=[
   {kind:'circle',x:43,y:52,w:12,h:12,color:'#149fda'}]},
  {name:'Кораблик',className:'boat',prompt:'Склади кораблик — вирушаємо в плавання!',parts:[
   {kind:'boatHull',x:20,y:57,w:60,h:18,color:'#168bd2'},
-  {kind:'mast',x:48,y:24,w:7,h:34,color:'#8d5638'},
-  {kind:'triangle',x:53,y:27,w:27,h:25,color:'#ff5b69'},
-  {kind:'triangle',x:26,y:30,w:22,h:22,color:'#ffd23f'},
+  {kind:'mast',x:48,y:25,w:7,h:33,color:'#8d5638'},
+  {kind:'sailRight',x:53,y:28,w:27,h:25,color:'#ff5b69'},
+  {kind:'sailLeft',x:27,y:31,w:21,h:22,color:'#ffd23f'},
   {kind:'circle',x:30,y:61,w:8,h:8,color:'#ffd23f'},
   {kind:'circle',x:46,y:61,w:8,h:8,color:'#ffd23f'},
   {kind:'circle',x:62,y:61,w:8,h:8,color:'#ffd23f'}]},
@@ -87,13 +88,13 @@ const levels=[
   {kind:'circle',x:30,y:63,w:14,h:14,color:'#25a9df'},
   {kind:'circle',x:57,y:63,w:14,h:14,color:'#25a9df'}]},
  {name:'Дерево',className:'tree',prompt:'Посади для Мімі зелене деревце',parts:[
-  {kind:'rectangle',x:45,y:48,w:11,h:29,color:'#925535'},
-  {kind:'branchLeft',x:33,y:39,w:17,h:7,color:'#925535'},
-  {kind:'branchRight',x:53,y:38,w:17,h:7,color:'#925535'},
-  {kind:'circle',x:25,y:26,w:22,h:22,color:'#3fbd62'},
-  {kind:'circle',x:41,y:18,w:22,h:22,color:'#24a957'},
-  {kind:'circle',x:57,y:26,w:22,h:22,color:'#63c95b'},
-  {kind:'circle',x:41,y:34,w:22,h:22,color:'#4fbe58'}]},
+  {kind:'rectangle',x:45,y:48,w:11,h:30,color:'#925535'},
+  {kind:'branchLeft',x:35,y:41,w:16,h:7,color:'#925535'},
+  {kind:'branchRight',x:50,y:41,w:16,h:7,color:'#925535'},
+  {kind:'circle',x:25,y:28,w:23,h:23,color:'#3fbd62'},
+  {kind:'circle',x:40,y:18,w:23,h:23,color:'#24a957'},
+  {kind:'circle',x:55,y:28,w:23,h:23,color:'#63c95b'},
+  {kind:'circle',x:40,y:35,w:23,h:23,color:'#4fbe58'}]},
  {name:'Морозиво',className:'icecream',prompt:'Склади смачне морозиво з фігур',parts:[
   {kind:'coneDown',x:39,y:51,w:24,h:28,color:'#e89a48'},
   {kind:'circle',x:30,y:34,w:23,h:23,color:'#ff6f9e'},
@@ -147,21 +148,21 @@ const levels=[
   {kind:'triangle',x:63,y:29,w:20,h:19,color:'#ff5b69'},
   {kind:'rectangle',x:46,y:57,w:10,h:16,color:'#7b4a39'}]},
  {name:'Котик',className:'catshape',prompt:'Склади котика з геометричних фігур',parts:[
-  {kind:'circle',x:37,y:27,w:28,h:28,color:'#ffd08a'},
-  {kind:'triangle',x:35,y:18,w:12,h:13,color:'#ff9f8f'},
-  {kind:'triangle',x:56,y:18,w:12,h:13,color:'#ff9f8f'},
-  {kind:'circle',x:42,y:36,w:6,h:6,color:'#49362d'},
-  {kind:'circle',x:55,y:36,w:6,h:6,color:'#49362d'},
-  {kind:'triangle',x:48,y:44,w:7,h:6,color:'#f06b7c'},
-  {kind:'circle',x:40,y:49,w:10,h:10,color:'#ffb5a7'},
-  {kind:'circle',x:53,y:49,w:10,h:10,color:'#ffb5a7'}]},
+  {kind:'circle',x:32,y:25,w:38,h:38,color:'#ffd08a'},
+  {kind:'catEarLeft',x:32,y:17,w:14,h:16,color:'#ff9f8f'},
+  {kind:'catEarRight',x:56,y:17,w:14,h:16,color:'#ff9f8f'},
+  {kind:'circle',x:41,y:37,w:6,h:6,color:'#49362d'},
+  {kind:'circle',x:55,y:37,w:6,h:6,color:'#49362d'},
+  {kind:'triangleDown',x:47,y:47,w:8,h:7,color:'#f06b7c'},
+  {kind:'circle',x:39,y:51,w:11,h:11,color:'#ffb5a7'},
+  {kind:'circle',x:52,y:51,w:11,h:11,color:'#ffb5a7'}]},
  {name:'Метелик',className:'butterfly',prompt:'Склади барвистого метелика',parts:[
-  {kind:'mast',x:48,y:31,w:7,h:35,color:'#7b4a39'},
-  {kind:'circle',x:29,y:27,w:22,h:22,color:'#ff79a8'},
-  {kind:'circle',x:55,y:27,w:22,h:22,color:'#ff79a8'},
-  {kind:'triangle',x:27,y:48,w:20,h:19,color:'#8e70df'},
-  {kind:'triangle',x:56,y:48,w:20,h:19,color:'#ffd23f'},
-  {kind:'circle',x:45,y:24,w:13,h:13,color:'#7b4a39'}]},
+  {kind:'circle',x:45,y:24,w:12,h:12,color:'#7b4a39'},
+  {kind:'mast',x:48,y:35,w:7,h:31,color:'#7b4a39'},
+  {kind:'circle',x:27,y:28,w:23,h:23,color:'#ff79a8'},
+  {kind:'circle',x:53,y:28,w:23,h:23,color:'#ff79a8'},
+  {kind:'wingLeft',x:30,y:49,w:20,h:20,color:'#8e70df'},
+  {kind:'wingRight',x:53,y:49,w:20,h:20,color:'#ffd23f'}]},
  {name:'Гелікоптер',className:'helicopter',prompt:'Склади гелікоптер з фігур',parts:[
   {kind:'oval',x:34,y:39,w:35,h:24,color:'#ffd23f'},
   {kind:'circle',x:55,y:40,w:20,h:20,color:'#149fda'},
@@ -183,11 +184,12 @@ const levels=[
   {kind:'trapezoid',x:37,y:32,w:31,h:17,color:'#3b82e6'},
   {kind:'circle',x:31,y:62,w:14,h:14,color:'#49362d'},
   {kind:'circle',x:58,y:62,w:14,h:14,color:'#49362d'},
-  {kind:'square',x:22,y:51,w:8,h:8,color:'#ffd23f'}]},
+  {kind:'square',x:22,y:51,w:8,h:8,color:'#ffd23f'},
+  {kind:'square',x:70,y:51,w:8,h:8,color:'#ffd23f'}]},
  {name:'Вітрячок',className:'windmill',prompt:'Склади веселий вітрячок',parts:[
   {kind:'square',x:39,y:53,w:24,h:22,color:'#54b7e8'},
   {kind:'triangle',x:37,y:43,w:28,h:13,color:'#f04455'},
-  {kind:'circle',x:47,y:31,w:9,h:9,color:'#7b4a39'},
+  {kind:'circle',x:44,y:28,w:15,h:15,color:'#7b4a39'},
   {kind:'triangleUpBlade',x:44,y:13,w:15,h:19,color:'#ffd23f'},
   {kind:'triangleRight',x:56,y:27,w:19,h:15,color:'#ff8b24'},
   {kind:'triangleDown',x:44,y:39,w:15,h:19,color:'#8e70df'},
