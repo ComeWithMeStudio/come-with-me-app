@@ -41,6 +41,7 @@
 .slot.sailLeft,.piece.sailLeft{clip-path:polygon(100% 0,100% 100%,0 100%);border:0}.slot.sailRight,.piece.sailRight{clip-path:polygon(0 0,100% 100%,0 100%);border:0}.slot.sailLeft,.slot.sailRight{background:#71808655}.slot.sailLeft.filled,.slot.sailRight.filled{background:var(--color)}.piece.sailLeft,.piece.sailRight{width:82px;height:72px}
 .slot.catEarLeft,.piece.catEarLeft,.slot.catEarRight,.piece.catEarRight{clip-path:polygon(50% 0,100% 100%,0 100%);border:0}.slot.catEarLeft,.slot.catEarRight{background:#71808655}.slot.catEarLeft.filled,.slot.catEarRight.filled{background:var(--color)}.piece.catEarLeft,.piece.catEarRight{width:62px;height:70px}.slot.catEarLeft,.piece.catEarLeft{transform:rotate(-12deg)}.slot.catEarRight,.piece.catEarRight{transform:rotate(12deg)}
 .slot.wingLeft,.piece.wingLeft{clip-path:polygon(100% 0,100% 100%,0 50%);border:0}.slot.wingRight,.piece.wingRight{clip-path:polygon(0 0,100% 50%,0 100%);border:0}.slot.wingLeft,.slot.wingRight{background:#71808655}.slot.wingLeft.filled,.slot.wingRight.filled{background:var(--color)}.piece.wingLeft,.piece.wingRight{width:72px;height:68px}
+.slot.sunRayNW,.piece.sunRayNW,.slot.sunRayNE,.piece.sunRayNE{clip-path:polygon(50% 0,100% 100%,0 100%);border:0}.slot.sunRayNW,.slot.sunRayNE{background:#71808655}.slot.sunRayNW.filled,.slot.sunRayNE.filled{background:var(--color)}.piece.sunRayNW,.piece.sunRayNE{width:58px;height:58px}.slot.sunRayNW,.piece.sunRayNW{transform:rotate(-42deg)}.slot.sunRayNE,.piece.sunRayNE{transform:rotate(42deg)}
 .slot.coneDown,.piece.coneDown,.slot.triangleDown,.piece.triangleDown{clip-path:polygon(0 0,100% 0,50% 100%);border:0}.slot.triangleLeft,.piece.triangleLeft{clip-path:polygon(100% 0,100% 100%,0 50%);border:0}.slot.triangleRight,.piece.triangleRight{clip-path:polygon(0 0,100% 50%,0 100%);border:0}.slot.triangleUpBlade,.piece.triangleUpBlade{clip-path:polygon(50% 0,100% 100%,0 100%);border:0}.slot.coneDown,.slot.triangleDown,.slot.triangleLeft,.slot.triangleRight,.slot.triangleUpBlade{background:#71808655}.slot.coneDown.filled,.slot.triangleDown.filled,.slot.triangleLeft.filled,.slot.triangleRight.filled,.slot.triangleUpBlade.filled{background:var(--color)}.piece.coneDown{width:72px;height:82px}.piece.triangleDown,.piece.triangleLeft,.piece.triangleRight,.piece.triangleUpBlade{width:64px;height:64px}
 .assembly.catshape.complete{animation:catHello 1.5s ease-in-out .2s}.assembly.butterfly.complete{animation:butterflyFloat 1.7s ease-in-out .2s}.assembly.helicopter.complete{animation:helicopterLift 1.8s ease-in .2s forwards}.assembly.sun.complete{animation:sunShine 1.5s ease-in-out .2s}.assembly.carshape.complete{animation:carDrive 1.7s ease-in .2s forwards}.assembly.windmill.complete{animation:windmillHappy 1.5s ease-in-out .2s}
   </style>
@@ -172,13 +173,13 @@ const levels=[
   {kind:'rectangle',x:54,y:22,w:32,h:7,color:'#3b82e6'},
   {kind:'rectangle',x:39,y:63,w:31,h:6,color:'#8d5638'}]},
  {name:'Сонечко',className:'sun',prompt:'Склади яскраве сонечко',parts:[
-  {kind:'circle',x:38,y:33,w:27,h:27,color:'#ffd23f'},
-  {kind:'triangle',x:44,y:18,w:14,h:13,color:'#ff9f24'},
-  {kind:'triangleDown',x:44,y:61,w:14,h:13,color:'#ff9f24'},
-  {kind:'triangleLeft',x:26,y:39,w:13,h:14,color:'#ff9f24'},
-  {kind:'triangleRight',x:64,y:39,w:13,h:14,color:'#ff9f24'},
-  {kind:'triangle',x:29,y:24,w:12,h:12,color:'#ff9f24'},
-  {kind:'triangle',x:62,y:24,w:12,h:12,color:'#ff9f24'}]},
+  {kind:'circle',x:36,y:31,w:31,h:31,color:'#ffd23f'},
+  {kind:'triangle',x:44,y:20,w:14,h:13,color:'#ff9f24'},
+  {kind:'triangleDown',x:44,y:59,w:14,h:13,color:'#ff9f24'},
+  {kind:'triangleLeft',x:27,y:40,w:13,h:14,color:'#ff9f24'},
+  {kind:'triangleRight',x:62,y:40,w:13,h:14,color:'#ff9f24'},
+  {kind:'sunRayNW',x:31,y:26,w:12,h:12,color:'#ff9f24'},
+  {kind:'sunRayNE',x:59,y:26,w:12,h:12,color:'#ff9f24'}]},
  {name:'Машинка',className:'carshape',prompt:'Склади маленьку машинку',parts:[
   {kind:'rectangle',x:25,y:46,w:52,h:19,color:'#f04455'},
   {kind:'trapezoid',x:37,y:32,w:31,h:17,color:'#3b82e6'},
