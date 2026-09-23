@@ -63,6 +63,9 @@ const retryFeedback=[
  {text:'Не поспішай. Поглянь уважніше 🐾',audio:'../../../../audio/games/common/retry-3.mp3'}
 ];
 const musicTrack='../../../../audio/games/find-for-mimi/music/level-2.mp3';
+const introFeedback={text:'Привіт! Допоможеш Мімі все знайти? Дивись уважно!',audio:'../../../../audio/games/find-for-mimi/01_find_for_mimi_intro.mp3'};
+const finishFeedback={text:'Чудово! Ти все знайшов! Дякую, що допоміг Мімі!',audio:'../../../../audio/games/find-for-mimi/02_find_for_mimi_finish.mp3'};
+const correctSfx='../../../../audio/games/common/correct_chime.mp3',wrongSfx='../../../../audio/games/common/wrong_boop.mp3';
 const MUSIC_VOLUME=.22,DUCKED_MUSIC_VOLUME=.08;
 const QUESTION_AUDIO_VERSION='20260917-clean2';
 
@@ -75,8 +78,9 @@ let levels=[],level=0,answered=false;
 const question=document.getElementById('question'),choices=document.getElementById('choices'),message=document.getElementById('message'),next=document.getElementById('next'),scene=document.getElementById('scene');
 
 const audioCache=new Map();
-[...levelBank,...correctFeedback,...retryFeedback].forEach(item=>{if(item.audio){const source=item.audio.includes('/questions/')?`${item.audio}?v=${QUESTION_AUDIO_VERSION}`:item.audio;const voice=new Audio(source);voice.preload='auto';audioCache.set(item.audio,voice)}});
+[...levelBank,...correctFeedback,...retryFeedback,introFeedback,finishFeedback].forEach(item=>{if(item.audio){const source=item.audio.includes('/questions/')?`${item.audio}?v=${QUESTION_AUDIO_VERSION}`:item.audio;const voice=new Audio(source);voice.preload='auto';audioCache.set(item.audio,voice)}});
 let activeVoice=null,currentMusic=null,currentMusicPath='';
+function playSfx(path,volume=.7){const a=new Audio(path);a.volume=volume;a.play().catch(()=>{})}
 function playVoice(path){
  if(!path)return;
  if(activeVoice){activeVoice.pause();activeVoice.currentTime=0}
@@ -109,16 +113,16 @@ function render(){
 }
 function answer(button,correct){
  if(answered)return;
- if(!correct){button.classList.remove('bad');void button.offsetWidth;button.classList.add('bad');showFeedback(nextRetryFeedback());return}
- answered=true;button.classList.add('good');showFeedback(nextCorrectFeedback());
+ if(!correct){playSfx(wrongSfx,.55);button.classList.remove('bad');void button.offsetWidth;button.classList.add('bad');showFeedback(nextRetryFeedback());return}
+ answered=true;playSfx(correctSfx,.65);button.classList.add('good');showFeedback(nextCorrectFeedback());
  for(let i=0;i<7;i++){const s=document.createElement('span');s.className='spark';s.textContent=['⭐','✨','●'][i%3];s.style.left=(14+Math.random()*68)+'%';s.style.top=(28+Math.random()*48)+'%';scene.appendChild(s);setTimeout(()=>s.remove(),1100)}
- if(level<levels.length-1)next.hidden=false;else setTimeout(()=>message.textContent='Мімі: «Ти все знайшов! Який уважний!» ❤️🐾',900)
+ if(level<levels.length-1)next.hidden=false;else setTimeout(()=>{message.textContent=finishFeedback.text;playVoice(finishFeedback.audio)},900)
 }
 function startGame(){levels=auditMode?[...levelBank]:shuffle(levelBank).slice(0,20);level=auditMode?requestedStart-1:0;render()}
 let started=false;
-next.onclick=()=>{if(!started){started=true;next.textContent='Далі →';startGame();return}level++;render()};
+next.onclick=()=>{if(!started){started=true;next.textContent='Далі →';message.textContent=introFeedback.text;playVoice(introFeedback.audio);setTimeout(startGame,2600);return}level++;render()};
 document.getElementById('reset').onclick=()=>{started=true;next.textContent='Далі →';startGame()};
-question.textContent=auditMode?'Перевірка всіх 30 завдань':'Готові грати?';message.textContent=auditMode?'Завдання й відповіді йтимуть у фіксованому порядку 🔎':'Натисни «Почати», щоб почути завдання й музику 🎵';next.hidden=false;next.textContent='Почати ▶';
+question.textContent=auditMode?'Перевірка всіх 30 завдань':'Готові грати?';message.textContent=auditMode?'Завдання й відповіді йтимуть у фіксованому порядку 🔎':introFeedback.text;next.hidden=false;next.textContent='Почати ▶';
 </script>
 </body>
 </html>
