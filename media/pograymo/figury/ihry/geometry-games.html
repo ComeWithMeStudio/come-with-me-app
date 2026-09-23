@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="uk" style="color-scheme:only light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#9eddf4">
+  <title>Майстерня фігур — Come With Me</title>
+  <style>
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"Trebuchet MS",system-ui,sans-serif;color:#49362d;background:#8fd7f3}button{font:inherit}.game{width:min(100%,520px);min-height:100vh;margin:auto;padding:18px 16px 34px;background:radial-gradient(circle at 15% 8%,#fff3b4 0 6%,transparent 18%),linear-gradient(180deg,#aee6fb 0 45%,#dff4c5 45% 100%);overflow:hidden}.top{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:9px}.pill{border:0;border-radius:999px;padding:10px 14px;background:#fff9e9ed;color:#49362d;font-weight:900;box-shadow:0 5px 14px #49362d25;text-decoration:none}.title{margin:0;text-align:center;font-size:clamp(23px,5.6vw,38px)}.progress{margin:16px auto 11px;display:flex;justify-content:center;gap:9px}.dot{width:13px;height:13px;border-radius:50%;background:#fff9;border:2px solid #fff}.dot.done{background:#62bb73}.dot.active{background:#ffbe45;transform:scale(1.22)}.instruction{text-align:center;margin:8px auto 12px;font-size:clamp(17px,4.3vw,25px);font-weight:900}.board{position:relative;width:100%;height:min(52vh,430px);min-height:330px;border:5px solid #fff7e8;border-radius:34px;background:linear-gradient(#bdeaff 0 66%,#b9df85 66%);box-shadow:0 14px 30px #416f7230,inset 0 0 35px #fff8;overflow:hidden}.board:before{content:"";position:absolute;left:8%;top:10%;width:66px;height:31px;border-radius:50px;background:#fff9;box-shadow:48px 8px 0 6px #fff9}.board:after{content:"";position:absolute;left:0;right:0;bottom:21%;height:7px;background:#ebc17f;box-shadow:0 5px 0 #d4a25d}.mimi{position:absolute;right:1%;bottom:4%;width:24%;max-width:150px;z-index:2;filter:drop-shadow(0 7px 8px #3455)}.assembly{position:absolute;inset:0;transition:transform .75s ease}.assembly.cart.complete{animation:drive 1.5s ease-in-out .25s forwards}.assembly.rocket.complete{animation:fly 1.5s ease-in .3s forwards}.assembly.house.complete .slot[data-kind="circle"]{animation:windowGlow 1.6s ease-in-out .15s forwards;z-index:3}
+.assembly.boat.complete{animation:boatSail 3.4s ease-in-out .35s forwards}
+.assembly.train.complete{animation:trainRide 1.8s ease-in-out .2s forwards}
+.assembly.tree.complete{animation:treeSway 1.6s ease-in-out .2s}
+.assembly.icecream.complete{animation:icecreamHappy 1.4s ease-in-out .2s}
+.assembly.robot.complete{animation:robotDance 1.5s ease-in-out .2s}
+.assembly.flower.complete{animation:flowerBloom 1.5s ease-in-out .2s}
+.assembly.fish.complete{animation:fishSwim 2s ease-in-out .2s forwards}
+.assembly.mushroom.complete{animation:mushroomBounce 1.4s ease-in-out .2s}
+.assembly.snowman.complete{animation:snowmanWiggle 1.5s ease-in-out .2s}
+.assembly.chick.complete{animation:chickHop 1.4s ease-in-out .2s}
+.assembly.castle.complete{animation:castleMagic 1.6s ease-in-out .2s}.slot{position:absolute;display:grid;place-items:center;border:3px dashed #7f8c8d88;background:#ffffff48;color:#59666b66;transition:.22s;clip-path:var(--clip,none)}.slot.selected{outline:5px solid #ffcf55aa;outline-offset:4px}.slot.filled{border-style:solid;border-color:#fff8;background:var(--color);box-shadow:inset 0 5px 8px #fff7,inset 0 -6px 9px #7c3b2522,0 5px 7px #49362d33}.slot.circle{border-radius:50%}.slot.square,.slot.rectangle{border-radius:12px}.slot.triangle{--clip:polygon(50% 0,100% 100%,0 100%);border:0;background:#71808655}.slot.trapezoid{--clip:polygon(18% 0,82% 0,100% 100%,0 100%);border:0;background:#71808655}.slot.triangle.filled,.slot.trapezoid.filled{background:var(--color);box-shadow:inset 0 5px 8px #fff7,inset 0 -6px 9px #7c3b2538,0 6px 9px #49362d44}.tray-wrap{margin-top:15px;padding:13px;border-radius:28px;background:#fff9e9db;box-shadow:0 9px 22px #49362d24}.tray-title{text-align:center;font-weight:900;margin-bottom:10px}.tray{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px;min-height:102px}.piece{--color:#ff7f91;width:74px;height:74px;border:0;background:var(--color);box-shadow:inset 0 6px 9px #fff7,inset 0 -7px 10px #7c3b2527,0 7px 11px #49362d32;touch-action:none;cursor:grab;transition:transform .18s,opacity .18s;clip-path:var(--clip,none)}.piece:active{cursor:grabbing}.piece.chosen{outline:5px solid #fff;outline-offset:4px;transform:translateY(-5px)}.piece.used{opacity:.18;pointer-events:none;transform:scale(.7)}.piece.circle{border-radius:50%}.piece.square,.piece.rectangle{border-radius:12px}.piece.rectangle{width:100px;height:62px}.piece.triangle{--clip:polygon(50% 0,100% 100%,0 100%)}.piece.trapezoid{--clip:polygon(18% 0,82% 0,100% 100%,0 100%)}.ghost{position:fixed;z-index:1000;pointer-events:none;opacity:.86;transform:translate(-50%,-50%) scale(.9)}.message{min-height:48px;margin:13px 0 4px;display:grid;place-items:center;text-align:center;font-size:18px;font-weight:900}.actions{display:flex;justify-content:center;gap:12px}.action{border:0;border-radius:999px;padding:12px 20px;background:#fff9e9;color:#49362d;font-weight:900;box-shadow:0 5px 14px #49362d25}.next{background:#ffcf58}.celebrate{animation:pop .55s ease}.spark{position:absolute;z-index:8;font-size:30px;animation:spark 1s ease-out forwards;pointer-events:none}@keyframes pop{50%{transform:scale(1.06)}}@keyframes spark{to{transform:translateY(-85px) rotate(35deg);opacity:0}}@keyframes drive{0%{transform:translateX(0) rotate(0)}28%{transform:translateX(14%) rotate(-1deg)}48%{transform:translateX(7%) rotate(1deg)}100%{transform:translateX(125%) rotate(-1deg)}}@keyframes fly{to{transform:translateY(-125%) scale(.84)}}@keyframes windowGlow{0%{box-shadow:0 0 0 0 #ffe17200;filter:brightness(1)}35%{box-shadow:0 0 34px 16px #ffe172cc;filter:brightness(1.65)}70%{box-shadow:0 0 44px 22px #ffe172ee;filter:brightness(1.9)}100%{box-shadow:0 0 34px 17px #ffe172dd;filter:brightness(1.7)}}
+@keyframes boatSail{0%{transform:translateX(0) translateY(0) rotate(0)}12%{transform:translateX(2%) translateY(-2%) rotate(1.5deg)}24%{transform:translateX(6%) translateY(2%) rotate(-1.5deg)}40%{transform:translateX(18%) translateY(-2.5%) rotate(1.7deg)}58%{transform:translateX(39%) translateY(2%) rotate(-1.4deg)}76%{transform:translateX(72%) translateY(-2%) rotate(1.2deg)}100%{transform:translateX(130%) translateY(1%) rotate(-.8deg)}}
+@keyframes trainRide{0%{transform:translateX(0)}18%{transform:translateX(5%)}30%{transform:translateX(5%)}43%{transform:translateX(-8%)}100%{transform:translateX(-130%)}}
+@keyframes treeSway{0%,100%{transform:rotate(0);transform-origin:50% 72%}22%{transform:rotate(-7deg);transform-origin:50% 72%}48%{transform:rotate(7deg);transform-origin:50% 72%}72%{transform:rotate(-5deg);transform-origin:50% 72%}88%{transform:rotate(3deg);transform-origin:50% 72%}}
+@keyframes icecreamHappy{0%,100%{transform:translateY(0) scale(1)}35%{transform:translateY(-7%) rotate(-3deg) scale(1.04)}70%{transform:translateY(-3%) rotate(3deg) scale(1.02)}}
+@keyframes robotDance{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-4%) rotate(-3deg)}50%{transform:translateY(0) rotate(3deg)}75%{transform:translateY(-4%) rotate(-2deg)}}
+@keyframes flowerBloom{0%{transform:scale(.92)}45%{transform:scale(1.08) rotate(-2deg)}75%{transform:scale(1.03) rotate(2deg)}100%{transform:scale(1)}}
+@keyframes fishSwim{0%{transform:translateX(0) translateY(0) rotate(0)}20%{transform:translateX(7%) translateY(-3%) rotate(-2deg)}40%{transform:translateX(17%) translateY(3%) rotate(2deg)}62%{transform:translateX(31%) translateY(-2%) rotate(-1deg)}100%{transform:translateX(130%) translateY(1%) rotate(0)}}
+@keyframes mushroomBounce{0%,100%{transform:translateY(0) scale(1)}35%{transform:translateY(-9%) scale(1.03,.97)}55%{transform:translateY(0) scale(.98,1.03)}75%{transform:translateY(-4%)}}
+@keyframes snowmanWiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}75%{transform:rotate(-2deg)}}
+@keyframes chickHop{0%,100%{transform:translateY(0) rotate(0)}30%{transform:translateY(-10%) rotate(-3deg)}55%{transform:translateY(0) rotate(3deg)}75%{transform:translateY(-5%) rotate(0)}}
+@keyframes castleMagic{0%{transform:scale(.96)}35%{transform:scale(1.04) translateY(-2%)}65%{transform:scale(1.01) translateY(0)}100%{transform:scale(1)}}
+@keyframes catHello{0%,100%{transform:rotate(0) scale(1)}30%{transform:rotate(-3deg) scale(1.03)}60%{transform:rotate(3deg) scale(1.03)}}
+@keyframes butterflyFloat{0%,100%{transform:translateY(0) rotate(0)}30%{transform:translateY(-7%) rotate(-3deg)}65%{transform:translateY(-3%) rotate(3deg)}}
+@keyframes butterflyFlyAway{0%{transform:translateY(0) scale(1)}32%{transform:translateY(-3%) scale(1.14)}46%{transform:translateY(-3%) scale(1.14)}100%{transform:translateY(-130%) scale(.92)}}
+@keyframes helicopterLift{0%{transform:translateY(0)}35%{transform:translateY(-8%)}100%{transform:translateY(-125%) translateX(18%) scale(.9)}}
+@keyframes sunShine{0%,100%{transform:scale(1) rotate(0);filter:brightness(1)}45%{transform:scale(1.08) rotate(8deg);filter:brightness(1.35)}}
+@keyframes carDrive{0%{transform:translateX(0)}30%{transform:translateX(14%)}50%{transform:translateX(7%)}100%{transform:translateX(125%)}}
+@keyframes windmillHappy{0%,100%{transform:scale(1) rotate(0)}35%{transform:scale(1.04) rotate(-2deg)}70%{transform:scale(1.03) rotate(2deg)}}
+    @media(max-width:520px){.game{padding:12px 10px 26px}.top{grid-template-columns:auto 1fr}.top .reset{grid-column:1/3;grid-row:2;padding:7px 12px;justify-self:center}.board{height:390px;min-height:0;border-radius:27px}.mimi{width:26%}.piece{width:62px;height:62px}.piece.rectangle{width:86px;height:55px}.tray{min-height:92px}.pill{padding:9px 11px;font-size:13px}}
+    .slot.boatHull{clip-path:polygon(0 0,100% 0,82% 100%,18% 100%);border:0;background:#71808655}.slot.boatHull.filled{background:var(--color);box-shadow:inset 0 5px 8px #fff7,inset 0 -6px 9px #7c3b2538,0 6px 9px #49362d44}.slot.mast{border-radius:9px}.piece.mast{width:28px;height:82px;border-radius:9px}.piece.boatHull{width:110px;height:52px;clip-path:polygon(0 0,100% 0,82% 100%,18% 100%)}.slot.oval,.piece.oval{border-radius:50%}.piece.oval{width:105px;height:65px}.slot.fishTail,.piece.fishTail{clip-path:polygon(0 0,100% 25%,100% 75%,0 100%)}.slot.topFin,.piece.topFin{clip-path:polygon(50% 0,100% 100%,0 100%)}.slot.bottomFin,.piece.bottomFin{clip-path:polygon(0 0,100% 0,50% 100%)}.slot.fishTail,.slot.topFin,.slot.bottomFin{border:0;background:#71808655}.slot.fishTail.filled,.slot.topFin.filled,.slot.bottomFin.filled{background:var(--color)}.piece.fishTail{width:72px;height:70px}.piece.topFin,.piece.bottomFin{width:68px;height:58px}.slot.noseStick,.piece.noseStick{border-radius:999px}.piece.noseStick{width:78px;height:24px}.slot.bucket,.piece.bucket{clip-path:polygon(10% 0,90% 0,100% 100%,0 100%)}.piece.bucket{width:54px;height:72px}.slot.leftWing,.piece.leftWing{clip-path:polygon(100% 0,100% 100%,0 50%)}.slot.rightWing,.piece.rightWing,.slot.beak,.piece.beak{clip-path:polygon(0 0,100% 50%,0 100%)}.slot.leftWing,.slot.rightWing,.slot.beak,.slot.bucket{border:0;background:#71808655}.slot.leftWing.filled,.slot.rightWing.filled,.slot.beak.filled,.slot.bucket.filled{background:var(--color)}.piece.leftWing,.piece.rightWing{width:68px;height:62px}.piece.beak{width:62px;height:48px}
+.slot.branchLeft,.piece.branchLeft,.slot.branchRight,.piece.branchRight,.slot.branchUpLeft,.piece.branchUpLeft,.slot.branchUpRight,.piece.branchUpRight,.slot.branchVertical,.piece.branchVertical{border-radius:9px}.piece.branchLeft,.piece.branchRight,.piece.branchUpLeft,.piece.branchUpRight,.piece.branchVertical{width:78px;height:25px}.slot.branchLeft,.piece.branchLeft{transform:rotate(23deg)}.slot.branchRight,.piece.branchRight{transform:rotate(-23deg)}.slot.branchUpLeft,.piece.branchUpLeft{transform:rotate(51deg)}.slot.branchUpRight,.piece.branchUpRight{transform:rotate(-43deg)}.slot.branchVertical,.piece.branchVertical{transform:rotate(90deg)}
+.slot.sailLeft,.piece.sailLeft{clip-path:polygon(100% 0,100% 100%,0 100%);border:0}.slot.sailRight,.piece.sailRight{clip-path:polygon(0 0,100% 100%,0 100%);border:0}.slot.sailLeft,.slot.sailRight{background:#71808655}.slot.sailLeft.filled,.slot.sailRight.filled{background:var(--color)}.piece.sailLeft,.piece.sailRight{width:82px;height:72px}
+.slot.catEarLeft,.piece.catEarLeft,.slot.catEarRight,.piece.catEarRight{clip-path:polygon(50% 0,100% 100%,0 100%);border:0}.slot.catEarLeft,.slot.catEarRight{background:#71808655}.slot.catEarLeft.filled,.slot.catEarRight.filled{background:var(--color)}.piece.catEarLeft,.piece.catEarRight{width:62px;height:70px}.slot.catEarLeft,.piece.catEarLeft{transform:rotate(-18deg)}.slot.catEarRight,.piece.catEarRight{transform:rotate(18deg)}
+.slot.catEye,.piece.catEye{border-radius:50%}.piece.catEye{width:62px;height:62px}.slot.catEye{border:0;background:transparent;box-shadow:none}.slot.catEye::after{content:"";position:absolute;left:18%;right:18%;top:18%;bottom:18%;border:3px dashed #7f8c8d88;border-radius:50%;background:#ffffff48}.slot.catEye.filled{background:transparent;box-shadow:none}.slot.catEye.filled::after{border-style:solid;border-color:#fff8;background:var(--color);box-shadow:inset 0 4px 6px #fff7,inset 0 -4px 6px #7c3b2522,0 4px 6px #49362d33}
+.slot.whiskerLeftUp,.piece.whiskerLeftUp,.slot.whiskerLeftDown,.piece.whiskerLeftDown,.slot.whiskerRightUp,.piece.whiskerRightUp,.slot.whiskerRightDown,.piece.whiskerRightDown{border-radius:999px}.piece.whiskerLeftUp,.piece.whiskerLeftDown,.piece.whiskerRightUp,.piece.whiskerRightDown{width:82px;height:15px}.slot.whiskerLeftUp,.slot.whiskerLeftDown,.slot.whiskerRightUp,.slot.whiskerRightDown{border:0;background:transparent;box-shadow:none}.slot.whiskerLeftUp::after,.slot.whiskerLeftDown::after,.slot.whiskerRightUp::after,.slot.whiskerRightDown::after{content:"";position:absolute;left:0;right:0;top:50%;height:32%;transform:translateY(-50%);border-radius:999px;background:#71808655}.slot.whiskerLeftUp.filled,.slot.whiskerLeftDown.filled,.slot.whiskerRightUp.filled,.slot.whiskerRightDown.filled{background:transparent;box-shadow:none}.slot.whiskerLeftUp.filled::after,.slot.whiskerLeftDown.filled::after,.slot.whiskerRightUp.filled::after,.slot.whiskerRightDown.filled::after{background:var(--color);box-shadow:inset 0 3px 5px #fff7,inset 0 -3px 5px #7c3b2527,0 3px 5px #49362d32}.slot.whiskerLeftUp,.piece.whiskerLeftUp{transform:rotate(10deg)}.slot.whiskerLeftDown,.piece.whiskerLeftDown{transform:rotate(-10deg)}.slot.whiskerRightUp,.piece.whiskerRightUp{transform:rotate(-10deg)}.slot.whiskerRightDown,.piece.whiskerRightDown{transform:rotate(10deg)}
+.slot.wingLeft,.piece.wingLeft{clip-path:polygon(100% 0,100% 100%,0 50%);border:0}.slot.wingRight,.piece.wingRight{clip-path:polygon(0 0,100% 50%,0 100%);border:0}.slot.wingLeft,.slot.wingRight{background:#71808655}.slot.wingLeft.filled,.slot.wingRight.filled{background:var(--color)}.piece.wingLeft,.piece.wingRight{width:72px;height:68px}
+.slot.sunRayN,.piece.sunRayN,.slot.sunRayNE,.piece.sunRayNE,.slot.sunRayE,.piece.sunRayE,.slot.sunRaySE,.piece.sunRaySE,.slot.sunRayS,.piece.sunRayS,.slot.sunRaySW,.piece.sunRaySW,.slot.sunRayW,.piece.sunRayW,.slot.sunRayNW,.piece.sunRayNW{clip-path:polygon(50% 0,100% 100%,0 100%);border:0}.slot.sunRayN,.slot.sunRayNE,.slot.sunRayE,.slot.sunRaySE,.slot.sunRayS,.slot.sunRaySW,.slot.sunRayW,.slot.sunRayNW{background:#71808655}.slot.sunRayN.filled,.slot.sunRayNE.filled,.slot.sunRayE.filled,.slot.sunRaySE.filled,.slot.sunRayS.filled,.slot.sunRaySW.filled,.slot.sunRayW.filled,.slot.sunRayNW.filled{background:var(--color)}.piece.sunRayN,.piece.sunRayNE,.piece.sunRayE,.piece.sunRaySE,.piece.sunRayS,.piece.sunRaySW,.piece.sunRayW,.piece.sunRayNW{width:56px;height:60px}.slot.sunRayNE,.piece.sunRayNE{transform:rotate(45deg)}.slot.sunRayE,.piece.sunRayE{transform:rotate(90deg)}.slot.sunRaySE,.piece.sunRaySE{transform:rotate(135deg)}.slot.sunRayS,.piece.sunRayS{transform:rotate(180deg)}.slot.sunRaySW,.piece.sunRaySW{transform:rotate(225deg)}.slot.sunRayW,.piece.sunRayW{transform:rotate(270deg)}.slot.sunRayNW,.piece.sunRayNW{transform:rotate(315deg)}
+.slot.coneDown,.piece.coneDown,.slot.triangleDown,.piece.triangleDown{clip-path:polygon(0 0,100% 0,50% 100%);border:0}.slot.triangleLeft,.piece.triangleLeft{clip-path:polygon(100% 0,100% 100%,0 50%);border:0}.slot.triangleRight,.piece.triangleRight{clip-path:polygon(0 0,100% 50%,0 100%);border:0}.slot.triangleUpBlade,.piece.triangleUpBlade{clip-path:polygon(50% 0,100% 100%,0 100%);border:0}.slot.coneDown,.slot.triangleDown,.slot.triangleLeft,.slot.triangleRight,.slot.triangleUpBlade{background:#71808655}.slot.coneDown.filled,.slot.triangleDown.filled,.slot.triangleLeft.filled,.slot.triangleRight.filled,.slot.triangleUpBlade.filled{background:var(--color)}.piece.coneDown{width:72px;height:82px}.piece.triangleDown,.piece.triangleLeft,.piece.triangleRight,.piece.triangleUpBlade{width:64px;height:64px}
+.assembly.catshape.complete{animation:catHello 1.5s ease-in-out .2s}.assembly.butterfly.complete{animation:butterflyFlyAway 2s ease-in-out .3s forwards}.assembly.helicopter.complete{animation:helicopterLift 1.8s ease-in .2s forwards}.assembly.sun.complete{animation:sunShine 1.5s ease-in-out .2s}.assembly.carshape.complete{animation:carDrive 1.7s ease-in .2s forwards}.assembly.windmill.complete{animation:windmillHappy 1.5s ease-in-out .2s}
+  </style>
+</head>
+<body>
+<main class="game">
+  <header class="top"><a class="pill" href="geometry-games-catalog.html">← До ігор</a><h1 class="title">Майстерня фігур</h1><button class="pill reset" id="reset">↻ Спочатку</button></header>
+  <div class="progress" id="progress"></div>
+  <p class="instruction" id="instruction"></p>
+  <section class="board" id="board" aria-label="Поле гри"><div class="assembly" id="assembly"></div><img class="mimi" src="../../../../mimi-run-transparent-v2b.webp" alt="Мімі"></section>
+  <section class="tray-wrap"><div class="tray-title">Обери фігуру й постав на її місце</div><div class="tray" id="tray"></div></section>
+  <div class="message" id="message">Мімі: «Спробуємо?» 🐾</div>
+  <div class="actions"><button class="action next" id="next" hidden>Наступна конструкція →</button></div>
+</main>
+<script>
+const levels=[
+ {name:'Возик',className:'cart',prompt:'Допоможи Мімі скласти возик',parts:[
+  {kind:'rectangle',x:26,y:46,w:42,h:18,color:'#ff8b24'},
+  {kind:'circle',x:31,y:62,w:14,h:14,color:'#149fda'},
+  {kind:'circle',x:52,y:62,w:14,h:14,color:'#149fda'}]},
+ {name:'Будиночок',className:'house',prompt:'Збудуй для Мімі затишний будиночок',parts:[
+  {kind:'square',x:29,y:36,w:38,h:36,color:'#ff9838'},
+  {kind:'triangle',x:25,y:17,w:46,h:24,color:'#f04455'},
+  {kind:'rectangle',x:45,y:53,w:10,h:19,color:'#815039'},
+  {kind:'circle',x:35,y:44,w:10,h:10,color:'#14aee5'}]},
+ {name:'Ракета',className:'rocket',prompt:'Склади ракету — вирушаємо до зірок!',parts:[
+  {kind:'rectangle',x:38,y:31,w:22,h:37,color:'#ffd054'},
+  {kind:'triangle',x:38,y:15,w:22,h:18,color:'#f04455'},
+  {kind:'triangle',x:29,y:54,w:17,h:19,color:'#ff861e'},
+  {kind:'triangle',x:52,y:54,w:17,h:19,color:'#ff861e'},
+  {kind:'circle',x:43,y:38,w:12,h:12,color:'#149fda'},
+  {kind:'circle',x:43,y:52,w:12,h:12,color:'#149fda'}]},
+ {name:'Кораблик',className:'boat',prompt:'Склади кораблик — вирушаємо в плавання!',parts:[
+  {kind:'boatHull',x:20,y:57,w:60,h:18,color:'#168bd2'},
+  {kind:'mast',x:48,y:25,w:7,h:33,color:'#8d5638'},
+  {kind:'sailRight',x:53,y:28,w:27,h:25,color:'#ff5b69'},
+  {kind:'sailLeft',x:27,y:31,w:21,h:22,color:'#ffd23f'},
+  {kind:'circle',x:30,y:61,w:8,h:8,color:'#ffd23f'},
+  {kind:'circle',x:46,y:61,w:8,h:8,color:'#ffd23f'},
+  {kind:'circle',x:62,y:61,w:8,h:8,color:'#ffd23f'}]},
+ {name:'Паровозик',className:'train',prompt:'Збудуй веселий паровозик для Мімі',parts:[
+  {kind:'rectangle',x:23,y:47,w:51,h:20,color:'#ff6a2f'},
+  {kind:'square',x:51,y:29,w:23,h:20,color:'#3b82e6'},
+  {kind:'square',x:28,y:35,w:12,h:13,color:'#ffd23f'},
+  {kind:'circle',x:30,y:63,w:14,h:14,color:'#25a9df'},
+  {kind:'circle',x:57,y:63,w:14,h:14,color:'#25a9df'}]},
+ {name:'Дерево',className:'tree',prompt:'Посади для Мімі зелене деревце',parts:[
+  {kind:'rectangle',x:46,y:27,w:9,h:51,color:'#925535'},
+  {kind:'branchLeft',x:28,y:51,w:24,h:6,color:'#925535'},
+  {kind:'branchRight',x:49,y:51,w:24,h:6,color:'#925535'},
+  {kind:'branchUpLeft',x:35,y:37.5,w:21,h:5,color:'#925535'},
+  {kind:'branchUpRight',x:48,y:36,w:17,h:5,color:'#925535'},
+  {kind:'circle',x:19,y:38,w:19,h:19,color:'#3fbd62',front:true},
+  {kind:'circle',x:29,y:22,w:21,h:21,color:'#24a957',front:true},
+  {kind:'circle',x:41.5,y:11.5,w:18,h:18,color:'#63c95b',front:true},
+  {kind:'circle',x:52,y:23,w:19,h:19,color:'#2eaf5b',front:true},
+  {kind:'circle',x:62.5,y:37.5,w:20,h:20,color:'#55c45c',front:true}]},
+ {name:'Морозиво',className:'icecream',prompt:'Склади смачне морозиво з фігур',parts:[
+  {kind:'coneDown',x:39,y:51,w:24,h:28,color:'#e89a48'},
+  {kind:'circle',x:30,y:34,w:23,h:23,color:'#ff6f9e'},
+  {kind:'circle',x:48,y:34,w:23,h:23,color:'#63c95b'},
+  {kind:'circle',x:39,y:20,w:23,h:23,color:'#ffd45a'}]},
+ {name:'Робот',className:'robot',prompt:'Збери веселого робота-помічника',parts:[
+  {kind:'square',x:37,y:21,w:27,h:23,color:'#7a68df'},
+  {kind:'rectangle',x:34,y:45,w:33,h:27,color:'#32b9d6'},
+  {kind:'circle',x:42,y:28,w:6,h:6,color:'#ffd23f'},
+  {kind:'circle',x:54,y:28,w:6,h:6,color:'#ffd23f'},
+  {kind:'rectangle',x:24,y:49,w:10,h:8,color:'#ff704d'},
+  {kind:'rectangle',x:67,y:49,w:10,h:8,color:'#ff704d'}]},
+ {name:'Квіточка',className:'flower',prompt:'Склади для Мімі яскраву квіточку',parts:[
+  {kind:'mast',x:48,y:52,w:7,h:24,color:'#45a958'},
+  {kind:'circle',x:43,y:34,w:17,h:17,color:'#ffd23f'},
+  {kind:'circle',x:43,y:18,w:17,h:17,color:'#ff79a8'},
+  {kind:'circle',x:28,y:29,w:17,h:17,color:'#ff79a8'},
+  {kind:'circle',x:58,y:29,w:17,h:17,color:'#ff79a8'},
+  {kind:'circle',x:34,y:46,w:17,h:17,color:'#ff79a8'},
+  {kind:'circle',x:52,y:46,w:17,h:17,color:'#ff79a8'}]},
+ {name:'Рибка',className:'fish',prompt:'Склади веселу рибку з фігур',parts:[
+  {kind:'oval',x:31,y:37,w:39,h:25,color:'#35b9d0'},
+  {kind:'fishTail',x:18,y:40,w:15,h:20,color:'#ff8b38'},
+  {kind:'topFin',x:43,y:27,w:16,h:12,color:'#ffd04d'},
+  {kind:'bottomFin',x:43,y:60,w:16,h:12,color:'#ffd04d'},
+  {kind:'circle',x:58,y:43,w:7,h:7,color:'#49362d'}]},
+ {name:'Грибочок',className:'mushroom',prompt:'Склади для Мімі казковий грибочок',parts:[
+  {kind:'rectangle',x:43,y:48,w:17,h:25,color:'#f0c68c'},
+  {kind:'oval',x:30,y:29,w:43,h:24,color:'#f05e6f'},
+  {kind:'circle',x:39,y:35,w:7,h:7,color:'#fff1b5'},
+  {kind:'circle',x:56,y:34,w:7,h:7,color:'#fff1b5'},
+  {kind:'circle',x:48,y:43,w:6,h:6,color:'#fff1b5'}]},
+ {name:'Сніговик',className:'snowman',prompt:'Склади веселого сніговика з фігур',parts:[
+  {kind:'circle',x:38,y:55,w:28,h:28,color:'#edf9ff'},
+  {kind:'circle',x:41,y:39,w:22,h:22,color:'#edf9ff'},
+  {kind:'circle',x:44,y:26,w:16,h:16,color:'#edf9ff'},
+  {kind:'noseStick',x:54,y:34,w:12,h:4,color:'#e34c4c'},
+  {kind:'bucket',x:45,y:17,w:15,h:14,color:'#5c67c9'}]},
+ {name:'Курчатко',className:'chick',prompt:'Склади маленьке жовте курчатко',parts:[
+  {kind:'circle',x:39,y:45,w:27,h:27,color:'#ffd43b'},
+  {kind:'circle',x:43,y:29,w:20,h:20,color:'#ffe05b'},
+  {kind:'leftWing',x:29,y:48,w:13,h:17,color:'#f5bd22'},
+  {kind:'rightWing',x:63,y:48,w:13,h:17,color:'#f5bd22'},
+  {kind:'beak',x:59,y:35,w:10,h:8,color:'#ff8b38'},
+  {kind:'circle',x:53,y:34,w:4.5,h:4.5,color:'#49362d'}]},
+ {name:'Замок',className:'castle',prompt:'Побудуй казковий замок для Мімі',parts:[
+  {kind:'rectangle',x:35,y:38,w:31,h:35,color:'#8e70df'},
+  {kind:'square',x:19,y:46,w:18,h:27,color:'#54b7e8'},
+  {kind:'square',x:64,y:46,w:18,h:27,color:'#54b7e8'},
+  {kind:'triangle',x:18,y:29,w:20,h:19,color:'#ff5b69'},
+  {kind:'triangle',x:63,y:29,w:20,h:19,color:'#ff5b69'},
+  {kind:'rectangle',x:46,y:57,w:10,h:16,color:'#7b4a39'}]},
+ {name:'Котик',className:'catshape',prompt:'Склади котика з геометричних фігур',parts:[
+  {kind:'catEarLeft',x:28.5,y:14.5,w:15,h:18,color:'#ff9f8f'},
+  {kind:'catEarRight',x:58.5,y:14.5,w:15,h:18,color:'#ff9f8f'},
+  {kind:'circle',x:30,y:23,w:42,h:42,color:'#ffd08a'},
+  {kind:'catEye',x:38,y:34,w:11,h:11,color:'#49362d',front:true},
+  {kind:'catEye',x:53,y:34,w:11,h:11,color:'#49362d',front:true},
+  {kind:'circle',x:38.5,y:47.5,w:14,h:14,color:'#ffb5a7',front:true},
+  {kind:'circle',x:49.5,y:47.5,w:14,h:14,color:'#ffb5a7',front:true},
+  {kind:'whiskerLeftUp',x:25,y:47.6,w:19,h:7,color:'#7b4a39',front:true},
+  {kind:'whiskerLeftDown',x:25,y:53.6,w:19,h:7,color:'#7b4a39',front:true},
+  {kind:'whiskerRightUp',x:58,y:47.6,w:19,h:7,color:'#7b4a39',front:true},
+  {kind:'whiskerRightDown',x:58,y:53.6,w:19,h:7,color:'#7b4a39',front:true},
+  {kind:'triangleDown',x:47,y:48,w:7,h:7,color:'#f06b7c',front:true}]},
+ {name:'Метелик',className:'butterfly',prompt:'Склади барвистого метелика',parts:[
+  {kind:'circle',x:29,y:45,w:20,h:20,color:'#8e70df'},
+  {kind:'circle',x:53,y:45,w:20,h:20,color:'#ffd23f'},
+  {kind:'circle',x:28,y:27,w:27,h:27,color:'#ff79a8'},
+  {kind:'circle',x:48,y:27,w:27,h:27,color:'#ff79a8'},
+  {kind:'circle',x:36.5,y:35.5,w:10,h:10,color:'#ffd23f',front:true},
+  {kind:'circle',x:56.5,y:35.5,w:10,h:10,color:'#8e70df',front:true},
+  {kind:'mast',x:48.5,y:35.5,w:6,h:29,color:'#7b4a39',front:true},
+  {kind:'circle',x:46,y:25,w:10,h:10,color:'#7b4a39',front:true}]},
+ {name:'Гелікоптер',className:'helicopter',prompt:'Склади гелікоптер з фігур',parts:[
+  {kind:'oval',x:36,y:39,w:35,h:24,color:'#ffd23f'},
+  {kind:'circle',x:54.5,y:42,w:17,h:17,color:'#149fda',front:true},
+  {kind:'rectangle',x:23,y:46,w:15,h:7,color:'#ffd23f'},
+  {kind:'triangle',x:17,y:41,w:12,h:15,color:'#f04455'},
+  {kind:'mast',x:48,y:29,w:6,h:12,color:'#7b4a39'},
+  {kind:'rectangle',x:25,y:22,w:32,h:7,color:'#3b82e6'},
+  {kind:'rectangle',x:54,y:22,w:32,h:7,color:'#3b82e6'},
+  {kind:'rectangle',x:39,y:63,w:31,h:6,color:'#8d5638'}]},
+ {name:'Сонечко',className:'sun',prompt:'Склади яскраве сонечко',parts:[
+  {kind:'sunRayN',x:46,y:17,w:12,h:18,color:'#ff9f24'},
+  {kind:'sunRayNE',x:62,y:23,w:12,h:18,color:'#ff9f24'},
+  {kind:'sunRayE',x:68,y:39,w:12,h:18,color:'#ff9f24'},
+  {kind:'sunRaySE',x:61,y:55,w:12,h:18,color:'#ff9f24'},
+  {kind:'sunRayS',x:46,y:60,w:12,h:18,color:'#ff9f24'},
+  {kind:'sunRaySW',x:31,y:55,w:12,h:18,color:'#ff9f24'},
+  {kind:'sunRayW',x:24,y:39,w:12,h:18,color:'#ff9f24'},
+  {kind:'sunRayNW',x:31,y:23,w:12,h:18,color:'#ff9f24'},
+  {kind:'circle',x:38,y:33,w:28,h:28,color:'#ffd23f',front:true}]},
+ {name:'Машинка',className:'carshape',prompt:'Склади маленьку машинку',parts:[
+  {kind:'rectangle',x:25,y:46,w:52,h:19,color:'#f04455'},
+  {kind:'trapezoid',x:37,y:32,w:31,h:17,color:'#3b82e6'},
+  {kind:'circle',x:31,y:62,w:14,h:14,color:'#49362d'},
+  {kind:'circle',x:58,y:62,w:14,h:14,color:'#49362d'},
+  {kind:'square',x:22,y:51,w:8,h:8,color:'#ffd23f'},
+  {kind:'square',x:70,y:51,w:8,h:8,color:'#ffd23f'}]},
+ {name:'Вітрячок',className:'windmill',prompt:'Склади веселий вітрячок',parts:[
+  {kind:'square',x:39,y:53,w:24,h:22,color:'#54b7e8'},
+  {kind:'triangle',x:37,y:43,w:28,h:13,color:'#f04455'},
+  {kind:'circle',x:44,y:28,w:15,h:15,color:'#7b4a39'},
+  {kind:'triangleUpBlade',x:44,y:13,w:15,h:19,color:'#ffd23f'},
+  {kind:'triangleRight',x:56,y:27,w:19,h:15,color:'#ff8b24'},
+  {kind:'triangleDown',x:44,y:39,w:15,h:19,color:'#8e70df'},
+  {kind:'triangleLeft',x:28,y:27,w:19,h:15,color:'#ff79a8'}]}
+];
+const requestedLevel=Math.max(1,Math.min(levels.length,Number(new URLSearchParams(location.search).get('level'))||1));
+let levelIndex=requestedLevel-1,selected=null,filled=0;const board=document.getElementById('board'),assembly=document.getElementById('assembly'),tray=document.getElementById('tray'),message=document.getElementById('message'),next=document.getElementById('next'),instruction=document.getElementById('instruction');
+const shuffle=a=>a.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+function render(){selected=null;filled=0;next.hidden=true;message.textContent='Мімі: «Спробуємо?» 🐾';const l=levels[levelIndex];instruction.textContent=l.prompt;assembly.className='assembly '+l.className;assembly.innerHTML='';tray.innerHTML='';document.getElementById('progress').innerHTML=levels.map((_,i)=>`<span class="dot ${i<levelIndex?'done':i===levelIndex?'active':''}"></span>`).join('');
+ l.parts.forEach((p,i)=>{const s=document.createElement('button');s.className='slot '+p.kind;s.dataset.kind=p.kind;s.dataset.index=i;s.style.cssText=`left:${p.x}%;top:${p.y}%;width:${p.w}%;height:${p.h}%;${p.front?'z-index:3;':''}`;s.setAttribute('aria-label','Місце для фігури');s.onclick=()=>placeSelected(s);assembly.appendChild(s)});
+ shuffle(l.parts.map((p,i)=>({...p,source:i}))).forEach(p=>{const b=document.createElement('button');b.className='piece '+p.kind;b.dataset.kind=p.kind;b.dataset.source=p.source;b.style.setProperty('--color',p.color);b.setAttribute('aria-label',p.kind);b.onclick=()=>choose(b);enableDrag(b);tray.appendChild(b)});
+}
+function choose(piece){if(piece.classList.contains('used'))return;document.querySelectorAll('.piece').forEach(x=>x.classList.remove('chosen'));selected=piece;piece.classList.add('chosen');message.textContent='Тепер знайди для неї місце ✨'}
+function placeSelected(slot){if(!selected||slot.classList.contains('filled'))return;if(selected.dataset.kind!==slot.dataset.kind){message.textContent='Мімі: «Майже! Спробуй інше місце» 🐾';slot.animate([{transform:'translateX(0)'},{transform:'translateX(-7px)'},{transform:'translateX(7px)'},{transform:'translateX(0)'}],{duration:330});return}fill(slot,selected)}
+function fill(slot,piece){const p=levels[levelIndex].parts[Number(slot.dataset.index)];slot.classList.add('filled');slot.style.setProperty('--color',p.color);piece.classList.add('used');piece.classList.remove('chosen');selected=null;filled++;message.textContent='Так! Фігура на своєму місці ⭐';if(filled===levels[levelIndex].parts.length)complete()}
+function complete(){assembly.classList.add('complete');board.classList.add('celebrate');message.textContent=`Готово! Це ${levels[levelIndex].name.toLowerCase()}! 🎉`;for(let i=0;i<8;i++){const s=document.createElement('span');s.className='spark';s.textContent=['⭐','✨','●'][i%3];s.style.left=(18+Math.random()*62)+'%';s.style.top=(25+Math.random()*45)+'%';board.appendChild(s);setTimeout(()=>s.remove(),1100)}setTimeout(()=>board.classList.remove('celebrate'),600);next.hidden=levelIndex===levels.length-1; if(levelIndex===levels.length-1)setTimeout(()=>message.textContent='Мімі: «Ми збудували все! Які ми майстри!» ❤️🐾',1600)}
+function nearbySlot(x,y,kind){let best=null,bestDistance=Infinity;document.querySelectorAll(`.slot[data-kind="${kind}"]:not(.filled)`).forEach(slot=>{const r=slot.getBoundingClientRect(),dx=Math.max(r.left-x,0,x-r.right),dy=Math.max(r.top-y,0,y-r.bottom),distance=Math.hypot(dx,dy);if(distance<44&&distance<bestDistance){best=slot;bestDistance=distance}});return best}
+function enableDrag(piece){let ghost=null,moved=false;piece.addEventListener('pointerdown',e=>{if(piece.classList.contains('used'))return;moved=false;ghost=piece.cloneNode();ghost.classList.add('ghost');ghost.style.left=e.clientX+'px';ghost.style.top=e.clientY+'px';document.body.appendChild(ghost);piece.setPointerCapture(e.pointerId)});piece.addEventListener('pointermove',e=>{if(!ghost)return;moved=true;ghost.style.left=e.clientX+'px';ghost.style.top=e.clientY+'px'});piece.addEventListener('pointerup',e=>{if(!ghost)return;ghost.remove();ghost=null;piece.releasePointerCapture(e.pointerId);if(!moved){choose(piece);return}const exact=document.elementFromPoint(e.clientX,e.clientY)?.closest('.slot'),hit=exact?.dataset.kind===piece.dataset.kind?exact:nearbySlot(e.clientX,e.clientY,piece.dataset.kind);if(hit){selected=piece;placeSelected(hit)}else choose(piece)})}
+next.onclick=()=>{levelIndex++;render()};document.getElementById('reset').onclick=()=>render();
+render();
+</script>
+</body>
+</html>
