@@ -67,7 +67,7 @@ const introFeedback={text:'Привіт! Допоможеш Мімі все зн
 const finishFeedback={text:'Чудово! Ти все знайшов! Дякую, що допоміг Мімі!',audio:'../../../../audio/games/find-for-mimi/02_find_for_mimi_finish.mp3'};
 const correctSfx='../../../../audio/games/common/correct_chime.mp3',wrongSfx='../../../../audio/games/common/wrong_boop.mp3';
 const MUSIC_VOLUME=.22,DUCKED_MUSIC_VOLUME=.08;
-const QUESTION_AUDIO_VERSION='20260917-clean2';
+const QUESTION_AUDIO_VERSION='20260924-star-audio-fix1';
 
 const auditMode=new URLSearchParams(location.search).get('test')==='1';
 const requestedStart=Math.max(1,Math.min(30,Number(new URLSearchParams(location.search).get('start'))||1));
@@ -78,7 +78,7 @@ let levels=[],level=0,answered=false;
 const question=document.getElementById('question'),choices=document.getElementById('choices'),message=document.getElementById('message'),next=document.getElementById('next'),scene=document.getElementById('scene');
 
 const audioCache=new Map();
-[...levelBank,...correctFeedback,...retryFeedback,introFeedback,finishFeedback].forEach(item=>{if(item.audio){const source=item.audio.includes('/questions/')?`${item.audio}?v=${QUESTION_AUDIO_VERSION}`:item.audio;const voice=new Audio(source);voice.preload='auto';audioCache.set(item.audio,voice)}});
+[...levelBank,...correctFeedback,...retryFeedback,introFeedback,finishFeedback].forEach(item=>{if(item.audio){const source=item.audio.includes('/questions/')?`${item.audio}?v=${QUESTION_AUDIO_VERSION}`:item.audio;const voice=new Audio(source);voice.preload='auto';if(item.audio.includes('/questions/'))voice.load();audioCache.set(item.audio,voice)}});
 let activeVoice=null,currentMusic=null,currentMusicPath='';
 function playSfx(path,volume=.7){const a=new Audio(path);a.volume=volume;a.play().catch(()=>{})}
 function playVoice(path){
