@@ -67,7 +67,7 @@ const introFeedback={text:'Привіт! Допоможеш Мімі все зн
 const finishFeedback={text:'Чудово! Ти все знайшов! Дякую, що допоміг Мімі!',audio:'../../../../audio/games/find-for-mimi/02_find_for_mimi_finish.mp3'};
 const correctSfx='../../../../audio/games/common/correct_chime.mp3',wrongSfx='../../../../audio/games/common/wrong_boop.mp3';
 const MUSIC_VOLUME=.22,DUCKED_MUSIC_VOLUME=.08;
-const QUESTION_AUDIO_VERSION='20260924-star-audio-fix1';
+const QUESTION_AUDIO_VERSION='20260924-star-audio-fix2';
 
 const auditMode=new URLSearchParams(location.search).get('test')==='1';
 const requestedStart=Math.max(1,Math.min(30,Number(new URLSearchParams(location.search).get('start'))||1));
@@ -118,7 +118,7 @@ function answer(button,correct){
  for(let i=0;i<7;i++){const s=document.createElement('span');s.className='spark';s.textContent=['⭐','✨','●'][i%3];s.style.left=(14+Math.random()*68)+'%';s.style.top=(28+Math.random()*48)+'%';scene.appendChild(s);setTimeout(()=>s.remove(),1100)}
  if(level<levels.length-1)next.hidden=false;else setTimeout(()=>{message.textContent=finishFeedback.text;playVoice(finishFeedback.audio)},900)
 }
-function startGame(){levels=auditMode?[...levelBank]:shuffle(levelBank).slice(0,20);level=auditMode?requestedStart-1:0;render()}
+function startGame(){levels=auditMode?[...levelBank]:shuffle(levelBank);level=auditMode?requestedStart-1:0;render()}
 let started=false;
 next.onclick=()=>{if(!started){started=true;next.textContent='Далі →';message.textContent=introFeedback.text;playVoice(introFeedback.audio);setTimeout(startGame,2600);return}level++;render()};
 document.getElementById('reset').onclick=()=>{started=true;next.textContent='Далі →';startGame()};
