@@ -28,11 +28,11 @@ const A=ROOT+'media/pograymo/assets/illustrations/';
 const VOICE=ROOT+'audio/games/maisternia-koloriv/voice/';
 const COMMON=ROOT+'audio/games/common/';
 const fruits=[
- {id:'apple',img:A+'fruits/apple-green.png',label:'зелене яблуко',voice:'01_basket_green_apple.mp3'},
- {id:'strawberry',img:A+'fruits/strawberry-red.png',label:'червону полуницю',voice:'01_basket_red_strawberry.mp3'},
- {id:'plum',img:A+'fruits/plum-purple.png',label:'фіолетову сливу',voice:'01_basket_purple_plum.mp3'},
- {id:'blackberry',img:A+'fruits/blackberry-blue.png',label:'ожину синього кольору',voice:'01_basket_blue_blackberry.mp3'},
- {id:'apricot',img:A+'fruits/apricot-orange.png',label:'помаранчевий абрикос',voice:'01_basket_orange_apricot.mp3'}
+ {id:'apple',img:A+'fruits/apple-green.png',label:'зелене яблуко',prompt:'Поклади в кошик зелене яблуко.',voice:'01_basket_green_apple.mp3'},
+ {id:'strawberry',img:A+'fruits/strawberry-red.png',label:'червону полуницю',prompt:'Поклади в кошик червону полуницю.',voice:'01_basket_red_strawberry.mp3'},
+ {id:'plum',img:A+'fruits/plum-purple.png',label:'фіолетову сливу',prompt:'Поклади в кошик фіолетову сливу.',voice:'01_basket_purple_plum.mp3'},
+ {id:'blackberry',img:A+'fruits/blackberry-blue.png',label:'ожину синього кольору',prompt:'Поклади ожину синього кольору.',voice:'01_basket_blue_blackberry.mp3'},
+ {id:'apricot',img:A+'fruits/apricot-orange.png',label:'помаранчевий абрикос',prompt:'Поклади в кошик помаранчевий абрикос.',voice:'01_basket_orange_apricot.mp3'}
 ];
 const correct=['correct-1.mp3','correct-2.mp3','correct-3.mp3','correct-4.mp3','correct-5.mp3'];
 const retry=['retry-1.mp3','retry-2.mp3','retry-3.mp3'];
@@ -43,7 +43,7 @@ function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Ma
 function makeOrder(){const others=shuffle(fruits.filter(f=>f.id!=='blackberry'));const pos=2+Math.floor(Math.random()*3);others.splice(pos,0,fruits.find(f=>f.id==='blackberry'));return others}
 function nextFrom(files,type){let bag=type==='correct'?feedbackBag:retryBag;if(!bag.length){bag=shuffle(files);if(type==='correct')feedbackBag=bag;else retryBag=bag}return bag.pop()}
 function play(path,onEnd){if(activeAudio){activeAudio.pause();activeAudio.currentTime=0}const a=new Audio(path);activeAudio=a;a.onended=()=>{if(onEnd)onEnd()};a.play().catch(()=>{if(onEnd)onEnd()})}
-function prompt(){const f=order[step];q.textContent=f.id==='blackberry'?'Поклади ожину синього кольору.':'Поклади '+f.label+' в кошик.';progress.textContent='Кошик • '+(step+1)+' з 5';play(VOICE+f.voice)}
+function prompt(){const f=order[step];q.textContent=f.prompt;progress.textContent='Кошик • '+(step+1)+' з 5';play(VOICE+f.voice)}
 function renderScene(){
  scene.innerHTML='<img class="basket" id="basket" src="'+A+'containers/fruit-basket.png" alt="Кошик"><div class="tray" id="tray"></div>';
  const tray=document.getElementById('tray');shuffle(fruits).forEach(f=>{const b=document.createElement('button');b.className='fruit';b.dataset.id=f.id;b.setAttribute('aria-label',f.label);b.innerHTML='<img src="'+f.img+'" alt="'+f.label+'">';b.onclick=()=>choose(b,f);tray.appendChild(b)});
