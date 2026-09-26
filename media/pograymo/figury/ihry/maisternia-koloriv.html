@@ -15,8 +15,13 @@
 .placed{position:absolute;z-index:3;width:16%;max-width:92px;transform:translate(-50%,-50%);pointer-events:none;animation:drop .45s ease both;filter:drop-shadow(0 5px 4px #513e4630)}
 .message{min-height:44px;margin:9px 0 2px;display:grid;place-items:center;text-align:center;font-weight:900}.start{display:grid;place-items:center;height:100%;min-height:460px;text-align:center;padding:28px}.start strong{font-size:clamp(28px,7vw,45px)}.start span{display:block;margin-top:12px;font-size:19px;font-weight:900}.start button{margin-top:25px;border:0;border-radius:999px;padding:14px 24px;background:#ffd35c;color:#513e46;font-weight:900;box-shadow:0 6px 15px #513e4628}
 .spark{position:absolute;z-index:8;font-size:27px;animation:spark 1s ease-out forwards;pointer-events:none}
+.bouquet{position:absolute;z-index:2;left:50%;top:30%;width:min(48%,300px);transform:translateX(-50%);filter:drop-shadow(0 10px 8px #6c513c35);pointer-events:none}
+.flower{border:0;background:transparent;padding:3px;width:18%;min-width:52px;cursor:pointer;transition:.2s}.flower img{display:block;width:100%;max-height:104px;object-fit:contain;filter:drop-shadow(0 6px 4px #513e4630)}.flower:active{transform:scale(.94)}.flower.bad{animation:shake .35s}.flower.used{visibility:hidden;pointer-events:none}
+.bouquet-flower{position:absolute;z-index:3;width:15%;max-width:86px;transform:translate(-50%,-50%);pointer-events:none;animation:drop .45s ease both;filter:drop-shadow(0 5px 4px #513e4630)}
+.butterfly{position:absolute;z-index:7;width:min(15%,92px);left:-18%;top:20%;pointer-events:none;filter:drop-shadow(0 5px 4px #513e4630);animation:butterflyLand 2.1s ease-in-out forwards}
+@keyframes butterflyLand{0%{left:-18%;top:18%;transform:rotate(-12deg) scale(.85)}35%{left:30%;top:12%;transform:rotate(8deg) scale(1)}70%{left:61%;top:24%;transform:rotate(-5deg) scale(.92)}100%{left:58%;top:38%;transform:rotate(0) scale(.82)}}
 @keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}@keyframes drop{from{transform:translate(-50%,-75%) scale(.75);opacity:.4}70%{transform:translate(-50%,-47%) scale(1.08)}to{transform:translate(-50%,-50%) scale(1);opacity:1}}@keyframes wobble{25%{transform:translateX(-50%) rotate(-3deg)}50%{transform:translateX(-50%) rotate(3deg)}75%{transform:translateX(-50%) rotate(-1deg)}}@keyframes spark{to{transform:translateY(-90px) rotate(35deg);opacity:0}}
-@media(max-width:520px){.game{padding:8px 6px 22px}.top{grid-template-columns:auto 1fr}.top .reset{grid-column:1/3;grid-row:2;justify-self:center;padding:7px 11px}.pill{font-size:13px}.scene{min-height:430px;border-radius:27px}.basket{top:29%;width:56%}.tray{left:2%;right:2%;bottom:10px}.fruit{width:19%;padding:1px}.fruit img{max-height:82px}}
+@media(max-width:520px){.game{padding:8px 6px 22px}.top{grid-template-columns:auto 1fr}.top .reset{grid-column:1/3;grid-row:2;justify-self:center;padding:7px 11px}.pill{font-size:13px}.scene{min-height:430px;border-radius:27px}.basket,.bouquet{top:29%;width:56%}.tray{left:2%;right:2%;bottom:10px}.fruit,.flower{width:19%;padding:1px}.fruit img,.flower img{max-height:82px}}
 </style></head>
 <body><main class="game">
 <header class="top"><a class="pill" href="geometry-games-catalog.html">← До ігор</a><h1 class="title">Майстерня кольорів</h1><button class="pill reset" id="reset">↻ Спочатку</button></header>
@@ -27,33 +32,69 @@ const ROOT='../../../../';
 const A=ROOT+'media/pograymo/assets/illustrations/';
 const VOICE=ROOT+'audio/games/maisternia-koloriv/voice/';
 const COMMON=ROOT+'audio/games/common/';
+const KOMAKHY=ROOT+'media/pograymo/pryroda/ihry/komakhy/';
 const fruits=[
- {id:'apple',img:A+'fruits/apple-green.png',label:'зелене яблуко',prompt:'Поклади в кошик зелене яблуко.',voice:'01_basket_green_apple.mp3'},
- {id:'strawberry',img:A+'fruits/strawberry-red.png',label:'червону полуницю',prompt:'Поклади в кошик червону полуницю.',voice:'01_basket_red_strawberry.mp3'},
- {id:'plum',img:A+'fruits/plum-purple.png',label:'фіолетову сливу',prompt:'Поклади в кошик фіолетову сливу.',voice:'01_basket_purple_plum.mp3'},
- {id:'blackberry',img:A+'fruits/blackberry-blue.png',label:'ожину синього кольору',prompt:'Поклади ожину синього кольору.',voice:'01_basket_blue_blackberry.mp3'},
- {id:'apricot',img:A+'fruits/apricot-orange.png',label:'помаранчевий абрикос',prompt:'Поклади в кошик помаранчевий абрикос.',voice:'01_basket_orange_apricot.mp3'}
+ {id:'apple',img:A+'fruits/apple-green.webp',label:'зелене яблуко',prompt:'Поклади в кошик зелене яблуко.',voice:'01_basket_green_apple.mp3'},
+ {id:'strawberry',img:A+'fruits/strawberry-red.webp',label:'червону полуницю',prompt:'Поклади в кошик червону полуницю.',voice:'01_basket_red_strawberry.mp3'},
+ {id:'plum',img:A+'fruits/plum-purple.webp',label:'фіолетову сливу',prompt:'Поклади в кошик фіолетову сливу.',voice:'01_basket_purple_plum.mp3'},
+ {id:'blackberry',img:A+'fruits/blackberry-blue.webp',label:'ожину синього кольору',prompt:'Поклади ожину синього кольору.',voice:'01_basket_blue_blackberry.mp3'},
+ {id:'apricot',img:A+'fruits/apricot-orange.webp',label:'помаранчевий абрикос',prompt:'Поклади в кошик помаранчевий абрикос.',voice:'01_basket_orange_apricot.mp3'}
+];
+const flowers=[
+ {id:'daisy',img:A+'plants/daisy-white.webp',label:'білу ромашку',prompt:'Додай до букета білу ромашку.',voice:'02_bouquet_white_daisy.mp3'},
+ {id:'hydrangea',img:A+'plants/hydrangea-blue.webp',label:'блакитну гортензію',prompt:'Додай до букета блакитну гортензію.',voice:'02_bouquet_blue_hydrangea.mp3'},
+ {id:'pansy',img:A+'plants/pansy-purple.webp',label:'фіолетові братки',prompt:'Додай до букета фіолетові братки.',voice:'02_bouquet_purple_pansy.mp3'},
+ {id:'rose',img:A+'plants/rose-red.webp',label:'червону троянду',prompt:'Додай до букета червону троянду.',voice:'02_bouquet_red_rose.mp3'},
+ {id:'tulip',img:A+'plants/tulip-yellow.webp',label:'жовтий тюльпан',prompt:'Додай до букета жовтий тюльпан.',voice:'02_bouquet_yellow_tulip.mp3'}
 ];
 const correct=['correct-1.mp3','correct-2.mp3','correct-3.mp3','correct-4.mp3','correct-5.mp3'];
 const retry=['retry-1.mp3','retry-2.mp3','retry-3.mp3'];
-const slots=[{x:39,y:48},{x:50,y:45},{x:61,y:49},{x:45,y:55},{x:56,y:55}];
+const basketSlots=[{x:39,y:48},{x:50,y:45},{x:61,y:49},{x:45,y:55},{x:56,y:55}];
+const bouquetSlots=[{x:40,y:42},{x:50,y:37},{x:60,y:42},{x:45,y:50},{x:56,y:50}];
 const q=document.getElementById('question'),scene=document.getElementById('scene'),message=document.getElementById('message'),progress=document.getElementById('progress');
-let order=[],step=0,started=false,busy=false,activeAudio=null,feedbackBag=[],retryBag=[];
+let sceneNo=1,order=[],step=0,started=false,busy=false,activeAudio=null,feedbackBag=[],retryBag=[];
 function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-function makeOrder(){const others=shuffle(fruits.filter(f=>f.id!=='blackberry'));const pos=2+Math.floor(Math.random()*3);others.splice(pos,0,fruits.find(f=>f.id==='blackberry'));return others}
+function basketOrder(){const others=shuffle(fruits.filter(f=>f.id!=='blackberry'));const pos=2+Math.floor(Math.random()*3);others.splice(pos,0,fruits.find(f=>f.id==='blackberry'));return others}
 function nextFrom(files,type){let bag=type==='correct'?feedbackBag:retryBag;if(!bag.length){bag=shuffle(files);if(type==='correct')feedbackBag=bag;else retryBag=bag}return bag.pop()}
 function play(path,onEnd){if(activeAudio){activeAudio.pause();activeAudio.currentTime=0}const a=new Audio(path);activeAudio=a;a.onended=()=>{if(onEnd)onEnd()};a.play().catch(()=>{if(onEnd)onEnd()})}
-function prompt(){const f=order[step];q.textContent=f.prompt;progress.textContent='Кошик • '+(step+1)+' з 5';play(VOICE+f.voice)}
+function currentItems(){return sceneNo===1?fruits:flowers}
+function prompt(){const f=order[step];q.textContent=f.prompt;progress.textContent=(sceneNo===1?'Кошик':'Букет')+' • '+(step+1)+' з 5';play(VOICE+f.voice)}
 function renderScene(){
- scene.innerHTML='<img class="basket" id="basket" src="'+A+'containers/fruit-basket.png" alt="Кошик"><div class="tray" id="tray"></div>';
- const tray=document.getElementById('tray');shuffle(fruits).forEach(f=>{const b=document.createElement('button');b.className='fruit';b.dataset.id=f.id;b.setAttribute('aria-label',f.label);b.innerHTML='<img src="'+f.img+'" alt="'+f.label+'">';b.onclick=()=>choose(b,f);tray.appendChild(b)});
+ const items=currentItems();
+ const base=sceneNo===1
+  ?'<img class="basket" id="base" src="'+A+'containers/fruit-basket.webp" alt="Кошик">'
+  :'<img class="bouquet" id="base" src="'+A+'plants/bouquet-wrapper-pink-bow.webp" alt="Букет">';
+ scene.innerHTML=base+'<div class="tray" id="tray"></div>';
+ const tray=document.getElementById('tray');
+ shuffle(items).forEach(f=>{const b=document.createElement('button');b.className=sceneNo===1?'fruit':'flower';b.dataset.id=f.id;b.setAttribute('aria-label',f.label);b.innerHTML='<img src="'+f.img+'" alt="'+f.label+'">';b.onclick=()=>choose(b,f);tray.appendChild(b)});
 }
-function choose(btn,f){if(!started||busy||btn.classList.contains('used'))return;const target=order[step];if(f.id!==target.id){btn.classList.remove('bad');void btn.offsetWidth;btn.classList.add('bad');play(COMMON+'wrong_boop.mp3',()=>play(COMMON+nextFrom(retry,'retry')));return}
- busy=true;btn.classList.add('used');const slot=slots[step],im=document.createElement('img');im.className='placed';im.src=f.img;im.alt='';im.style.left=slot.x+'%';im.style.top=slot.y+'%';scene.appendChild(im);
- play(COMMON+'item_place.mp3',()=>{const praise=nextFrom(correct,'correct');play(COMMON+praise,()=>{step++;if(step===5){finish()}else{busy=false;prompt()}})})
+function choose(btn,f){
+ if(!started||busy||btn.classList.contains('used'))return;
+ const target=order[step];
+ if(f.id!==target.id){btn.classList.remove('bad');void btn.offsetWidth;btn.classList.add('bad');play(COMMON+'wrong_boop.mp3',()=>play(COMMON+nextFrom(retry,'retry')));return}
+ busy=true;btn.classList.add('used');
+ const slots=sceneNo===1?basketSlots:bouquetSlots,slot=slots[step],im=document.createElement('img');
+ im.className=sceneNo===1?'placed':'bouquet-flower';im.src=f.img;im.alt='';im.style.left=slot.x+'%';im.style.top=slot.y+'%';scene.appendChild(im);
+ play(COMMON+'item_place.mp3',()=>{play(COMMON+nextFrom(correct,'correct'),()=>{step++;if(step===5)finishScene();else{busy=false;prompt()}})})
 }
-function finish(){progress.textContent='Кошик • готово!';q.textContent='Кошик наповнений!';message.textContent='Чудова робота! ✨';play(COMMON+'scene_complete.mp3');const basket=document.getElementById('basket');basket.classList.add('wobble');for(let i=0;i<9;i++){const s=document.createElement('span');s.className='spark';s.textContent=i%2?'✨':'⭐';s.style.left=(18+Math.random()*64)+'%';s.style.top=(25+Math.random()*42)+'%';scene.appendChild(s);setTimeout(()=>s.remove(),1100)}busy=true}
-function begin(){started=true;busy=false;step=0;order=makeOrder();feedbackBag=[];retryBag=[];message.textContent='';renderScene();prompt()}
-function intro(){started=false;busy=false;progress.textContent='Сцена 1 • Кошик';q.textContent='';message.textContent='';scene.innerHTML='<div class="start"><div><strong>Майстерня кольорів 🎨</strong><span>Допоможи наповнити кошик фруктами</span><button id="startBtn">Починаймо!</button></div></div>';document.getElementById('startBtn').onclick=()=>play(VOICE+'00_game_intro.mp3',begin)}
+function finishScene(){
+ busy=true;
+ if(sceneNo===1){
+  progress.textContent='Кошик • готово!';q.textContent='Кошик наповнений!';message.textContent='Чудова робота! ✨';
+  play(COMMON+'scene_complete.mp3',()=>setTimeout(()=>startScene(2),700));
+  const base=document.getElementById('base');base.classList.add('wobble');sparkles();
+ }else{
+  progress.textContent='Букет • готово!';q.textContent='Букет готовий!';message.textContent='До букета прилетів метелик 🦋';
+  const butterfly=document.createElement('img');butterfly.className='butterfly';butterfly.src=KOMAKHY+'assets/butterfly.webp';butterfly.alt='Метелик';scene.appendChild(butterfly);
+  play(KOMAKHY+'audio/sfx/butterfly_wings.mp3',()=>play(COMMON+'scene_complete.mp3'));sparkles();
+ }
+}
+function sparkles(){for(let i=0;i<9;i++){const s=document.createElement('span');s.className='spark';s.textContent=i%2?'✨':'⭐';s.style.left=(18+Math.random()*64)+'%';s.style.top=(25+Math.random()*42)+'%';scene.appendChild(s);setTimeout(()=>s.remove(),1100)}}
+function startScene(n){
+ sceneNo=n;started=true;busy=false;step=0;feedbackBag=[];retryBag=[];message.textContent='';
+ order=n===1?basketOrder():shuffle(flowers);renderScene();prompt();
+}
+function begin(){startScene(1)}
+function intro(){started=false;busy=false;sceneNo=1;progress.textContent='Сцена 1 • Кошик';q.textContent='';message.textContent='';scene.innerHTML='<div class="start"><div><strong>Майстерня кольорів 🎨</strong><span>Допоможи створювати яскраві речі</span><button id="startBtn">Починаймо!</button></div></div>';document.getElementById('startBtn').onclick=()=>play(VOICE+'00_game_intro.mp3',begin)}
 document.getElementById('reset').onclick=()=>{if(activeAudio){activeAudio.pause();activeAudio.currentTime=0}intro()};intro();
 </script></body></html>
