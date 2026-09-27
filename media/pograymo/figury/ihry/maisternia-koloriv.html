@@ -179,5 +179,5 @@ function sparkles(){for(let i=0;i<9;i++){const s=document.createElement('span');
 function startScene(n){sceneNo=n;started=true;busy=false;step=0;feedbackBag=[];retryBag=[];message.textContent='';order=n===1?basketOrder():n===9?butterflyParts:n===10?houseParts:shuffle(currentItems());renderScene();prompt()}
 function begin(){startScene(1)}
 function intro(){started=false;busy=false;sceneNo=1;progress.textContent='Сцена 1 • Кошик';q.textContent='';message.textContent='';scene.innerHTML='<div class="start"><div><strong>Майстерня кольорів 🎨</strong><span>Допоможи створювати яскраві речі</span><button id="startBtn">Починаймо!</button></div></div>';document.getElementById('startBtn').onclick=()=>play(VOICE+'00_game_intro.mp3',begin)}
-document.getElementById('reset').onclick=()=>{if(activeAudio){activeAudio.pause();activeAudio.currentTime=0}intro()};intro();
+document.getElementById('reset').onclick=()=>{if(activeAudio){activeAudio.pause();activeAudio.currentTime=0}intro()};const requestedScene=Number(new URLSearchParams(location.search).get('scene'));if(Number.isInteger(requestedScene)&&requestedScene>=1&&requestedScene<=10)startScene(requestedScene);else intro();
 </script></body></html>
