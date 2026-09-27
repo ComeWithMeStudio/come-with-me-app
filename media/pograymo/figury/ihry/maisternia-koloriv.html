@@ -20,6 +20,8 @@
 .bouquet-flower{position:absolute;z-index:3;width:15%;max-width:86px;transform:translate(-50%,-50%);pointer-events:none;animation:drop .45s ease both;filter:drop-shadow(0 5px 4px #513e4630)}
 .pyramid-base{position:absolute;z-index:2;left:50%;top:22%;width:min(46%,285px);transform:translateX(-50%);filter:drop-shadow(0 10px 8px #6c513c35);pointer-events:none}.pyramid-ring{border:0;background:transparent;padding:3px;width:18%;min-width:52px;cursor:pointer;transition:.2s}.pyramid-ring img{display:block;width:100%;max-height:104px;object-fit:contain;filter:drop-shadow(0 6px 4px #513e4630)}.pyramid-ring:active{transform:scale(.94)}.pyramid-ring.bad{animation:shake .35s}.pyramid-ring.used{visibility:hidden;pointer-events:none}.pyramid-placed{position:absolute;z-index:3;width:31%;max-width:190px;transform:translate(-50%,-50%);pointer-events:none;filter:drop-shadow(0 5px 4px #513e4630);animation:drop .45s ease both}.pyramid-wobble{animation:pyramidWobble .8s ease-in-out 2}
 .tree-base{position:absolute;z-index:2;left:50%;top:8%;width:min(54%,335px);transform:translateX(-50%);pointer-events:none;filter:drop-shadow(0 10px 8px #31533135)}.scene-item{border:0;background:transparent;padding:3px;width:16%;min-width:48px;cursor:pointer}.scene-item img{display:block;width:100%;max-height:100px;object-fit:contain;filter:drop-shadow(0 5px 4px #513e4630)}.scene-item.used{visibility:hidden;pointer-events:none}.scene-item.bad{animation:shake .35s}.tree-decoration{position:absolute;z-index:4;width:11%;max-width:68px;transform:translate(-50%,-50%);pointer-events:none;animation:drop .45s ease both}.tree-glow{animation:treeGlow 1s ease-in-out 2}.mimi-flight{position:absolute;z-index:2;left:50%;top:27%;width:min(39%,235px);transform:translateX(-50%)}.mimi-balloons{display:block;width:100%;filter:drop-shadow(0 8px 7px #513e4630)}.balloon-placed{position:absolute;z-index:3;width:16%;max-width:96px;transform:translate(-50%,-50%);pointer-events:none;animation:drop .45s ease both}.mimi-flight .balloon-placed{position:fixed}.fly-up-return{animation:flyUpReturn 2.8s ease-in-out}.icecream-cone{position:absolute;z-index:2;left:50%;top:28%;width:min(29%,175px);transform:translateX(-50%);pointer-events:none;filter:drop-shadow(0 9px 7px #513e4630)}.icecream-scoop{position:absolute;z-index:4;width:19%;max-width:112px;transform:translate(-50%,-50%);pointer-events:none;animation:drop .45s ease both}.mimi-lick-video{position:absolute;z-index:12;inset:0;width:100%;height:100%;object-fit:cover;border-radius:24px}.butterfly{position:absolute;z-index:7;width:min(15%,92px);left:-18%;top:20%;pointer-events:none;filter:drop-shadow(0 5px 4px #513e4630);animation:butterflyLand 2.1s ease-in-out forwards}
+
+.toy-box{position:absolute;z-index:2;left:50%;top:30%;width:min(48%,290px);transform:translateX(-50%);pointer-events:none}.toy-placed{position:absolute;z-index:3;width:16%;max-width:95px;transform:translate(-50%,-50%);pointer-events:none;animation:drop .45s ease both}.toy-bounce{animation:toyBounce 1.4s ease-out forwards}.train-track{position:absolute;left:3%;right:3%;top:53%;height:8px;background:#8b6449;border-radius:8px;box-shadow:0 18px 0 #8b6449}.train-track:after{content:'';position:absolute;inset:-7px 0 -25px;background:repeating-linear-gradient(90deg,transparent 0 24px,#ad835e 24px 31px,transparent 31px 44px);z-index:0}.train-line{position:absolute;z-index:3;left:3%;top:31%;width:94%;height:27%;display:flex;align-items:flex-end;gap:0}.train-unit{display:block;width:16.66%;height:100%;object-fit:contain;filter:drop-shadow(0 5px 3px #513e4630)}.train-unit.wagon{animation:wagonArrive .9s ease-out both}.train-line.depart{animation:trainDepart 2.6s ease-in forwards}.train-choice{width:18%;min-width:0}.train-choice img{max-height:96px}.train-choice.used{visibility:hidden;pointer-events:none}.train-choice.bad{animation:shake .35s}@keyframes wagonArrive{from{transform:translateX(70vw)}to{transform:translateX(0)}}@keyframes trainDepart{to{transform:translateX(-125%)}}@keyframes toyBounce{0%{transform:translate(-50%,-50%)}30%{transform:translate(-15%,-105%)}55%{transform:translate(20%,-55%)}75%{transform:translate(65%,-78%)}100%{transform:translate(155%,-48%)}}
 @keyframes treeGlow{0%,100%{filter:drop-shadow(0 10px 8px #31533135)}50%{filter:drop-shadow(0 0 24px #ffd95c)} }
 @keyframes flyUpReturn{0%,100%{transform:translateX(-50%) translateY(0)}45%{transform:translateX(-50%) translateY(-120px)}60%{transform:translateX(-50%) translateY(-120px)}}
 @keyframes pyramidWobble{0%,100%{transform:translateX(-50%) rotate(0)}25%{transform:translateX(-50%) rotate(-2deg)}75%{transform:translateX(-50%) rotate(2deg)}}
@@ -52,6 +54,13 @@ const flowers=[
  {id:'rose',img:A+'plants/rose-red.webp',label:'червону троянду',prompt:'Додай до букета червону троянду.',voice:'02_bouquet_red_rose.mp3'},
  {id:'tulip',img:A+'plants/tulip-yellow.webp',label:'жовтий тюльпан',prompt:'Додай до букета жовтий тюльпан.',voice:'02_bouquet_yellow_tulip.mp3'}
 ];
+const toys=[
+ {id:'car',img:A+'toys/toy-car-blue.webp',label:'синю машинку',prompt:'Поклади в коробку синю машинку.',voice:'03_toybox_blue_car.mp3'},
+ {id:'ball',img:A+'toys/ball-red.webp',label:'червоний м’яч',prompt:'Поклади в коробку червоний м’яч.',voice:'03_toybox_red_ball.mp3'},
+ {id:'block',img:A+'toys/toy-block-yellow.webp',label:'жовтий кубик',prompt:'Поклади в коробку жовтий кубик.',voice:'03_toybox_yellow_block.mp3'},
+ {id:'top',img:A+'toys/spinning-top-green.webp',label:'зелену дзиґу',prompt:'Поклади в коробку зелену дзиґу.',voice:'03_toybox_green_top.mp3'},
+ {id:'bunny',img:A+'toys/bunny-plush-purple.webp',label:'фіолетового зайчика',prompt:'Поклади в коробку фіолетового зайчика.',voice:'03_toybox_purple_bunny.mp3'}
+];
 const pyramid=[
  {id:'red',img:A+'toys/pyramid-ring-red.webp',label:'червоне кільце',prompt:'Одягни червоне кільце.',voice:'04_pyramid_red_ring.mp3'},
  {id:'orange',img:A+'toys/pyramid-ring-orange.webp',label:'помаранчеве кільце',prompt:'Одягни помаранчеве кільце.',voice:'04_pyramid_orange_ring.mp3'},
@@ -81,6 +90,13 @@ const icecream=[
  {id:'purple',img:A+'food/ice-cream-scoop-purple.webp',label:'фіолетову кульку морозива',prompt:'Додай фіолетову кульку морозива.',voice:'07_icecream_purple.mp3'},
  {id:'green',img:A+'food/ice-cream-scoop-green.webp',label:'зелену кульку морозива',prompt:'Додай зелену кульку морозива.',voice:'07_icecream_green.mp3'}
 ];
+const train=[
+ {id:'pink',img:A+'transport/train-wagon-pink.webp',label:'рожевий вагон',prompt:'Знайди рожевий вагон.',voice:'08_train_pink_wagon.mp3'},
+ {id:'blue',img:A+'transport/train-wagon-blue.webp',label:'синій вагон',prompt:'Знайди синій вагон.',voice:'08_train_blue_wagon.mp3'},
+ {id:'orange',img:A+'transport/train-wagon-orange.webp',label:'помаранчевий вагон',prompt:'Знайди помаранчевий вагон.',voice:'08_train_orange_wagon.mp3'},
+ {id:'yellow',img:A+'transport/train-wagon-yellow.webp',label:'жовтий вагон',prompt:'Знайди жовтий вагон.',voice:'08_train_yellow_wagon.mp3'},
+ {id:'purple',img:A+'transport/train-wagon-purple.webp',label:'фіолетовий вагон',prompt:'Знайди фіолетовий вагон.',voice:'08_train_purple_wagon.mp3'}
+];
 const correct=['correct-1.mp3','correct-2.mp3','correct-3.mp3','correct-4.mp3','correct-5.mp3'];
 const retry=['retry-1.mp3','retry-2.mp3','retry-3.mp3'];
 const basketSlots=[{x:39,y:48},{x:50,y:45},{x:61,y:49},{x:45,y:55},{x:56,y:55}];
@@ -95,61 +111,45 @@ function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Ma
 function basketOrder(){const others=shuffle(fruits.filter(f=>f.id!=='blackberry'));const pos=2+Math.floor(Math.random()*3);others.splice(pos,0,fruits.find(f=>f.id==='blackberry'));return others}
 function nextFrom(files,type){let bag=type==='correct'?feedbackBag:retryBag;if(!bag.length){bag=shuffle(files);if(type==='correct')feedbackBag=bag;else retryBag=bag}return bag.pop()}
 function play(path,onEnd){if(activeAudio){activeAudio.pause();activeAudio.currentTime=0}const a=new Audio(path);activeAudio=a;a.onended=()=>{if(onEnd)onEnd()};a.play().catch(()=>{if(onEnd)onEnd()})}
-function currentItems(){return sceneNo===1?fruits:sceneNo===2?flowers:sceneNo===3?pyramid:sceneNo===4?tree:sceneNo===5?balloons:icecream}
-function prompt(){const f=order[step];q.textContent=f.prompt;progress.textContent=(sceneNo===1?'Кошик':sceneNo===2?'Букет':sceneNo===3?'Пірамідка':sceneNo===4?'Ялинка':sceneNo===5?'Кульки для Мімі':'Морозиво')+' • '+(step+1)+' з '+(sceneNo===4?6:5);play(VOICE+f.voice)}
+const sceneNames=['','Кошик','Букет','Коробка іграшок','Пірамідка','Ялинка','Кульки для Мімі','Морозиво','Паровоз'];
+const sceneItems=[null,fruits,flowers,toys,pyramid,tree,balloons,icecream,train];
+const toySlots=[{x:39,y:46},{x:52,y:44},{x:61,y:49},{x:44,y:55},{x:56,y:56}];
+function currentItems(){return sceneItems[sceneNo]}
+function prompt(){const f=order[step];q.textContent=f.prompt;progress.textContent=sceneNames[sceneNo]+' • '+(step+1)+' з '+(sceneNo===5?6:5);play(VOICE+f.voice)}
 function renderScene(){
- const items=currentItems();
- const base=sceneNo===1
-  ?'<img class="basket" id="base" src="'+A+'containers/fruit-basket.webp" alt="Кошик">'
-  :sceneNo===2?'<img class="bouquet" id="base" src="'+A+'plants/bouquet-wrapper-pink-bow.webp" alt="Букет">'
-   :sceneNo===3?'<img class="pyramid-base" id="base" src="'+A+'toys/pyramid-base.webp" alt="Основа пірамідки">'
-  :sceneNo===4?'<img class="tree-base" id="base" src="'+A+'plants/christmas-tree-lights.webp" alt="Ялинка">'
-   :sceneNo===5?'<div class="mimi-flight" id="base"><img class="mimi-balloons" src="'+ROOT+'media/mimi-library/illustrations/mimi-paws-up.webp" alt="Мімі"></div>'
-  :'<img class="icecream-cone" id="base" src="'+A+'food/ice-cream-cone.webp" alt="Ріжок морозива">';
- scene.innerHTML=base+'<div class="tray" id="tray"></div>';
+ const bases={1:'<img class="basket" id="base" src="'+A+'containers/fruit-basket.webp" alt="Кошик">',2:'<img class="bouquet" id="base" src="'+A+'plants/bouquet-wrapper-pink-bow.webp" alt="Букет">',3:'<img class="toy-box" id="base" src="'+A+'containers/toy-box.webp" alt="Коробка іграшок">',4:'<img class="pyramid-base" id="base" src="'+A+'toys/pyramid-base.webp" alt="Основа пірамідки">',5:'<img class="tree-base" id="base" src="'+A+'plants/christmas-tree-lights.webp" alt="Ялинка">',6:'<div class="mimi-flight" id="base"><img class="mimi-balloons" src="'+ROOT+'media/mimi-library/illustrations/mimi-paws-up.webp" alt="Мімі"></div>',7:'<img class="icecream-cone" id="base" src="'+A+'food/ice-cream-cone.webp" alt="Ріжок морозива">',8:'<div class="train-track"></div><div class="train-line" id="trainLine"><img class="train-unit" src="'+A+'transport/train-locomotive.webp" alt="Локомотив"></div>'};
+ scene.innerHTML=bases[sceneNo]+'<div class="tray" id="tray"></div>';
  const tray=document.getElementById('tray');
- shuffle(items).forEach(f=>{const b=document.createElement('button');b.className=sceneNo===1?'fruit':sceneNo===2?'flower':sceneNo===3?'pyramid-ring':'scene-item';b.dataset.id=f.id;b.setAttribute('aria-label',f.label);b.innerHTML='<img src="'+f.img+'" alt="'+f.label+'">';b.onclick=()=>choose(b,f);tray.appendChild(b)});
+ shuffle(currentItems()).forEach(f=>{const b=document.createElement('button');b.className=(sceneNo===1?'fruit':sceneNo===2?'flower':sceneNo===4?'pyramid-ring':'scene-item')+(sceneNo===8?' train-choice':'');b.dataset.id=f.id;b.setAttribute('aria-label',f.label);b.innerHTML='<img src="'+f.img+'" alt="'+f.label+'">';b.onclick=()=>choose(b,f);tray.appendChild(b)});
 }
 function choose(btn,f){
  if(!started||busy||btn.classList.contains('used'))return;
- const target=order[step];
- if(f.id!==target.id){btn.classList.remove('bad');void btn.offsetWidth;btn.classList.add('bad');play(COMMON+'wrong_boop.mp3',()=>play(COMMON+nextFrom(retry,'retry')));return}
+ if(f.id!==order[step].id){btn.classList.remove('bad');void btn.offsetWidth;btn.classList.add('bad');play(COMMON+'wrong_boop.mp3',()=>play(COMMON+nextFrom(retry,'retry')));return}
  busy=true;btn.classList.add('used');
- const slots=sceneNo===1?basketSlots:sceneNo===2?bouquetSlots:sceneNo===3?pyramidSlots:sceneNo===4?treeSlots:sceneNo===5?balloonSlots:icecreamSlots,slot=slots[step],im=document.createElement('img');
- im.className=sceneNo===1?'placed':sceneNo===2?'bouquet-flower':sceneNo===3?'pyramid-placed':sceneNo===4?'tree-decoration':sceneNo===5?'balloon-placed':'icecream-scoop';im.src=f.img;im.alt='';im.style.left=slot.x+'%';im.style.top=slot.y+'%';scene.appendChild(im);
- const placeSound=(sceneNo===3||sceneNo===6)?SFX+'soft_click.mp3':(sceneNo===4||sceneNo===5)?SFX+'soft_chime.mp3':COMMON+'item_place.mp3';
- play(placeSound,()=>{play(COMMON+nextFrom(correct,'correct'),()=>{step++;if(step===(sceneNo===4?6:5))finishScene();else{busy=false;prompt()}})})
-}
-function finishScene(){
- busy=true;
- if(sceneNo===1){
-  progress.textContent='Кошик • готово!';q.textContent='Кошик наповнений!';message.textContent='Чудова робота! ✨';
-  play(COMMON+'scene_complete.mp3',()=>setTimeout(()=>startScene(2),700));
-  const base=document.getElementById('base');base.classList.add('wobble');sparkles();
- }else if(sceneNo===2){
-  progress.textContent='Букет • готово!';q.textContent='Букет готовий!';message.textContent='До букета прилетів метелик 🦋';
-  const butterfly=document.createElement('img');butterfly.className='butterfly';butterfly.src=KOMAKHY+'assets/butterfly.webp';butterfly.alt='Метелик';scene.appendChild(butterfly);
-  play(KOMAKHY+'audio/sfx/butterfly_wings.mp3',()=>play(COMMON+'scene_complete.mp3',()=>setTimeout(()=>startScene(3),700)));sparkles();
- }else{
-  progress.textContent='Пірамідка • готово!';q.textContent='Пірамідка готова!';message.textContent='Чудово складено! ✨';
-  const base=document.getElementById('base');base.classList.add('pyramid-wobble');document.querySelectorAll('.pyramid-placed').forEach(x=>x.classList.add('pyramid-wobble'));
-  play(COMMON+'scene_complete.mp3',()=>setTimeout(()=>startScene(4),700));sparkles();
- }else if(sceneNo===4){
-  progress.textContent='Ялинка • готово!';q.textContent='Ялинка прикрашена!';message.textContent='Вогники сяють! ✨';
-  document.getElementById('base').classList.add('tree-glow');play(SFX+'christmas_bells_soft.mp3',()=>play(COMMON+'scene_complete.mp3',()=>setTimeout(()=>startScene(5),700)));sparkles();
- }else{
-  progress.textContent='Кульки для Мімі • готово!';q.textContent='Мімі злітає!';message.textContent='Тримайся, Мімі! 🎈';
-  const flight=document.getElementById('base');document.querySelectorAll('.balloon-placed').forEach(x=>flight.appendChild(x));flight.classList.add('fly-up-return');play(SFX+'air_whoosh.mp3',()=>play(COMMON+'scene_complete.mp3',()=>setTimeout(()=>startScene(6),700)));sparkles();
- }else{
-  progress.textContent='Морозиво • готово!';q.textContent='Морозиво готове!';message.textContent='Мімі вже тут! 🍦';
-  const v=document.createElement('video');v.className='mimi-lick-video';v.src=ROOT+'media/mimi-library/animations/mimi-licking-lips.mp4';v.autoplay=true;v.muted=true;v.playsInline=true;v.onended=()=>v.remove();stage.appendChild(v);play(COMMON+'scene_complete.mp3');sparkles();
+ if(sceneNo===8){
+  const line=document.getElementById('trainLine'),wagon=document.createElement('img');wagon.className='train-unit wagon';wagon.src=f.img;wagon.alt=f.label;
+  play(SFX+'train_wheels.mp3');line.appendChild(wagon);
+  wagon.addEventListener('animationend',()=>play(SFX+'soft_click.mp3',()=>afterCorrect()),{once:true});return;
  }
+ const slots=sceneNo===1?basketSlots:sceneNo===2?bouquetSlots:sceneNo===3?toySlots:sceneNo===4?pyramidSlots:sceneNo===5?treeSlots:sceneNo===6?balloonSlots:icecreamSlots;
+ const slot=slots[step],im=document.createElement('img');im.className=sceneNo===1?'placed':sceneNo===2?'bouquet-flower':sceneNo===3?'toy-placed':sceneNo===4?'pyramid-placed':sceneNo===5?'tree-decoration':sceneNo===6?'balloon-placed':'icecream-scoop';im.src=f.img;im.alt='';im.style.left=slot.x+'%';im.style.top=slot.y+'%';if(sceneNo===3&&f.id==='ball')im.id='toyBall';scene.appendChild(im);
+ const sound=(sceneNo===4||sceneNo===7)?SFX+'soft_click.mp3':(sceneNo===5||sceneNo===6)?SFX+'soft_chime.mp3':COMMON+'item_place.mp3';play(sound,afterCorrect);
+}
+function afterCorrect(){play(COMMON+nextFrom(correct,'correct'),()=>{step++;if(step===(sceneNo===5?6:5))finishScene();else{busy=false;prompt()}})}
+function complete(next){play(COMMON+'scene_complete.mp3',()=>{if(next)setTimeout(()=>startScene(next),700)});sparkles()}
+function finishScene(){
+ busy=true;progress.textContent=sceneNames[sceneNo]+' • готово!';message.textContent='Чудова робота! ✨';
+ if(sceneNo===1){q.textContent='Кошик наповнений!';document.getElementById('base').classList.add('wobble');complete(2)}
+ else if(sceneNo===2){q.textContent='Букет готовий!';const b=document.createElement('img');b.className='butterfly';b.src=KOMAKHY+'assets/butterfly.webp';b.alt='Метелик';scene.appendChild(b);play(KOMAKHY+'audio/sfx/butterfly_wings.mp3',()=>complete(3))}
+ else if(sceneNo===3){q.textContent='Коробка наповнена!';const ball=document.getElementById('toyBall');if(ball)ball.classList.add('toy-bounce');play(SFX+'ball_bounce_2x_roll.mp3',()=>complete(4))}
+ else if(sceneNo===4){q.textContent='Пірамідка готова!';document.getElementById('base').classList.add('pyramid-wobble');complete(5)}
+ else if(sceneNo===5){q.textContent='Ялинка прикрашена!';document.getElementById('base').classList.add('tree-glow');play(SFX+'christmas_bells_soft.mp3',()=>complete(6))}
+ else if(sceneNo===6){q.textContent='Мімі злітає!';const flight=document.getElementById('base');scene.querySelectorAll('.balloon-placed').forEach(x=>flight.appendChild(x));flight.classList.add('fly-up-return');play(SFX+'air_whoosh.mp3',()=>complete(7))}
+ else if(sceneNo===7){q.textContent='Морозиво готове!';const v=document.createElement('video');v.className='mimi-lick-video';v.src=ROOT+'media/mimi-library/animations/mimi-licking-lips.mp4';v.autoplay=true;v.muted=true;v.playsInline=true;v.onended=()=>v.remove();scene.appendChild(v);complete(8)}
+ else if(sceneNo===8){q.textContent='Паровоз готовий!';play(SFX+'train_whistle.mp3',()=>{setTimeout(()=>{play(SFX+'train_wheels.mp3');document.getElementById('trainLine').classList.add('depart');setTimeout(()=>complete(0),2700)},350)})}
 }
 function sparkles(){for(let i=0;i<9;i++){const s=document.createElement('span');s.className='spark';s.textContent=i%2?'✨':'⭐';s.style.left=(18+Math.random()*64)+'%';s.style.top=(25+Math.random()*42)+'%';scene.appendChild(s);setTimeout(()=>s.remove(),1100)}}
-function startScene(n){
- sceneNo=n;started=true;busy=false;step=0;feedbackBag=[];retryBag=[];message.textContent='';
- order=n===1?basketOrder():n===2?shuffle(flowers):n===3?shuffle(pyramid):n===4?shuffle(tree):n===5?shuffle(balloons):shuffle(icecream);renderScene();prompt();
-}
+function startScene(n){sceneNo=n;started=true;busy=false;step=0;feedbackBag=[];retryBag=[];message.textContent='';order=n===1?basketOrder():shuffle(currentItems());renderScene();prompt()}
 function begin(){startScene(1)}
 function intro(){started=false;busy=false;sceneNo=1;progress.textContent='Сцена 1 • Кошик';q.textContent='';message.textContent='';scene.innerHTML='<div class="start"><div><strong>Майстерня кольорів 🎨</strong><span>Допоможи створювати яскраві речі</span><button id="startBtn">Починаймо!</button></div></div>';document.getElementById('startBtn').onclick=()=>play(VOICE+'00_game_intro.mp3',begin)}
 document.getElementById('reset').onclick=()=>{if(activeAudio){activeAudio.pause();activeAudio.currentTime=0}intro()};intro();
