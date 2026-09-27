@@ -8,6 +8,7 @@
   <style>
     *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"Trebuchet MS",system-ui,sans-serif;color:#493f4c;background:linear-gradient(180deg,#eee7f2,#f6eadf)}body{padding:18px 18px 70px}.shell{width:min(720px,100%);margin:auto}.head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:38px}.head h1{margin:0;font-size:clamp(28px,6vw,42px);line-height:1.05}.back{border:0;border-radius:999px;padding:12px 18px;background:#fff9;box-shadow:0 3px 12px #0002;font-weight:900;color:#493f4c;text-decoration:none;white-space:nowrap}.section-label{font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#6d5c78;margin:0 2px 12px}.card{position:relative;display:block;width:100%;aspect-ratio:16/9;border:3px solid #fff;border-radius:27px;padding:0;background:#fff;overflow:hidden;box-shadow:0 8px 25px #604f7026;cursor:pointer;text-decoration:none;color:#493f4c}.card img{display:block;width:100%;height:100%;object-fit:cover}.veil{position:absolute;inset:auto 0 0;padding:42px 18px 17px;background:linear-gradient(transparent,#281d17c9);color:#fff;text-shadow:0 2px 5px #0008}.veil strong{display:block;font-size:clamp(23px,5vw,38px);line-height:1.05}.veil small{display:block;margin-top:6px;font-size:clamp(13px,2.6vw,18px);font-weight:900}.badge{position:absolute;left:15px;top:15px;border-radius:999px;padding:8px 12px;background:#fffde8ef;font-size:12px;font-weight:900;color:#66516f;box-shadow:0 3px 10px #0002}.lock{position:absolute;right:15px;top:15px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#fffde8ef;box-shadow:0 3px 10px #0002;font-size:19px}.note{margin:22px auto 0;max-width:590px;text-align:center;font-weight:800;line-height:1.4;color:#6d5c78}.message{margin:18px auto 0;max-width:590px;padding:13px 16px;border-radius:18px;background:#fff9;text-align:center;font-weight:900;box-shadow:0 4px 16px #604f701c}.message[hidden]{display:none}@media(max-width:520px){body{padding:14px 12px 56px}.head{margin-bottom:32px}.head h1{font-size:31px}.back{padding:10px 14px}.card{border-radius:22px}.veil{padding:34px 14px 13px}.badge{left:11px;top:11px}.lock{right:11px;top:11px}}
     .note+.card{margin-top:30px}
+    .colors-cover{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-evenly;padding:6% 9% 12%;background:linear-gradient(135deg,#f9d9e9,#fff0bb 49%,#c8eefa)}.card .colors-cover img{width:38%;height:78%;object-fit:contain;filter:drop-shadow(0 9px 9px #64485150)}.card .colors-cover img:last-child{width:46%}
   </style>
 </head>
 <body>
@@ -20,6 +21,12 @@
       <span class="veil"><strong>Майстерня фігур</strong><small>Возик • будиночок • ракета</small></span>
     </a>
     <p class="note">Складай знайомі речі з простих фігур разом із Мімі 🐾</p>
+    <a class="card paid-card" data-target="maisternia-koloriv.html" href="#" aria-label="Майстерня кольорів, платний матеріал">
+      <span class="colors-cover" aria-hidden="true"><img src="../../assets/illustrations/containers/fruit-basket.webp" alt=""><img src="../../assets/illustrations/transport/train-locomotive.webp" alt=""></span>
+      <span class="badge">ПЛАТНО</span><span class="lock" aria-hidden="true">🔒</span>
+      <span class="veil"><strong>Майстерня кольорів</strong><small>Кошик • іграшки • паровоз</small></span>
+    </a>
+    <p class="note">Добирай кольори й допомагай Мімі складати яскраві речі 🎨</p>
     <a class="card paid-card" data-target="find-for-mimi-game.html" href="#" aria-label="Знайди для Мімі, платний матеріал">
       <img src="../assets/find-for-mimi-cover-v1.webp" alt="Мімі порівнює великі й маленькі предмети">
       <span class="badge">ПЛАТНО</span><span class="lock" aria-hidden="true">🔒</span>
