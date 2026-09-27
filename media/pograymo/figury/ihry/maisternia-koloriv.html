@@ -107,7 +107,7 @@ const butterflyParts=[
  {id:'heart-left',img:KOMAKHY+'assets/butterfly-workshop-heart-left.webp',label:'рожеве сердечко',prompt:'Додай рожеве сердечко на ліве крильце.',voice:'09_butterfly_pink-heart-left.mp3',kind:'heart',x:25,y:38},
  {id:'heart-right',img:KOMAKHY+'assets/butterfly-workshop-heart-right.webp',label:'рожеве сердечко',prompt:'Додай рожеве сердечко на праве крильце.',voice:'09_butterfly_pink-heart-right.mp3',kind:'heart',x:75,y:38},
  {id:'star-orange',img:KOMAKHY+'assets/butterfly-workshop-star-orange.webp',label:'помаранчева зірочка',prompt:'Додай помаранчеву зірочку на ліве крильце.',voice:'09_butterfly_orange-star-left.mp3',kind:'star-orange',x:31,y:53},
- {id:'star-yellow',img:KOMAKHY+'assets/butterfly-workshop-star-yellow.webp',label:'жовта зірочка',prompt:'Додай жовту зірочку на праве крильце.',voice:'09_butterfly_yellow-star-right.mp3',kind:'star-yellow',x:69,y:53},
+ {id:'star-yellow',img:KOMAKHY+'assets/butterfly-workshop-star-yellow.webp',label:'салатова зірочка',prompt:'Додай салатову зірочку на праве крильце.',voice:null,kind:'star-yellow',x:69,y:53},
  {id:'drop-left',img:KOMAKHY+'assets/butterfly-workshop-drop-left.webp',label:'синя краплинка',prompt:'Додай синю краплинку на ліве крильце.',voice:'09_butterfly_blue-drop-left.mp3',kind:'drop',x:30,y:74},
  {id:'drop-right',img:KOMAKHY+'assets/butterfly-workshop-drop-right.webp',label:'синя краплинка',prompt:'Додай синю краплинку на праве крильце.',voice:'09_butterfly_blue-drop-right.mp3',kind:'drop',x:70,y:74}
 ];
@@ -140,7 +140,7 @@ const sceneNames=['','Кошик','Букет','Коробка іграшок','
 const sceneItems=[null,fruits,flowers,toys,pyramid,tree,balloons,icecream,train,butterflyParts,houseParts];
 const toySlots={car:{x:43,y:53},ball:{x:54,y:43},block:{x:55,y:55},top:{x:62,y:51},bunny:{x:39,y:50}};
 function currentItems(){return sceneItems[sceneNo]}
-function prompt(){const f=order[step];q.textContent=f.prompt;progress.textContent=sceneNames[sceneNo]+' • '+(step+1)+' з '+(sceneNo===5||sceneNo===9?6:5);play(VOICE+f.voice)}
+function prompt(){const f=order[step];q.textContent=f.prompt;progress.textContent=sceneNames[sceneNo]+' • '+(step+1)+' з '+(sceneNo===5||sceneNo===9?6:5);if(f.voice)play(VOICE+f.voice)}
 function renderScene(){
  scene.className='scene scene-'+sceneNo;
  const bases={1:'<img class="basket" id="base" src="'+A+'containers/fruit-basket.webp" alt="Кошик">',2:'<img class="bouquet" id="base" src="'+A+'plants/bouquet-wrapper-pink-bow.webp" alt="Букет">',3:'<img class="toy-box" id="base" src="'+A+'containers/toy-box.webp" alt="Коробка іграшок">',4:'<img class="pyramid-base" id="base" src="'+A+'toys/pyramid-base.webp" alt="Основа пірамідки">',5:'<img class="tree-base" id="base" src="'+A+'plants/christmas-tree-lights.webp" alt="Ялинка">',6:'<div class="mimi-flight" id="base"><img class="mimi-balloons" src="'+ROOT+'media/mimi-library/illustrations/mimi-paws-up.webp" alt="Мімі"></div>',7:'',8:'<div class="train-track"></div><div class="train-line" id="trainLine"><img class="train-unit" src="'+A+'transport/train-locomotive.webp" alt="Локомотив"></div>',9:'<div class="workshop-butterfly" id="base"><img src="'+KOMAKHY+'assets/butterfly-workshop-base.webp" alt="Метелик"></div>',10:'<div class="house-workshop" id="base"><img src="'+A+'buildings/house-workshop-base.webp" alt="Будиночок"><img class="house-mimi" id="houseMimi" src="'+ROOT+'media/mimi-library/illustrations/mimi-house-peeking-v2.webp" alt="Мімі"></div>'};
