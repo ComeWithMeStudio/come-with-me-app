@@ -47,10 +47,6 @@
 /* mobile ice cream: larger and staggered rather than one rigid row */
 .scene-7 .icecream-cone{width:min(18%,112px)}
 .scene-7 .icecream-scoop{width:clamp(60px,13.5%,88px)}
-.scene-7 .icecream-cone:nth-of-type(1),.scene-7 .icecream-cone:nth-of-type(3),.scene-7 .icecream-cone:nth-of-type(5){top:34%}
-.scene-7 .icecream-cone:nth-of-type(2),.scene-7 .icecream-cone:nth-of-type(4){top:42%}
-.scene-7 .icecream-scoop:nth-of-type(1),.scene-7 .icecream-scoop:nth-of-type(3),.scene-7 .icecream-scoop:nth-of-type(5){margin-top:-8px}
-.scene-7 .icecream-scoop:nth-of-type(2),.scene-7 .icecream-scoop:nth-of-type(4){margin-top:40px}
 .mimi-lick-video{top:13%;width:min(66%,350px);height:min(54%,300px)}
 /* mobile butterfly: same decorations, whole butterfly lower */
 .workshop-butterfly{top:29%;width:min(68%,430px)}
@@ -66,6 +62,15 @@
 .scene-11 .tray button[data-id="hat"] img{width:180%;transform:translate(-48.5%,-50%)}
 .scene-11 .tray button[data-id="vest"] img{width:175%;transform:translate(-50%,-52%)}
 .scene-11 .tray button[data-id="boots"] img{width:92%;transform:translate(-48.25%,-50%)}
+
+/* Each scoop shares its cone's responsive frame and staggered position. */
+.scene-7 .icecream-serving{position:absolute;left:50%;top:36%;width:min(13%,96px);aspect-ratio:1;transform:translateX(-50%);pointer-events:none}
+.scene-7 .icecream-serving .icecream-cone{left:0;top:0;width:100%;height:100%;transform:none}
+.scene-7 .icecream-serving .icecream-scoop{left:50%;top:-20%;width:82%;max-width:none;margin:0}
+@media(max-width:520px){
+.scene-7 .icecream-serving{width:min(18%,112px);top:34%}
+.scene-7 .icecream-serving:nth-child(even){top:42%}
+}
 </style></head>
 <body><main class="game">
 <header class="top"><a class="pill" href="geometry-games-catalog.html">← До ігор</a><h1 class="title">Майстерня кольорів</h1><button class="pill reset" id="reset">↻ Спочатку</button></header>
@@ -183,7 +188,7 @@ function prompt(){const f=order[step];q.textContent=f.prompt;progress.textConten
 function renderScene(){
  scene.className='scene scene-'+sceneNo;
  const bases={1:'<img class="basket" id="base" src="'+A+'containers/fruit-basket.webp" alt="Кошик">',2:'<img class="bouquet" id="base" src="'+A+'plants/bouquet-wrapper-pink-bow.webp" alt="Букет">',3:'<img class="toy-box" id="base" src="'+A+'containers/toy-box.webp" alt="Коробка іграшок">',4:'<img class="pyramid-base" id="base" src="'+A+'toys/pyramid-base.webp" alt="Основа пірамідки">',5:'<img class="tree-base" id="base" src="'+A+'plants/christmas-tree-lights.webp" alt="Ялинка">',6:'<div class="mimi-flight" id="base"><img class="mimi-balloons" src="'+ROOT+'media/mimi-library/illustrations/mimi-paws-up.webp" alt="Мімі"></div>',7:'',8:'<div class="train-track"></div><div class="train-line" id="trainLine"><img class="train-unit" src="'+A+'transport/train-locomotive.webp" alt="Локомотив"></div>',9:'<div class="workshop-butterfly" id="base"><img src="'+KOMAKHY+'assets/butterfly-workshop-base.webp" alt="Метелик"></div>',10:'<div class="house-workshop" id="base"><img src="'+A+'buildings/house-workshop-base.webp" alt="Будиночок"><img class="house-mimi" id="houseMimi" src="'+ROOT+'media/mimi-library/illustrations/mimi-house-peeking-v2.webp" alt="Мімі"></div>',11:'<div class="explorer-figure" id="base"><img class="explorer-mimi" src="'+ROOT+'media/mimi-library/illustrations/mimi-standing-front.webp" alt="Мімі"></div>'};
- scene.innerHTML=bases[sceneNo]+(sceneNo===1?'<img class="basket-front" src="'+A+'containers/fruit-basket.webp" alt="">':sceneNo===2?'<img class="bouquet-front" src="'+A+'plants/bouquet-wrapper-pink-bow.webp" alt="">':sceneNo===3?'<img class="toy-front" src="'+A+'containers/toy-box.webp" alt="">':sceneNo===7?icecreamSlots.map(slot=>'<img class="icecream-cone" style="left:'+slot.x+'%" src="'+A+'food/ice-cream-cone.webp" alt="">').join(''):'')+'<div class="tray" id="tray"></div>';
+ scene.innerHTML=bases[sceneNo]+(sceneNo===1?'<img class="basket-front" src="'+A+'containers/fruit-basket.webp" alt="">':sceneNo===2?'<img class="bouquet-front" src="'+A+'plants/bouquet-wrapper-pink-bow.webp" alt="">':sceneNo===3?'<img class="toy-front" src="'+A+'containers/toy-box.webp" alt="">':sceneNo===7?icecreamSlots.map((slot,i)=>'<div class="icecream-serving" id="icecream-slot-'+i+'" style="left:'+slot.x+'%"><img class="icecream-cone" src="'+A+'food/ice-cream-cone.webp" alt=""></div>').join(''):'')+'<div class="tray" id="tray"></div>';
  const tray=document.getElementById('tray');
  (sceneNo===4?pyramid:shuffle(currentItems())).forEach(f=>{const b=document.createElement('button');b.className=(sceneNo===1?'fruit':sceneNo===2?'flower':sceneNo===4?'pyramid-ring':'scene-item')+(sceneNo===8?' train-choice':'');b.dataset.id=f.id;b.setAttribute('aria-label',f.label);b.innerHTML='<img src="'+f.img+'" alt="'+f.label+'">';b.onclick=()=>choose(b,f);tray.appendChild(b)});
 }
@@ -200,7 +205,7 @@ function choose(btn,f){
   wagon.addEventListener('animationend',()=>play(SFX+'soft_click.mp3',()=>afterCorrect()),{once:true});return;
  }
  const slots=sceneNo===1?basketSlots:sceneNo===2?bouquetSlots:sceneNo===3?toySlots:sceneNo===4?pyramidSlots:sceneNo===5?treeSlots:sceneNo===6?balloonSlots:icecreamSlots;
- const slot=sceneNo===3?toySlots[f.id]:sceneNo===5?treeSlots[f.id]:slots[step],im=document.createElement('img');im.className=sceneNo===1?'placed':sceneNo===2?'bouquet-flower':sceneNo===3?'toy-placed':sceneNo===4?'pyramid-placed':sceneNo===5?'tree-decoration':sceneNo===6?'balloon-placed':'icecream-scoop';im.src=f.img;im.alt='';im.style.left=slot.x+'%';im.style.top=slot.y+'%';if(sceneNo===2)im.style.setProperty('--tilt',slot.x<48?'-16deg':slot.x>52?'16deg':'0deg');if(sceneNo===3&&f.id==='ball')im.id='toyBall';scene.appendChild(im);
+ const slot=sceneNo===3?toySlots[f.id]:sceneNo===5?treeSlots[f.id]:slots[step],im=document.createElement('img');im.className=sceneNo===1?'placed':sceneNo===2?'bouquet-flower':sceneNo===3?'toy-placed':sceneNo===4?'pyramid-placed':sceneNo===5?'tree-decoration':sceneNo===6?'balloon-placed':'icecream-scoop';im.src=f.img;im.alt='';im.style.left=slot.x+'%';im.style.top=slot.y+'%';if(sceneNo===2)im.style.setProperty('--tilt',slot.x<48?'-16deg':slot.x>52?'16deg':'0deg');if(sceneNo===3&&f.id==='ball')im.id='toyBall';if(sceneNo===7){im.style.removeProperty('left');im.style.removeProperty('top');document.getElementById('icecream-slot-'+step).appendChild(im)}else scene.appendChild(im);
  const sound=(sceneNo===4||sceneNo===7)?SFX+'soft_click.mp3':(sceneNo===5||sceneNo===6)?SFX+'soft_chime.mp3':COMMON+'item_place.mp3';play(sound,afterCorrect);
 }
 function afterCorrect(){const file=nextFrom(correct,'correct');message.textContent=feedbackText[file];play(COMMON+file,()=>{step++;if(step===(sceneNo===5||sceneNo===9?6:5))finishScene();else{busy=false;message.textContent='';prompt()}})}
