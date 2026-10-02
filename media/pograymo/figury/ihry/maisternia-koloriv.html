@@ -84,8 +84,8 @@
 .garage-door{position:absolute;inset:0;transition:transform .65s ease-in-out;z-index:2}
 .garage-door .garage-graphic{width:100%;height:100%}
 .garage-bay.open .garage-door{transform:translateY(-103%)}
-.garage-lamp{position:absolute;z-index:5;width:3.3%;aspect-ratio:1;border-radius:50%;background:var(--lamp-color);box-shadow:inset 0 0 5px 3px #0009;filter:brightness(.45);transform:translate(-50%,-50%);transition:filter .3s,box-shadow .3s}
-.garage-lamp.lit{filter:brightness(1.25);box-shadow:0 0 8px 3px var(--lamp-color),inset 0 0 4px #fff}
+.garage-lamp{position:absolute;z-index:5;width:3.4%;aspect-ratio:3/1;border-radius:50%;background:#645849;box-shadow:inset 0 0 5px 3px #0009;filter:brightness(.45);transform:translate(-50%,-50%);transition:filter .3s,box-shadow .3s}
+.garage-lamp.lit{background:#fff7be;filter:brightness(1.25);box-shadow:0 0 8px 3px var(--lamp-color),inset 0 0 4px #fff}
 .garage-wrap.finished .garage-lamp{animation:garageCelebrate .65s ease-in-out 3 alternate}
 .garage-car{position:absolute;width:17%;z-index:4;transform:translate(-50%,-50%);top:109%}
 .garage-car.drive{animation:garageDrive 1s ease-in-out forwards}
@@ -236,7 +236,7 @@ const garageLampX=[188,404,626,851,1064];
 function garageGraphic(path,box,alt){const [x,y,w,h]=box;return '<span class="garage-graphic" style="--crop-ratio:'+w+'/'+h+'"><img src="'+path+'" alt="'+alt+'" style="width:'+(1254/w*100)+'%;left:'+(-x/w*100)+'%;top:'+(-y/h*100)+'%"></span>'}
 function renderGarage(){
  const image=A+'transport/garage-five-bays.webp';
- scene.insertAdjacentHTML('afterbegin','<svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs><filter id="garage-black-key" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 4 4 4 0 0"/></filter></defs></svg><div class="garage-wrap" id="base"><div class="garage-base">'+garageGraphic(image,[0,404,1254,470],'П’ять кольорових гаражів')+'</div>'+garageDoors.map((box,i)=>'<div class="garage-bay" id="garage-bay-'+i+'" style="left:'+box[0]/1254*100+'%;top:'+(box[1]-404)/470*100+'%;width:'+box[2]/1254*100+'%;height:'+box[3]/470*100+'%"><div class="garage-door">'+garageGraphic(image,box,'Ворота '+garageCars[i].id)+'</div></div><span class="garage-lamp" id="garage-lamp-'+i+'" role="img" aria-label="Лампочка вимкнена" style="left:'+garageLampX[i]/1254*100+'%;top:39%;--lamp-color:'+garageCars[i].color+'"></span>').join('')+'</div>');
+ scene.insertAdjacentHTML('afterbegin','<svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs><filter id="garage-black-key" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 4 4 4 0 0"/></filter></defs></svg><div class="garage-wrap" id="base"><div class="garage-base">'+garageGraphic(image,[0,404,1254,470],'П’ять кольорових гаражів')+'</div>'+garageDoors.map((box,i)=>'<div class="garage-bay" id="garage-bay-'+i+'" style="left:'+box[0]/1254*100+'%;top:'+(box[1]-404)/470*100+'%;width:'+box[2]/1254*100+'%;height:'+box[3]/470*100+'%"><div class="garage-door">'+garageGraphic(image,box,'Ворота '+garageCars[i].id)+'</div></div><span class="garage-lamp" id="garage-lamp-'+i+'" role="img" aria-label="Лампочка вимкнена" style="left:'+garageLampX[i]/1254*100+'%;top:'+([545,535,520,537,552][i]-404)/470*100+'%;--lamp-color:#ffe88a'+'"></span>').join('')+'</div>');
 }
 async function parkGarageCar(f){
  const garage=document.getElementById('base'),bay=document.getElementById('garage-bay-'+f.bay),lamp=document.getElementById('garage-lamp-'+f.bay);
