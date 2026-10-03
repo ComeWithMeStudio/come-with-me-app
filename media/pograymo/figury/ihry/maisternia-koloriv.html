@@ -243,7 +243,7 @@ async function parkGarageCar(f,btn){
  const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
  bay.classList.add('open');await wait(700);if(!garage.isConnected)return;
  const car=document.createElement('div');car.className='garage-car';const origin=btn.getBoundingClientRect(),bounds=garage.getBoundingClientRect();car.style.setProperty('--car-start-x',(origin.left+origin.width/2-bounds.left)/bounds.width*100+'%');car.style.setProperty('--car-start-y',(origin.top+origin.height/2-bounds.top)/bounds.height*100+'%');car.style.setProperty('--car-target-x',garageLampX[f.bay]/1254*100+'%');car.innerHTML=garageGraphic(f.img,f.box,f.label);garage.appendChild(car);
- car.classList.add('drive');await wait(1050);if(!garage.isConnected)return;
+ car.classList.add('drive');play(SFX+'car_drive_soft.mp3');const driveAudio=activeAudio;driveAudio.volume=.5;driveAudio.loop=true;await wait(1050);driveAudio.pause();driveAudio.currentTime=0;if(!garage.isConnected)return;
  car.remove();bay.classList.remove('open');await wait(700);if(!garage.isConnected)return;
  lamp.classList.add('lit');lamp.setAttribute('aria-label','Лампочка світиться');play(SFX+'soft_chime.mp3',afterCorrect);
 }
