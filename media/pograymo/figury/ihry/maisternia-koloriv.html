@@ -132,7 +132,7 @@
 .scene-18 .scene-item{width:19%;min-width:0;padding:2px}
 .bird-choice-crop{position:relative;display:block;width:min(100%,92px);margin:auto;aspect-ratio:1;overflow:hidden}
 .bird-choice-crop img{position:absolute;max-width:none!important;max-height:none!important;height:auto!important;object-fit:fill!important;filter:drop-shadow(0 5px 4px #513e4630)!important}
-.bird-feeder-wrap{position:absolute;z-index:2;left:50%;top:6%;width:min(66%,430px);aspect-ratio:652/619;transform:translateX(-50%);pointer-events:none}
+.bird-feeder-wrap{position:absolute;z-index:2;left:50%;top:6%;width:min(56%,360px);aspect-ratio:652/619;transform:translateX(-50%);pointer-events:none}
 .bird-feeder-base{position:absolute;inset:0;overflow:hidden;filter:drop-shadow(0 9px 7px #513e4630)}
 .bird-feeder-base img{position:absolute;width:256.45%;max-width:none;left:-4.14%;top:0}
 .bird-food-placed{position:absolute;z-index:4;transform:translate(-50%,-50%);pointer-events:none;animation:drop .45s ease both;filter:drop-shadow(0 4px 3px #513e4630)}
@@ -143,7 +143,7 @@
 .bird-final.perched{width:min(20%,128px);left:58%;top:25%;transform:translate(-50%,-50%);animation:birdPerch .35s ease-out both}
 @keyframes birdFlyIn{0%{left:-35%;top:16%;transform:rotate(-7deg) scale(.82)}100%{left:54%;top:29%;transform:rotate(0) scale(1)}}
 @keyframes birdPerch{from{opacity:.2;transform:translate(-50%,-62%) scale(.9)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
-@media(max-width:520px){.scene-18 .tray{bottom:10px}.bird-feeder-wrap{top:7%;width:72%}}
+@media(max-width:520px){.scene-18 .tray{bottom:10px}.bird-feeder-wrap{top:7%;width:62%}}
 
 </style></head>
 <body><main class="game">
@@ -325,7 +325,7 @@ const birdFeederItems=[
  {id:'seeds',label:'помаранчеве насіння',img:A+'food/bird-seeds.webp',box:[994,639,320,279],source:[1672,941],prompt:'Поклади в годівничку помаранчеве насіння.',voice:'18_orange_seeds.mp3',x:67,y:58,kind:'food'},
  {id:'water',label:'синя мисочка з водою',img:A+'containers/water-bowl-blue.webp',box:[24,24,306,232],source:[354,280],prompt:'Постав для пташки синю мисочку з водою.',voice:'18_blue_water.mp3',x:78,y:78,kind:'water'}
 ];
-function birdChoiceGraphic(f){const [x,y,w,h]=f.box,[sw,sh]=f.source;return '<span class="bird-choice-crop"><img src="'+f.img+'" alt="'+f.label+'" style="width:'+sw/w*100+'%;left:'+(-x/w*100)+'%;top:'+(-y/h*100)+'%"></span>'}
+function birdChoiceGraphic(f){const [x,y,w,h]=f.box,[sw,sh]=f.source;return '<span class="bird-choice-crop"><img src="'+f.img+'" alt="'+f.label+'" style="width:'+sw/w*100+'%;left:'+(-x/w*100)+'%;top:'+(-y/w*100)+'%"></span>'}
 function renderBirdFeeder(){scene.insertAdjacentHTML('afterbegin','<div class="bird-feeder-wrap" id="base"><span class="bird-feeder-base"><img src="'+A+'nature/birds/bird-feeder.webp" alt="Годівничка для пташки"></span></div>')}
 function placeBirdFood(f){const wrap=document.getElementById('base'),im=document.createElement('span');im.className='bird-food-placed '+f.kind;im.innerHTML=birdChoiceGraphic(f);im.style.left=f.x+'%';im.style.top=f.y+'%';wrap.appendChild(im);play(SFX+'soft_click.mp3',afterCorrect)}
 function finishBirdFeeder(){document.getElementById('tray').style.display='none';q.textContent='До годівнички прилетіла пташка!';const flying=document.createElement('img');flying.className='bird-final flying';flying.src=A+'nature/birds/bird-flying.webp';flying.alt='Пташка прилітає';scene.appendChild(flying);play(SFX+'bird_chirp.mp3');setTimeout(()=>{if(!flying.isConnected||sceneNo!==18)return;flying.remove();const perched=document.createElement('img');perched.className='bird-final perched';perched.src=A+'nature/birds/bird-perched.webp';perched.alt='Пташка біля годівнички';scene.appendChild(perched)},1150);setTimeout(()=>{if(sceneNo===18)complete(0)},3000)}
