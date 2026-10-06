@@ -319,10 +319,10 @@ function finishBeach(){const bucket=document.getElementById('base');document.get
 
 
 const birdFeederItems=[
- {id:'corn',label:'жовта кукурудза',img:A+'food/corn-yellow.webp',box:[26,615,419,304],source:[1672,941],prompt:'Поклади в годівничку жовту кукурудзу.',voice:'18_yellow_corn.mp3',x:31,y:58,kind:'food'},
- {id:'berries',label:'червоні ягідки',img:A+'food/berries-red.webp',box:[377,650,327,237],source:[1672,941],prompt:'Поклади в годівничку червоні ягідки.',voice:'18_red_berries.mp3',x:43,y:57,kind:'food'},
- {id:'apple',label:'зелене яблуко',img:A+'food/apple-green-slice.webp',box:[703,586,277,288],source:[1672,941],prompt:'Поклади в годівничку зелене яблуко.',voice:'18_green_apple.mp3',x:55,y:57,kind:'food'},
- {id:'seeds',label:'помаранчеве насіння',img:A+'food/bird-seeds.webp',box:[994,639,320,279],source:[1672,941],prompt:'Поклади в годівничку помаранчеве насіння.',voice:'18_orange_seeds.mp3',x:67,y:58,kind:'food'},
+ {id:'corn',label:'жовта кукурудза',img:A+'food/corn-yellow.webp',box:[26,615,419,304],source:[1672,941],prompt:'Поклади в годівничку жовту кукурудзу.',voice:'18_yellow_corn.mp3',x:31,y:76,kind:'food'},
+ {id:'berries',label:'червоні ягідки',img:A+'food/berries-red.webp',box:[377,650,327,237],source:[1672,941],prompt:'Поклади в годівничку червоні ягідки.',voice:'18_red_berries.mp3',x:43,y:76,kind:'food'},
+ {id:'apple',label:'зелене яблуко',img:A+'food/apple-green-slice.webp',box:[703,586,277,288],source:[1672,941],prompt:'Поклади в годівничку зелене яблуко.',voice:'18_green_apple.mp3',x:55,y:76,kind:'food'},
+ {id:'seeds',label:'помаранчеве насіння',img:A+'food/bird-seeds.webp',box:[994,639,320,279],source:[1672,941],prompt:'Поклади в годівничку помаранчеве насіння.',voice:'18_orange_seeds.mp3',x:67,y:76,kind:'food'},
  {id:'water',label:'синя мисочка з водою',img:A+'containers/water-bowl-blue.webp',box:[24,24,306,232],source:[354,280],prompt:'Постав для пташки синю мисочку з водою.',voice:'18_blue_water.mp3',x:78,y:78,kind:'water'}
 ];
 function birdChoiceGraphic(f){const [x,y,w,h]=f.box,[sw,sh]=f.source;return '<span class="bird-choice-crop"><img src="'+f.img+'" alt="'+f.label+'" style="width:'+sw/w*100+'%;left:'+(-x/w*100)+'%;top:'+(-y/w*100)+'%"></span>'}
