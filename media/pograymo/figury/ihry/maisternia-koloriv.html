@@ -150,15 +150,15 @@
 .scene-19 .tray{top:12px;bottom:auto;z-index:12;align-items:center;padding:8px 5px}
 .scene-19 .scene-item{width:18%;min-width:0;padding:3px}
 .scene-19 .scene-item img{max-height:76px;object-fit:contain}
-.painting-stage{position:absolute;z-index:2;left:50%;top:20%;width:min(56%,410px);aspect-ratio:762/1011;transform:translateX(-50%);filter:drop-shadow(0 10px 8px #513e4630);pointer-events:none}
+.painting-stage{position:absolute;z-index:2;left:50%;top:23%;width:min(47%,345px);aspect-ratio:762/1011;transform:translateX(-50%);filter:drop-shadow(0 10px 8px #513e4630);pointer-events:none}
 .painting-easel{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
 .painting-canvas{position:absolute;z-index:3;left:14%;right:14%;top:12%;height:55%;overflow:hidden;border-radius:3%;pointer-events:none}
 .painted-piece{position:absolute;z-index:3;transform:translate(-50%,-50%);opacity:0;animation:paintReveal .55s ease-out forwards;filter:drop-shadow(0 2px 2px #513e4620)}
 .painted-piece.sun{left:25%;top:25%;width:22%}.painted-piece.cloud{left:70%;top:27%;width:34%}.painted-piece.grass{left:50%;top:78%;width:78%}.painted-piece.flower{left:28%;top:64%;width:22%}.painted-piece.butterfly{left:69%;top:59%;width:23%}
-.painting-palette{position:absolute;z-index:4;left:-10%;bottom:2%;width:36%;filter:drop-shadow(0 5px 4px #513e4630)}
-.painting-brush{position:absolute;z-index:7;right:-1%;bottom:5%;width:13%;transform:rotate(-18deg);transform-origin:50% 90%;filter:drop-shadow(0 5px 4px #513e4630)}
-.painting-brush.painting{animation:brushPaint .62s ease-in-out}
-.painting-stage.alive .painted-piece.sun{animation:sunAlive 1.15s ease-in-out infinite alternate}.painting-stage.alive .painted-piece.cloud{animation:cloudAlive 2.7s ease-in-out infinite alternate}.painting-stage.alive .painted-piece.grass{animation:grassAlive 1.4s ease-in-out infinite alternate;transform-origin:50% 100%}.painting-stage.alive .painted-piece.flower{animation:flowerAlive 1.35s ease-in-out infinite alternate;transform-origin:50% 100%}.painting-stage.alive .painted-piece.butterfly{z-index:8;animation:butterflyAlive 3.4s ease-in-out infinite}
+.painting-palette{position:absolute;z-index:4;left:-34%;bottom:21%;width:39%;filter:drop-shadow(0 5px 4px #513e4630)}
+.painting-brush{position:absolute;z-index:7;right:-18%;bottom:23%;width:14%;transform:rotate(-18deg);transform-origin:50% 90%;filter:drop-shadow(0 5px 4px #513e4630)}
+.painting-brush.painting{animation:brushPaint 1s ease-in-out}
+.painting-stage.alive .painted-piece.sun{animation:sunAlive 1.4s .15s ease-in-out both}.painting-stage.alive .painted-piece.cloud{animation:cloudAlive 1.8s .85s ease-in-out both}.painting-stage.alive .painted-piece.grass{animation:grassAlive 1.8s 1.65s ease-in-out both;transform-origin:50% 100%}.painting-stage.alive .painted-piece.flower{animation:flowerAlive 1.7s 2.25s ease-in-out both;transform-origin:50% 100%}.painting-stage.alive .painted-piece.butterfly{z-index:8;animation:butterflyAlive 2.8s 2.45s ease-in-out both}
 @keyframes paintReveal{0%{opacity:0;transform:translate(-50%,-50%) scale(.7);filter:blur(5px)}75%{opacity:1;transform:translate(-50%,-50%) scale(1.07);filter:blur(0)}100%{opacity:1;transform:translate(-50%,-50%) scale(1);filter:blur(0)}}
 @keyframes brushPaint{0%,100%{transform:rotate(-18deg)}30%{transform:translate(-42%,-28%) rotate(-42deg)}65%{transform:translate(-12%,-50%) rotate(-4deg)}}
 @keyframes sunAlive{from{transform:translate(-50%,-50%) scale(1);filter:drop-shadow(0 0 3px #ffd72a88)}to{transform:translate(-50%,-50%) scale(1.09);filter:drop-shadow(0 0 12px #ffd72acc)}}
@@ -166,7 +166,7 @@
 @keyframes grassAlive{from{transform:translate(-50%,-50%) skewX(-2deg)}to{transform:translate(-50%,-50%) skewX(2deg)}}
 @keyframes flowerAlive{from{transform:translate(-50%,-50%) rotate(-3deg)}to{transform:translate(-50%,-50%) rotate(4deg)}}
 @keyframes butterflyAlive{0%{transform:translate(-50%,-50%) rotate(-7deg) scale(1)}45%{transform:translate(-15%,-78%) rotate(8deg) scale(.92)}100%{transform:translate(-50%,-50%) rotate(-7deg) scale(1)}}
-@media(max-width:520px){.scene-19 .tray{top:10px}.scene-19 .scene-item img{max-height:64px}.painting-stage{top:20%;width:72%}}
+@media(max-width:520px){.scene-19 .tray{top:10px}.scene-19 .scene-item img{max-height:64px}.painting-stage{top:22%;width:62%}.painting-palette{left:-24%;bottom:18%;width:36%}.painting-brush{right:-14%;bottom:21%;width:13%}}
 
 </style></head>
 <body><main class="game">
@@ -356,7 +356,7 @@ const paintedSceneItems=[
  {id:'butterfly',label:'синій метелик',img:A+'painted_scene/painted-butterfly.webp',prompt:'Намалюй синього метелика.',voice:'19_blue_butterfly.mp3'}
 ];
 function renderPainting(){scene.insertAdjacentHTML('afterbegin','<div class="painting-stage" id="base"><img class="painting-easel" src="'+A+'painted_scene/painting-easel.webp" alt="Мольберт із полотном"><div class="painting-canvas" id="paintingCanvas"></div><img class="painting-palette" src="'+A+'painted_scene/paint-palette.webp" alt="Палітра"><img class="painting-brush" id="paintingBrush" src="'+A+'painted_scene/paint-brush.webp" alt="Пензлик"></div>')}
-function paintPicturePiece(f){const canvas=document.getElementById('paintingCanvas'),brush=document.getElementById('paintingBrush');brush.classList.remove('painting');void brush.offsetWidth;brush.classList.add('painting');play(SFX+'paint-brush-stroke.mp3');setTimeout(()=>{if(!canvas.isConnected||sceneNo!==19)return;const im=document.createElement('img');im.className='painted-piece '+f.id;im.src=f.img;im.alt=f.label;canvas.appendChild(im);setTimeout(afterCorrect,360)},230)}
+function paintPicturePiece(f){const canvas=document.getElementById('paintingCanvas'),brush=document.getElementById('paintingBrush');brush.classList.remove('painting');void brush.offsetWidth;brush.classList.add('painting');play(SFX+'paint-brush-stroke.mp3');setTimeout(()=>{if(!canvas.isConnected||sceneNo!==19)return;const im=document.createElement('img');im.className='painted-piece '+f.id;im.src=f.img;im.alt=f.label;canvas.appendChild(im);setTimeout(afterCorrect,650)},620)}
 function finishPainting(){const stage=document.getElementById('base');document.getElementById('tray').style.display='none';q.textContent='Малюнок ожив!';stage.classList.add('alive');sparkles();play(COMMON+'meadow_unlock.mp3')}
 function birdChoiceGraphic(f){const [x,y,w,h]=f.box,[sw,sh]=f.source;return '<span class="bird-choice-crop"><img src="'+f.img+'" alt="'+f.label+'" style="width:'+sw/w*100+'%;left:'+(-x/w*100)+'%;top:'+(-y/w*100)+'%"></span>'}
 function renderBirdFeeder(){scene.insertAdjacentHTML('afterbegin','<div class="bird-feeder-wrap" id="base"><span class="bird-feeder-base"><img src="'+A+'nature/birds/bird-feeder.webp" alt="Годівничка для пташки"></span></div>')}
