@@ -132,18 +132,18 @@
 .scene-18 .scene-item{width:19%;min-width:0;padding:2px}
 .bird-choice-crop{position:relative;display:block;width:min(100%,92px);margin:auto;aspect-ratio:1;overflow:hidden}
 .bird-choice-crop img{position:absolute;max-width:none!important;max-height:none!important;height:auto!important;object-fit:fill!important;filter:drop-shadow(0 5px 4px #513e4630)!important}
-.bird-feeder-wrap{position:absolute;z-index:2;left:50%;top:12%;width:min(56%,360px);aspect-ratio:652/619;transform:translateX(-50%);pointer-events:none}
+.bird-feeder-wrap{position:absolute;z-index:2;left:50%;top:18%;width:min(56%,360px);aspect-ratio:652/619;transform:translateX(-50%);pointer-events:none}
 .bird-feeder-base{position:absolute;inset:0;overflow:hidden;filter:drop-shadow(0 9px 7px #513e4630)}
 .bird-feeder-base img{position:absolute;width:256.45%;max-width:none;left:-4.14%;top:0}
 .bird-food-placed{position:absolute;z-index:4;transform:translate(-50%,-50%);pointer-events:none;animation:drop .45s ease both;filter:drop-shadow(0 4px 3px #513e4630)}
 .bird-food-placed.water{width:20%}.bird-food-placed.food{width:18%}
 .bird-food-placed .bird-choice-crop{width:100%}
 .bird-final{position:absolute;z-index:9;pointer-events:none;filter:drop-shadow(0 7px 5px #513e4630)}
-.bird-final.flying{width:min(25%,160px);left:-28%;top:24%;animation:birdFlyIn 1.15s ease-out forwards}
-.bird-final.perched{width:min(20%,128px);left:58%;top:32%;transform:translate(-50%,-50%);animation:birdPerch .35s ease-out both}
-@keyframes birdFlyIn{0%{left:-35%;top:22%;transform:rotate(-7deg) scale(.82)}100%{left:54%;top:36%;transform:rotate(0) scale(1)}}
+.bird-final.flying{width:min(25%,160px);left:-28%;top:30%;animation:birdFlyIn 1.15s ease-out forwards}
+.bird-final.perched{width:min(20%,128px);left:58%;top:38%;transform:translate(-50%,-50%);animation:birdPerch .35s ease-out both}
+@keyframes birdFlyIn{0%{left:-35%;top:28%;transform:rotate(-7deg) scale(.82)}100%{left:54%;top:42%;transform:rotate(0) scale(1)}}
 @keyframes birdPerch{from{opacity:.2;transform:translate(-50%,-62%) scale(.9)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
-@media(max-width:520px){.scene-18 .tray{bottom:10px}.bird-feeder-wrap{top:15%;width:62%}}
+@media(max-width:520px){.scene-18 .tray{bottom:10px}.bird-feeder-wrap{top:25%;width:62%}.bird-final.perched{top:42%}.bird-final.flying{top:34%}}
 
 </style></head>
 <body><main class="game">
