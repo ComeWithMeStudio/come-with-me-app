@@ -131,10 +131,12 @@
 .scene-18 .tray{top:8px;bottom:auto;z-index:7}
 .scene-18 .scene-item{width:18%;min-width:0}
 .scene-18 .scene-item img{max-height:82px}
-.bird-feeder-wrap{position:absolute;z-index:2;left:50%;top:24%;width:min(56%,350px);height:58%;transform:translateX(-50%);pointer-events:none}
-.bird-feeder-base{position:absolute;left:50%;top:43%;width:100%;transform:translate(-50%,-50%);filter:drop-shadow(0 9px 7px #513e4630)}
+.bird-feeder-wrap{position:absolute;z-index:2;left:50%;top:20%;width:min(88%,590px);height:68%;transform:translateX(-50%);pointer-events:none}
+.bird-feeder-base{position:absolute;left:50%;top:48%;width:100%;transform:translate(-50%,-50%);filter:drop-shadow(0 9px 7px #513e4630)}
 .bird-food-placed{position:absolute;z-index:4;transform:translate(-50%,-50%);pointer-events:none;animation:drop .45s ease both;filter:drop-shadow(0 4px 3px #513e4630)}
-.bird-food-placed.water{width:32%}.bird-food-placed.food{width:24%}
+.bird-food-placed.water{width:25%}.bird-food-placed.food{width:21%}
+.scene-18 .tray .scene-item{width:20%;overflow:visible}
+.scene-18 .tray .scene-item img{width:145%;max-width:none;max-height:118px;transform:translateX(-15%)}
 .bird-final{position:absolute;z-index:9;pointer-events:none;filter:drop-shadow(0 7px 5px #513e4630)}
 .bird-final.flying{width:min(36%,230px);left:-35%;top:22%;animation:birdFlyIn 1.15s ease-out forwards}
 .bird-final.perched{width:min(30%,190px);left:56%;top:31%;transform:translate(-50%,-50%);animation:birdPerch .35s ease-out both}
@@ -315,11 +317,11 @@ function finishBeach(){const bucket=document.getElementById('base');document.get
 
 
 const birdFeederItems=[
- {id:'corn',label:'жовта кукурудза',img:A+'food/corn-yellow.webp',prompt:'Поклади в годівничку жовту кукурудзу.',voice:'18_yellow_corn.mp3',x:38,y:53,kind:'food'},
- {id:'berries',label:'червоні ягідки',img:A+'food/berries-red.webp',prompt:'Поклади в годівничку червоні ягідки.',voice:'18_red_berries.mp3',x:50,y:51,kind:'food'},
- {id:'apple',label:'зелене яблуко',img:A+'food/apple-green-slice.webp',prompt:'Поклади в годівничку зелене яблуко.',voice:'18_green_apple.mp3',x:62,y:53,kind:'food'},
- {id:'seeds',label:'помаранчеве насіння',img:A+'food/bird-seeds.webp',prompt:'Поклади в годівничку помаранчеве насіння.',voice:'18_orange_seeds.mp3',x:49,y:60,kind:'food'},
- {id:'water',label:'синя мисочка з водою',img:A+'containers/water-bowl-blue.webp',prompt:'Постав для пташки синю мисочку з водою.',voice:'18_blue_water.mp3',x:75,y:72,kind:'water'}
+ {id:'corn',label:'жовта кукурудза',img:A+'food/corn-yellow.webp',prompt:'Поклади в годівничку жовту кукурудзу.',voice:'18_yellow_corn.mp3',x:37,y:58,kind:'food'},
+ {id:'berries',label:'червоні ягідки',img:A+'food/berries-red.webp',prompt:'Поклади в годівничку червоні ягідки.',voice:'18_red_berries.mp3',x:45,y:57,kind:'food'},
+ {id:'apple',label:'зелене яблуко',img:A+'food/apple-green-slice.webp',prompt:'Поклади в годівничку зелене яблуко.',voice:'18_green_apple.mp3',x:54,y:57,kind:'food'},
+ {id:'seeds',label:'помаранчеве насіння',img:A+'food/bird-seeds.webp',prompt:'Поклади в годівничку помаранчеве насіння.',voice:'18_orange_seeds.mp3',x:63,y:58,kind:'food'},
+ {id:'water',label:'синя мисочка з водою',img:A+'containers/water-bowl-blue.webp',prompt:'Постав для пташки синю мисочку з водою.',voice:'18_blue_water.mp3',x:76,y:76,kind:'water'}
 ];
 function renderBirdFeeder(){scene.insertAdjacentHTML('afterbegin','<div class="bird-feeder-wrap" id="base"><img class="bird-feeder-base" src="'+A+'nature/birds/bird-feeder.webp" alt="Годівничка для пташки"></div>')}
 function placeBirdFood(f){const wrap=document.getElementById('base'),im=document.createElement('img');im.className='bird-food-placed '+f.kind;im.src=f.img;im.alt=f.label;im.style.left=f.x+'%';im.style.top=f.y+'%';wrap.appendChild(im);play(SFX+'soft_click.mp3',afterCorrect)}
