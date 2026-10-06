@@ -126,6 +126,21 @@
 .adventure-backpack.packed{animation:packReady .45s ease}.backpack-walk{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#ecf6ff}
 @keyframes packReady{50%{transform:translateX(-50%) scale(1.08)}}
 @media(max-width:520px){.adventure-backpack{top:15%;width:63%}.scene-17 .tray{bottom:18px;padding:12px 4px}}
+
+/* Scene 18 — bird feeder */
+.scene-18 .tray{top:8px;bottom:auto;z-index:7}
+.scene-18 .scene-item{width:18%;min-width:0}
+.scene-18 .scene-item img{max-height:82px}
+.bird-feeder-wrap{position:absolute;z-index:2;left:50%;top:24%;width:min(56%,350px);height:58%;transform:translateX(-50%);pointer-events:none}
+.bird-feeder-base{position:absolute;left:50%;top:43%;width:100%;transform:translate(-50%,-50%);filter:drop-shadow(0 9px 7px #513e4630)}
+.bird-food-placed{position:absolute;z-index:4;transform:translate(-50%,-50%);pointer-events:none;animation:drop .45s ease both;filter:drop-shadow(0 4px 3px #513e4630)}
+.bird-food-placed.water{width:32%}.bird-food-placed.food{width:24%}
+.bird-final{position:absolute;z-index:9;pointer-events:none;filter:drop-shadow(0 7px 5px #513e4630)}
+.bird-final.flying{width:min(36%,230px);left:-35%;top:22%;animation:birdFlyIn 1.15s ease-out forwards}
+.bird-final.perched{width:min(30%,190px);left:56%;top:31%;transform:translate(-50%,-50%);animation:birdPerch .35s ease-out both}
+@keyframes birdFlyIn{0%{left:-35%;top:16%;transform:rotate(-7deg) scale(.82)}100%{left:54%;top:29%;transform:rotate(0) scale(1)}}
+@keyframes birdPerch{from{opacity:.2;transform:translate(-50%,-62%) scale(.9)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+
 </style></head>
 <body><main class="game">
 <header class="top"><a class="pill" href="geometry-games-catalog.html">← До ігор</a><h1 class="title">Майстерня кольорів</h1><button class="pill reset" id="reset">↻ Спочатку</button></header>
@@ -298,6 +313,18 @@ function playShortWave(onEnd){play(SFX+'wave-shore.mp3');const a=activeAudio;let
 function finishBeach(){const bucket=document.getElementById('base');document.getElementById('tray').style.display='none';q.textContent='Відерце наповнене! Будуємо замок!';bucket.classList.add('wobble');setTimeout(()=>{if(!bucket.isConnected||sceneNo!==16)return;bucket.remove();const castle=document.createElement('div');castle.className='beach-castle';castle.innerHTML=beachGraphic(A+'nature/beach/sandcastle.webp',[569,121,850,488],'Піщаний замок',1962);scene.appendChild(castle);setTimeout(()=>{if(!castle.isConnected||sceneNo!==16)return;stopBeachAmbience();q.textContent='А ось і морська хвиля!';const water=document.createElement('div');water.className='beach-water';water.innerHTML=[0,1,2,3].map(i=>'<div class="beach-wave '+(['large','small','deep-one','deep-two'][i])+'">'+beachGraphic(A+'nature/beach/wave.webp',[0,433,1962,339],'Морська хвиля',1962)+'</div>').join('');scene.appendChild(water);playShortWave(()=>{if(castle.isConnected&&sceneNo===16){q.textContent='Яка чудова пригода на пляжі!';complete(17)}});setTimeout(()=>water.remove(),4800)},1500)},950)}
 
 
+
+const birdFeederItems=[
+ {id:'corn',label:'жовта кукурудза',img:A+'food/corn-yellow.webp',prompt:'Поклади в годівничку жовту кукурудзу.',voice:'18_yellow_corn.mp3',x:38,y:53,kind:'food'},
+ {id:'berries',label:'червоні ягідки',img:A+'food/berries-red.webp',prompt:'Поклади в годівничку червоні ягідки.',voice:'18_red_berries.mp3',x:50,y:51,kind:'food'},
+ {id:'apple',label:'зелене яблуко',img:A+'food/apple-green-slice.webp',prompt:'Поклади в годівничку зелене яблуко.',voice:'18_green_apple.mp3',x:62,y:53,kind:'food'},
+ {id:'seeds',label:'помаранчеве насіння',img:A+'food/bird-seeds.webp',prompt:'Поклади в годівничку помаранчеве насіння.',voice:'18_orange_seeds.mp3',x:49,y:60,kind:'food'},
+ {id:'water',label:'синя мисочка з водою',img:A+'containers/water-bowl-blue.webp',prompt:'Постав для пташки синю мисочку з водою.',voice:'18_blue_water.mp3',x:75,y:72,kind:'water'}
+];
+function renderBirdFeeder(){scene.insertAdjacentHTML('afterbegin','<div class="bird-feeder-wrap" id="base"><img class="bird-feeder-base" src="'+A+'nature/birds/bird-feeder.webp" alt="Годівничка для пташки"></div>')}
+function placeBirdFood(f){const wrap=document.getElementById('base'),im=document.createElement('img');im.className='bird-food-placed '+f.kind;im.src=f.img;im.alt=f.label;im.style.left=f.x+'%';im.style.top=f.y+'%';wrap.appendChild(im);play(SFX+'soft_click.mp3',afterCorrect)}
+function finishBirdFeeder(){document.getElementById('tray').style.display='none';q.textContent='До годівнички прилетіла пташка!';const flying=document.createElement('img');flying.className='bird-final flying';flying.src=A+'nature/birds/bird-flying.webp';flying.alt='Пташка прилітає';scene.appendChild(flying);play(SFX+'bird_chirp.mp3');setTimeout(()=>{if(!flying.isConnected||sceneNo!==18)return;flying.remove();const perched=document.createElement('img');perched.className='bird-final perched';perched.src=A+'nature/birds/bird-perched.webp';perched.alt='Пташка біля годівнички';scene.appendChild(perched)},1150);setTimeout(()=>{if(sceneNo===18)complete(0)},3000)}
+
 const backpackThings=[
 {id:'flashlight',label:'червоний ліхтарик',img:A+'adventure_and_clothes/flashlight_red.webp',box:[568,331,536,278],prompt:'Поклади в рюкзак червоний ліхтарик.',voice:'17_red_flashlight.mp3'},
 {id:'binoculars',label:'жовтий бінокль',img:A+'adventure_and_clothes/binoculars_yellow.webp',box:[556,300,559,341],prompt:'Поклади в рюкзак жовтий бінокль.',voice:'17_yellow_binoculars.mp3'},
@@ -318,8 +345,8 @@ function nextFrom(files,type){let bag=type==='correct'?feedbackBag:retryBag;if(!
 let audioRetryPending=false;
 function showAudioStart(){if(audioRetryPending)return;audioRetryPending=true;document.addEventListener('click',()=>{audioRetryPending=false;if(beachAudioContext)beachAudioContext.resume().catch(()=>{});if(activeAudio)activeAudio.play().catch(error=>{if(error.name==='NotAllowedError')showAudioStart()});if(beachAmbience)beachAmbience.play().catch(error=>{if(error.name==='NotAllowedError')showAudioStart()})},{once:true})}
 function play(path,onEnd){if(activeAudio){activeAudio.pause();activeAudio.currentTime=0}const a=new Audio(path);activeAudio=a;a.onended=()=>{if(activeAudio===a&&onEnd)onEnd()};a.onerror=()=>{if(activeAudio===a&&onEnd)onEnd()};a.play().catch(error=>{if(activeAudio!==a)return;if(error.name==='NotAllowedError')showAudioStart();else if(onEnd)onEnd()})}
-const sceneNames=['','Кошик','Букет','Коробка іграшок','Пірамідка','Ялинка','Кульки для Мімі','Морозиво','Паровоз','Метелик','Будиночок','Мімі-мандрівник','Акваріум','Торт для Мімі','Клумба','Кольорові гаражі','Пляжне відерце','Рюкзак для пригод'];
-const sceneItems=[null,fruits,flowers,toys,pyramid,tree,balloons,icecream,train,butterflyParts,houseParts,explorer,aquariumFish,cakeToppings,gardenFlowers,garageCars,beachToys,backpackThings];
+const sceneNames=['','Кошик','Букет','Коробка іграшок','Пірамідка','Ялинка','Кульки для Мімі','Морозиво','Паровоз','Метелик','Будиночок','Мімі-мандрівник','Акваріум','Торт для Мімі','Клумба','Кольорові гаражі','Пляжне відерце','Рюкзак для пригод','Годівничка для пташки'];
+const sceneItems=[null,fruits,flowers,toys,pyramid,tree,balloons,icecream,train,butterflyParts,houseParts,explorer,aquariumFish,cakeToppings,gardenFlowers,garageCars,beachToys,backpackThings,birdFeederItems];
 const toySlots={car:{x:47,y:55},ball:{x:55,y:44},block:{x:54,y:55},top:{x:58,y:59},bunny:{x:43,y:48}};
 function currentItems(){return sceneItems[sceneNo]}
 function prompt(){const f=order[step];q.textContent=f.prompt;progress.textContent=sceneNames[sceneNo]+' • '+(step+1)+' з '+(sceneNo===5||sceneNo===9?6:5);if(f.voice)play(VOICE+f.voice)}
@@ -329,7 +356,7 @@ function renderScene(){
  scene.innerHTML=(bases[sceneNo]||'')+(sceneNo===1?'<img class="basket-front" src="'+A+'containers/fruit-basket.webp" alt="">':sceneNo===2?'<img class="bouquet-front" src="'+A+'plants/bouquet-wrapper-pink-bow.webp" alt="">':sceneNo===3?'<img class="toy-front" src="'+A+'containers/toy-box.webp" alt="">':sceneNo===7?icecreamSlots.map((slot,i)=>'<div class="icecream-serving" id="icecream-slot-'+i+'" style="left:'+slot.x+'%"><img class="icecream-cone" src="'+A+'food/ice-cream-cone.webp" alt=""></div>').join(''):'')+'<div class="tray" id="tray"></div>';
  if(sceneNo===13)scene.insertAdjacentHTML('afterbegin','<div class="cake-wrap" id="base"><img class="cake-base" src="'+A+'food/cake-toppings/cake.webp" alt="Торт для Мімі"></div>');
  if(sceneNo===14)scene.insertAdjacentHTML('afterbegin','<div class="garden-wrap" id="base"><div class="garden-base">'+gardenGraphic(A+'plants/flowerbed-base.webp',[0,375,1101,613],'Клумба')+'</div></div>');
- if(sceneNo===15)renderGarage();if(sceneNo===16)renderBeach();if(sceneNo===17)renderBackpack();
+ if(sceneNo===15)renderGarage();if(sceneNo===16)renderBeach();if(sceneNo===17)renderBackpack();if(sceneNo===18)renderBirdFeeder();
  const tray=document.getElementById('tray');
  (sceneNo===4?pyramid:shuffle(currentItems())).forEach(f=>{const b=document.createElement('button');b.className=(sceneNo===1?'fruit':sceneNo===2?'flower':sceneNo===4?'pyramid-ring':'scene-item')+(sceneNo===8?' train-choice':'');b.dataset.id=f.id;b.setAttribute('aria-label',f.label);b.innerHTML='<img src="'+f.img+'" alt="'+f.label+'">';if(sceneNo===14)b.innerHTML=gardenGraphic(f.img,f.box,f.label);if(sceneNo===17)b.innerHTML=beachGraphic(f.img,f.box,f.label,1672);if(sceneNo===15)b.innerHTML=garageGraphic(f.img,f.box,f.label);if(sceneNo===16){b.innerHTML=beachGraphic(f.img,f.box,f.label);const slot=[[20,63],[80,63],[20,82],[80,82],[49,82]][tray.children.length];b.style.setProperty('--x',slot[0]+'%');b.style.setProperty('--y',slot[1]+'%')}if(sceneNo===13&&f.id==='raspberry')b.querySelector('img').classList.add('raspberry-pink');b.onclick=()=>choose(b,f);tray.appendChild(b)});
 }
@@ -337,7 +364,7 @@ function choose(btn,f){
  if(!started||busy||btn.classList.contains('used'))return;
  if(sceneNo===9?f.kind!==order[step].kind:f.id!==order[step].id){btn.classList.remove('bad');void btn.offsetWidth;btn.classList.add('bad');play(COMMON+'wrong_boop.mp3',()=>{const file=nextFrom(retry,'retry');message.textContent=feedbackText[file];play(COMMON+file)});return}
  busy=true;btn.classList.add('used');
- if(sceneNo===17){packThing();return}if(sceneNo===16){collectBeachToy(f);return}if(sceneNo===15){parkGarageCar(f,btn);return}
+ if(sceneNo===18){placeBirdFood(f);return}if(sceneNo===17){packThing();return}if(sceneNo===16){collectBeachToy(f);return}if(sceneNo===15){parkGarageCar(f,btn);return}
  if(sceneNo===9){const target=order[step],im=document.createElement('img');im.className='wing-decoration'+(f.id==='star-yellow'?' yellow-star':f.kind==='heart'?' red-heart':'');im.src=f.img;im.alt='';im.style.left=target.x+'%';im.style.top=target.y+'%';document.getElementById('base').appendChild(im);play(SFX+'soft_chime.mp3',afterCorrect);return}
  if(sceneNo===14){const slot=gardenSlots[step],flower=document.createElement('div');flower.className='garden-flower';flower.style.left=slot.x+'%';flower.style.top=slot.y+'%';if(f.id==='tulip')flower.style.width='13.5%';flower.innerHTML=gardenGraphic(f.img,f.box,f.label);document.getElementById('base').appendChild(flower);play(SFX+'soft_chime.mp3',afterCorrect);return}
  if(sceneNo===13){const im=document.createElement('img');im.className='cake-topping'+(f.id==='raspberry'?' raspberry-pink':'');im.src=f.img;im.alt=f.label;im.style.left=f.x+'%';im.style.top=f.y+'%';document.getElementById('base').appendChild(im);play(SFX+'soft_click.mp3',afterCorrect);return}
@@ -371,6 +398,7 @@ function finishScene(){
  else if(sceneNo===12){q.textContent='Акваріум ожив!';const a=document.getElementById('base');a.classList.add('finished');const koi=a.querySelector('[data-fish="redwhite"]'),gold=a.querySelector('[data-fish="orange"]');if(koi&&gold){koi.classList.add('aquarium-kiss-left');gold.classList.add('aquarium-kiss-right');setTimeout(()=>play(SFX+'fish_kiss.mp3'),1250);setTimeout(()=>complete(13),2450)}else{play(SFX+'fish_kiss.mp3',()=>complete(13))}}
  else if(sceneNo===13){q.textContent='Який гарний торт! Мімі точно сподобається.';const cake=document.getElementById('base');play(VOICE+'13_finish.mp3',()=>{if(cake.isConnected&&sceneNo===13)showCakeCandle(cake)})}
  else if(sceneNo===14){q.textContent='Клумба розквітла!';document.getElementById('tray').style.display='none';const garden=document.getElementById('base');garden.classList.add('finished');play(KOMAKHY+'audio/sfx/grass_rustle.mp3',()=>{if(!garden.isConnected)return;const hopper=document.createElement('img');hopper.className='garden-insect garden-grasshopper';hopper.src=KOMAKHY+'assets/grasshopper.webp';hopper.alt='Коник';garden.appendChild(hopper);play(KOMAKHY+'audio/sfx/grasshopper_jump.mp3',()=>{if(!garden.isConnected)return;const bee=document.createElement('img');bee.className='garden-insect garden-bee';bee.src=KOMAKHY+'assets/bee.webp';bee.alt='Бджілка';garden.appendChild(bee);play(KOMAKHY+'audio/sfx/bee_buzz.mp3',()=>{if(garden.isConnected)complete(15)})})})}
+ else if(sceneNo===18){finishBirdFeeder()}
  else if(sceneNo===17){finishBackpack()}
  else if(sceneNo===16){finishBeach()}
  else if(sceneNo===15){q.textContent='Усі машинки вдома!';document.getElementById('tray').style.display='none';document.getElementById('base').classList.add('finished');play(SFX+'car_horn_beep_beep.mp3',()=>complete(16))}
@@ -400,6 +428,6 @@ function sparkles(){for(let i=0;i<9;i++){const s=document.createElement('span');
 function startScene(n){stopBeachAmbience();sceneNo=n;started=true;busy=false;step=0;feedbackBag=[];retryBag=[];message.textContent='';order=n===16?beachOrder():n===1?basketOrder():n===4?pyramid:n===5?[...shuffle(tree.slice(0,4)),tree[4],tree[5]]:n===9?butterflyParts:n===10?houseParts:n===11?explorer:n===12?aquariumFish:shuffle(currentItems());renderScene();if(n===16)startBeachAmbience();if(n===17){busy=true;q.textContent='Мімі вирушає у пригоду! Допоможи зібрати його рюкзак.';progress.textContent=sceneNames[n]+' • старт';const base=document.getElementById('base');play(VOICE+'17_intro.mp3',()=>{if(base.isConnected&&sceneNo===17){busy=false;prompt()}})}else if(n===13){busy=true;q.textContent='Прикрасимо торт для Мімі! Обирай фрукти за кольором.';progress.textContent=sceneNames[n]+' • старт';play(VOICE+'13_intro.mp3',()=>{busy=false;prompt()})}else if(n===11){q.textContent='Мімі збирається у пригоду!';progress.textContent=sceneNames[n]+' • старт';const introAudio=new Audio(VOICE+'11_explorer_intro.mp3');introAudio.onended=prompt;introAudio.play().catch(prompt)}else prompt()}
 function begin(){startScene(1)}
 function intro(){stopBeachAmbience();started=false;busy=false;sceneNo=1;progress.textContent='Сцена 1 • Кошик';q.textContent='';message.textContent='';scene.innerHTML='<div class="start"><div><strong>Майстерня кольорів 🎨</strong><span>Допоможи створювати яскраві речі</span><button id="startBtn">Починаймо!</button></div></div>';document.getElementById('startBtn').onclick=()=>play(VOICE+'00_game_intro.mp3',begin)}
-document.getElementById('reset').onclick=()=>{if(activeAudio){activeAudio.pause();activeAudio.currentTime=0}intro()};const requestedScene=Number(new URLSearchParams(location.search).get('scene'));if(Number.isInteger(requestedScene)&&requestedScene>=1&&requestedScene<=17)startScene(requestedScene);else intro();
+document.getElementById('reset').onclick=()=>{if(activeAudio){activeAudio.pause();activeAudio.currentTime=0}intro()};const requestedScene=Number(new URLSearchParams(location.search).get('scene'));if(Number.isInteger(requestedScene)&&requestedScene>=1&&requestedScene<=18)startScene(requestedScene);else intro();
 </script></body></html>
 
