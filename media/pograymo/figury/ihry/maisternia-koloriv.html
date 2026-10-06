@@ -172,14 +172,14 @@
 .scene-20{background:linear-gradient(180deg,#fff4e5,#ffeedd 54%,#e5f3da)}
 .scene-20 .tray{top:10px;bottom:auto;z-index:15;align-items:center;padding:7px 4px}
 .scene-20 .scene-item{width:19%;min-width:0;padding:2px}.scene-20 .scene-item img{max-height:72px}
-.party-table-wrap{position:absolute;z-index:5;left:50%;top:29%;width:min(82%,590px);aspect-ratio:1543/1070;transform:translateX(-50%);pointer-events:none}
+.party-table-wrap{position:absolute;z-index:5;left:50%;top:35%;width:min(82%,590px);aspect-ratio:1543/1070;transform:translateX(-50%);pointer-events:none}
 .party-table-base{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 10px 8px #513e4630)}
-.party-tree{position:absolute;z-index:2;right:2%;top:24%;width:min(22%,150px);filter:drop-shadow(0 8px 6px #31533135)}
+.party-tree{position:absolute;z-index:2;right:0;top:20%;width:min(28%,190px);filter:drop-shadow(0 8px 6px #31533135)}
 .party-tree.celebrate{animation:partyTreeBlink .55s ease-in-out 7 alternate}
 .party-frame{position:absolute;z-index:2;left:3%;top:29%;width:min(22%,155px);aspect-ratio:4/3;padding:7px;border:9px solid #d48a35;border-radius:10px;background:#fff9ec;box-shadow:inset 0 0 0 3px #ffd987,0 7px 10px #513e4630;overflow:hidden}
 .party-frame-image{position:absolute;z-index:2;left:3%;top:29%;width:min(23%,165px);filter:drop-shadow(0 7px 6px #513e4630)}
 .party-picture{position:relative;width:100%;height:100%;overflow:hidden;background:linear-gradient(#dff5ff 0 62%,#d7f1ae 62%)}.party-picture img{position:absolute;object-fit:contain}.party-picture .sun{left:7%;top:7%;width:24%}.party-picture .cloud{right:4%;top:9%;width:38%}.party-picture .grass{left:3%;right:3%;bottom:-4%;width:94%}.party-picture .flower{left:19%;bottom:10%;width:22%}.party-picture .butterfly{right:18%;bottom:24%;width:22%;animation:none}
-.party-placed{position:absolute;z-index:7;transform:translate(-50%,-50%);animation:drop .55s ease both}.party-placed.basket{left:24%;top:31%;width:30%}.party-placed.cake{left:50%;top:27%;width:29%}.party-placed.cups{left:76%;top:31%;width:25%}.party-placed.napkins{left:68%;top:45%;width:22%}.party-placed.bouquet{left:30%;top:42%;width:25%}
+.party-placed{position:absolute;z-index:7;transform:translate(-50%,-50%);animation:drop .55s ease both}.party-placed.basket{left:24%;top:31%;width:30%}.party-placed.cake{left:50%;top:27%;width:29%}.party-placed.cups{left:50%;top:45%;width:25%}.party-placed.napkins{left:68%;top:45%;width:22%}.party-placed.bouquet{left:76%;top:31%;width:25%}
 .party-composite{position:relative;display:block;width:100%;aspect-ratio:1}.party-composite>img{position:absolute;object-fit:contain;filter:drop-shadow(0 3px 2px #513e4630)}
 .party-composite.complete>img{inset:0;width:100%;height:100%}
 .party-composite.basket .base{inset:14% 0 0;width:100%}.party-composite.basket .item{width:25%;z-index:2}.party-composite.basket .i1{left:20%;top:23%}.party-composite.basket .i2{left:37%;top:15%}.party-composite.basket .i3{left:53%;top:20%}.party-composite.basket .i4{left:67%;top:28%}.party-composite.basket .i5{left:42%;top:31%}
@@ -187,7 +187,7 @@
 .party-composite.bouquet .base{inset:6% 8% 0;width:84%}.party-composite.bouquet .item{width:29%;z-index:2}.party-composite.bouquet .i1{left:18%;top:10%}.party-composite.bouquet .i2{left:37%;top:3%}.party-composite.bouquet .i3{left:56%;top:10%}.party-composite.bouquet .i4{left:29%;top:21%}.party-composite.bouquet .i5{left:49%;top:22%}
 .party-composite.cups img,.party-composite.napkins img{inset:5%;width:90%;height:90%}
 @keyframes partyTreeBlink{to{filter:brightness(1.45) drop-shadow(0 0 15px #ffe75b)}}
-@media(max-width:520px){.scene-20 .scene-item img{max-height:58px}.party-table-wrap{top:31%;width:92%}.party-tree{top:25%;width:25%}.party-frame,.party-frame-image{top:28%;width:25%;border-width:6px}.party-placed.basket{width:32%}.party-placed.cake{width:31%}.party-placed.cups{width:27%}.party-placed.napkins{width:24%}.party-placed.bouquet{width:27%}}
+@media(max-width:520px){.scene-20 .scene-item img{max-height:58px}.party-table-wrap{top:37%;width:92%}.party-tree{top:21%;width:31%}.party-frame,.party-frame-image{top:28%;width:25%;border-width:6px}.party-placed.basket{width:32%}.party-placed.cake{width:31%}.party-placed.cups{width:27%}.party-placed.napkins{width:24%}.party-placed.bouquet{width:27%}}
 
 </style></head>
 <body><main class="game">
@@ -386,7 +386,7 @@ const partyItems=[
 function partyComposite(type){
  if(type==='basket')return '<span class="party-composite complete"><img src="'+A+'celebration/fruit-basket-complete.webp" alt="Кошик із фруктами"></span>';
  if(type==='cake')return '<span class="party-composite complete"><img src="'+A+'celebration/cake-complete.webp" alt="Святковий торт"></span>';
- if(type==='bouquet')return '<span class="party-composite bouquet"><img class="base" src="'+A+'plants/bouquet-wrapper-pink-bow.webp" alt=""><img class="item i1" src="'+A+'plants/daisy-white.webp" alt=""><img class="item i2" src="'+A+'plants/hydrangea-blue.webp" alt=""><img class="item i3" src="'+A+'plants/pansy-purple.webp" alt=""><img class="item i4" src="'+A+'plants/rose-red.webp" alt=""><img class="item i5" src="'+A+'plants/tulip-yellow.webp" alt=""></span>';
+ if(type==='bouquet')return '<span class="party-composite complete"><img src="'+A+'celebration/flower-bouquet-complete.webp" alt="Святковий букет"></span>';
  return '<span class="party-composite '+type+'"><img src="'+A+'celebration/party-'+type+'.webp" alt=""></span>'
 }
 function renderParty(){scene.insertAdjacentHTML('afterbegin','<img class="party-frame-image" src="'+A+'celebration/painted-picture-framed.webp" alt="Чарівний малюнок у рамці"><img class="party-tree" id="partyTree" src="'+A+'plants/christmas-tree-decorated.webp" alt="Прикрашена ялинка"><div class="party-table-wrap" id="base"><img class="party-table-base" src="'+A+'celebration/festive-table.webp" alt="Святковий стіл"></div>')}
