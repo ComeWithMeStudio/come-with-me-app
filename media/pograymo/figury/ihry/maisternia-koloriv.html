@@ -128,6 +128,7 @@
 @media(max-width:520px){.adventure-backpack{top:15%;width:63%}.scene-17 .tray{bottom:18px;padding:12px 4px}}
 
 /* Scene 18 — bird feeder */
+.scene-18{--bird-x:51%;--bird-fly-y:63%;--bird-perch-y:59%;--bird-size:min(15%,96px)}
 .scene-18 .tray{top:auto;bottom:14px;z-index:7;align-items:center;padding:10px 6px}
 .scene-18 .scene-item{width:19%;min-width:0;padding:2px}
 .bird-choice-crop{position:relative;display:block;width:min(100%,92px);margin:auto;aspect-ratio:1;overflow:hidden}
@@ -140,10 +141,10 @@
 .bird-food-placed .bird-choice-crop{width:100%}
 .bird-final{position:absolute;z-index:9;pointer-events:none;filter:drop-shadow(0 7px 5px #513e4630)}
 .bird-final.flying{width:min(25%,160px);left:-28%;top:40%;animation:birdFlyIn 1.15s ease-out forwards}
-.bird-final.perched{width:min(20%,128px);left:44%;top:64%;transform:translate(-50%,-50%);animation:birdPerch .35s ease-out both}
-@keyframes birdFlyIn{0%{left:-35%;top:38%;transform:rotate(-7deg) scale(.82)}100%{left:44%;top:68%;transform:rotate(0) scale(1)}}
+.bird-final.perched{width:var(--bird-size);left:var(--bird-x);top:var(--bird-perch-y);transform:translate(-50%,-50%);animation:birdPerch .35s ease-out both}
+@keyframes birdFlyIn{0%{left:-35%;top:38%;transform:rotate(-7deg) scale(.82)}100%{left:var(--bird-x);top:var(--bird-fly-y);transform:rotate(0) scale(1)}}
 @keyframes birdPerch{from{opacity:.2;transform:translate(-50%,-62%) scale(.9)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
-@media(max-width:520px){.scene-18 .tray{bottom:10px}.bird-feeder-wrap{top:25%;width:62%}}
+@media(max-width:520px){.scene-18{--bird-x:44%;--bird-fly-y:68%;--bird-perch-y:64%;--bird-size:min(20%,128px)}.scene-18 .tray{bottom:10px}.bird-feeder-wrap{top:25%;width:62%}}
 
 </style></head>
 <body><main class="game">
