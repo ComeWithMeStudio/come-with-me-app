@@ -128,20 +128,22 @@
 @media(max-width:520px){.adventure-backpack{top:15%;width:63%}.scene-17 .tray{bottom:18px;padding:12px 4px}}
 
 /* Scene 18 — bird feeder */
-.scene-18 .tray{top:8px;bottom:auto;z-index:7}
-.scene-18 .scene-item{width:18%;min-width:0}
-.scene-18 .scene-item img{max-height:82px}
-.bird-feeder-wrap{position:absolute;z-index:2;left:50%;top:20%;width:min(88%,590px);height:68%;transform:translateX(-50%);pointer-events:none}
-.bird-feeder-base{position:absolute;left:50%;top:48%;width:100%;transform:translate(-50%,-50%);filter:drop-shadow(0 9px 7px #513e4630)}
+.scene-18 .tray{top:auto;bottom:14px;z-index:7;align-items:center;padding:10px 6px}
+.scene-18 .scene-item{width:19%;min-width:0;padding:2px}
+.bird-choice-crop{position:relative;display:block;width:min(100%,92px);margin:auto;aspect-ratio:1;overflow:hidden}
+.bird-choice-crop img{position:absolute;max-width:none!important;max-height:none!important;height:auto!important;object-fit:fill!important;filter:drop-shadow(0 5px 4px #513e4630)!important}
+.bird-feeder-wrap{position:absolute;z-index:2;left:50%;top:6%;width:min(66%,430px);aspect-ratio:652/619;transform:translateX(-50%);pointer-events:none}
+.bird-feeder-base{position:absolute;inset:0;overflow:hidden;filter:drop-shadow(0 9px 7px #513e4630)}
+.bird-feeder-base img{position:absolute;width:256.45%;max-width:none;left:-4.14%;top:0}
 .bird-food-placed{position:absolute;z-index:4;transform:translate(-50%,-50%);pointer-events:none;animation:drop .45s ease both;filter:drop-shadow(0 4px 3px #513e4630)}
-.bird-food-placed.water{width:25%}.bird-food-placed.food{width:21%}
-.scene-18 .tray .scene-item{width:20%;overflow:visible}
-.scene-18 .tray .scene-item img{width:145%;max-width:none;max-height:118px;transform:translateX(-15%)}
+.bird-food-placed.water{width:20%}.bird-food-placed.food{width:18%}
+.bird-food-placed .bird-choice-crop{width:100%}
 .bird-final{position:absolute;z-index:9;pointer-events:none;filter:drop-shadow(0 7px 5px #513e4630)}
-.bird-final.flying{width:min(36%,230px);left:-35%;top:22%;animation:birdFlyIn 1.15s ease-out forwards}
-.bird-final.perched{width:min(30%,190px);left:56%;top:31%;transform:translate(-50%,-50%);animation:birdPerch .35s ease-out both}
+.bird-final.flying{width:min(25%,160px);left:-28%;top:18%;animation:birdFlyIn 1.15s ease-out forwards}
+.bird-final.perched{width:min(20%,128px);left:58%;top:25%;transform:translate(-50%,-50%);animation:birdPerch .35s ease-out both}
 @keyframes birdFlyIn{0%{left:-35%;top:16%;transform:rotate(-7deg) scale(.82)}100%{left:54%;top:29%;transform:rotate(0) scale(1)}}
 @keyframes birdPerch{from{opacity:.2;transform:translate(-50%,-62%) scale(.9)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@media(max-width:520px){.scene-18 .tray{bottom:10px}.bird-feeder-wrap{top:7%;width:72%}}
 
 </style></head>
 <body><main class="game">
@@ -317,14 +319,15 @@ function finishBeach(){const bucket=document.getElementById('base');document.get
 
 
 const birdFeederItems=[
- {id:'corn',label:'жовта кукурудза',img:A+'food/corn-yellow.webp',prompt:'Поклади в годівничку жовту кукурудзу.',voice:'18_yellow_corn.mp3',x:37,y:58,kind:'food'},
- {id:'berries',label:'червоні ягідки',img:A+'food/berries-red.webp',prompt:'Поклади в годівничку червоні ягідки.',voice:'18_red_berries.mp3',x:45,y:57,kind:'food'},
- {id:'apple',label:'зелене яблуко',img:A+'food/apple-green-slice.webp',prompt:'Поклади в годівничку зелене яблуко.',voice:'18_green_apple.mp3',x:54,y:57,kind:'food'},
- {id:'seeds',label:'помаранчеве насіння',img:A+'food/bird-seeds.webp',prompt:'Поклади в годівничку помаранчеве насіння.',voice:'18_orange_seeds.mp3',x:63,y:58,kind:'food'},
- {id:'water',label:'синя мисочка з водою',img:A+'containers/water-bowl-blue.webp',prompt:'Постав для пташки синю мисочку з водою.',voice:'18_blue_water.mp3',x:76,y:76,kind:'water'}
+ {id:'corn',label:'жовта кукурудза',img:A+'food/corn-yellow.webp',box:[26,615,419,304],source:[1672,941],prompt:'Поклади в годівничку жовту кукурудзу.',voice:'18_yellow_corn.mp3',x:31,y:58,kind:'food'},
+ {id:'berries',label:'червоні ягідки',img:A+'food/berries-red.webp',box:[377,650,327,237],source:[1672,941],prompt:'Поклади в годівничку червоні ягідки.',voice:'18_red_berries.mp3',x:43,y:57,kind:'food'},
+ {id:'apple',label:'зелене яблуко',img:A+'food/apple-green-slice.webp',box:[703,586,277,288],source:[1672,941],prompt:'Поклади в годівничку зелене яблуко.',voice:'18_green_apple.mp3',x:55,y:57,kind:'food'},
+ {id:'seeds',label:'помаранчеве насіння',img:A+'food/bird-seeds.webp',box:[994,639,320,279],source:[1672,941],prompt:'Поклади в годівничку помаранчеве насіння.',voice:'18_orange_seeds.mp3',x:67,y:58,kind:'food'},
+ {id:'water',label:'синя мисочка з водою',img:A+'containers/water-bowl-blue.webp',box:[24,24,306,232],source:[354,280],prompt:'Постав для пташки синю мисочку з водою.',voice:'18_blue_water.mp3',x:78,y:78,kind:'water'}
 ];
-function renderBirdFeeder(){scene.insertAdjacentHTML('afterbegin','<div class="bird-feeder-wrap" id="base"><img class="bird-feeder-base" src="'+A+'nature/birds/bird-feeder.webp" alt="Годівничка для пташки"></div>')}
-function placeBirdFood(f){const wrap=document.getElementById('base'),im=document.createElement('img');im.className='bird-food-placed '+f.kind;im.src=f.img;im.alt=f.label;im.style.left=f.x+'%';im.style.top=f.y+'%';wrap.appendChild(im);play(SFX+'soft_click.mp3',afterCorrect)}
+function birdChoiceGraphic(f){const [x,y,w,h]=f.box,[sw,sh]=f.source;return '<span class="bird-choice-crop"><img src="'+f.img+'" alt="'+f.label+'" style="width:'+sw/w*100+'%;left:'+(-x/w*100)+'%;top:'+(-y/h*100)+'%"></span>'}
+function renderBirdFeeder(){scene.insertAdjacentHTML('afterbegin','<div class="bird-feeder-wrap" id="base"><span class="bird-feeder-base"><img src="'+A+'nature/birds/bird-feeder.webp" alt="Годівничка для пташки"></span></div>')}
+function placeBirdFood(f){const wrap=document.getElementById('base'),im=document.createElement('span');im.className='bird-food-placed '+f.kind;im.innerHTML=birdChoiceGraphic(f);im.style.left=f.x+'%';im.style.top=f.y+'%';wrap.appendChild(im);play(SFX+'soft_click.mp3',afterCorrect)}
 function finishBirdFeeder(){document.getElementById('tray').style.display='none';q.textContent='До годівнички прилетіла пташка!';const flying=document.createElement('img');flying.className='bird-final flying';flying.src=A+'nature/birds/bird-flying.webp';flying.alt='Пташка прилітає';scene.appendChild(flying);play(SFX+'bird_chirp.mp3');setTimeout(()=>{if(!flying.isConnected||sceneNo!==18)return;flying.remove();const perched=document.createElement('img');perched.className='bird-final perched';perched.src=A+'nature/birds/bird-perched.webp';perched.alt='Пташка біля годівнички';scene.appendChild(perched)},1150);setTimeout(()=>{if(sceneNo===18)complete(0)},3000)}
 
 const backpackThings=[
@@ -360,7 +363,7 @@ function renderScene(){
  if(sceneNo===14)scene.insertAdjacentHTML('afterbegin','<div class="garden-wrap" id="base"><div class="garden-base">'+gardenGraphic(A+'plants/flowerbed-base.webp',[0,375,1101,613],'Клумба')+'</div></div>');
  if(sceneNo===15)renderGarage();if(sceneNo===16)renderBeach();if(sceneNo===17)renderBackpack();if(sceneNo===18)renderBirdFeeder();
  const tray=document.getElementById('tray');
- (sceneNo===4?pyramid:shuffle(currentItems())).forEach(f=>{const b=document.createElement('button');b.className=(sceneNo===1?'fruit':sceneNo===2?'flower':sceneNo===4?'pyramid-ring':'scene-item')+(sceneNo===8?' train-choice':'');b.dataset.id=f.id;b.setAttribute('aria-label',f.label);b.innerHTML='<img src="'+f.img+'" alt="'+f.label+'">';if(sceneNo===14)b.innerHTML=gardenGraphic(f.img,f.box,f.label);if(sceneNo===17)b.innerHTML=beachGraphic(f.img,f.box,f.label,1672);if(sceneNo===15)b.innerHTML=garageGraphic(f.img,f.box,f.label);if(sceneNo===16){b.innerHTML=beachGraphic(f.img,f.box,f.label);const slot=[[20,63],[80,63],[20,82],[80,82],[49,82]][tray.children.length];b.style.setProperty('--x',slot[0]+'%');b.style.setProperty('--y',slot[1]+'%')}if(sceneNo===13&&f.id==='raspberry')b.querySelector('img').classList.add('raspberry-pink');b.onclick=()=>choose(b,f);tray.appendChild(b)});
+ (sceneNo===4?pyramid:shuffle(currentItems())).forEach(f=>{const b=document.createElement('button');b.className=(sceneNo===1?'fruit':sceneNo===2?'flower':sceneNo===4?'pyramid-ring':'scene-item')+(sceneNo===8?' train-choice':'');b.dataset.id=f.id;b.setAttribute('aria-label',f.label);b.innerHTML='<img src="'+f.img+'" alt="'+f.label+'">';if(sceneNo===18)b.innerHTML=birdChoiceGraphic(f);if(sceneNo===14)b.innerHTML=gardenGraphic(f.img,f.box,f.label);if(sceneNo===17)b.innerHTML=beachGraphic(f.img,f.box,f.label,1672);if(sceneNo===15)b.innerHTML=garageGraphic(f.img,f.box,f.label);if(sceneNo===16){b.innerHTML=beachGraphic(f.img,f.box,f.label);const slot=[[20,63],[80,63],[20,82],[80,82],[49,82]][tray.children.length];b.style.setProperty('--x',slot[0]+'%');b.style.setProperty('--y',slot[1]+'%')}if(sceneNo===13&&f.id==='raspberry')b.querySelector('img').classList.add('raspberry-pink');b.onclick=()=>choose(b,f);tray.appendChild(b)});
 }
 function choose(btn,f){
  if(!started||busy||btn.classList.contains('used'))return;
@@ -432,4 +435,3 @@ function begin(){startScene(1)}
 function intro(){stopBeachAmbience();started=false;busy=false;sceneNo=1;progress.textContent='Сцена 1 • Кошик';q.textContent='';message.textContent='';scene.innerHTML='<div class="start"><div><strong>Майстерня кольорів 🎨</strong><span>Допоможи створювати яскраві речі</span><button id="startBtn">Починаймо!</button></div></div>';document.getElementById('startBtn').onclick=()=>play(VOICE+'00_game_intro.mp3',begin)}
 document.getElementById('reset').onclick=()=>{if(activeAudio){activeAudio.pause();activeAudio.currentTime=0}intro()};const requestedScene=Number(new URLSearchParams(location.search).get('scene'));if(Number.isInteger(requestedScene)&&requestedScene>=1&&requestedScene<=18)startScene(requestedScene);else intro();
 </script></body></html>
-
