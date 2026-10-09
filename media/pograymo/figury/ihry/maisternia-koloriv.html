@@ -418,12 +418,12 @@ function partyReindeer(){if(sceneNo!==20)return;const deer=document.createElemen
 function finishParty(){
  document.getElementById('tray').style.display='none';q.textContent='До святкового столу збираються друзі!';const tree=document.getElementById('partyTree');tree.classList.add('celebrate');sparkles();play(SFX+'christmas_bells_soft.mp3');
  setTimeout(partyReindeer,350);
- setTimeout(()=>partyGuest(KOMAKHY+'assets/butterfly.webp','butterfly','До столу прилетів метелик',KOMAKHY+'audio/sfx/butterfly_wings.mp3'),6250);
- setTimeout(()=>partyGuest(KOMAKHY+'assets/bee.webp','bee','До столу прилетіла бджілка',KOMAKHY+'audio/sfx/bee_buzz.mp3'),6950);
- setTimeout(()=>partyGuest(KOMAKHY+'assets/grasshopper.webp','grasshopper','До столу прискакав коник',KOMAKHY+'audio/sfx/grasshopper_jump.mp3'),7850);
- setTimeout(()=>{const flying=partyGuest(A+'nature/birds/bird-flying.webp','bird-flying','До столу летить пташка',SFX+'bird_chirp.mp3');if(!flying)return;setTimeout(()=>{if(!flying.isConnected||sceneNo!==20)return;flying.remove();partyGuest(A+'nature/birds/bird-perched.webp','bird-perched','Пташка сіла біля святкового столу')},1550)},8750);
- setTimeout(partyMimi,10750);
- setTimeout(()=>{if(sceneNo!==20)return;q.textContent='Мімі та всі друзі зібралися на свято!';progress.textContent='Майстерня кольорів • готово!';message.textContent='Ти створив справжнє свято! ✨';sparkles();play(VOICE+'21_game_finish.mp3')},13200)
+ setTimeout(()=>partyGuest(KOMAKHY+'assets/butterfly.webp','butterfly','До столу прилетів метелик',KOMAKHY+'audio/sfx/butterfly_wings.mp3'),5250);
+ setTimeout(()=>partyGuest(KOMAKHY+'assets/bee.webp','bee','До столу прилетіла бджілка',KOMAKHY+'audio/sfx/bee_buzz.mp3'),5950);
+ setTimeout(()=>partyGuest(KOMAKHY+'assets/grasshopper.webp','grasshopper','До столу прискакав коник',KOMAKHY+'audio/sfx/grasshopper_jump.mp3'),6850);
+ setTimeout(()=>{const flying=partyGuest(A+'nature/birds/bird-flying.webp','bird-flying','До столу летить пташка',SFX+'bird_chirp.mp3');if(!flying)return;setTimeout(()=>{if(!flying.isConnected||sceneNo!==20)return;flying.remove();partyGuest(A+'nature/birds/bird-perched.webp','bird-perched','Пташка сіла біля святкового столу')},1550)},7750);
+ setTimeout(partyMimi,9750);
+ setTimeout(()=>{if(sceneNo!==20)return;q.textContent='Мімі та всі друзі зібралися на свято!';progress.textContent='Майстерня кольорів • готово!';message.textContent='Ти створив справжнє свято! ✨';sparkles();play(VOICE+'21_game_finish.mp3')},12200)
 }
 function renderPainting(){scene.insertAdjacentHTML('afterbegin','<div class="painting-stage" id="base"><img class="painting-easel" src="'+A+'painted_scene/painting-easel.webp" alt="Мольберт із полотном"><div class="painting-canvas" id="paintingCanvas"></div><img class="painting-palette" src="'+A+'painted_scene/paint-palette.webp" alt="Палітра"><img class="painting-brush" id="paintingBrush" src="'+A+'painted_scene/paint-brush.webp" alt="Пензлик"></div>')}
 function paintPicturePiece(f){const canvas=document.getElementById('paintingCanvas'),brush=document.getElementById('paintingBrush');brush.classList.remove('painting');void brush.offsetWidth;brush.classList.add('painting');setTimeout(()=>{if(sceneNo===19)play(SFX+'paint-brush-stroke.mp3')},430);setTimeout(()=>{if(!canvas.isConnected||sceneNo!==19)return;const im=document.createElement('img');im.className='painted-piece '+f.id;im.src=f.img;im.alt=f.label;canvas.appendChild(im);setTimeout(afterCorrect,650)},930)}
