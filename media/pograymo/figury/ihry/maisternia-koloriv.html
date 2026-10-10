@@ -193,14 +193,14 @@
 .party-composite.bouquet .base{inset:6% 8% 0;width:84%}.party-composite.bouquet .item{width:29%;z-index:2}.party-composite.bouquet .i1{left:18%;top:10%}.party-composite.bouquet .i2{left:37%;top:3%}.party-composite.bouquet .i3{left:56%;top:10%}.party-composite.bouquet .i4{left:29%;top:21%}.party-composite.bouquet .i5{left:49%;top:22%}
 .party-composite.cups img,.party-composite.napkins img{inset:5%;width:90%;height:90%}
 .party-guest{position:absolute;z-index:11;pointer-events:none;object-fit:contain;filter:drop-shadow(0 6px 5px #513e4638)}
-.party-guest.butterfly{--butterfly-y:43%;width:min(13%,86px);animation:partyButterflyArrive 2.2s ease-in-out both}
+.party-guest.butterfly{--butterfly-x:17%;--butterfly-y:43%;width:min(13%,86px);animation:partyButterflyArrive 2.2s ease-in-out both}
 .party-guest.bee{--bee-y:49%;width:min(10%,66px);animation:partyBeeArrive 2.35s ease-in-out both}
 .party-guest.grasshopper{--hopper-y:78%;width:min(15%,98px);animation:partyGrasshopperArrive 1.8s ease-out both}
 .party-guest.bird-flying{--bird-x:84%;--bird-y:53%;width:min(24%,155px);animation:partyBirdFly 1.55s ease-in-out both}
 .party-guest.bird-perched{--bird-x:84%;--bird-y:53%;left:var(--bird-x);top:var(--bird-y);width:min(13%,86px);transform:translate(-50%,-50%);animation:birdPerch .35s ease-out both}
 .party-mimi{--mimi-y:75%;position:absolute;z-index:12;left:82%;top:var(--mimi-y);width:min(20%,136px);transform:translate(-50%,-50%);pointer-events:none;object-fit:contain;filter:drop-shadow(0 7px 6px #513e4645);animation:partyMimiArrive 2.15s ease-out both,partyMimiDance 1.25s 2.15s ease-in-out infinite}
 .party-deer{position:absolute;z-index:10;left:-72%;bottom:2%;width:min(58%,400px);pointer-events:none;object-fit:contain;filter:drop-shadow(0 7px 5px #513e4635);animation:reindeerRun 5.7s ease-in-out both}
-@keyframes partyButterflyArrive{0%{left:-18%;top:31%;transform:rotate(-16deg) scale(.75)}38%{left:24%;top:22%;transform:rotate(9deg) scale(1)}72%{left:13%;top:39%;transform:rotate(-7deg) scale(.9)}100%{left:17%;top:var(--butterfly-y);transform:rotate(0) scale(.86)}}
+@keyframes partyButterflyArrive{0%{left:-18%;top:31%;transform:rotate(-16deg) scale(.75)}38%{left:24%;top:22%;transform:rotate(9deg) scale(1)}72%{left:13%;top:39%;transform:rotate(-7deg) scale(.9)}100%{left:var(--butterfly-x);top:var(--butterfly-y);transform:rotate(0) scale(.86)}}
 @keyframes partyBeeArrive{0%{left:110%;top:24%;transform:rotate(-8deg) scale(.8)}38%{left:76%;top:30%;transform:rotate(10deg) scale(1)}72%{left:70%;top:42%;transform:rotate(-7deg) scale(.9)}100%{left:64%;top:var(--bee-y);transform:rotate(0) scale(.88)}}
 @keyframes partyGrasshopperArrive{0%{left:-18%;top:82%;transform:rotate(-8deg) scale(.7)}42%{left:15%;top:68%;transform:rotate(10deg) scale(1)}72%{left:23%;top:80%;transform:rotate(-5deg) scale(.92)}100%{left:30%;top:var(--hopper-y);transform:rotate(0) scale(.9)}}
 @keyframes partyBirdFly{0%{left:-30%;top:23%;transform:rotate(-8deg) scale(.78)}40%{left:36%;top:17%;transform:rotate(7deg) scale(1)}72%{left:70%;top:35%;transform:rotate(-5deg) scale(.92)}100%{left:var(--bird-x);top:var(--bird-y);transform:rotate(0) scale(.72)}}
@@ -223,7 +223,7 @@
 .scene-20 .tray{left:5%;right:5%;padding:6px 5px}.scene-20 .scene-item{height:82px}.scene-20 .scene-item .party-composite{height:78px;aspect-ratio:auto}.scene-20 .scene-item .party-composite img{max-height:78px}
 .party-table-wrap{top:31%;width:min(74%,530px)}
 .party-placed.basket{top:13.8%;width:24%}.party-placed.cake{top:10.6%;width:23.2%}.party-placed.cups{top:25%;width:20%}.party-placed.napkins{top:25%;width:17.6%}.party-placed.bouquet{top:13.8%;width:20%}
-.party-guest.butterfly{--butterfly-y:31%}.party-guest.bee{--bee-y:33%}.party-guest.grasshopper{--hopper-y:84%}.party-guest.bird-flying,.party-guest.bird-perched{--bird-x:78%;--bird-y:50%}.party-guest.bird-perched{width:min(11%,73px)}.party-mimi{--mimi-y:78%}
+.party-guest.butterfly{--butterfly-x:24%;--butterfly-y:31%}.party-guest.bee{--bee-y:33%}.party-guest.grasshopper{--hopper-y:84%}.party-guest.bird-flying,.party-guest.bird-perched{--bird-x:78%;--bird-y:46%}.party-guest.bird-perched{width:min(11%,73px)}.party-mimi{--mimi-y:78%}
 }
 
 </style></head>
