@@ -210,6 +210,21 @@
 @media(max-width:520px){.scene-20 .scene-item img{max-height:58px}.party-table-wrap{top:41%;width:88%}.party-table-base{transform:translateY(19%)}.party-tree{right:-2%;top:20%;width:55.2%}.party-frame,.party-frame-image{top:30%;width:24%;border-width:6px}.party-placed.basket{left:23%;top:29%;width:27%}.party-placed.cake{left:49%;top:27%;width:27%}.party-placed.cups{left:49%;top:43%;width:23%}.party-placed.napkins{left:67%;top:43%;width:20%}.party-placed.bouquet{left:76%;top:29%;width:23%}}
 @media(max-width:520px){.party-guest.butterfly{--butterfly-y:49%;width:14%}.party-guest.bee{width:11%}.party-guest.grasshopper{--hopper-y:90%;width:17%}.party-guest.bird-flying{--bird-y:61%;width:21.6%}.party-guest.bird-perched{--bird-y:61%;width:13.6%;left:84%}.party-mimi{--mimi-y:87%;width:25.2%}.party-deer{width:70%;bottom:3%}}
 
+/* Shared candle control: keep the action beside the flame, not below the scene. */
+.blow-candle-btn{bottom:auto;left:66%;top:42%;transform:translate(-50%,-50%);pointer-events:auto;animation:blowButtonPulse 1.15s ease-in-out infinite}
+@keyframes blowButtonPulse{50%{transform:translate(-50%,-50%) scale(1.07);box-shadow:0 7px 18px #f2ad4260}}
+
+/* Desktop refinements after the phone layout was approved. */
+@media(min-width:521px){
+.scene-11 .tray{left:10%;right:10%;padding:6px 5px 5px}
+.scene-11 button[data-id="backpack"]{width:16%}.scene-11 button[data-id="compass"]{width:18%}.scene-11 button[data-id="hat"]{width:18%}.scene-11 button[data-id="vest"]{width:19%}.scene-11 button[data-id="boots"]{width:18%}
+.aquarium-bubbles span{bottom:-3%;animation-name:aquariumBubbleDesktop}
+@keyframes aquariumBubbleDesktop{0%{bottom:-3%;opacity:0;transform:translateX(0) scale(.65)}15%{opacity:.8}55%{transform:translateX(14px) scale(1)}100%{bottom:100%;opacity:0;transform:translateX(-8px) scale(.8)}}
+.scene-20 .tray{left:5%;right:5%;padding:6px 5px}.scene-20 .scene-item{height:82px}.scene-20 .scene-item .party-composite{height:78px;aspect-ratio:auto}.scene-20 .scene-item .party-composite img{max-height:78px}
+.party-table-wrap{top:31%;width:min(74%,530px)}
+.party-guest.grasshopper{--hopper-y:73%}.party-mimi{--mimi-y:70%}
+}
+
 </style></head>
 <body><main class="game">
 <header class="top"><a class="pill" href="geometry-games-catalog.html">← До ігор</a><h1 class="title">Майстерня кольорів</h1><button class="pill reset" id="reset">↻ Спочатку</button></header>
@@ -332,7 +347,8 @@ const feedbackText={
  'correct-1.mp3':'Так! Молодець! ⭐','correct-2.mp3':'Правильно! Чудова робота! ⭐','correct-3.mp3':'У тебе все вийшло! ⭐','correct-4.mp3':'Супер! Ти все помічаєш! ⭐','correct-5.mp3':'Так тримати! ⭐',
  'retry-1.mp3':'Майже! Подивись ще раз 🐾','retry-2.mp3':'Спробуй іще раз — у тебе вийде 🐾','retry-3.mp3':'Не поспішай. Поглянь уважніше 🐾'
 };
-const basketSlots=[{x:44,y:52},{x:50,y:50},{x:56,y:52},{x:47,y:55},{x:53,y:55}];
+const basketSlots=[{x:44,y:61},{x:50,y:59},{x:56,y:61},{x:47,y:64},{x:53,y:64}];
+const basketSlotsMobile=[{x:44,y:52},{x:50,y:50},{x:56,y:52},{x:47,y:55},{x:53,y:55}];
 const bouquetSlots=[{x:42,y:45},{x:50,y:41},{x:58,y:45},{x:46,y:51},{x:54,y:51}];
 const pyramidSlots=[{x:50,y:61},{x:50,y:55},{x:50,y:49},{x:50,y:43},{x:50,y:37}];
 const treeSlots={pink:{x:50,y:27},blue:{x:41,y:37},yellow:{x:59,y:37},purple:{x:50,y:46},bow1:{x:39,y:48},bow2:{x:61,y:48}};
@@ -455,7 +471,7 @@ function showAudioStart(){if(audioRetryPending)return;audioRetryPending=true;doc
 function play(path,onEnd){if(activeAudio){activeAudio.pause();activeAudio.currentTime=0}const a=new Audio(path);activeAudio=a;a.onended=()=>{if(activeAudio===a&&onEnd)onEnd()};a.onerror=()=>{if(activeAudio===a&&onEnd)onEnd()};a.play().catch(error=>{if(activeAudio!==a)return;if(error.name==='NotAllowedError')showAudioStart();else if(onEnd)onEnd()})}
 const sceneNames=['','Кошик','Букет','Коробка іграшок','Пірамідка','Ялинка','Кульки для Мімі','Морозиво','Паровоз','Метелик','Будиночок','Мімі-мандрівник','Акваріум','Торт для Мімі','Клумба','Кольорові гаражі','Пляжне відерце','Рюкзак для пригод','Годівничка для пташки','Чарівний малюнок','Святковий стіл'];
 const sceneItems=[null,fruits,flowers,toys,pyramid,tree,balloons,icecream,train,butterflyParts,houseParts,explorer,aquariumFish,cakeToppings,gardenFlowers,garageCars,beachToys,backpackThings,birdFeederItems,paintedSceneItems,partyItems];
-const toySlots={car:{x:47,y:63},ball:{x:55,y:48},block:{x:54,y:63},top:{x:58,y:68},bunny:{x:43,y:51}};
+const toySlots={car:{x:47,y:72},ball:{x:55,y:48},block:{x:54,y:72},top:{x:58,y:68},bunny:{x:43,y:51}};
 const toySlotsMobile={car:{x:47,y:55},ball:{x:55,y:44},block:{x:54,y:55},top:{x:58,y:59},bunny:{x:43,y:48}};
 function currentItems(){return sceneItems[sceneNo]}
 function prompt(){const f=order[step];q.textContent=f.prompt;progress.textContent=sceneNames[sceneNo]+' • '+(step+1)+' з '+(sceneNo===5||sceneNo===9?6:5);if(f.voice)play(VOICE+f.voice)}
@@ -485,7 +501,7 @@ function choose(btn,f){
   play(SFX+'train_wheels.mp3');line.appendChild(wagon);
   wagon.addEventListener('animationend',()=>play(SFX+'soft_click.mp3',()=>afterCorrect()),{once:true});return;
  }
- const slots=sceneNo===1?basketSlots:sceneNo===2?bouquetSlots:sceneNo===3?toySlots:sceneNo===4?pyramidSlots:sceneNo===5?treeSlots:sceneNo===6?balloonSlots:icecreamSlots;
+ const slots=sceneNo===1?(innerWidth<=520?basketSlotsMobile:basketSlots):sceneNo===2?bouquetSlots:sceneNo===3?toySlots:sceneNo===4?pyramidSlots:sceneNo===5?treeSlots:sceneNo===6?balloonSlots:icecreamSlots;
  const slot=sceneNo===3?(innerWidth<=520?toySlotsMobile:toySlots)[f.id]:sceneNo===5?treeSlots[f.id]:slots[step],im=document.createElement('img');im.className=sceneNo===1?'placed':sceneNo===2?'bouquet-flower':sceneNo===3?'toy-placed':sceneNo===4?'pyramid-placed':sceneNo===5?'tree-decoration':sceneNo===6?'balloon-placed':'icecream-scoop';im.src=f.img;im.alt='';im.style.left=slot.x+'%';im.style.top=slot.y+'%';if(sceneNo===2)im.style.setProperty('--tilt',slot.x<48?'-16deg':slot.x>52?'16deg':'0deg');if(sceneNo===3&&f.id==='ball')im.id='toyBall';if(sceneNo===7){im.style.removeProperty('left');im.style.removeProperty('top');document.getElementById('icecream-slot-'+step).appendChild(im)}else scene.appendChild(im);
  const sound=(sceneNo===4||sceneNo===7)?SFX+'soft_click.mp3':(sceneNo===5||sceneNo===6)?SFX+'soft_chime.mp3':COMMON+'item_place.mp3';play(sound,afterCorrect);
 }
@@ -522,7 +538,7 @@ function cakeSound(kind){
   const now=c.currentTime;
   if(kind==='blow'){
    const buffer=c.createBuffer(1,c.sampleRate*.65,c.sampleRate),data=buffer.getChannelData(0);for(let i=0;i<data.length;i++)data[i]=(Math.random()*2-1)*.45;
-   const src=c.createBufferSource(),filter=c.createBiquadFilter(),gain=c.createGain();src.buffer=buffer;filter.type='lowpass';filter.frequency.value=1100;gain.gain.setValueAtTime(0,now);gain.gain.linearRampToValueAtTime(.22,now+.12);gain.gain.exponentialRampToValueAtTime(.001,now+.65);src.connect(filter);filter.connect(gain);gain.connect(c.destination);src.start(now);
+   const src=c.createBufferSource(),filter=c.createBiquadFilter(),gain=c.createGain();src.buffer=buffer;filter.type='lowpass';filter.frequency.value=1100;gain.gain.setValueAtTime(0,now);gain.gain.linearRampToValueAtTime(.34,now+.12);gain.gain.exponentialRampToValueAtTime(.001,now+.65);src.connect(filter);filter.connect(gain);gain.connect(c.destination);src.start(now);
   }else{
    [523.25,659.25,783.99,1046.5].forEach((f,i)=>{const o=c.createOscillator(),g=c.createGain();o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(0,now+i*.11);g.gain.linearRampToValueAtTime(.08,now+i*.11+.025);g.gain.exponentialRampToValueAtTime(.001,now+i*.11+.65);o.connect(g);g.connect(c.destination);o.start(now+i*.11);o.stop(now+i*.11+.7)});
   }
