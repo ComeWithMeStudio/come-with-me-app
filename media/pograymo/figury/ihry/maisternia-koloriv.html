@@ -271,8 +271,8 @@ const tree=[
  {id:'blue',img:A+'decorations/christmas-bauble-blue.webp',label:'блакитну кульку',prompt:'Повісь на ялинку блакитну кульку.',voice:'05_tree_blue_bauble.mp3'},
  {id:'yellow',img:A+'decorations/christmas-bauble-yellow-star.webp',label:'жовту кульку',prompt:'Повісь на ялинку жовту кульку.',voice:'05_tree_yellow_bauble.mp3'},
  {id:'purple',img:A+'decorations/christmas-bauble-purple.webp',label:'фіолетову кульку',prompt:'Повісь на ялинку фіолетову кульку.',voice:'05_tree_purple_bauble.mp3'},
- {id:'bow1',img:A+'decorations/bow-red.webp',label:'червоний бантик',prompt:'Прикрась ялинку червоним бантиком.',voice:'05_tree_red_bow_first.mp3'},
- {id:'bow2',img:A+'decorations/bow-red.webp',label:'ще один червоний бантик',prompt:'Додай ще один червоний бантик.',voice:'05_tree_red_bow_second.mp3'}
+ {id:'bow1',img:A+'decorations/bow-red.webp',label:'червоний бантик',prompt:'Обери будь-який червоний бантик.',voice:'05_tree_red_bow_first.mp3'},
+ {id:'bow2',img:A+'decorations/bow-red.webp',label:'ще один червоний бантик',prompt:'Тепер обери другий червоний бантик.',voice:'05_tree_red_bow_second.mp3'}
 ];
 const balloons=[
  {id:'pink',img:A+'decorations/balloon-pink.webp',label:'рожеву кульку',prompt:'Додай Мімі рожеву кульку.',voice:'06_balloons_pink.mp3'},
@@ -347,7 +347,7 @@ const feedbackText={
  'correct-1.mp3':'Так! Молодець! ⭐','correct-2.mp3':'Правильно! Чудова робота! ⭐','correct-3.mp3':'У тебе все вийшло! ⭐','correct-4.mp3':'Супер! Ти все помічаєш! ⭐','correct-5.mp3':'Так тримати! ⭐',
  'retry-1.mp3':'Майже! Подивись ще раз 🐾','retry-2.mp3':'Спробуй іще раз — у тебе вийде 🐾','retry-3.mp3':'Не поспішай. Поглянь уважніше 🐾'
 };
-const basketSlots=[{x:44,y:61},{x:50,y:59},{x:56,y:61},{x:47,y:64},{x:53,y:64}];
+const basketSlots=[{x:44,y:57},{x:50,y:55},{x:56,y:57},{x:47,y:60},{x:53,y:60}];
 const basketSlotsMobile=[{x:44,y:52},{x:50,y:50},{x:56,y:52},{x:47,y:55},{x:53,y:55}];
 const bouquetSlots=[{x:42,y:45},{x:50,y:41},{x:58,y:45},{x:46,y:51},{x:54,y:51}];
 const pyramidSlots=[{x:50,y:61},{x:50,y:55},{x:50,y:49},{x:50,y:43},{x:50,y:37}];
@@ -487,6 +487,7 @@ function renderScene(){
 }
 function choose(btn,f){
  if(!started||busy||btn.classList.contains('used'))return;
+ if(sceneNo===5&&step===4&&f.id.startsWith('bow')&&order[step].id.startsWith('bow')&&f.id!==order[step].id){[order[step],order[step+1]]=[order[step+1],order[step]]}
  if(sceneNo===9?f.kind!==order[step].kind:f.id!==order[step].id){btn.classList.remove('bad');void btn.offsetWidth;btn.classList.add('bad');play(COMMON+'wrong_boop.mp3',()=>{const file=nextFrom(retry,'retry');message.textContent=feedbackText[file];play(COMMON+file)});return}
  busy=true;btn.classList.add('used');
  if(sceneNo===20){placePartyItem(f);return}if(sceneNo===19){paintPicturePiece(f);return}if(sceneNo===18){placeBirdFood(f);return}if(sceneNo===17){packThing();return}if(sceneNo===16){collectBeachToy(f);return}if(sceneNo===15){parkGarageCar(f,btn);return}
