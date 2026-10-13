@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Екскаватор — Come With Me Studio</title>
+  <style>
+    :root{color-scheme:only light;--ink:#493b49;--cream:#fffaf0;--orange:#ff9450;--sky:#bfeaf6}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"Trebuchet MS",system-ui,sans-serif;color:var(--ink)}
+    body{background:linear-gradient(#c9f0f7 0 62%,#f4ddb1 62%);overflow-x:hidden}
+    button{font:inherit}.page{width:min(100%,760px);min-height:100vh;margin:auto;padding:16px 14px 28px;display:flex;flex-direction:column;gap:14px}
+    .head{display:flex;align-items:center;justify-content:space-between;gap:10px}.head h1{margin:0;font-size:clamp(28px,7vw,46px)}
+    .back,.sound{border:0;border-radius:999px;background:#fffaf0e8;color:var(--ink);padding:11px 15px;font-weight:900;box-shadow:0 5px 15px #614f3d24;cursor:pointer;text-decoration:none}
+    .scene{position:relative;flex:1;min-height:470px;border-radius:34px;overflow:hidden;background:linear-gradient(#9ee2f4 0 63%,#e8c888 63%);box-shadow:0 14px 36px #59432827}
+    .sun{position:absolute;right:7%;top:7%;width:70px;aspect-ratio:1;border-radius:50%;background:#ffe98a;box-shadow:0 0 0 14px #fff2a744}
+    .cloud{position:absolute;width:120px;height:32px;border-radius:30px;background:#fff9;top:16%;left:7%}.cloud:before,.cloud:after{content:"";position:absolute;border-radius:50%;background:inherit}.cloud:before{width:52px;height:52px;left:17px;bottom:0}.cloud:after{width:65px;height:65px;right:11px;bottom:0}
+    .vehicle{position:absolute;left:4%;bottom:15%;width:70%;height:auto;object-fit:contain;filter:drop-shadow(0 10px 8px #60452e35);transition:opacity .28s,transform .55s;transform-origin:50% 100%}
+    .vehicle[hidden]{display:block;opacity:0;pointer-events:none;transform:translateY(8px) scale(.98)}.vehicle.active{opacity:1;transform:none}
+    .truck{position:absolute;right:-4%;bottom:17%;width:45%;height:auto;object-fit:contain;filter:drop-shadow(0 9px 7px #60452e35);opacity:0;transform:translateX(120%);transition:opacity .25s,transform 1.25s ease-out}.truck.active{opacity:1;transform:none}.truck.leaving{opacity:1;transform:translateX(140%);transition:transform 1.55s ease-in}
+    .ground{position:absolute;left:-5%;right:-5%;bottom:0;height:20%;background:radial-gradient(ellipse at 30% 30%,#a66c3d 0 5%,transparent 6%),linear-gradient(#d4a45d,#c38c4c)}
+    .caption{position:absolute;z-index:5;left:4%;right:4%;bottom:3%;min-height:76px;padding:15px 18px;border-radius:24px;background:#fffaf0ed;display:grid;place-items:center;text-align:center;font-size:clamp(19px,4.8vw,30px);font-weight:900;line-height:1.15;box-shadow:0 7px 20px #55402c2d}
+    .start{position:absolute;z-index:8;inset:0;border:0;background:#40324780;color:white;display:grid;place-items:center;cursor:pointer}.start span{padding:17px 25px;border-radius:999px;background:var(--orange);font-size:clamp(22px,6vw,34px);font-weight:900;box-shadow:0 8px 24px #0004}.start[hidden]{display:none}
+    .progress{height:8px;border-radius:999px;background:#fff9;overflow:hidden}.progress i{display:block;width:0;height:100%;background:var(--orange);transition:width .12s linear}
+    @media(max-width:540px){.page{padding:10px 10px 20px}.head h1{font-size:29px}.back{padding:9px 11px;font-size:13px}.scene{min-height:72vh;border-radius:28px}.vehicle{width:82%;left:-2%;bottom:16%}.truck{width:51%;right:-8%;bottom:18%}.caption{min-height:88px;font-size:21px}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="head"><h1>Екскаватор</h1><a class="back" href="../../../../../../index.html">← Пізнаваймо світ</a></header>
+    <section class="scene" aria-live="polite">
+      <div class="sun"></div><div class="cloud"></div><div class="ground"></div>
+      <img class="vehicle active" id="intro" src="../../../../../../media/pograymo/assets/illustrations/transport/construction/excavator-yellow.webp" alt="Жовтий екскаватор">
+      <img class="vehicle" id="dig" hidden src="../../../../../../media/pograymo/assets/illustrations/transport/construction/excavator-digging-soil.webp" alt="Екскаватор набирає землю">
+      <img class="vehicle" id="dump" hidden src="../../../../../../media/pograymo/assets/illustrations/transport/construction/excavator-dumping-soil.webp" alt="Екскаватор висипає землю">
+      <img class="truck" id="truck" src="../../../../../../media/pograymo/assets/illustrations/transport/construction/dump-truck-bed-lowered.webp" alt="Самоскид">
+      <div class="caption" id="caption">Познайоммося з екскаватором!</div>
+      <button class="start" id="start" type="button"><span>▶ Послухати</span></button>
+    </section>
+    <div class="progress"><i id="progress"></i></div>
+  </main>
+  <audio id="voice" preload="auto" src="../../../../../../audio/rozkazhy-meni/piznavaymo-svit/transport/budivelna-tekhnika/ekskavator/01_ekskavator.mp3"></audio>
+  <audio id="engine" preload="auto" loop src="../../../../../../audio/games/sfx/heavy-vehicle-engine.mp3"></audio>
+  <audio id="work" preload="auto" src="../../../../../../audio/games/sfx/heavy-machinery-working.mp3"></audio>
+  <script>
+    const voice=document.getElementById('voice'),engine=document.getElementById('engine'),work=document.getElementById('work');
+    const start=document.getElementById('start'),caption=document.getElementById('caption'),bar=document.getElementById('progress');
+    const intro=document.getElementById('intro'),dig=document.getElementById('dig'),dump=document.getElementById('dump'),truck=document.getElementById('truck');
+    const show=(active,text,withTruck=false)=>{[intro,dig,dump].forEach(el=>{el.hidden=false;el.classList.toggle('active',el===active)});truck.classList.toggle('active',withTruck);if(!withTruck)truck.classList.remove('leaving');caption.textContent=text};
+    function reset(){truck.classList.remove('active','leaving');show(intro,'Познайоммося з екскаватором!');bar.style.width='0';start.hidden=false;start.querySelector('span').textContent='↻ Послухати ще раз'}
+    function play(){start.hidden=true;truck.classList.remove('active','leaving');voice.currentTime=0;engine.currentTime=0;work.currentTime=0;engine.volume=.12;work.volume=.16;voice.volume=1;show(intro,'Екскаватор має довгу сильну стрілу й великий ківш.');Promise.allSettled([engine.play(),work.play(),voice.play()])}
+    start.addEventListener('click',play);
+    voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||11.21;bar.style.width=`${Math.min(100,t/d*100)}%`;if(t<4.9)show(intro,'Екскаватор має довгу сильну стрілу й великий ківш.');else if(t<7.8)show(dig,'Ківш опускається — землю бере.');else show(dump,'Стріла підіймається — в кузов несе.',true)});
+    voice.addEventListener('ended',()=>{truck.classList.remove('active');truck.classList.add('leaving');setTimeout(()=>{engine.pause();work.pause();reset()},1750)});
+  </script>
+</body>
+</html>
