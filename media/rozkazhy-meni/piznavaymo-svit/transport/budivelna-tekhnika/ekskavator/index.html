@@ -12,15 +12,15 @@
     .head{display:flex;align-items:center;justify-content:space-between;gap:10px}.head h1{margin:0;font-size:clamp(28px,7vw,46px)}
     .back,.sound{border:0;border-radius:999px;background:#fffaf0e8;color:var(--ink);padding:11px 15px;font-weight:900;box-shadow:0 5px 15px #614f3d24;cursor:pointer;text-decoration:none}
     .scene{position:relative;flex:1;min-height:470px;border-radius:34px;overflow:hidden;background:linear-gradient(#9ee2f4 0 63%,#e8c888 63%);box-shadow:0 14px 36px #59432827}
-    .sun,.cloud{position:absolute;z-index:1;height:auto;object-fit:contain;filter:drop-shadow(0 5px 5px #55402c18)}.sun{right:6%;top:5%;width:14%}.cloud{left:5%;top:12%;width:22%}.cloud.second{left:38%;top:27%;width:17%;opacity:.88}
-    .vehicle{position:absolute;left:4%;bottom:15%;width:70%;height:auto;object-fit:contain;filter:drop-shadow(0 10px 8px #60452e35);transition:opacity .28s,transform .55s;transform-origin:50% 100%}
-    .vehicle[hidden]{display:block;opacity:0;pointer-events:none;transform:translateY(8px) scale(.98)}.vehicle.active{opacity:1;transform:none}
-    .truck{position:absolute;right:-4%;bottom:17%;width:45%;height:auto;object-fit:contain;filter:drop-shadow(0 9px 7px #60452e35);opacity:0;transform:translateX(120%);transition:opacity .25s,transform 1.25s ease-out}.truck.active{opacity:1;transform:none}.truck.leaving{opacity:1;transform:translateX(140%);transition:transform 1.55s ease-in}
+    .sun,.cloud{position:absolute;z-index:1;height:auto;object-fit:contain;filter:drop-shadow(0 5px 5px #55402c18)}.sun{right:6%;top:4%;width:13%}.cloud{left:5%;top:2%;width:16%}.cloud.second{left:28%;top:7%;width:13%;opacity:.88}
+    .vehicle{position:absolute;z-index:2;left:4%;bottom:15%;width:70%;height:auto;object-fit:contain;opacity:0;pointer-events:none;filter:drop-shadow(0 10px 8px #60452e35);transition:opacity .28s,transform .55s;transform:translateY(8px) scale(.98);transform-origin:50% 100%}
+    .vehicle[hidden]{display:block}.vehicle.active{opacity:1;transform:none}
+    .truck{position:absolute;z-index:3;left:5%;bottom:17%;width:45%;height:auto;object-fit:contain;filter:drop-shadow(0 9px 7px #60452e35);opacity:0;transform:translateX(-120%) scaleX(-1);transition:opacity .25s,transform 1.25s ease-out}.truck.active{opacity:1;transform:translateX(0) scaleX(-1)}.truck.leaving{opacity:1;transform:translateX(-140%) scaleX(-1);transition:transform 1.55s ease-in}
     .ground{position:absolute;left:-5%;right:-5%;bottom:0;height:20%;background:radial-gradient(ellipse at 30% 30%,#a66c3d 0 5%,transparent 6%),linear-gradient(#d4a45d,#c38c4c)}
     .caption{position:absolute;z-index:5;left:4%;right:4%;bottom:3%;min-height:76px;padding:15px 18px;border-radius:24px;background:#fffaf0ed;display:grid;place-items:center;text-align:center;font-size:clamp(19px,4.8vw,30px);font-weight:900;line-height:1.15;box-shadow:0 7px 20px #55402c2d}
     .start{position:absolute;z-index:8;inset:0;border:0;background:#40324780;color:white;display:grid;place-items:center;cursor:pointer}.start span{padding:17px 25px;border-radius:999px;background:var(--orange);font-size:clamp(22px,6vw,34px);font-weight:900;box-shadow:0 8px 24px #0004}.start[hidden]{display:none}
     .progress{height:8px;border-radius:999px;background:#fff9;overflow:hidden}.progress i{display:block;width:0;height:100%;background:var(--orange);transition:width .12s linear}
-    @media(max-width:540px){.page{padding:10px 10px 20px}.head h1{font-size:29px}.back{padding:9px 11px;font-size:13px}.scene{min-height:72vh;border-radius:28px}.vehicle{width:82%;left:-2%;bottom:16%}.truck{width:51%;right:-8%;bottom:18%}.caption{min-height:88px;font-size:21px}}
+    @media(max-width:540px){.page{padding:10px 10px 20px}.head h1{font-size:29px}.back{padding:9px 11px;font-size:13px}.scene{min-height:72vh;border-radius:28px}.vehicle{width:82%;left:-2%;bottom:16%}.truck{width:55%;left:2%;bottom:18%}.caption{min-height:88px;font-size:21px}}
   </style>
 </head>
 <body>
@@ -49,7 +49,7 @@
     function reset(){truck.classList.remove('active','leaving');stage='';show('ready',intro,'Познайоммося з екскаватором!');bar.style.width='0';start.hidden=false;start.querySelector('span').textContent='↻ Послухати ще раз'}
     function play(){start.hidden=true;truck.classList.remove('active','leaving');voice.currentTime=0;engine.currentTime=0;work.currentTime=0;engine.volume=.12;work.volume=.16;voice.volume=1;stage='';show('intro',intro,'Екскаватор має довгу сильну стрілу й великий ківш.');Promise.allSettled([engine.play(),work.play(),voice.play()])}
     start.addEventListener('click',play);
-    voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||11.21;bar.style.width=`${Math.min(100,t/d*100)}%`;if(t<4.9)show('intro',intro,'Екскаватор має довгу сильну стрілу й великий ківш.');else if(t<6.6)show('dig',dig,'Ківш опускається — землю бере.');else if(t<7.8)show('truck-arrives',dig,'Ківш опускається — землю бере.',true);else show('dump',dump,'Стріла підіймається — в кузов несе.',true)});
+    voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||11.21;bar.style.width=`${Math.min(100,t/d*100)}%`;if(t<4.35)show('intro',intro,'Екскаватор має довгу сильну стрілу й великий ківш.');else if(t<6.9)show('dig',dig,'Ківш опускається — землю бере.');else if(t<8.05)show('truck-arrives',dig,'Ківш опускається — землю бере.',true);else show('dump',dump,'Стріла підіймається — в кузов несе.',true)});
     voice.addEventListener('ended',()=>{truck.classList.remove('active');truck.classList.add('leaving');setTimeout(()=>{engine.pause();work.pause();reset()},1750)});
   </script>
 </body>
