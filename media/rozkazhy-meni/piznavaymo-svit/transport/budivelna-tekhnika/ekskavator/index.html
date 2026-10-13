@@ -29,8 +29,8 @@
     <header class="head"><h1>Екскаватор</h1><a class="back" href="../index.html">← Будівельні машини</a></header>
     <section class="scene" aria-live="polite">
       <img class="sun" src="../../../../../../media/pograymo/assets/illustrations/painted_scene/painted-sun.webp" alt="Сонечко"><img class="cloud" src="../../../../../../media/pograymo/assets/illustrations/painted_scene/painted-cloud.webp" alt="Хмаринка"><img class="cloud second" src="../../../../../../media/pograymo/assets/illustrations/painted_scene/painted-cloud.webp" alt="Хмаринка"><div class="ground"></div>
-      <img class="vehicle active" id="intro" src="../../../../../../media/pograymo/assets/illustrations/transport/construction/excavator-yellow.webp?v=20261014-2" alt="Жовтий екскаватор">
-      <img class="vehicle" id="dig" hidden src="../../../../../../media/pograymo/assets/illustrations/transport/construction/excavator-digging-soil.webp?v=20261014-2" alt="Екскаватор набирає землю">
+      <img class="vehicle active" id="intro" src="../../../../../../media/pograymo/assets/illustrations/transport/construction/excavator-empty-bucket.webp?v=20261014-3" alt="Жовтий екскаватор із порожнім ковшем">
+      <img class="vehicle" id="dig" hidden src="../../../../../../media/pograymo/assets/illustrations/transport/construction/excavator-yellow.webp?v=20261014-3" alt="Екскаватор набрав землю">
       <img class="vehicle" id="dump" hidden src="../../../../../../media/pograymo/assets/illustrations/transport/construction/excavator-dumping-soil.webp?v=20261014-2" alt="Екскаватор висипає землю">
       <img class="truck" id="truck" src="../../../../../../media/pograymo/assets/illustrations/transport/construction/dump-truck-bed-lowered.webp?v=20261014-2" alt="Самоскид">
       <div class="caption" id="caption">Познайоммося з екскаватором!</div>
@@ -51,7 +51,7 @@
     function play(){start.hidden=true;truck.classList.remove('active','leaving');voice.currentTime=0;engine.currentTime=0;work.currentTime=0;engine.volume=.12;work.volume=.16;voice.volume=1;stage='';show('intro',intro,'Екскаватор має довгу сильну стрілу й великий ківш.');intro.classList.remove('driving');void intro.offsetWidth;intro.classList.add('driving');setTimeout(()=>intro.classList.remove('driving'),1850);Promise.allSettled([engine.play(),work.play(),voice.play()])}
     start.addEventListener('click',play);
     voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||11.21;bar.style.width=`${Math.min(100,t/d*100)}%`;if(t<4.35)show('intro',intro,'Екскаватор має довгу сильну стрілу й великий ківш.');else if(t<6.9)show('dig',dig,'Ківш опускається — землю бере.');else if(t<7.55)show('lift',dump,'Стріла підіймається — в кузов несе.');else show('dump',dump,'Стріла підіймається — в кузов несе.',true)});
-    voice.addEventListener('ended',()=>{truck.classList.remove('active');truck.classList.add('leaving');setTimeout(()=>{engine.pause();work.pause();reset()},1750)});
+    voice.addEventListener('ended',()=>{stage='finish';[intro,dig,dump].forEach(el=>{el.hidden=false;el.classList.toggle('active',el===intro)});truck.classList.remove('active');truck.classList.add('leaving');setTimeout(()=>{engine.pause();work.pause();reset()},1750)});
   </script>
 </body>
 </html>
