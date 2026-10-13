@@ -16,12 +16,12 @@
     .vehicle{position:absolute;z-index:2;left:25%;bottom:16%;width:58%;height:auto;object-fit:contain;opacity:0;pointer-events:none;filter:drop-shadow(0 10px 8px #60452e35);transition:opacity .28s,transform .55s;transform:translateY(8px) scale(.98);transform-origin:50% 100%}
     .vehicle[hidden]{display:block}.vehicle.active{opacity:1;transform:none}
     .vehicle.driving{animation:excavator-drive 1.8s ease-out both}@keyframes excavator-drive{from{transform:translateX(38%) translateY(2px)}to{transform:translateX(0) translateY(0)}}
-    .truck{position:absolute;z-index:3;left:8%;bottom:18%;width:36%;height:auto;object-fit:contain;filter:drop-shadow(0 9px 7px #60452e35);opacity:0;transform:translateX(-135%) scaleX(-1);transition:opacity .25s,transform 1.25s ease-out}.truck.active{opacity:1;transform:translateX(0) scaleX(-1)}.truck.leaving{opacity:1;transform:translateX(-150%) scaleX(-1);transition:transform 1.55s ease-in}
+    .truck{position:absolute;z-index:3;left:8%;bottom:16%;width:40%;height:auto;object-fit:contain;filter:drop-shadow(0 9px 7px #60452e35);opacity:0;transform:translateX(-135%) scaleX(-1);transition:opacity .25s,transform 1.25s ease-out}.truck.active{opacity:1;transform:translateX(0) scaleX(-1)}.truck.leaving{opacity:1;transform:translateX(-150%) scaleX(-1);transition:transform 1.55s ease-in}
     .ground{position:absolute;left:-5%;right:-5%;bottom:0;height:20%;background:radial-gradient(ellipse at 30% 30%,#a66c3d 0 5%,transparent 6%),linear-gradient(#d4a45d,#c38c4c)}
     .caption{position:absolute;z-index:5;left:4%;right:4%;bottom:3%;min-height:76px;padding:15px 18px;border-radius:24px;background:#fffaf0ed;display:grid;place-items:center;text-align:center;font-size:clamp(19px,4.8vw,30px);font-weight:900;line-height:1.15;box-shadow:0 7px 20px #55402c2d}
     .start{position:absolute;z-index:8;inset:0;border:0;background:#40324780;color:white;display:grid;place-items:center;cursor:pointer}.start span{padding:17px 25px;border-radius:999px;background:var(--orange);font-size:clamp(22px,6vw,34px);font-weight:900;box-shadow:0 8px 24px #0004}.start[hidden]{display:none}
     .progress{height:8px;border-radius:999px;background:#fff9;overflow:hidden}.progress i{display:block;width:0;height:100%;background:var(--orange);transition:width .12s linear}
-    @media(max-width:540px){.page{padding:10px 10px 20px}.head h1{font-size:29px}.back{padding:9px 11px;font-size:13px}.scene{flex-basis:auto;height:64svh;min-height:540px;border-radius:28px}.vehicle{width:64%;left:25%;bottom:18%}.truck{width:42%;left:7%;bottom:19%}.caption{min-height:88px;font-size:21px}}
+    @media(max-width:540px){.page{padding:10px 10px 20px}.head h1{font-size:29px}.back{padding:9px 11px;font-size:13px}.scene{flex-basis:auto;height:64svh;min-height:540px;border-radius:28px}.vehicle{width:64%;left:25%;bottom:18%}.truck{width:47%;left:7%;bottom:16%}.caption{min-height:88px;font-size:21px}}
   </style>
 </head>
 <body>
