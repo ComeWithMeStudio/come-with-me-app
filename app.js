@@ -182,6 +182,10 @@ if(storyHomeBack){
   });
 }
 document.querySelectorAll('[data-story-section]').forEach(button=>button.addEventListener('click',()=>{
+  if(button.dataset.storySection==='learning'){
+    location.href='media/rozkazhy-meni/piznavaymo-svit/transport/budivelna-tekhnika/ekskavator/index.html';
+    return;
+  }
   const labels={adventures:'Пригоди Мімі',learning:'Пізнаваймо світ',life:'Буває й так'};
   document.getElementById('storyHomeNote').textContent=`${labels[button.dataset.storySection]} — сюди рушаємо далі 🐾`;
   button.animate([{transform:'scale(1)'},{transform:'scale(.97)'},{transform:'scale(1)'}],{duration:260,easing:'ease-out'});
