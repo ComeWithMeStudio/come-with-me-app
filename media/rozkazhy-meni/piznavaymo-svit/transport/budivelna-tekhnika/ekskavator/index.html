@@ -12,8 +12,7 @@
     .head{display:flex;align-items:center;justify-content:space-between;gap:10px}.head h1{margin:0;font-size:clamp(28px,7vw,46px)}
     .back,.sound{border:0;border-radius:999px;background:#fffaf0e8;color:var(--ink);padding:11px 15px;font-weight:900;box-shadow:0 5px 15px #614f3d24;cursor:pointer;text-decoration:none}
     .scene{position:relative;flex:1;min-height:470px;border-radius:34px;overflow:hidden;background:linear-gradient(#9ee2f4 0 63%,#e8c888 63%);box-shadow:0 14px 36px #59432827}
-    .sun{position:absolute;right:7%;top:7%;width:70px;aspect-ratio:1;border-radius:50%;background:#ffe98a;box-shadow:0 0 0 14px #fff2a744}
-    .cloud{position:absolute;width:120px;height:32px;border-radius:30px;background:#fff9;top:16%;left:7%}.cloud:before,.cloud:after{content:"";position:absolute;border-radius:50%;background:inherit}.cloud:before{width:52px;height:52px;left:17px;bottom:0}.cloud:after{width:65px;height:65px;right:11px;bottom:0}
+    .sun,.cloud{position:absolute;z-index:1;height:auto;object-fit:contain;filter:drop-shadow(0 5px 5px #55402c18)}.sun{right:6%;top:5%;width:14%}.cloud{left:5%;top:12%;width:22%}.cloud.second{left:38%;top:27%;width:17%;opacity:.88}
     .vehicle{position:absolute;left:4%;bottom:15%;width:70%;height:auto;object-fit:contain;filter:drop-shadow(0 10px 8px #60452e35);transition:opacity .28s,transform .55s;transform-origin:50% 100%}
     .vehicle[hidden]{display:block;opacity:0;pointer-events:none;transform:translateY(8px) scale(.98)}.vehicle.active{opacity:1;transform:none}
     .truck{position:absolute;right:-4%;bottom:17%;width:45%;height:auto;object-fit:contain;filter:drop-shadow(0 9px 7px #60452e35);opacity:0;transform:translateX(120%);transition:opacity .25s,transform 1.25s ease-out}.truck.active{opacity:1;transform:none}.truck.leaving{opacity:1;transform:translateX(140%);transition:transform 1.55s ease-in}
@@ -26,9 +25,9 @@
 </head>
 <body>
   <main class="page">
-    <header class="head"><h1>Екскаватор</h1><a class="back" href="../../../../../../index.html">← Пізнаваймо світ</a></header>
+    <header class="head"><h1>Екскаватор</h1><a class="back" href="../index.html">← Будівельні машини</a></header>
     <section class="scene" aria-live="polite">
-      <div class="sun"></div><div class="cloud"></div><div class="ground"></div>
+      <img class="sun" src="../../../../../../media/pograymo/assets/illustrations/painted_scene/painted-sun.webp" alt="Сонечко"><img class="cloud" src="../../../../../../media/pograymo/assets/illustrations/painted_scene/painted-cloud.webp" alt="Хмаринка"><img class="cloud second" src="../../../../../../media/pograymo/assets/illustrations/painted_scene/painted-cloud.webp" alt="Хмаринка"><div class="ground"></div>
       <img class="vehicle active" id="intro" src="../../../../../../media/pograymo/assets/illustrations/transport/construction/excavator-yellow.webp?v=20261014-2" alt="Жовтий екскаватор">
       <img class="vehicle" id="dig" hidden src="../../../../../../media/pograymo/assets/illustrations/transport/construction/excavator-digging-soil.webp?v=20261014-2" alt="Екскаватор набирає землю">
       <img class="vehicle" id="dump" hidden src="../../../../../../media/pograymo/assets/illustrations/transport/construction/excavator-dumping-soil.webp?v=20261014-2" alt="Екскаватор висипає землю">
