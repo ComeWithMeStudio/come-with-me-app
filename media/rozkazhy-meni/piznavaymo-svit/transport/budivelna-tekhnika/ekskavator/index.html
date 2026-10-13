@@ -45,11 +45,12 @@
     const voice=document.getElementById('voice'),engine=document.getElementById('engine'),work=document.getElementById('work');
     const start=document.getElementById('start'),caption=document.getElementById('caption'),bar=document.getElementById('progress');
     const intro=document.getElementById('intro'),dig=document.getElementById('dig'),dump=document.getElementById('dump'),truck=document.getElementById('truck');
-    const show=(active,text,withTruck=false)=>{[intro,dig,dump].forEach(el=>{el.hidden=false;el.classList.toggle('active',el===active)});truck.classList.toggle('active',withTruck);if(!withTruck)truck.classList.remove('leaving');caption.textContent=text};
-    function reset(){truck.classList.remove('active','leaving');show(intro,'Познайоммося з екскаватором!');bar.style.width='0';start.hidden=false;start.querySelector('span').textContent='↻ Послухати ще раз'}
-    function play(){start.hidden=true;truck.classList.remove('active','leaving');voice.currentTime=0;engine.currentTime=0;work.currentTime=0;engine.volume=.12;work.volume=.16;voice.volume=1;show(intro,'Екскаватор має довгу сильну стрілу й великий ківш.');Promise.allSettled([engine.play(),work.play(),voice.play()])}
+    let stage='';
+    const show=(nextStage,active,text,withTruck=false)=>{if(stage===nextStage)return;stage=nextStage;[intro,dig,dump].forEach(el=>{el.hidden=false;el.classList.toggle('active',el===active)});truck.classList.toggle('active',withTruck);if(!withTruck)truck.classList.remove('leaving');caption.textContent=text};
+    function reset(){truck.classList.remove('active','leaving');stage='';show('ready',intro,'Познайоммося з екскаватором!');bar.style.width='0';start.hidden=false;start.querySelector('span').textContent='↻ Послухати ще раз'}
+    function play(){start.hidden=true;truck.classList.remove('active','leaving');voice.currentTime=0;engine.currentTime=0;work.currentTime=0;engine.volume=.12;work.volume=.16;voice.volume=1;stage='';show('intro',intro,'Екскаватор має довгу сильну стрілу й великий ківш.');Promise.allSettled([engine.play(),work.play(),voice.play()])}
     start.addEventListener('click',play);
-    voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||11.21;bar.style.width=`${Math.min(100,t/d*100)}%`;if(t<4.9)show(intro,'Екскаватор має довгу сильну стрілу й великий ківш.');else if(t<7.8)show(dig,'Ківш опускається — землю бере.');else show(dump,'Стріла підіймається — в кузов несе.',true)});
+    voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||11.21;bar.style.width=`${Math.min(100,t/d*100)}%`;if(t<4.9)show('intro',intro,'Екскаватор має довгу сильну стрілу й великий ківш.');else if(t<6.6)show('dig',dig,'Ківш опускається — землю бере.');else if(t<7.8)show('truck-arrives',dig,'Ківш опускається — землю бере.',true);else show('dump',dump,'Стріла підіймається — в кузов несе.',true)});
     voice.addEventListener('ended',()=>{truck.classList.remove('active');truck.classList.add('leaving');setTimeout(()=>{engine.pause();work.pause();reset()},1750)});
   </script>
 </body>
