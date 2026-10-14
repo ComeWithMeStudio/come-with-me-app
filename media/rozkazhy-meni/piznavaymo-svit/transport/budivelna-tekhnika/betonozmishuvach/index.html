@@ -36,6 +36,6 @@
   function play(){start.hidden=true;voice.currentTime=0;engine.currentTime=0;engine.volume=.12;voice.volume=1;stage='intro';mixer.className='mixer entering';spin.className='drum-spin';caption.textContent='Бетонозмішувач везе бетон у великому барабані.';Promise.allSettled([engine.play(),voice.play()]);setTimeout(()=>mixer.className='mixer',1800)}
   start.addEventListener('click',play);
   voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||10.43;bar.style.width=`${Math.min(100,t/d*100)}%`;if(t<2.93)show('intro','Бетонозмішувач везе бетон у великому барабані.');else if(t<6.04)show('turn','Барабан обертається, щоб бетон не застиг у дорозі.');else if(t<8.31)show('mix','Крутиться барабан — бетон перемішує.');else show('deliver','На будівництво швиденько доставляє!')});
-  voice.addEventListener('ended',()=>setTimeout(()=>{spin.className='drum-spin';mixer.className='mixer exiting';setTimeout(reset,2050)},650));
+  voice.addEventListener('ended',()=>setTimeout(()=>{spin.className='drum-spin';mixer.className='mixer exiting';setTimeout(()=>{engine.pause();if(new URLSearchParams(location.search).get('mode')==='story')location.href='../final/index.html?mode=story&v=20261014-5';else reset()},2050)},650));
   if(new URLSearchParams(location.search).get('mode')==='story')setTimeout(()=>{play();setTimeout(()=>{if(voice.paused&&voice.currentTime<.1)reset()},650)},220);
 </script></body></html>
