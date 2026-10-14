@@ -37,6 +37,6 @@
   function play(){start.hidden=true;voice.currentTime=0;work.currentTime=10;work.volume=.15;voice.volume=1;stage='intro';low.className='loader active entering';high.className='loader raised';sand.className='sand';caption.textContent='Навантажувач має великий ківш.';Promise.allSettled([work.play(),voice.play()]);setTimeout(()=>low.classList.remove('entering'),1700)}
   start.addEventListener('click',play);
   voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||8.94;bar.style.width=`${Math.min(100,t/d*100)}%`;if(t<2.16)show('intro','Навантажувач має великий ківш.');else if(t<4.91)show('ready','Він набирає пісок і переносить його на будівництві.');else if(t<6.91)show('scoop','Ківш опустив — пісок набрав.');else show('carry','Підняв угору — і перевіз!')});
-  voice.addEventListener('ended',()=>setTimeout(()=>{high.classList.add('exiting');setTimeout(reset,1700)},700));
+  voice.addEventListener('ended',()=>setTimeout(()=>{high.classList.add('exiting');setTimeout(()=>{if(new URLSearchParams(location.search).get('mode')==='story')location.href='../dorozhnii-katok/index.html?mode=story&v=20261014';else reset()},1700)},700));
   if(new URLSearchParams(location.search).get('mode')==='story')setTimeout(()=>{play();setTimeout(()=>{if(voice.paused&&voice.currentTime<.1)reset()},650)},220);
 </script></body></html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Дорожній каток — Come With Me Studio</title>
+  <style>
+    :root{color-scheme:only light;--ink:#493b49;--orange:#ff9450}*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"Trebuchet MS",system-ui,sans-serif;color:var(--ink)}
+    body{background:linear-gradient(#c9f0f7 0 62%,#f4ddb1 62%);overflow-x:hidden}button{font:inherit}.page{width:min(100%,760px);min-height:100vh;margin:auto;padding:16px 14px 28px;display:flex;flex-direction:column;gap:14px}
+    .head{display:flex;align-items:center;justify-content:space-between;gap:10px}.head h1{margin:0;font-size:clamp(27px,7vw,46px)}.back{border:0;border-radius:999px;background:#fffaf0e8;color:var(--ink);padding:11px 15px;font-weight:900;box-shadow:0 5px 15px #614f3d24;text-decoration:none;white-space:nowrap}
+    .scene{position:relative;flex:0 1 680px;min-height:470px;border-radius:34px;overflow:hidden;background:#bfeaf6;box-shadow:0 14px 36px #59432827}.site-bg{position:absolute;z-index:0;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 46%;filter:saturate(.9) brightness(1.04)}
+    .sun,.cloud{position:absolute;z-index:1;height:auto;object-fit:contain;filter:drop-shadow(0 5px 5px #55402c18)}.sun{right:6%;top:5%;width:13%}.cloud{left:7%;top:7%;width:16%}.cloud.second{left:31%;top:13%;width:13%;opacity:.88}
+    .track{position:absolute;z-index:2;left:5%;right:5%;bottom:17%;height:12%;border-radius:50% 45% 16% 18%;background:linear-gradient(#b87940,#8b562f);box-shadow:inset 0 7px 9px #dba06a66;opacity:.9;transform-origin:left center;transition:clip-path 2.1s linear,border-radius 1.2s,transform 1.2s;clip-path:inset(0 100% 0 0)}
+    .track:before{content:"";position:absolute;inset:-31% 0 45%;background:radial-gradient(ellipse at 9% 100%,#a76537 0 54%,transparent 56%),radial-gradient(ellipse at 28% 100%,#bb7641 0 56%,transparent 58%),radial-gradient(ellipse at 49% 100%,#9d5f34 0 52%,transparent 54%),radial-gradient(ellipse at 70% 100%,#b9723e 0 55%,transparent 57%),radial-gradient(ellipse at 91% 100%,#9f6338 0 54%,transparent 56%);transition:opacity 1.15s}
+    .track.rough{clip-path:inset(0 0 0 0)}.track.smooth{clip-path:inset(0 0 0 0);height:8%;border-radius:48% 45% 12% 12%;transform:translateY(24%)}.track.smooth:before{opacity:0}
+    .roller{position:absolute;z-index:4;left:5%;bottom:17%;width:61%;height:auto;object-fit:contain;filter:drop-shadow(0 10px 8px #60452e35);transform:translateX(-115%);transform-origin:50% 100%;transition:transform 2.1s linear}.roller.entering{animation:drive-in 1.7s ease-out both}.roller.ready{transform:translateX(0)}.roller.rolling{transform:translateX(56%)}.roller.exiting{transform:translateX(175%);transition-duration:1.7s;transition-timing-function:ease-in}
+    @keyframes drive-in{from{transform:translateX(-115%)}to{transform:translateX(0)}}
+    .caption{position:absolute;z-index:6;left:4%;right:4%;bottom:3%;min-height:76px;padding:15px 18px;border-radius:24px;background:#fffaf0ed;display:grid;place-items:center;text-align:center;font-size:clamp(19px,4.8vw,30px);font-weight:900;line-height:1.15;box-shadow:0 7px 20px #55402c2d}.start{position:absolute;z-index:8;inset:0;border:0;background:#40324780;color:white;display:grid;place-items:center;cursor:pointer}.start span{padding:17px 25px;border-radius:999px;background:var(--orange);font-size:clamp(22px,6vw,34px);font-weight:900;box-shadow:0 8px 24px #0004}.start[hidden]{display:none}.progress{height:8px;border-radius:999px;background:#fff9;overflow:hidden}.progress i{display:block;width:0;height:100%;background:var(--orange);transition:width .12s linear}
+    @media(max-width:540px){.page{padding:10px 10px 20px}.head h1{font-size:27px}.back{padding:9px 11px;font-size:13px}.scene{flex-basis:auto;height:64svh;min-height:540px;border-radius:28px}.roller{left:2%;bottom:19%;width:68%}.track{bottom:20%;height:12%;left:3%;right:3%}.caption{min-height:88px;font-size:21px}}
+  </style>
+</head>
+<body><main class="page">
+  <header class="head"><h1>Дорожній каток</h1><a class="back" href="../index.html">← Будівельні машини</a></header>
+  <section class="scene" aria-live="polite">
+    <img class="site-bg" src="../../../../../../media/pograymo/assets/illustrations/transport/construction/construction-site-background.webp?v=20261014" alt="">
+    <img class="sun" src="../../../../../../media/pograymo/assets/illustrations/painted_scene/painted-sun.webp" alt="Сонечко"><img class="cloud" src="../../../../../../media/pograymo/assets/illustrations/painted_scene/painted-cloud.webp" alt="Хмаринка"><img class="cloud second" src="../../../../../../media/pograymo/assets/illustrations/painted_scene/painted-cloud.webp" alt="Хмаринка">
+    <div class="track" id="track" aria-hidden="true"></div>
+    <img class="roller" id="roller" src="../../../../../../media/pograymo/assets/illustrations/transport/construction/road-roller-orange-repaired.webp?v=20261014" alt="Помаранчевий дорожній каток">
+    <div class="caption" id="caption">Познайомимося з дорожнім катком!</div><button class="start" id="start" type="button"><span>▶ Послухати</span></button>
+  </section><div class="progress"><i id="progress"></i></div>
+</main>
+<audio id="voice" preload="auto" src="../../../../../../audio/rozkazhy-meni/piznavaymo-svit/transport/budivelna-tekhnika/05_dorozhnii-katok.mp3"></audio>
+<audio id="engine" preload="auto" loop src="../../../../../../audio/games/sfx/heavy-vehicle-engine.mp3"></audio>
+<script>
+  const voice=document.getElementById('voice'),engine=document.getElementById('engine'),start=document.getElementById('start'),caption=document.getElementById('caption'),bar=document.getElementById('progress'),roller=document.getElementById('roller'),track=document.getElementById('track');
+  let stage='';
+  const show=(next,text)=>{caption.textContent=text;if(stage===next)return;stage=next;if(next==='intro'){roller.className='roller ready';track.className='track'}else if(next==='ready'){roller.className='roller ready';track.className='track rough'}else if(next==='roll'){roller.className='roller rolling';track.className='track rough'}else if(next==='smooth'){roller.className='roller rolling';track.className='track smooth'}};
+  function reset(){engine.pause();stage='';roller.className='roller';track.className='track';caption.textContent='Познайомимося з дорожнім катком!';bar.style.width='0';start.hidden=false;start.querySelector('span').textContent='↻ Послухати ще раз'}
+  function play(){start.hidden=true;voice.currentTime=0;engine.currentTime=0;engine.volume=.13;voice.volume=1;stage='intro';roller.className='roller entering';track.className='track';caption.textContent='Дорожній каток має важкий круглий валець.';Promise.allSettled([engine.play(),voice.play()]);setTimeout(()=>roller.className='roller ready',1700)}
+  start.addEventListener('click',play);
+  voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||9.12;bar.style.width=`${Math.min(100,t/d*100)}%`;if(t<2.53)show('intro','Дорожній каток має важкий круглий валець.');else if(t<5.20)show('ready','Він притискає землю й робить дорогу рівною.');else if(t<7.12)show('roll','Каток уперед повільно рушає —');else show('smooth','землю під собою міцно рівняє!')});
+  voice.addEventListener('ended',()=>setTimeout(()=>{roller.className='roller exiting';setTimeout(()=>{if(new URLSearchParams(location.search).get('mode')==='story')location.href='../avtokran/index.html?mode=story&v=20261014';else reset()},1700)},650));
+  if(new URLSearchParams(location.search).get('mode')==='story')setTimeout(()=>{play();setTimeout(()=>{if(voice.paused&&voice.currentTime<.1)reset()},650)},220);
+</script></body></html>
