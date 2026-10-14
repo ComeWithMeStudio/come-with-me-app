@@ -38,6 +38,6 @@
   function play(){start.hidden=true;voice.currentTime=0;engine.currentTime=0;engine.volume=.13;voice.volume=1;stage='intro';roller.className='roller entering';track.className='track';caption.textContent='Дорожній каток має важкий круглий валець.';Promise.allSettled([engine.play(),voice.play()]);setTimeout(()=>roller.className='roller ready',1700)}
   start.addEventListener('click',play);
   voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||10.66;bar.style.width=`${Math.min(100,t/d*100)}%`;if(t<2.53)show('intro','Дорожній каток має важкий круглий валець.');else if(t<6.23)show('ready','Він притискає свіжий асфальт і робить дорогу міцною та рівною.');else if(t<8.70)show('roll','Котиться вперед — асфальт притискає.');else show('smooth','Рівну дорогу за собою залишає!')});
-  voice.addEventListener('ended',()=>setTimeout(()=>{roller.className='roller exiting';setTimeout(reset,1700)},650));
+  voice.addEventListener('ended',()=>setTimeout(()=>{roller.className='roller exiting';setTimeout(()=>{if(new URLSearchParams(location.search).get('mode')==='story')location.href='../betonozmishuvach/index.html?mode=story&v=20261014';else reset()},1700)},650));
   if(new URLSearchParams(location.search).get('mode')==='story')setTimeout(()=>{play();setTimeout(()=>{if(voice.paused&&voice.currentTime<.1)reset()},650)},220);
 </script></body></html>
