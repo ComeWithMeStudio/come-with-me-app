@@ -52,7 +52,8 @@
     function play(){start.hidden=true;voice.currentTime=0;work.currentTime=8;work.volume=.15;voice.volume=1;stage='intro';lowered.className='truck active entering';raised.className='truck raised';cargo.className='cargo';caption.textContent='Самоскид має великий міцний кузов.';Promise.allSettled([work.play(),voice.play()]);setTimeout(()=>lowered.classList.remove('entering'),1800)}
     start.addEventListener('click',play);
     voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||9.77;bar.style.width=`${Math.min(100,t/d*100)}%`;if(t<2.35)show('intro','Самоскид має великий міцний кузов.');else if(t<4.81)show('carry','Він перевозить землю, пісок і каміння.');else if(t<7.48)show('load','Самоскид під’їжджає — вантаж приймає.');else show('dump','Кузов підіймає — землю висипає!')});
-    voice.addEventListener('ended',()=>setTimeout(()=>{raised.classList.remove('active');lowered.className='truck active exiting';cargo.className='cargo';setTimeout(reset,1750)},750));
+    voice.addEventListener('ended',()=>setTimeout(()=>{raised.classList.remove('active');lowered.className='truck active exiting';cargo.className='cargo';setTimeout(()=>{if(new URLSearchParams(location.search).get('mode')==='story')location.href='../navantazhuvach/index.html?mode=story&v=20261014';else reset()},1750)},750));
+    if(new URLSearchParams(location.search).get('mode')==='story')setTimeout(()=>{play();setTimeout(()=>{if(voice.paused&&voice.currentTime<.1)reset()},650)},220);
   </script>
 </body>
 </html>

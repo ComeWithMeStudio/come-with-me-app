@@ -54,6 +54,7 @@
     start.addEventListener('click',play);
     voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||9.12;bar.style.width=`${Math.min(100,t/d*100)}%`;if(t<2.3)show('intro','Бульдозер має широкий сильний відвал.');else if(t<4.82)show('ready','Він штовхає землю та вирівнює майданчик.');else if(t<6.97)show('push','Відвал уперед — землю штовхає.');else show('level','Проїхав і рівненько все залишає!')});
     voice.addEventListener('ended',()=>setTimeout(()=>{if(new URLSearchParams(location.search).get('mode')==='story')location.href='../samoskyd/index.html?mode=story&v=20261014';else reset()},1500));
+    if(new URLSearchParams(location.search).get('mode')==='story')setTimeout(()=>{play();setTimeout(()=>{if(voice.paused&&voice.currentTime<.1)reset()},650)},220);
   </script>
 </body>
 </html>
