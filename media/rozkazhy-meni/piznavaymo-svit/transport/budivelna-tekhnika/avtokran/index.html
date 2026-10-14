@@ -37,6 +37,6 @@
   function play(){start.hidden=true;voice.currentTime=0;engine.currentTime=0;engine.volume=.11;voice.volume=1;stage='intro';low.className='crane active entering';high.className='crane';pallet.className='pallet';caption.textContent='Автокран має довгу стрілу й міцний гак.';Promise.allSettled([engine.play(),voice.play()]);setTimeout(()=>low.className='crane active',1700)}
   start.addEventListener('click',play);
   voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||9.67;bar.style.width=`${Math.min(100,t/d*100)}%`;if(t<2.62)show('intro','Автокран має довгу стрілу й міцний гак.');else if(t<5.07)show('ready','Він підіймає важкі вантажі високо вгору.');else if(t<7.18)show('grab','Гак опустив — вантаж підхопив.');else show('lift','Стрілу підняв — і на місце встановив!')});
-  voice.addEventListener('ended',()=>setTimeout(()=>{high.className='crane active exiting';setTimeout(reset,2300)},750));
+  voice.addEventListener('ended',()=>setTimeout(()=>{high.className='crane active exiting';setTimeout(()=>{if(new URLSearchParams(location.search).get('mode')==='story')location.href='../asfaltoukladach/index.html?mode=story&v=20261014';else reset()},2300)},750));
   if(new URLSearchParams(location.search).get('mode')==='story')setTimeout(()=>{play();setTimeout(()=>{if(voice.paused&&voice.currentTime<.1)reset()},650)},220);
 </script></body></html>
