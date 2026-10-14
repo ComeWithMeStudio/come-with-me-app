@@ -53,7 +53,7 @@
     function play(){start.hidden=true;voice.currentTime=0;engine.currentTime=0;work.currentTime=11;work.volume=.16;voice.volume=1;stage='intro';dozer.className='dozer entering';soil.className='soil';caption.textContent='Бульдозер має широкий сильний відвал.';Promise.allSettled([work.play(),voice.play()]);setTimeout(()=>dozer.classList.remove('entering'),1750)}
     start.addEventListener('click',play);
     voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||9.12;bar.style.width=`${Math.min(100,t/d*100)}%`;if(t<2.3)show('intro','Бульдозер має широкий сильний відвал.');else if(t<4.82)show('ready','Він штовхає землю та вирівнює майданчик.');else if(t<6.97)show('push','Відвал уперед — землю штовхає.');else show('level','Проїхав і рівненько все залишає!')});
-    voice.addEventListener('ended',()=>setTimeout(reset,1500));
+    voice.addEventListener('ended',()=>setTimeout(()=>{if(new URLSearchParams(location.search).get('mode')==='story')location.href='../samoskyd/index.html?mode=story&v=20261014';else reset()},1500));
   </script>
 </body>
 </html>
