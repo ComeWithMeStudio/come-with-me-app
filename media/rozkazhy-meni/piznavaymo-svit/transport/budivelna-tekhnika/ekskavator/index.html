@@ -38,7 +38,7 @@
     </section>
     <div class="progress"><i id="progress"></i></div>
   </main>
-  <audio id="voice" preload="auto" src="../../../../../../audio/rozkazhy-meni/piznavaymo-svit/transport/budivelna-tekhnika/ekskavator/01_ekskavator.mp3"></audio>
+  <audio id="voice" preload="auto" src="../../../../../../audio/rozkazhy-meni/piznavaymo-svit/transport/budivelna-tekhnika/ekskavator/01.mp3"></audio>
   <audio id="engine" preload="auto" loop src="../../../../../../audio/games/sfx/heavy-vehicle-engine.mp3"></audio>
   <audio id="work" preload="auto" src="../../../../../../audio/games/sfx/heavy-machinery-working.mp3"></audio>
   <script>
@@ -48,9 +48,9 @@
     let stage='';
     const show=(nextStage,active,text,withTruck=false)=>{if(stage===nextStage){caption.textContent=text;return}stage=nextStage;[intro,dig,dump].forEach(el=>{el.hidden=false;el.classList.toggle('active',el===active)});truck.classList.toggle('active',withTruck);if(!withTruck)truck.classList.remove('leaving');caption.textContent=text};
     function reset(){truck.classList.remove('active','leaving');stage='';show('ready',intro,'Познайоммося з екскаватором!');bar.style.width='0';start.hidden=false;start.querySelector('span').textContent='↻ Послухати ще раз'}
-    function play(){start.hidden=true;truck.classList.remove('active','leaving');voice.currentTime=0;engine.currentTime=0;work.currentTime=0;engine.volume=.12;work.volume=.16;voice.volume=1;stage='';show('intro',intro,'Екскава́тор має довгу, сильну стрілу́ й великий ківш.');intro.classList.remove('driving');void intro.offsetWidth;intro.classList.add('driving');setTimeout(()=>intro.classList.remove('driving'),1850);Promise.allSettled([engine.play(),work.play(),voice.play()])}
+    function play(){start.hidden=true;truck.classList.remove('active','leaving');voice.currentTime=0;engine.currentTime=0;work.currentTime=0;engine.volume=.12;work.volume=.16;voice.volume=1;stage='';show('intro',intro,'Екскаватор має довгу, сильну стрілу й великий ківш.');intro.classList.remove('driving');void intro.offsetWidth;intro.classList.add('driving');setTimeout(()=>intro.classList.remove('driving'),1850);Promise.allSettled([engine.play(),work.play(),voice.play()])}
     start.addEventListener('click',play);
-    voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||11.21;bar.style.width=`${Math.min(100,t/d*100)}%`;const text=t<4.95?'Екскава́тор має довгу, сильну стрілу́ й великий ківш.':t<6.7?'Він копає землю, готує ями та допомагає будувати будинки.':t<7.95?'Ківш опускається — землю бере.':'Стріла́ підіймається — в кузов несе.';if(t<4.35)show('intro',intro,text);else if(t<6.9)show('dig',dig,text);else if(t<7.55)show('lift',dump,text);else show('dump',dump,text,true)});
+    voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||11.21;bar.style.width=`${Math.min(100,t/d*100)}%`;const text=t<4.95?'Екскаватор має довгу, сильну стрілу й великий ківш.':t<6.7?'Він копає землю, готує ями та допомагає будувати будинки.':t<7.95?'Ківш опускається — землю бере.':'Стріла підіймається — в кузов несе.';if(t<4.35)show('intro',intro,text);else if(t<6.9)show('dig',dig,text);else if(t<7.55)show('lift',dump,text);else show('dump',dump,text,true)});
     voice.addEventListener('ended',()=>{stage='finish';[intro,dig,dump].forEach(el=>{el.hidden=false;el.classList.toggle('active',el===intro)});truck.classList.remove('active');truck.classList.add('leaving');setTimeout(()=>{engine.pause();work.pause();reset()},1750)});
   </script>
 </body>
