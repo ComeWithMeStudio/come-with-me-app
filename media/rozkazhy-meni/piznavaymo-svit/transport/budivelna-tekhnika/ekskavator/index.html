@@ -34,7 +34,7 @@
       <img class="vehicle" id="dig" hidden src="../../../../../../media/pograymo/assets/illustrations/transport/construction/excavator-yellow.webp?v=20261014-3" alt="Екскаватор набрав землю">
       <img class="vehicle" id="dump" hidden src="../../../../../../media/pograymo/assets/illustrations/transport/construction/excavator-dumping-soil.webp?v=20261014-2" alt="Екскаватор висипає землю">
       <img class="truck" id="truck" src="../../../../../../media/pograymo/assets/illustrations/transport/construction/dump-truck-bed-lowered.webp?v=20261014-2" alt="Самоскид">
-      <div class="caption" id="caption">Познайоммося!</div>
+      <div class="caption" id="caption">Познайомимося з екскаватором!</div>
       <button class="start" id="start" type="button"><span>▶ Послухати</span></button>
     </section>
     <div class="progress"><i id="progress"></i></div>
@@ -48,7 +48,7 @@
     const intro=document.getElementById('intro'),dig=document.getElementById('dig'),dump=document.getElementById('dump'),truck=document.getElementById('truck');
     let stage='';
     const show=(nextStage,active,text,withTruck=false)=>{if(stage===nextStage){caption.textContent=text;return}stage=nextStage;[intro,dig,dump].forEach(el=>{el.hidden=false;el.classList.toggle('active',el===active)});truck.classList.toggle('active',withTruck);if(!withTruck)truck.classList.remove('leaving');caption.textContent=text};
-    function reset(){truck.classList.remove('active','leaving');work.pause();work.currentTime=8;stage='';show('ready',intro,'Познайоммося!');bar.style.width='0';start.hidden=false;start.querySelector('span').textContent='↻ Послухати ще раз'}
+    function reset(){truck.classList.remove('active','leaving');work.pause();work.currentTime=8;stage='';show('ready',intro,'Познайомимося з екскаватором!');bar.style.width='0';start.hidden=false;start.querySelector('span').textContent='↻ Послухати ще раз'}
     function play(){start.hidden=true;truck.classList.remove('active','leaving');voice.currentTime=0;engine.currentTime=0;work.pause();work.currentTime=8;engine.volume=.12;work.volume=.16;voice.volume=1;stage='';show('intro',intro,'Екскаватор має довгу, сильну стрілу й великий ківш.');intro.classList.remove('driving');void intro.offsetWidth;intro.classList.add('driving');setTimeout(()=>intro.classList.remove('driving'),1850);Promise.allSettled([engine.play(),work.play(),voice.play()])}
     start.addEventListener('click',play);
     voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||11.21;bar.style.width=`${Math.min(100,t/d*100)}%`;const text=t<3.95?'Екскаватор має довгу, сильну стрілу й великий ківш.':t<6.7?'Він копає землю, готує ями та допомагає будувати будинки.':t<7.95?'Ківш опускається — землю бере.':'Стріла підіймається — в кузов несе.';if(t<4.35)show('intro',intro,text);else if(t<6.9)show('dig',dig,text);else if(t<7.55)show('lift',dump,text);else show('dump',dump,text,true)});
