@@ -56,5 +56,6 @@
     voice.addEventListener('ended',()=>setTimeout(()=>{if(new URLSearchParams(location.search).get('mode')==='story')location.href='../samoskyd/index.html?mode=story&v=20261014';else reset()},1500));
     if(new URLSearchParams(location.search).get('mode')==='story')setTimeout(()=>{play();setTimeout(()=>{if(voice.paused&&voice.currentTime<.1)reset()},650)},220);
   </script>
+  <script src="../story-wake-lock.js?v=20261014"></script>
 </body>
 </html>

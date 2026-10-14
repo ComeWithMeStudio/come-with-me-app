@@ -33,6 +33,6 @@
   function play(){start.hidden=true;voice.currentTime=0;engine.currentTime=0;engine.volume=.1;voice.volume=1;machines.forEach(m=>m.classList.remove('arrive'));void document.body.offsetWidth;machines.forEach(m=>m.classList.add('arrive'));caption.textContent='Будівельні машини працювали дружно —';Promise.allSettled([engine.play(),voice.play()])}
   start.addEventListener('click',()=>{if(start.querySelector('span').textContent.includes('ще раз'))location.href='../vstup/index.html?mode=story&v=20261014-5';else play()});
   voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||6.66;bar.style.width=`${Math.min(100,t/d*100)}%`;caption.textContent=t<2.2?'Будівельні машини працювали дружно —':t<4.55?'і разом підготували майданчик!':'Тепер тут можна гратися. Чудова робота!'});
-  voice.addEventListener('ended',()=>setTimeout(()=>{engine.pause();bar.style.width='100%';start.hidden=false;start.style.background='transparent';start.style.alignItems='end';start.style.paddingBottom='15%';start.querySelector('span').textContent='↻ Подивитися всю історію ще раз'},700));
+  voice.addEventListener('ended',()=>setTimeout(()=>{engine.pause();window.releaseStoryWakeLock?.();bar.style.width='100%';start.hidden=false;start.style.background='transparent';start.style.alignItems='end';start.style.paddingBottom='15%';start.querySelector('span').textContent='↻ Подивитися всю історію ще раз'},700));
   if(new URLSearchParams(location.search).get('mode')==='story')setTimeout(()=>{play();setTimeout(()=>{if(voice.paused&&voice.currentTime<.1)reset()},650)},220);
-</script></body></html>
+</script><script src="../story-wake-lock.js?v=20261014"></script></body></html>

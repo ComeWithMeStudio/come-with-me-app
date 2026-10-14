@@ -39,4 +39,4 @@
   voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||8.94;bar.style.width=`${Math.min(100,t/d*100)}%`;if(t<2.16)show('intro','Навантажувач має великий ківш.');else if(t<4.91)show('ready','Він набирає пісок і переносить його на будівництві.');else if(t<6.91)show('scoop','Ківш опустив — пісок набрав.');else show('carry','Підняв угору — і перевіз!')});
   voice.addEventListener('ended',()=>setTimeout(()=>{high.classList.add('exiting');setTimeout(()=>{if(new URLSearchParams(location.search).get('mode')==='story')location.href='../avtokran/index.html?mode=story&v=20261014';else reset()},1700)},700));
   if(new URLSearchParams(location.search).get('mode')==='story')setTimeout(()=>{play();setTimeout(()=>{if(voice.paused&&voice.currentTime<.1)reset()},650)},220);
-</script></body></html>
+</script><script src="../story-wake-lock.js?v=20261014"></script></body></html>

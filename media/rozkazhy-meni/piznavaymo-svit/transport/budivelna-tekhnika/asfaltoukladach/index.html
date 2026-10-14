@@ -39,4 +39,4 @@
   voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||11.39;bar.style.width=`${Math.min(100,t/d*100)}%`;if(t<3.41)show('intro','Асфальтоукладач розподіляє гарячий асфальт рівним шаром.');else if(t<6.82)show('drive','Він повільно їде вперед і залишає за собою нову дорогу.');else if(t<9.36)show('lay','Асфальт приймає — рівненько вкладає.');else show('finish','Крок за кроком дорогу прокладає!')});
   voice.addEventListener('ended',()=>setTimeout(()=>{paver.className='paver exiting';setTimeout(()=>{if(new URLSearchParams(location.search).get('mode')==='story')location.href='../dorozhnii-katok/index.html?mode=story&v=20261014';else reset()},1850)},650));
   if(new URLSearchParams(location.search).get('mode')==='story')setTimeout(()=>{play();setTimeout(()=>{if(voice.paused&&voice.currentTime<.1)reset()},650)},220);
-</script></body></html>
+</script><script src="../story-wake-lock.js?v=20261014"></script></body></html>

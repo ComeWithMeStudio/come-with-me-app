@@ -37,4 +37,4 @@
   start.addEventListener('click',play);
   voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||8.18;bar.style.width=`${Math.min(100,t/d*100)}%`;caption.textContent=t<2.6?'Сьогодні ми завітаємо на будівельний майданчик.':t<6.25?'Тут великі машини працюють разом, і кожна має своє важливе завдання.':'Подивімося, що вони вміють!'});
   voice.addEventListener('ended',()=>setTimeout(()=>{engine.pause();location.href='../ekskavator/index.html?mode=story&v=20261014-5'},650));
-</script></body></html>
+</script><script src="../story-wake-lock.js?v=20261014"></script></body></html>

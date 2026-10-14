@@ -54,5 +54,6 @@
     voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||11.21;bar.style.width=`${Math.min(100,t/d*100)}%`;const text=t<3.95?'Екскаватор має довгу, сильну стрілу й великий ківш.':t<6.7?'Він копає землю, готує ями та допомагає будувати будинки.':t<7.95?'Ківш опускається — землю бере.':'Стріла підіймається — в кузов несе.';if(t<4.35)show('intro',intro,text);else if(t<6.9)show('dig',dig,text);else if(t<7.55)show('lift',dump,text);else show('dump',dump,text,true)});
     voice.addEventListener('ended',()=>{stage='finish';[intro,dig,dump].forEach(el=>{el.hidden=false;el.classList.toggle('active',el===intro)});truck.classList.remove('active');truck.classList.add('leaving');setTimeout(()=>{engine.pause();work.pause();if(new URLSearchParams(location.search).get('mode')==='story')location.href='../buldozer/index.html?mode=story&v=20261014-4';else reset()},1750)});
   </script>
+  <script src="../story-wake-lock.js?v=20261014"></script>
 </body>
 </html>
