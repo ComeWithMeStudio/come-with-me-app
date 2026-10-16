@@ -243,3 +243,20 @@ to{opacity:1;transform:translateX(0) scaleX(-1)}
 .final-scene .final-ambulance{left:16%;bottom:19%;width:55%;z-index:3}
 .final-scene .final-police{left:39%;bottom:25%;width:52%;z-index:4}
 }
+
+
+/* parade-line correction v8 */
+.final-scene .final-fire,
+.final-scene .final-ambulance,
+.final-scene .final-police{bottom:14%;width:44%;max-height:37%}
+.final-scene .final-fire{left:-2%;z-index:2}
+.final-scene .final-ambulance{left:28%;z-index:3}
+.final-scene .final-police{left:57%;z-index:4}
+@media(max-width:540px){
+.final-scene .final-fire,
+.final-scene .final-ambulance,
+.final-scene .final-police{bottom:15%;width:45%;max-height:35%}
+.final-scene .final-fire{left:-3%;z-index:2}
+.final-scene .final-ambulance{left:27%;z-index:3}
+.final-scene .final-police{left:57%;z-index:4}
+}
