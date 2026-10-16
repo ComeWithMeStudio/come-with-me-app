@@ -2,6 +2,12 @@ const cfg=window.SCENE,voice=document.getElementById('voice'),start=document.get
 const sceneOrder=['pozhezhna','shvydka','politsiia','smittievoz','pidmitalna','snihoprybyralna','poshtovyi-furhon','evakuator'];
 const sceneSlug=location.pathname.split('/').filter(Boolean).at(-2),sceneIndex=sceneOrder.indexOf(sceneSlug);
 scene.dataset.direction=sceneIndex%2===1?'left':'right';
+if(!scene.classList.contains('no-traffic')){
+  const trafficOne=document.createElement('img'),trafficTwo=document.createElement('img');
+  trafficOne.className='traffic-car one';trafficOne.alt='';trafficOne.src='/media/pograymo/assets/illustrations/transport/city-car-blue.webp';
+  trafficTwo.className='traffic-car two';trafficTwo.alt='';trafficTwo.src='/media/pograymo/assets/illustrations/transport/convertible-red.webp';
+  scene.prepend(trafficTwo);scene.prepend(trafficOne);
+}
 function reset(){scene.classList.remove('playing','leaving');caption.textContent=cfg.ready;bar.style.width='0';start.hidden=false;start.style.background='';start.style.alignItems='center';start.style.paddingBottom='0';start.querySelector('span').textContent='↻ Послухати ще раз'}
 function play(){start.hidden=true;voice.currentTime=0;voice.volume=1;scene.classList.remove('playing','leaving');void scene.offsetWidth;scene.classList.add('playing');caption.textContent=cfg.lines[0].text;voice.play().catch(reset)}
 start.addEventListener('click',()=>{if(start.querySelector('span').textContent.includes('всю історію'))location.href=cfg.restart;else play()});
