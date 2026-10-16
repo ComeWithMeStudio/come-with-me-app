@@ -219,3 +219,27 @@ button{font:inherit}
 
 .final-scene.completed .vehicle,
 .final-scene.leaving .vehicle{opacity:1!important;transform:none!important;animation:final-wave .8s ease-in-out infinite alternate!important}
+
+
+/* final two visual corrections v7 */
+.intro-scene.playing .intro-garbage{animation-delay:3.2s}
+
+.final-scene.playing .final-fire{animation:final-in-flipped 1.2s ease-out .2s forwards}
+.final-scene.playing .final-ambulance{animation:final-in-flipped 1.2s ease-out 1.1s forwards}
+.final-scene.playing .final-police{animation:final-in-flipped 1.2s ease-out 2s forwards}
+@keyframes final-in-flipped{
+from{opacity:0;transform:translateX(130%) scaleX(-1)}
+to{opacity:1;transform:translateX(0) scaleX(-1)}
+}
+.final-scene.completed .vehicle,
+.final-scene.leaving .vehicle{transform:scaleX(-1)!important}
+.final-scene .final-fire{left:-4%;bottom:12%;width:54%;z-index:2}
+.final-scene .final-ambulance{left:18%;bottom:18%;width:52%;z-index:3}
+.final-scene .final-police{left:40%;bottom:24%;width:50%;z-index:4}
+
+@media(max-width:540px){
+.intro-scene.playing .intro-garbage{animation-delay:3.2s}
+.final-scene .final-fire{left:-7%;bottom:13%;width:57%;z-index:2}
+.final-scene .final-ambulance{left:16%;bottom:19%;width:55%;z-index:3}
+.final-scene .final-police{left:39%;bottom:25%;width:52%;z-index:4}
+}
