@@ -97,3 +97,24 @@ button{font:inherit}
 .broken-car{right:2%;bottom:22%;width:29%}.broken-mark{right:12%;bottom:39%}.tow-scene .vehicle{left:2%;bottom:12%;width:72%}
 .final-scene .final-fire{left:1%;bottom:33%;width:58%}.final-scene .final-ambulance{left:26%;bottom:23%;width:54%}.final-scene .final-police{left:47%;bottom:14%;width:49%}
 }
+
+/* approved vehicle state images */
+.garbage-loaded-state,.tow-loaded-state{position:absolute;z-index:4;height:auto;object-fit:contain;pointer-events:none;opacity:0;filter:drop-shadow(0 11px 8px #46362b45)}
+.garbage-loaded-state{left:6%;bottom:9%;width:88%;max-height:55%}
+.tow-loaded-state{left:4%;bottom:10%;width:88%;max-height:51%}
+.garbage-scene.playing .vehicle{animation:garbage-base 8.25s ease-in-out forwards}
+.garbage-scene.playing .garbage-loaded-state{animation:garbage-loaded 8.25s ease-in-out forwards}
+.garbage-scene.playing .bin{animation:ground-bin 8.25s ease-in-out forwards}
+.garbage-scene.leaving .garbage-loaded-state{opacity:0}
+@keyframes garbage-base{0%{opacity:0;transform:translateX(var(--arrival-x,145%))}17%,40%{opacity:1;transform:translateX(0)}48%,70%{opacity:0;transform:translateX(0)}78%,100%{opacity:1;transform:translateX(0)}}
+@keyframes garbage-loaded{0%,42%{opacity:0;transform:scale(.94)}49%,70%{opacity:1;transform:scale(1)}78%,100%{opacity:0;transform:scale(.97)}}
+@keyframes ground-bin{0%,36%{opacity:1;transform:none}47%,70%{opacity:0;transform:translate(-180%,-85%) rotate(-80deg) scale(.65)}80%,100%{opacity:1;transform:none}}
+.tow-scene.playing .vehicle{animation:tow-base 7.6s ease-in-out forwards}
+.tow-scene.playing .broken-car{animation:tow-car-hide 7.6s ease-in-out forwards}
+.tow-scene.playing .tow-loaded-state{animation:tow-loaded 7.6s ease-in-out forwards}
+.tow-scene.leaving .vehicle,.tow-scene.leaving .broken-car{opacity:0;animation:none}
+.tow-scene.leaving .tow-loaded-state{opacity:1;animation:depart .78s ease-in forwards}
+@keyframes tow-base{0%{opacity:0;transform:translateX(var(--arrival-x,145%))}18%,54%{opacity:1;transform:translateX(0)}62%,100%{opacity:0;transform:translateX(0)}}
+@keyframes tow-car-hide{0%,46%{opacity:1;transform:none}62%,100%{opacity:0;transform:translate(-70%,-45%) scale(.65)}}
+@keyframes tow-loaded{0%,54%{opacity:0;transform:scale(.96)}64%,100%{opacity:1;transform:scale(1)}}
+@media(max-width:540px){.garbage-loaded-state{left:2%;bottom:12%;width:96%;max-height:52%}.tow-loaded-state{left:1%;bottom:12%;width:96%;max-height:49%}}
