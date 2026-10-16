@@ -1,0 +1,149 @@
+{
+  "title": "Пограймо — Природа — Водні мешканці",
+  "assets": [
+    {
+      "id": "fish-goldfish-orange",
+      "name_uk": "Золота рибка",
+      "category": "fish",
+      "file": "fish/fish-goldfish-orange.webp",
+      "width": 1024,
+      "height": 1024,
+      "transparent": true
+    },
+    {
+      "id": "fish-koi",
+      "name_uk": "Короп кої",
+      "category": "fish",
+      "file": "fish/fish-koi.webp",
+      "width": 1024,
+      "height": 1024,
+      "transparent": true
+    },
+    {
+      "id": "fish-discus-blue",
+      "name_uk": "Блакитний дискус",
+      "category": "fish",
+      "file": "fish/fish-discus-blue.webp",
+      "width": 1024,
+      "height": 1024,
+      "transparent": true
+    },
+    {
+      "id": "fish-yellow-tang",
+      "name_uk": "Жовтий хірург",
+      "category": "fish",
+      "file": "fish/fish-yellow-tang.webp",
+      "width": 1024,
+      "height": 1024,
+      "transparent": true
+    },
+    {
+      "id": "fish-angelfish-silver",
+      "name_uk": "Скалярія",
+      "category": "fish",
+      "file": "fish/fish-angelfish-silver.webp",
+      "width": 1024,
+      "height": 1024,
+      "transparent": true
+    },
+    {
+      "id": "fish-betta-red",
+      "name_uk": "Рибка-півник",
+      "category": "fish",
+      "file": "fish/fish-betta-red.webp",
+      "width": 1024,
+      "height": 1024,
+      "transparent": true
+    },
+    {
+      "id": "fish-guppy-turquoise",
+      "name_uk": "Гупі",
+      "category": "fish",
+      "file": "fish/fish-guppy-turquoise.webp",
+      "width": 1024,
+      "height": 1024,
+      "transparent": true
+    },
+    {
+      "id": "fish-puffer-yellow",
+      "name_uk": "Риба-куля",
+      "category": "fish",
+      "file": "fish/fish-puffer-yellow.webp",
+      "width": 1024,
+      "height": 1024,
+      "transparent": true
+    },
+    {
+      "id": "fish-perch-green",
+      "name_uk": "Окунь",
+      "category": "fish",
+      "file": "fish/fish-perch-green.webp",
+      "width": 1024,
+      "height": 1024,
+      "transparent": true
+    },
+    {
+      "id": "fish-butterflyfish-yellow",
+      "name_uk": "Риба-метелик",
+      "category": "fish",
+      "file": "fish/fish-butterflyfish-yellow.webp",
+      "width": 1024,
+      "height": 1024,
+      "transparent": true
+    },
+    {
+      "id": "orca",
+      "name_uk": "Косатка",
+      "category": "mammals",
+      "file": "mammals/orca.webp",
+      "width": 1024,
+      "height": 1024,
+      "transparent": true
+    },
+    {
+      "id": "seal",
+      "name_uk": "Тюлень",
+      "category": "mammals",
+      "file": "mammals/seal.webp",
+      "width": 1024,
+      "height": 1024,
+      "transparent": true
+    },
+    {
+      "id": "octopus",
+      "name_uk": "Восьминіг",
+      "category": "invertebrates",
+      "file": "invertebrates/octopus.webp",
+      "width": 1024,
+      "height": 1024,
+      "transparent": true
+    },
+    {
+      "id": "dolphin",
+      "name_uk": "Дельфін",
+      "category": "mammals",
+      "file": "mammals/dolphin.webp",
+      "width": 1024,
+      "height": 1024,
+      "transparent": true
+    },
+    {
+      "id": "sea-turtle",
+      "name_uk": "Морська черепаха",
+      "category": "reptiles",
+      "file": "reptiles/sea-turtle.webp",
+      "width": 1024,
+      "height": 1024,
+      "transparent": true
+    },
+    {
+      "id": "jellyfish",
+      "name_uk": "Медуза",
+      "category": "invertebrates",
+      "file": "invertebrates/jellyfish.webp",
+      "width": 1024,
+      "height": 1024,
+      "transparent": true
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+:root{color-scheme:only light;--ink:#493b49;--blue:#48a9e6;--cream:#fffaf0}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:"Trebuchet MS",system-ui,sans-serif;color:var(--ink)}
+body{background:linear-gradient(#bfeafa 0 62%,#f8e9bd 62%);overflow-x:hidden}
+button{font:inherit}
+.page{width:min(100%,760px);min-height:100vh;margin:auto;padding:16px 14px 28px;display:flex;flex-direction:column;gap:14px}
+.head{display:flex;align-items:center;justify-content:space-between;gap:9px}
+.head h1{margin:0;font-size:clamp(26px,6.7vw,44px);line-height:1}
+.back{border:0;border-radius:999px;background:#fffaf0e8;color:var(--ink);padding:11px 15px;font-weight:900;box-shadow:0 5px 15px #614f3d24;text-decoration:none;white-space:nowrap}
+.scene{position:relative;flex:0 1 680px;min-height:470px;border-radius:34px;overflow:hidden;background:#bfeafa url("assets/service-city-background.webp") center center/cover no-repeat;box-shadow:0 14px 36px #59432827}
+.sun,.cloud{display:none;position:absolute;z-index:1;height:auto;object-fit:contain;filter:drop-shadow(0 5px 5px #55402c18)}
+.sun{right:6%;top:5%;width:13%}.cloud{left:7%;top:7%;width:17%}.cloud.second{left:34%;top:13%;width:13%;opacity:.86}
+.city{display:none;position:absolute;z-index:0;left:0;right:0;bottom:42%;height:30%;align-items:end;gap:2.5%;padding:0 4%}
+.city i{display:block;width:16%;border-radius:8px 8px 0 0;background:#f8cf83;box-shadow:inset 0 0 0 4px #fff6}.city i:nth-child(2){height:82%;background:#f4a7a1}.city i:nth-child(3){height:62%;background:#9fd4bd}.city i:nth-child(4){height:95%;background:#b8b3e8}.city i:nth-child(5){height:70%;background:#ffd58e}
+.road-line{display:none;position:absolute;z-index:1;left:0;right:0;bottom:27%;height:6px;background:repeating-linear-gradient(90deg,#fff 0 12%,transparent 12% 20%)}
+.vehicle{position:absolute;z-index:3;left:15%;bottom:8%;width:70%;max-height:48%;object-fit:contain;filter:drop-shadow(0 11px 8px #46362b45);transform:translateX(var(--arrival-x,145%));opacity:0}
+.scene.lift-vehicle .vehicle{bottom:13%}
+.scene.playing .vehicle{animation:arrive 1.45s cubic-bezier(.22,.77,.25,1) .12s forwards,work 1.7s ease-in-out 1.7s infinite alternate}
+.scene[data-direction="left"]{--arrival-x:-145%;--departure-x:145%}.scene[data-direction="right"]{--arrival-x:145%;--departure-x:-145%}
+.scene.leaving .vehicle{opacity:1;animation:depart .78s ease-in forwards}
+@keyframes arrive{to{opacity:1;transform:translateX(0)}}@keyframes work{to{transform:translateY(-4px) rotate(-.5deg)}}@keyframes depart{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(var(--departure-x,-145%))}}
+.fire-effect{position:absolute;z-index:2;left:10%;bottom:47%;width:24%;height:auto;opacity:0;pointer-events:none;filter:drop-shadow(0 0 10px #ff7a2c88)}
+.flame{position:absolute;bottom:0;width:42%;border-radius:52% 48% 50% 50%/72% 70% 30% 28%;background:radial-gradient(circle at 50% 72%,#fff4a8 0 15%,#ffd84e 16% 37%,#ff8a32 38% 68%,#ee3f2d 69% 100%);transform-origin:50% 100%}
+.flame:nth-child(1){left:0;height:68%;transform:rotate(-8deg)}.flame:nth-child(2){left:27%;height:100%;animation-delay:.11s}.flame:nth-child(3){left:59%;height:73%;transform:rotate(9deg);animation-delay:.23s}
+.smoke{position:absolute;z-index:2;left:2%;bottom:59%;width:36%;height:35%;opacity:0;pointer-events:none;background:radial-gradient(circle at 22% 78%,#5f666d99 0 18%,transparent 21%),radial-gradient(circle at 48% 72%,#6d747b92 0 20%,transparent 23%),radial-gradient(circle at 72% 58%,#7b82898d 0 18%,transparent 21%),radial-gradient(circle at 30% 46%,#70777e90 0 22%,transparent 25%),radial-gradient(circle at 58% 30%,#888f9585 0 23%,transparent 26%),radial-gradient(circle at 42% 8%,#999fa47a 0 20%,transparent 23%);filter:blur(7px)}
+.water-stream{position:absolute;z-index:4;right:62%;bottom:39%;width:0;height:9px;border-radius:999px;background:linear-gradient(180deg,#f5ffff 0 18%,#75d3f5 35% 72%,#319bd5 73%);transform:rotate(36deg);transform-origin:100% 50%;opacity:0;filter:drop-shadow(0 0 5px #dfffff)}
+.scene.playing .fire-effect{opacity:1;animation:fire-out 7.4s linear forwards}.scene.playing .flame{animation:flame-dance .28s ease-in-out infinite alternate}.scene.playing .smoke{animation:smoke-cycle 7.4s ease-out forwards}.scene.playing .water-stream{animation:water-on 7.4s ease-in-out forwards}
+@keyframes flame-dance{to{transform:scale(.84,1.1) rotate(3deg)}}@keyframes fire-out{0%,45%{opacity:1;transform:scale(1)}76%{opacity:.52;transform:scale(.67)}87%,100%{opacity:0;transform:scale(.18)}}@keyframes smoke-cycle{0%,45%{opacity:.82;transform:translateY(0) scale(1)}70%{opacity:.48;transform:translateY(-18px) scale(1.15)}88%,100%{opacity:0;transform:translateY(-34px) scale(.72)}}@keyframes water-on{0%,35%{width:0;opacity:0}42%{width:29%;opacity:.96}78%{width:29%;opacity:.96}87%,100%{width:0;opacity:0}}
+.yield-car{position:absolute;z-index:2;bottom:20%;width:24%;pointer-events:none;transition:transform 1.05s ease-in-out;filter:drop-shadow(0 5px 5px #46362b35)}
+.yield-car.left{left:5%}.yield-car.right{right:5%}.yield-car .crop{display:block;position:relative;overflow:hidden;width:100%;aspect-ratio:var(--crop-ratio)}
+.yield-car img{position:absolute;max-width:none;max-height:none;filter:url(#service-black-key);width:var(--img-width);left:var(--img-left);top:var(--img-top)}
+.scene.playing .yield-car.left{transform:translateX(-135%)}.scene.playing .yield-car.right{transform:translateX(135%)}
+.medical-bag{position:absolute;z-index:5;left:46%;bottom:29%;width:70px;height:53px;border-radius:11px;background:#f7f1df;border:4px solid #e15b55;box-shadow:0 7px 10px #46362b2d;opacity:0;transform:scale(.3)}
+.medical-bag:before{content:"";position:absolute;left:21px;top:-17px;width:22px;height:16px;border:5px solid #e15b55;border-bottom:0;border-radius:9px 9px 0 0}.medical-bag:after{content:"+";position:absolute;inset:0;display:grid;place-items:center;color:#e14e4e;font:bold 34px/1 Arial}
+.scene.playing .medical-bag{animation:bag-blink 1.45s ease-in-out 4.3s forwards}
+@keyframes bag-blink{0%{opacity:0;transform:scale(.3)}24%,68%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.65)}}
+.beacon{display:none;position:absolute;z-index:5;left:50%;bottom:57%;width:18px;height:18px;border-radius:50%;opacity:0;background:#3ca8ff;box-shadow:0 0 0 0 #3ca8ff99}.emergency.playing .beacon{opacity:1;animation:flash .65s infinite}@keyframes flash{50%{background:#ff605d;box-shadow:0 0 28px 13px #ff605d66}}
+.caption{position:absolute;z-index:6;left:4%;right:4%;bottom:3%;min-height:88px;padding:15px 18px;border-radius:24px;background:#fffaf0ed;display:grid;place-items:center;text-align:center;font-size:clamp(19px,4.7vw,29px);font-weight:900;line-height:1.15;box-shadow:0 7px 20px #55402c2d}
+.start{position:absolute;z-index:8;inset:0;border:0;background:#40324780;color:#fff;display:grid;place-items:center;cursor:pointer}.start span{padding:17px 25px;border-radius:999px;background:var(--blue);font-size:clamp(21px,5.7vw,33px);font-weight:900;box-shadow:0 8px 24px #0004}.start[hidden]{display:none}
+.progress{height:8px;border-radius:999px;background:#fff9;overflow:hidden}.progress i{display:block;width:0;height:100%;background:var(--blue);transition:width .12s linear}
+@media(max-width:540px){.page{padding:10px 10px 20px}.head h1{font-size:26px}.back{padding:9px 10px;font-size:12px}.scene{flex-basis:auto;height:64svh;min-height:540px;border-radius:28px}.vehicle{left:9%;width:82%;bottom:9%}.caption{min-height:96px;font-size:20px}.beacon{bottom:56%}.yield-car{bottom:22%;width:29%}.yield-car.left{left:2%}.yield-car.right{right:2%}.fire-effect{left:6%;bottom:49%;width:30%;height:auto}.medical-bag{left:44%;bottom:31%;transform-origin:50% 100%}.scene.lift-vehicle .vehicle{bottom:14%}.water-stream{right:61%;bottom:38%}}
+
+/* story actions v2 */
+.thief-runner{position:absolute;z-index:4;left:7%;bottom:24%;width:25%;height:auto;opacity:0;filter:drop-shadow(0 8px 7px #46362b40)}
+.police-scene .vehicle{left:35%;bottom:16%;width:54%;max-height:39%}
+.police-scene.playing .thief-runner{animation:thief-chase 10.1s linear forwards}
+.police-scene.playing .vehicle{animation:police-chase 10.1s linear forwards}
+.police-scene.leaving .vehicle{opacity:0;animation:none}
+@keyframes thief-chase{0%{opacity:0;transform:translateX(-90%) scaleX(1)}7%{opacity:1}37%{opacity:1;transform:translateX(310%) scaleX(1)}43%{opacity:0;transform:translateX(340%) scaleX(1)}49%{opacity:0;transform:translateX(340%) scaleX(-1)}54%{opacity:1}88%{opacity:1;transform:translateX(-105%) scaleX(-1)}94%,100%{opacity:0;transform:translateX(-125%) scaleX(-1)}}
+@keyframes police-chase{0%,8%{opacity:0;transform:translateX(-130%) scaleX(1)}15%{opacity:1}42%{opacity:1;transform:translateX(145%) scaleX(1)}47%{opacity:0;transform:translateX(160%) scaleX(1)}52%{opacity:0;transform:translateX(155%) scaleX(-1)}59%{opacity:1}92%{opacity:1;transform:translateX(-155%) scaleX(-1)}98%,100%{opacity:0;transform:translateX(-170%) scaleX(-1)}}
+
+.bin{position:absolute;z-index:4;right:8%;bottom:19%;width:13%;height:22%;border:5px solid #315b50;border-radius:7px 7px 13px 13px;background:linear-gradient(90deg,#5ea97e,#87c994 55%,#4f9471);box-shadow:0 8px 8px #46362b35;transform-origin:25% 88%}
+.bin:before{content:"";position:absolute;left:-9%;top:-10%;width:118%;height:12%;border-radius:8px;background:#315b50}
+.bin:after{content:"";position:absolute;left:9%;right:9%;bottom:-9%;height:9%;background:radial-gradient(circle at 15% 50%,#263d39 0 23%,transparent 25%),radial-gradient(circle at 85% 50%,#263d39 0 23%,transparent 25%)}
+.garbage-scene.playing .bin{animation:bin-empty 8.25s ease-in-out forwards}
+@keyframes bin-empty{0%,29%{opacity:1;transform:translate(0,0) rotate(0)}47%,63%{opacity:1;transform:translate(-235%,-95%) rotate(-108deg) scale(.86)}77%{opacity:1;transform:translate(0,0) rotate(0)}100%{opacity:1}}
+
+.litter{position:absolute;z-index:2;bottom:19%;width:4.5%;aspect-ratio:1;border-radius:70% 25% 70% 25%;background:#d77b35;box-shadow:22px 5px 0 #e3bc4f,-19px 8px 0 #79a857;transform:rotate(28deg)}
+.litter.paper{border-radius:2px;background:#fff4d6;box-shadow:inset 0 0 0 2px #c8b99c;transform:rotate(-14deg)}
+.sweeper-scene.playing .litter{animation:litter-away 8.5s linear forwards}
+.brush{position:absolute;z-index:4;left:43%;bottom:23%;width:9%;aspect-ratio:1;border:7px dotted #5b4b52;border-radius:50%;opacity:0}
+.sweeper-scene.playing .brush{animation:brush-spin .34s linear 2s 16}
+@keyframes brush-spin{0%{opacity:1;transform:rotate(0)}100%{opacity:1;transform:rotate(360deg)}}
+@keyframes litter-away{0%,34%{opacity:1;transform:scale(1) rotate(20deg)}72%,100%{opacity:0;transform:scale(.15) rotate(210deg)}}
+
+.snow-cover{position:absolute;z-index:2;left:0;right:0;bottom:15%;height:20%;background:linear-gradient(#f8fdff,#dceffa);box-shadow:0 -5px 10px #fff;border-radius:45% 55% 0 0/25% 30% 0 0}
+.snow-clear{position:absolute;z-index:2;left:0;bottom:15%;height:20%;width:0;background:linear-gradient(#71899a,#5f7686);clip-path:polygon(0 52%,100% 40%,100% 100%,0 100%)}
+.snowbank{position:absolute;z-index:4;right:-8%;bottom:20%;width:24%;height:12%;border-radius:70% 35% 20% 15%;background:linear-gradient(#fff,#d8edf8);opacity:0}
+.snowflake{position:absolute;z-index:2;top:-8%;color:#fff;font-size:30px;text-shadow:0 2px 7px #7fb9d2;opacity:.9}
+.snow-scene.playing .snow-cover{animation:snow-push 7.84s linear forwards}.snow-scene.playing .snow-clear{animation:road-clear 7.84s linear forwards}.snow-scene.playing .snowbank{animation:bank-grow 7.84s ease-out forwards}.snow-scene.playing .snowflake{animation:snow-fall 3s linear infinite}
+@keyframes snow-push{0%,26%{clip-path:inset(0 0 0 0)}82%,100%{clip-path:inset(0 0 0 100%)}}@keyframes road-clear{0%,25%{width:0}84%,100%{width:100%}}@keyframes bank-grow{0%,44%{opacity:0;transform:scale(.3)}82%,100%{opacity:1;transform:scale(1.25)}}@keyframes snow-fall{to{transform:translateY(560px) rotate(240deg);opacity:.15}}
+
+.mailbox{position:absolute;z-index:4;right:7%;bottom:18%;width:17%;height:24%;border-radius:45% 45% 8px 8px/24% 24% 8px 8px;background:linear-gradient(90deg,#2e82be,#4aa9e3 58%,#236d9e);border:5px solid #256f9f;box-shadow:0 8px 8px #46362b35}
+.mailbox:before{content:"";position:absolute;left:18%;right:18%;top:23%;height:7%;border-radius:9px;background:#163f62}.mailbox:after{content:"✉";position:absolute;inset:34% 0 auto;text-align:center;color:#fff;font:bold 30px Arial}
+.envelope{position:absolute;z-index:5;left:48%;bottom:37%;width:9%;aspect-ratio:1.35;background:#fff8df;border:3px solid #d8b86d;border-radius:4px;opacity:0}
+.envelope:after{content:"";position:absolute;inset:0;background:linear-gradient(32deg,transparent 48%,#d8b86d 49% 52%,transparent 53%),linear-gradient(-32deg,transparent 48%,#d8b86d 49% 52%,transparent 53%)}
+.post-scene.playing .envelope{animation:deliver-letter 7.7s ease-in-out forwards}
+@keyframes deliver-letter{0%,38%{opacity:0;transform:translate(0,0) rotate(-8deg)}46%{opacity:1}73%{opacity:1;transform:translate(330%,-32%) rotate(15deg) scale(.8)}82%,100%{opacity:0;transform:translate(350%,-22%) rotate(20deg) scale(.25)}}
+
+.broken-car{position:absolute;z-index:4;right:5%;bottom:20%;width:27%;height:auto;filter:drop-shadow(0 7px 6px #46362b40)}
+.broken-mark{position:absolute;z-index:5;right:15%;bottom:39%;font-size:34px;color:#e04c45;font-weight:900;opacity:1}
+.tow-scene .vehicle{left:5%;width:67%}
+.tow-scene.playing .broken-car{animation:tow-load 7.6s ease-in-out forwards}.tow-scene.playing .broken-mark{animation:mark-away 7.6s linear forwards}
+@keyframes tow-load{0%,36%{transform:translate(0,0) scale(1);opacity:1}67%,100%{transform:translate(-108%,-63%) scale(.58);opacity:1}}@keyframes mark-away{0%,40%{opacity:1}55%,100%{opacity:0}}
+
+.final-scene .vehicle{opacity:0;max-height:33%;filter:drop-shadow(0 9px 7px #46362b40)}
+.final-scene .final-fire{left:4%;bottom:29%;width:54%;z-index:2}.final-scene .final-ambulance{left:29%;bottom:20%;width:50%;z-index:3}.final-scene .final-police{left:49%;bottom:12%;width:45%;z-index:4}
+.final-scene.playing .final-fire{animation:final-in-left 1.2s ease-out .2s forwards}.final-scene.playing .final-ambulance{animation:final-in-right 1.2s ease-out 1.1s forwards}.final-scene.playing .final-police{animation:final-in-left 1.2s ease-out 2s forwards}
+.final-scene.leaving .vehicle{opacity:1;animation:final-wave .8s ease-in-out infinite alternate}
+@keyframes final-in-left{from{opacity:0;transform:translateX(-130%)}to{opacity:1;transform:none}}@keyframes final-in-right{from{opacity:0;transform:translateX(130%)}to{opacity:1;transform:none}}@keyframes final-wave{to{transform:translateY(-5px)}}
+
+@media(max-width:540px){
+.police-scene .vehicle{left:33%;bottom:20%;width:58%}.thief-runner{left:4%;bottom:27%;width:28%}
+.bin{right:5%;bottom:21%;width:15%;height:19%}.brush{left:43%;bottom:25%}
+.snow-cover,.snow-clear{bottom:17%}.snowbank{bottom:21%}
+.mailbox{right:4%;bottom:21%;width:18%;height:20%}.envelope{left:48%;bottom:38%}
+.broken-car{right:2%;bottom:22%;width:29%}.broken-mark{right:12%;bottom:39%}.tow-scene .vehicle{left:2%;bottom:12%;width:72%}
+.final-scene .final-fire{left:1%;bottom:33%;width:58%}.final-scene .final-ambulance{left:26%;bottom:23%;width:54%}.final-scene .final-police{left:47%;bottom:14%;width:49%}
+}

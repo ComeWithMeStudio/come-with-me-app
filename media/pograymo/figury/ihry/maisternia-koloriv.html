@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="uk" style="color-scheme:only light">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f8e7f0">
+<title>Майстерня кольорів — Come With Me</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"Trebuchet MS",system-ui,sans-serif;color:#513e46;background:#f3e8ef}button{font:inherit}
+.game{width:min(100%,760px);min-height:100vh;margin:auto;padding:12px 10px 28px;background:linear-gradient(180deg,#f8e6ef,#fff6df 56%,#e7f4dc)}
+.top{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px}.pill{border:0;border-radius:999px;padding:10px 14px;background:#fff9f1;color:#513e46;font-weight:900;box-shadow:0 5px 14px #513e4620;text-decoration:none}.title{margin:0;text-align:center;font-size:clamp(22px,5vw,34px)}
+.progress{margin:12px auto 8px;text-align:center;font-weight:900;color:#765b69}.question{min-height:56px;display:grid;place-items:center;text-align:center;margin:2px auto 8px;font-size:clamp(20px,4.7vw,29px);font-weight:900}
+.scene{position:relative;min-height:470px;border:5px solid #fff9ef;border-radius:34px;background:linear-gradient(180deg,#fff8ef,#f6ead9);box-shadow:0 14px 30px #6c52672b;overflow:hidden}
+.basket{position:absolute;z-index:2;left:50%;top:31%;width:min(48%,300px);transform:translateX(-50%);filter:drop-shadow(0 10px 8px #6c513c35);pointer-events:none}.basket.wobble{animation:wobble .65s ease}
+.tray{position:absolute;z-index:4;left:3%;right:3%;bottom:14px;display:flex;align-items:flex-end;justify-content:space-around;gap:4px;padding:9px 5px 7px;border-radius:25px;background:#fff9f0cc;box-shadow:0 6px 18px #6c526720}
+.scene-1 .tray,.scene-2 .tray,.scene-3 .tray,.scene-4 .tray{top:12px;bottom:auto}
+.fruit{border:0;background:transparent;padding:3px;width:18%;min-width:52px;cursor:pointer;transition:.2s}.fruit img{display:block;width:100%;max-height:104px;object-fit:contain;filter:drop-shadow(0 6px 4px #513e4630)}.fruit:active{transform:scale(.94)}.fruit.bad{animation:shake .35s}.fruit.used{visibility:hidden;pointer-events:none}
+.placed{position:absolute;z-index:3;width:16%;max-width:92px;transform:translate(-50%,-50%);pointer-events:none;animation:drop .45s ease both;filter:drop-shadow(0 5px 4px #513e4630)}
+.message{min-height:44px;margin:9px 0 2px;display:grid;place-items:center;text-align:center;font-weight:900}.start{display:grid;place-items:center;height:100%;min-height:460px;text-align:center;padding:28px}.start strong{font-size:clamp(28px,7vw,45px)}.start span{display:block;margin-top:12px;font-size:19px;font-weight:900}.start button{margin-top:25px;border:0;border-radius:999px;padding:14px 24px;background:#ffd35c;color:#513e46;font-weight:900;box-shadow:0 6px 15px #513e4628}
+.spark{position:absolute;z-index:8;font-size:27px;animation:spark 1s ease-out forwards;pointer-events:none}
+.bouquet{position:absolute;z-index:2;left:50%;top:30%;width:min(48%,300px);transform:translateX(-50%);filter:drop-shadow(0 10px 8px #6c513c35);pointer-events:none}
+.flower{border:0;background:transparent;padding:3px;width:18%;min-width:52px;cursor:pointer;transition:.2s}.flower img{display:block;width:100%;max-height:104px;object-fit:contain;filter:drop-shadow(0 6px 4px #513e4630)}.flower:active{transform:scale(.94)}.flower.bad{animation:shake .35s}.flower.used{visibility:hidden;pointer-events:none}
+.bouquet-flower{position:absolute;z-index:3;width:15%;max-width:86px;transform:translate(-50%,-50%);pointer-events:none;animation:drop .45s ease both;filter:drop-shadow(0 5px 4px #513e4630)}
+.scene-1 .placed{width:13%;max-width:73px}.basket-front,.bouquet-front,.toy-front{position:absolute;left:50%;transform:translateX(-50%);pointer-events:none;z-index:5}.basket-front{top:31%;width:min(48%,300px);clip-path:inset(50% 0 0)}.bouquet-front{top:30%;width:min(48%,300px);clip-path:inset(43% 0 0)}.toy-front{top:30%;width:min(48%,290px);clip-path:inset(48% 0 0)}.scene-2 .bouquet-flower{width:18%;max-width:102px;transform:translate(-50%,-50%) rotate(var(--tilt,0deg))}.scene-4 .tray{justify-content:center;align-items:flex-end}.scene-4 .pyramid-ring{width:18%;min-width:0}.scene-4 .pyramid-ring img{max-height:92px}
+.scene-1 .placed{margin-top:0}
+.pyramid-base{position:absolute;z-index:2;left:50%;top:27%;width:min(46%,285px);transform:translateX(-50%);filter:drop-shadow(0 10px 8px #6c513c35);pointer-events:none}.pyramid-ring{border:0;background:transparent;padding:3px;width:18%;min-width:52px;cursor:pointer;transition:.2s}.pyramid-ring img{display:block;width:100%;max-height:104px;object-fit:contain;filter:drop-shadow(0 6px 4px #513e4630)}.pyramid-ring:active{transform:scale(.94)}.pyramid-ring.bad{animation:shake .35s}.pyramid-ring.used{visibility:hidden;pointer-events:none}.pyramid-placed{position:absolute;z-index:3;width:31%;max-width:190px;transform:translate(-50%,-50%);pointer-events:none;filter:drop-shadow(0 5px 4px #513e4630);animation:drop .45s ease both}.pyramid-wobble{animation:pyramidWobble .8s ease-in-out 2}
+.tree-base{position:absolute;z-index:2;left:50%;top:8%;width:min(47%,290px);transform:translateX(-50%);pointer-events:none;filter:drop-shadow(0 10px 8px #31533135)}.scene-item{border:0;background:transparent;padding:3px;width:16%;min-width:48px;cursor:pointer}.scene-item img{display:block;width:100%;max-height:100px;object-fit:contain;filter:drop-shadow(0 5px 4px #513e4630)}.scene-item.used{visibility:hidden;pointer-events:none}.scene-item.bad{animation:shake .35s}.tree-decoration{position:absolute;z-index:4;width:11%;max-width:68px;transform:translate(-50%,-50%);pointer-events:none;animation:drop .45s ease both}.tree-glow{animation:treeGlow 1s ease-in-out 2}.reindeer-parade{position:absolute;z-index:9;left:-72%;bottom:5%;width:min(62%,430px);pointer-events:none;filter:drop-shadow(0 7px 5px #513e4635);animation:reindeerRun 3.7s ease-in-out both}.mimi-flight{position:absolute;z-index:2;left:50%;top:25%;width:min(33%,200px);transform:translateX(-50%)}.mimi-balloons{display:block;width:100%;filter:drop-shadow(0 8px 7px #513e4630)}.balloon-placed{position:absolute;z-index:3;width:16%;max-width:96px;transform:translate(-50%,-50%);pointer-events:none;animation:drop .45s ease both}.mimi-flight .balloon-placed{position:fixed}.fly-up-return{animation:flyUpReturn 2.8s ease-in-out}.icecream-cone{position:absolute;z-index:2;left:50%;top:28%;width:min(29%,175px);transform:translateX(-50%);pointer-events:none;filter:drop-shadow(0 9px 7px #513e4630)}.icecream-scoop{position:absolute;z-index:4;width:22%;max-width:132px;transform:translate(-50%,-50%);pointer-events:none;animation:drop .45s ease both}.mimi-lick-video{position:absolute;z-index:12;inset:0;width:100%;height:100%;object-fit:cover;border-radius:24px}.butterfly{position:absolute;z-index:7;width:min(15%,92px);left:-18%;top:20%;pointer-events:none;filter:drop-shadow(0 5px 4px #513e4630);animation:butterflyLand 2.1s ease-in-out forwards}
+
+.toy-box{position:absolute;z-index:2;left:50%;top:30%;width:min(48%,290px);transform:translateX(-50%);pointer-events:none}.toy-placed{position:absolute;z-index:3;width:16%;max-width:95px;transform:translate(-50%,-50%);pointer-events:none;animation:drop .45s ease both}.toy-bounce{animation:toyBounce 1.4s ease-out forwards}.train-track{position:absolute;left:3%;right:3%;top:53%;height:8px;background:#8b6449;border-radius:8px;box-shadow:0 18px 0 #8b6449}.train-track:after{content:'';position:absolute;inset:-7px 0 -25px;background:repeating-linear-gradient(90deg,transparent 0 24px,#ad835e 24px 31px,transparent 31px 44px);z-index:0}.train-line{position:absolute;z-index:3;left:3%;top:31%;width:94%;height:27%;display:flex;align-items:flex-end;gap:0}.train-unit{display:block;width:16.66%;height:100%;object-fit:contain;filter:drop-shadow(0 5px 3px #513e4630)}.train-unit.wagon{animation:wagonArrive .9s ease-out both}.train-line.depart{animation:trainDepart 2.6s ease-in forwards}.train-choice{width:18%;min-width:0}.train-choice img{max-height:96px}.train-choice.used{visibility:hidden;pointer-events:none}.train-choice.bad{animation:shake .35s}@keyframes wagonArrive{from{transform:translateX(70vw)}to{transform:translateX(0)}}@keyframes trainDepart{to{transform:translateX(-125%)}}@keyframes toyBounce{0%{transform:translate(-50%,-50%)}30%{transform:translate(-15%,-105%)}55%{transform:translate(20%,-55%)}75%{transform:translate(65%,-78%)}100%{transform:translate(155%,-48%)}}
+.scene-3 .toy-placed{width:14%;max-width:83px}.train-line{width:90%;left:5%;gap:0}.train-unit{width:17.4%;margin-left:-.75%;object-position:center bottom}.train-unit.wagon{position:relative;top:10px}.train-choice img{max-height:74px}.mimi-lick-video{inset:auto;left:50%;top:8%;transform:translateX(-50%);width:min(52%,330px);height:min(58%,285px);object-fit:contain;border-radius:20px}.scene-7 .icecream-cone{width:min(13%,96px);top:36%;transform:translateX(-50%)}.scene-7 .icecream-scoop{width:clamp(54px,11%,82px)}.scene-9 .scene-item{width:12%;min-width:0}.scene-9 .scene-item img{max-height:54px}
+.scene-9 button[data-id="star-yellow"] img,.scene-9 .wing-decoration.yellow-star{filter:hue-rotate(27deg) saturate(1.15) brightness(1.12) drop-shadow(0 5px 4px #513e4630)}
+.scene-9 button[data-id^="heart-"] img,.scene-9 .wing-decoration.red-heart{filter:hue-rotate(34deg) saturate(1.65) drop-shadow(0 5px 4px #513e4630)}
+.workshop-butterfly{position:absolute;left:50%;top:25%;width:min(68%,430px);aspect-ratio:1023/793;transform:translateX(-50%);z-index:2;pointer-events:none}.workshop-butterfly>img:first-child{width:100%;height:100%;object-fit:contain}.wing-decoration{position:absolute;width:13%;transform:translate(-50%,-50%);animation:drop .45s ease both;filter:drop-shadow(0 3px 3px #513e4630)}.workshop-butterfly.fly{animation:workshopFly 3.5s ease-in-out forwards}.scene-9 .tray{top:8px;bottom:auto;z-index:5}.scene-9 .scene-item{width:14%;min-width:0}.scene-9 .scene-item img{max-height:66px}@keyframes workshopFly{0%,100%{transform:translateX(-50%) translateY(0) scale(1)}25%{transform:translateX(-46%) translateY(-35px) scale(.94)}55%{transform:translateX(-53%) translateY(-70px) scale(.85)}80%{transform:translateX(-47%) translateY(-25px) scale(.93)}}
+.house-workshop{position:absolute;left:50%;top:31%;width:min(52%,320px);aspect-ratio:985/930;transform:translateX(-50%);pointer-events:none;z-index:2}.house-workshop>img:first-child{width:100%;height:100%;object-fit:contain}.house-piece{position:absolute;z-index:3;transform:translate(-50%,-50%);animation:drop .45s ease both;filter:drop-shadow(0 3px 3px #513e4630)}.house-piece.door{z-index:5;transform-origin:100% 50%;transform:translate(-50%,-50%) scaleX(-1)}.house-piece.open{animation:houseDoorOpen .8s ease-in forwards}.house-mimi{position:absolute;left:40%;top:59%;width:28%;z-index:4;transform:translate(-50%,-50%) scale(.4);opacity:0;transition:transform .65s ease,opacity .65s ease}.house-mimi.show{transform:translate(-50%,-50%) scale(1);opacity:1}.house-lamp-glow{filter:drop-shadow(0 0 18px #ffe15a) drop-shadow(0 0 25px #ffd650)}.explorer-figure{position:absolute;z-index:2;left:50%;top:28%;width:min(76%,480px);aspect-ratio:1671/941;transform:translateX(-50%);pointer-events:none}.explorer-mimi{display:block;width:100%;filter:drop-shadow(0 9px 7px #513e4630)}.explorer-piece{position:absolute;z-index:4;transform:translate(-50%,-50%);pointer-events:none;filter:drop-shadow(0 4px 3px #513e4630)}.explorer-piece.boots{transform:translate(-50%,-50%)}.explorer-piece.backpack{transform:translate(-50%,-50%) scaleX(-1)}.explorer-piece.vest{clip-path:polygon(0 0,38% 0,43% 9%,50% 13%,57% 9%,62% 0,100% 0,100% 100%,0 100%)}.explorer-piece.hat{clip-path:polygon(0 0,100% 0,100% 64%,73% 64%,68% 60%,62% 56%,55% 53%,48% 51%,41% 47%,34% 44%,28% 42%,24% 46%,0 46%)}.explorer-finish-video{position:absolute;z-index:12;left:50%;top:8%;transform:translateX(-50%);width:min(78%,500px);height:76%;object-fit:contain;border-radius:22px}.scene-11 .tray{top:8px;bottom:auto;z-index:6}.scene-11 .scene-item{width:20%;min-width:0;padding:1px}.scene-11 .scene-item img{max-height:104px}.scene-11 button[data-id="backpack"]{width:18%}.scene-11 button[data-id="compass"]{width:22%}.scene-11 button[data-id="hat"]{width:21%}.scene-11 button[data-id="vest"]{width:22%}.scene-11 button[data-id="boots"]{width:21%}.scene-10 .tray{top:8px;bottom:auto;z-index:6}.scene-10 .scene-item{width:18%;min-width:0}.scene-10 .scene-item img{max-height:72px}.aquarium-wrap{position:absolute;z-index:2;left:50%;top:19%;width:min(64%,405px);aspect-ratio:1/1;transform:translateX(-50%);pointer-events:none}.aquarium-base{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 9px 7px #315b6b2e)}.aquarium-bubbles{position:absolute;z-index:3;left:15%;right:15%;top:17%;bottom:11%;overflow:hidden;border-radius:45%}.aquarium-bubbles span{position:absolute;left:var(--x);bottom:-10%;width:var(--s);aspect-ratio:1;border:2px solid #e7fbffcc;border-radius:50%;box-shadow:inset 0 0 4px #74dcff99;opacity:0;animation:aquariumBubble var(--d) linear var(--delay) infinite}.aquarium-fish{position:absolute;z-index:4;width:18%;transform:translate(-50%,-50%);pointer-events:none;animation:fishSwimIn .65s ease both;filter:drop-shadow(0 4px 3px #315b6b30)}.aquarium-fish.flip{transform:translate(-50%,-50%) scaleX(-1)}.scene-12 .tray{top:8px;bottom:auto;z-index:6}.scene-12 .scene-item{width:18%;min-width:0;padding:1px}.scene-12 .scene-item img{max-height:86px}.aquarium-wrap.finished .aquarium-fish{animation:fishFloat 2.2s ease-in-out infinite alternate}.aquarium-kiss-left{animation:fishKissLeft 2.2s ease-in-out both!important;z-index:8}.aquarium-kiss-right{animation:fishKissRight 2.2s ease-in-out both!important;z-index:8}@keyframes fishSwimIn{from{opacity:0;transform:translate(-100%,-50%) scale(.65)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}@keyframes aquariumBubble{0%{bottom:-10%;opacity:0;transform:translateX(0) scale(.65)}15%{opacity:.8}55%{transform:translateX(14px) scale(1)}100%{bottom:100%;opacity:0;transform:translateX(-8px) scale(.8)}}@keyframes fishFloat{from{margin-top:-4px}to{margin-top:5px}}@keyframes fishKissLeft{0%,100%{left:63%;top:38%;transform:translate(-50%,-50%) scaleX(1)}58%,76%{left:53%;top:47%;transform:translate(-50%,-50%) scaleX(1) scale(1.08)}}@keyframes fishKissRight{0%,100%{left:34%;top:45%;transform:translate(-50%,-50%) scaleX(-1)}58%,76%{left:47%;top:47%;transform:translate(-50%,-50%) scaleX(-1) scale(1.08)}}
+@keyframes houseDoorOpen{to{transform:translate(5%,-50%) scaleX(-.18);opacity:.65}}
+@keyframes treeGlow{0%,100%{filter:drop-shadow(0 10px 8px #31533135)}50%{filter:drop-shadow(0 0 24px #ffd95c)} }
+@keyframes reindeerRun{0%{left:-72%;transform:translateY(0) scale(.9)}18%{transform:translateY(-13px) scale(.94)}38%{transform:translateY(0) scale(.97)}58%{transform:translateY(-11px) scale(1)}78%{transform:translateY(0) scale(.98)}100%{left:108%;transform:translateY(-6px) scale(.92)}}
+.reindeer-parade{animation-duration:4.7s}
+@keyframes flyUpReturn{0%,100%{transform:translateX(-50%) translateY(0)}45%{transform:translateX(-50%) translateY(-120px)}60%{transform:translateX(-50%) translateY(-120px)}}
+@keyframes pyramidWobble{0%,100%{transform:translateX(-50%) rotate(0)}25%{transform:translateX(-50%) rotate(-2deg)}75%{transform:translateX(-50%) rotate(2deg)}}
+@keyframes butterflyLand{0%{left:-18%;top:18%;transform:rotate(-12deg) scale(.85)}35%{left:30%;top:12%;transform:rotate(8deg) scale(1)}70%{left:61%;top:24%;transform:rotate(-5deg) scale(.92)}100%{left:58%;top:38%;transform:rotate(0) scale(.82)}}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}@keyframes drop{from{transform:translate(-50%,-75%) scale(.75);opacity:.4}70%{transform:translate(-50%,-47%) scale(1.08)}to{transform:translate(-50%,-50%) scale(1);opacity:1}}@keyframes wobble{25%{transform:translateX(-50%) rotate(-3deg)}50%{transform:translateX(-50%) rotate(3deg)}75%{transform:translateX(-50%) rotate(-1deg)}}@keyframes spark{to{transform:translateY(-90px) rotate(35deg);opacity:0}}
+@media(max-width:520px){
+.game{padding:8px 6px 22px}.top{grid-template-columns:auto 1fr}.top .reset{grid-column:1/3;grid-row:2;justify-self:center;padding:7px 11px}.pill{font-size:13px}.scene{min-height:430px;border-radius:27px}
+.basket,.bouquet{top:29%;width:56%}.tray{left:2%;right:2%;bottom:10px}.fruit,.flower{width:19%;padding:1px}.fruit img,.flower img{max-height:82px}
+/* mobile: show more of fruit/flowers without moving their anchor points */
+.basket-front,.bouquet-front{clip-path:inset(50% 0 0)}
+/* mobile pyramid: keep rings where they assemble; lower only wooden base */
+.pyramid-base{top:31%;width:54%}
+/* mobile tree and Mimi/balloons */
+.tree-base{top:8%;width:min(59%,350px)}
+.mimi-flight{top:23%;width:min(39%,235px)}
+/* mobile ice cream: larger and staggered rather than one rigid row */
+.scene-7 .icecream-cone{width:min(18%,112px)}
+.scene-7 .icecream-scoop{width:clamp(60px,13.5%,88px)}
+.mimi-lick-video{top:13%;width:min(66%,350px);height:min(54%,300px)}
+/* mobile butterfly: same decorations, whole butterfly lower */
+.workshop-butterfly{top:29%;width:min(68%,430px)}
+/* Keep the character and clothing on the same responsive coordinate plane. */
+.explorer-figure{top:18%;width:min(98%,580px)}
+.explorer-finish-video{top:10%;width:min(88%,540px);height:72%}
+.reindeer-parade{width:78%;bottom:7%}
+.scene-1 .placed{margin-top:0}
+}
+
+/* Enlarge the visible artwork in the tray, compensating for transparent margins. */
+.scene-11 .tray button:is([data-id="compass"],[data-id="hat"],[data-id="vest"],[data-id="boots"]){position:relative;aspect-ratio:1;overflow:hidden}
+.scene-11 .tray button:is([data-id="compass"],[data-id="hat"],[data-id="vest"],[data-id="boots"]) img{position:absolute;left:50%;top:50%;max-height:none;height:auto;max-width:none;pointer-events:none}
+.scene-11 .tray button[data-id="compass"] img{width:260%;transform:translate(-50%,-50%)}
+.scene-11 .tray button[data-id="hat"] img{width:180%;transform:translate(-48.5%,-50%)}
+.scene-11 .tray button[data-id="vest"] img{width:175%;transform:translate(-50%,-52%)}
+.scene-11 .tray button[data-id="boots"] img{width:92%;transform:translate(-48.25%,-50%)}
+
+/* Each scoop shares its cone's responsive frame and staggered position. */
+.scene-7 .icecream-serving{position:absolute;left:50%;top:36%;width:min(13%,96px);aspect-ratio:1;transform:translateX(-50%);pointer-events:none}
+.scene-7 .icecream-serving .icecream-cone{left:0;top:0;width:100%;height:100%;transform:none}
+.scene-7 .icecream-serving .icecream-scoop{left:50%;top:1%;width:92%;max-width:none;margin:0}
+@media(max-width:520px){
+.scene-7 .icecream-serving{width:min(18%,112px);top:34%}
+.scene-7 .icecream-serving:nth-child(even){top:42%}
+}
+.cake-wrap{position:absolute;left:50%;top:25%;width:min(78%,340px);aspect-ratio:1030/945;transform:translateX(-50%);pointer-events:none}.cake-base{display:block;width:100%;height:100%;object-fit:contain}.cake-topping{position:absolute;width:18%;transform:translate(-50%,-50%);animation:drop .45s ease both}.raspberry-pink{filter:hue-rotate(338deg) saturate(.8) brightness(1.18)!important}.scene-13 .tray{top:8px;bottom:auto;z-index:6}.scene-13 .scene-item{width:18%;min-width:0}.scene-13 .scene-item img{max-height:82px}.cake-wrap.finished{animation:cakeCelebrate 1s ease-in-out}@keyframes cakeCelebrate{50%{transform:translateX(-50%) scale(1.04)}}
+.cake-candle{position:absolute;left:58%;top:27%;width:6%;height:21.6%;transform:translate(-50%,-100%);z-index:8;animation:candleAppear .5s ease both}.candle-wax{position:absolute;inset:25% 0 0;border-radius:5px 5px 3px 3px;background:repeating-linear-gradient(135deg,transparent 0 8px,#fff5dd 8px 12px),linear-gradient(90deg,#dd6997,#ffa7c4 45%,#e878a6);box-shadow:2px 2px 3px #6c526735}.candle-wick{position:absolute;left:46%;top:18%;width:9%;height:12%;background:#594342;border-radius:2px}.candle-flame{position:absolute;left:50%;top:0;width:85%;height:27%;border-radius:65% 35% 55% 45%;background:radial-gradient(ellipse at 50% 75%,#fffde2 0 22%,#ffe478 42%,#ff9e35 75%);transform:translateX(-50%);transform-origin:50% 100%;box-shadow:0 0 14px #ffc34e;animation:flameFlicker .55s ease-in-out infinite alternate}.cake-candle.blown .candle-flame{animation:flameOut .45s ease-out forwards}.candle-smoke{position:absolute;left:50%;top:12%;width:75%;height:30%;border-radius:50%;border:2px solid #aaa5a180;opacity:0}.cake-candle.blown .candle-smoke{animation:candleSmoke 1.8s ease-out both}.cake-candle.blown .candle-smoke.second{animation-delay:.22s}.blow-candle-btn{position:absolute;z-index:10;bottom:12px;left:50%;transform:translateX(-50%);border:0;border-radius:999px;padding:12px 22px;background:#ffd35c;color:#513e46;font-weight:900;box-shadow:0 5px 14px #513e4625;cursor:pointer;white-space:nowrap}.blow-candle-btn:disabled{opacity:.7;cursor:default}@keyframes candleAppear{from{opacity:0;margin-top:-16px}to{opacity:1;margin-top:0}}@keyframes flameFlicker{to{transform:translateX(-50%) rotate(7deg) scale(.9,1.08)}}@keyframes flameOut{40%{transform:translateX(-30%) rotate(65deg) scale(1.3,.7);opacity:.8}100%{transform:translateX(20%) rotate(80deg) scale(.1);opacity:0}}@keyframes candleSmoke{15%{opacity:.65}100%{opacity:0;transform:translate(12px,-45px) scale(2.5)}}@media(prefers-reduced-motion:reduce){.candle-flame{animation:none}.cake-wrap.finished{animation:none}}
+.garden-wrap{position:absolute;left:50%;top:38%;width:min(92%,480px);aspect-ratio:1101/613;transform:translateX(-50%);pointer-events:none}.garden-crop{display:block;position:relative;overflow:hidden;aspect-ratio:var(--crop-ratio)}.garden-crop img{position:absolute;max-width:none!important;max-height:none!important;object-fit:fill!important}.garden-base{width:100%}.garden-flower{position:absolute;width:17%;transform:translate(-50%,-50%);z-index:4;animation:gardenBloom .5s ease-out both}.garden-flower .garden-crop{width:100%}.garden-wrap.finished .garden-flower .garden-crop{transform-origin:50% 85%;animation:gardenSway 1.7s ease-in-out infinite alternate}.garden-wrap.finished .garden-flower:nth-child(even) .garden-crop{animation-delay:-.8s}.scene-14 .tray{top:8px;bottom:auto}.scene-14 .scene-item{width:17%;min-width:0;padding:3px}.scene-14 .scene-item .garden-crop{width:min(100%,78px);margin:auto}.garden-insect{position:absolute;z-index:7;pointer-events:none;width:13%;object-fit:contain}.garden-grasshopper{width:17.5%;left:15%;top:72%;animation:gardenHop 1.2s ease-in-out both}.garden-bee{left:-20%;top:0;animation:gardenBee 3s ease-in-out forwards}.scene-14{padding-top:0}@keyframes gardenBloom{from{opacity:0;transform:translate(-50%,-50%) scale(.25)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}@keyframes gardenSway{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}@keyframes gardenHop{0%{transform:translate(-100%,0) scale(.8);opacity:0}20%{opacity:1}55%{transform:translate(40%,-100%) rotate(-12deg)}100%{transform:translate(100%,0);opacity:1}}@keyframes gardenBee{0%{left:-20%;top:0;transform:rotate(8deg)}40%{left:28%;top:-23%;transform:rotate(-8deg)}75%{left:61%;top:-7%;transform:rotate(5deg)}100%{left:75%;top:2%;transform:rotate(0)}}@media(prefers-reduced-motion:reduce){.garden-wrap.finished .garden-flower .garden-crop{animation:none}}
+
+.garage-wrap{position:absolute;z-index:5;left:50%;top:8%;width:min(96%,700px);aspect-ratio:1254/470;transform:translateX(-50%);pointer-events:none}
+.garage-graphic{display:block;position:relative;overflow:hidden;aspect-ratio:var(--crop-ratio)}
+.garage-graphic img{position:absolute;max-width:none!important;max-height:none!important;object-fit:fill!important;filter:url(#garage-black-key)!important}
+.garage-base{width:100%}
+.garage-bay{position:absolute;overflow:hidden;z-index:3;background:linear-gradient(#211b19,#493829);border-radius:22% 22% 0 0}
+.garage-door{position:absolute;inset:0;transition:transform .65s ease-in-out;z-index:2}
+.garage-door .garage-graphic{width:100%;height:100%}
+.garage-bay.open .garage-door{transform:translateY(-103%)}
+.garage-lamp{position:absolute;z-index:5;width:3.4%;aspect-ratio:3/1;border-radius:50%;background:#645849;box-shadow:inset 0 0 5px 3px #0009;filter:brightness(.45);transform:translate(-50%,-50%);transition:filter .3s,box-shadow .3s}
+.garage-lamp.lit{background:#fff7be;filter:brightness(1.25);box-shadow:0 0 8px 3px var(--lamp-color),inset 0 0 4px #fff}
+.garage-wrap.finished .garage-lamp{animation:garageCelebrate .65s ease-in-out 3 alternate}
+.garage-car{position:absolute;width:17%;z-index:4;transform:translate(-50%,-50%);top:94%}
+.garage-car.drive{animation:garageDrive 1s ease-in-out forwards}
+.scene-15 .tray{top:auto;bottom:10px}.scene-15 .scene-item{width:18%;min-width:0;padding:3px}.scene-15 .scene-item .garage-graphic{width:100%;margin:auto}
+@keyframes garageDrive{0%{left:var(--car-start-x);top:var(--car-start-y);transform:translate(-50%,-50%) scale(1.05)}85%{left:var(--car-target-x);top:70%;transform:translate(-50%,-50%) scale(.75);opacity:1}100%{left:var(--car-target-x);top:68%;transform:translate(-50%,-50%) scale(.7);opacity:0}}
+@keyframes garageCelebrate{to{filter:brightness(1.7);box-shadow:0 0 13px 5px var(--lamp-color)}}
+@media(max-width:480px){.garage-wrap{top:18%}.scene-15 .scene-item{padding:1px}.garage-lamp.lit{box-shadow:0 0 5px 2px var(--lamp-color)}}
+@media(prefers-reduced-motion:reduce){.garage-door{transition-duration:.1s}.garage-car.drive{animation-duration:.2s}.garage-wrap.finished .garage-lamp{animation:none}}
+
+
+.scene.scene-16{min-height:0;height:clamp(430px,65vw,520px);background:#ffdfa0;border-width:3px}
+.beach-background{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none}
+.beach-crop{position:relative;display:block;width:100%;aspect-ratio:var(--ratio);overflow:hidden}.beach-crop img{position:absolute!important;max-height:none!important;height:auto!important;object-fit:fill!important;filter:none!important}
+.scene-16 .tray{inset:0;padding:0;background:none;box-shadow:none;display:block;pointer-events:none}
+.scene-16 .scene-item{position:absolute;left:var(--x);top:var(--y);width:15%;min-width:48px;padding:5px;transform:translate(-50%,-50%);pointer-events:auto;filter:drop-shadow(0 5px 3px #72502f55)}
+.scene-16 .scene-item.bad{animation:beachShake .35s}.scene-16 .scene-item:focus-visible{outline:3px solid white;border-radius:16px}
+.beach-bucket{position:absolute;left:50%;top:74%;width:25%;transform:translate(-50%,-50%);pointer-events:none;z-index:3}.beach-bucket-front{position:absolute;inset:0;z-index:3;clip-path:inset(42% 0 0)}
+.beach-collected{position:absolute;width:29%;left:var(--x);top:var(--y);transform:translate(-50%,-50%) rotate(var(--tilt));z-index:2;animation:beachDrop .6s ease both}
+.beach-castle{position:absolute;width:43%;left:50%;top:75%;transform:translate(-50%,-50%);z-index:3;animation:beachReveal .8s ease both;pointer-events:none}
+.beach-wave{position:absolute;left:-5%;top:44%;width:110%;z-index:5;pointer-events:none;animation:beachWave 3.8s ease-in-out both}
+@keyframes beachDrop{from{margin-top:-100px;opacity:0}to{margin-top:0;opacity:1}}
+@keyframes beachReveal{from{opacity:0;transform:translate(-50%,-50%) scale(.4)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@keyframes beachWave{0%,100%{top:44%;opacity:0}20%{opacity:1}55%{top:77%;opacity:1}85%{opacity:.7}}
+@keyframes beachShake{25%{margin-left:-7px}75%{margin-left:7px}}
+@media(max-width:520px){.scene.scene-16{height:440px}.scene-16 .scene-item{width:18%}.beach-bucket{width:30%}.beach-castle{width:57%}}
+/* Keep the animated foam inside the diagonal waterline. */
+.beach-water{position:absolute;inset:0;z-index:5;pointer-events:none;clip-path:polygon(9% 35%,100% 35%,100% 59%,9% 48%)}
+.beach-water .beach-wave{left:19%;top:43%;width:44%;transform:rotate(8deg);transform-origin:left center;animation:beachCrest 4.2s ease-in-out both}
+.beach-water .beach-wave.small{left:61%;top:49%;width:31%;animation-delay:.4s}
+.audio-start{position:absolute;z-index:30;left:50%;top:35%;transform:translate(-50%,-50%);border:3px solid white;border-radius:30px;padding:16px 23px;background:#fff4cb;color:#513e46;font-weight:900;box-shadow:0 5px 20px #513e4655;cursor:pointer}
+@keyframes beachCrest{0%,100%{opacity:0;transform:rotate(8deg) translateX(-8px) scaleY(.65)}35%,65%{opacity:1;transform:rotate(8deg) translateX(6px) scaleY(1)}}
+.beach-water .beach-wave.deep-one{left:22%;top:36%;width:51%;animation-delay:.2s}
+.beach-water .beach-wave.deep-two{left:56%;top:39%;width:43%;animation-delay:.6s}
+
+.scene-17{background:linear-gradient(180deg,#e5f4ee,#fff0cc 70%,#e2edcf)}
+.adventure-backpack{position:absolute;z-index:2;left:50%;top:10%;width:min(45%,285px);transform:translateX(-50%);filter:drop-shadow(0 9px 7px #513e4630);pointer-events:none}
+.scene-17 .tray{bottom:20px;align-items:center}.scene-17 .scene-item{width:18%;padding:4px;min-width:0}.scene-17 .scene-item[data-id="bottle"]{width:11%}
+.adventure-backpack.packed{animation:packReady .45s ease}.backpack-walk{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#ecf6ff}
+@keyframes packReady{50%{transform:translateX(-50%) scale(1.08)}}
+@media(max-width:520px){.adventure-backpack{top:15%;width:63%}.scene-17 .tray{bottom:18px;padding:12px 4px}}
+
+/* Scene 18 — bird feeder */
+.scene-18{--bird-x:44%;--bird-fly-y:63%;--bird-perch-y:59%;--bird-size:min(15%,96px)}
+.scene-18 .tray{top:auto;bottom:14px;z-index:7;align-items:center;padding:10px 6px}
+.scene-18 .scene-item{width:19%;min-width:0;padding:2px}
+.bird-choice-crop{position:relative;display:block;width:min(100%,92px);margin:auto;aspect-ratio:1;overflow:hidden}
+.bird-choice-crop img{position:absolute;max-width:none!important;max-height:none!important;height:auto!important;object-fit:fill!important;filter:drop-shadow(0 5px 4px #513e4630)!important}
+.bird-feeder-wrap{position:absolute;z-index:2;left:50%;top:11%;width:min(47%,300px);aspect-ratio:652/619;transform:translateX(-50%);pointer-events:none}
+.bird-feeder-base{position:absolute;inset:0;overflow:hidden;filter:drop-shadow(0 9px 7px #513e4630)}
+.bird-feeder-base img{position:absolute;width:256.45%;max-width:none;left:-4.14%;top:0}
+.bird-food-placed{position:absolute;z-index:4;transform:translate(-50%,-50%);pointer-events:none;animation:drop .45s ease both;filter:drop-shadow(0 4px 3px #513e4630)}
+.bird-food-placed.water{width:20%}.bird-food-placed.food{width:18%}
+.bird-food-placed .bird-choice-crop{width:100%}
+.bird-final{position:absolute;z-index:9;pointer-events:none;filter:drop-shadow(0 7px 5px #513e4630)}
+.bird-final.flying{width:min(25%,160px);left:-28%;top:40%;animation:birdFlyIn 1.15s ease-out forwards}
+.bird-final.perched{width:var(--bird-size);left:var(--bird-x);top:var(--bird-perch-y);transform:translate(-50%,-50%);animation:birdPerch .35s ease-out both}
+@keyframes birdFlyIn{0%{left:-35%;top:38%;transform:rotate(-7deg) scale(.82)}100%{left:var(--bird-x);top:var(--bird-fly-y);transform:rotate(0) scale(1)}}
+@keyframes birdPerch{from{opacity:.2;transform:translate(-50%,-62%) scale(.9)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@media(max-width:520px){.scene-18{--bird-x:44%;--bird-fly-y:68%;--bird-perch-y:64%;--bird-size:min(20%,128px)}.scene-18 .tray{bottom:10px}.bird-feeder-wrap{top:25%;width:62%}}
+
+/* Scene 19 — painted picture */
+.scene-19 .tray{top:12px;bottom:auto;z-index:12;align-items:center;padding:8px 5px}
+.scene-19 .scene-item{width:18%;min-width:0;padding:3px}
+.scene-19 .scene-item img{max-height:76px;object-fit:contain}
+.painting-stage{position:absolute;z-index:2;left:50%;top:23%;width:min(47%,345px);aspect-ratio:762/1011;transform:translateX(-50%);filter:drop-shadow(0 10px 8px #513e4630);pointer-events:none}
+.painting-easel{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.painting-canvas{position:absolute;z-index:3;left:14%;right:14%;top:12%;height:55%;overflow:hidden;border-radius:3%;pointer-events:none}
+.painted-piece{position:absolute;z-index:3;transform:translate(-50%,-50%);opacity:0;animation:paintReveal .55s ease-out forwards;filter:drop-shadow(0 2px 2px #513e4620)}
+.painted-piece.sun{left:25%;top:25%;width:22%}.painted-piece.cloud{left:70%;top:27%;width:34%}.painted-piece.grass{left:50%;top:78%;width:78%}.painted-piece.flower{left:28%;top:64%;width:22%}.painted-piece.butterfly{left:69%;top:59%;width:23%}
+.painting-palette{position:absolute;z-index:4;right:-51%;bottom:19%;width:39%;filter:drop-shadow(0 5px 4px #513e4630)}
+.painting-brush{position:absolute;z-index:7;right:-17%;bottom:23%;width:14%;transform:rotate(-18deg);transform-origin:50% 90%;filter:drop-shadow(0 5px 4px #513e4630)}
+.painting-brush.painting{animation:brushPaint 1.35s ease-in-out}
+.painting-stage.alive .painted-piece.sun{animation:sunAlive 2.1s .2s ease-in-out both}.painting-stage.alive .painted-piece.cloud{animation:cloudAlive 3.3s 1.1s ease-in-out both}.painting-stage.alive .painted-piece.grass{animation:grassAlive 3s 2.1s ease-in-out both;transform-origin:50% 100%}.painting-stage.alive .painted-piece.flower{animation:flowerAlive 2.8s 3.1s ease-in-out both;transform-origin:50% 100%}.painting-stage.alive .painted-piece.butterfly{z-index:8;animation:butterflyAlive 4.5s 3.35s ease-in-out both}
+.painting-stage.alive .painted-piece{opacity:1}
+@keyframes paintReveal{0%{opacity:0;transform:translate(-50%,-50%) scale(.7);filter:blur(5px)}75%{opacity:1;transform:translate(-50%,-50%) scale(1.07);filter:blur(0)}100%{opacity:1;transform:translate(-50%,-50%) scale(1);filter:blur(0)}}
+@keyframes brushPaint{0%,100%{transform:rotate(-18deg)}22%{transform:translate(65%,28%) rotate(-38deg)}35%{transform:translate(65%,28%) rotate(-30deg)}72%{transform:translate(-225%,-105%) rotate(-7deg)}86%{transform:translate(-105%,-128%) rotate(15deg)}}
+@keyframes sunAlive{0%,100%{transform:translate(-50%,-50%) scale(1);filter:drop-shadow(0 0 3px #ffd72a88)}50%{transform:translate(-50%,-50%) scale(1.28) rotate(12deg);filter:drop-shadow(0 0 19px #ffd72aff)}}
+@keyframes cloudAlive{0%,100%{transform:translate(-60%,-50%)}50%{transform:translate(-12%,-57%) scale(1.08)}}
+@keyframes grassAlive{0%,100%{transform:translate(-50%,-50%) skewX(-7deg)}35%{transform:translate(-50%,-50%) skewX(8deg)}70%{transform:translate(-50%,-50%) skewX(-5deg)}}
+@keyframes flowerAlive{0%,100%{transform:translate(-50%,-50%) rotate(-10deg)}35%{transform:translate(-50%,-50%) rotate(12deg) scale(1.05)}70%{transform:translate(-50%,-50%) rotate(-7deg)}}
+@keyframes butterflyAlive{0%,100%{transform:translate(-50%,-50%) rotate(-10deg) scale(1)}25%{transform:translate(-155%,-135%) rotate(-24deg) scale(.88)}52%{transform:translate(45%,-190%) rotate(20deg) scale(1.08)}76%{transform:translate(95%,-55%) rotate(12deg) scale(.92)}}
+@media(max-width:520px){.scene-19 .tray{top:10px}.scene-19 .scene-item img{max-height:64px}.painting-stage{top:22%;width:62%}.painting-palette{right:-40%;bottom:18%;width:36%}.painting-brush{right:-13%;bottom:21%;width:13%}}
+
+/* Scene 20 — celebration finale */
+.scene-20{background:linear-gradient(180deg,#fff4e5,#ffeedd 54%,#e5f3da)}
+.scene-20 .tray{top:10px;bottom:auto;z-index:15;align-items:center;padding:7px 4px}
+.scene-20 .scene-item{width:19%;min-width:0;padding:2px}.scene-20 .scene-item img{max-height:72px}
+.party-table-wrap{position:absolute;z-index:5;left:50%;top:35%;width:min(82%,590px);aspect-ratio:1543/1070;transform:translateX(-50%);pointer-events:none}
+.party-table-base{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 10px 8px #513e4630)}
+.party-tree{position:absolute;z-index:2;right:0;top:20%;width:min(28%,190px);filter:drop-shadow(0 8px 6px #31533135)}
+.party-tree.celebrate{animation:partyTreeBlink .55s ease-in-out 7 alternate}
+.party-frame{position:absolute;z-index:2;left:3%;top:29%;width:min(22%,155px);aspect-ratio:4/3;padding:7px;border:9px solid #d48a35;border-radius:10px;background:#fff9ec;box-shadow:inset 0 0 0 3px #ffd987,0 7px 10px #513e4630;overflow:hidden}
+.party-frame-image{position:absolute;z-index:2;left:3%;top:29%;width:min(23%,165px);filter:drop-shadow(0 7px 6px #513e4630)}
+.party-picture{position:relative;width:100%;height:100%;overflow:hidden;background:linear-gradient(#dff5ff 0 62%,#d7f1ae 62%)}.party-picture img{position:absolute;object-fit:contain}.party-picture .sun{left:7%;top:7%;width:24%}.party-picture .cloud{right:4%;top:9%;width:38%}.party-picture .grass{left:3%;right:3%;bottom:-4%;width:94%}.party-picture .flower{left:19%;bottom:10%;width:22%}.party-picture .butterfly{right:18%;bottom:24%;width:22%;animation:none}
+.party-placed{position:absolute;z-index:7;transform:translate(-50%,-50%);animation:drop .55s ease both}.party-placed.basket{left:24%;top:31%;width:30%}.party-placed.cake{left:50%;top:27%;width:29%}.party-placed.cups{left:50%;top:45%;width:25%}.party-placed.napkins{left:68%;top:45%;width:22%}.party-placed.bouquet{left:76%;top:31%;width:25%}
+.party-composite{position:relative;display:block;width:100%;aspect-ratio:1}.party-composite>img{position:absolute;object-fit:contain;filter:drop-shadow(0 3px 2px #513e4630)}
+.party-composite.complete>img{inset:0;width:100%;height:100%}
+.party-composite.basket .base{inset:14% 0 0;width:100%}.party-composite.basket .item{width:25%;z-index:2}.party-composite.basket .i1{left:20%;top:23%}.party-composite.basket .i2{left:37%;top:15%}.party-composite.basket .i3{left:53%;top:20%}.party-composite.basket .i4{left:67%;top:28%}.party-composite.basket .i5{left:42%;top:31%}
+.party-composite.cake .base{inset:5%;width:90%}.party-composite.cake .item{width:20%;z-index:2}.party-composite.cake .i1{left:20%;top:10%}.party-composite.cake .i2{left:38%;top:7%}.party-composite.cake .i3{left:62%;top:8%}.party-composite.cake .i4{left:34%;top:24%}.party-composite.cake .i5{left:55%;top:24%}.party-candle{position:absolute;z-index:4;left:62%;top:2%;width:5%;height:27%;border-radius:4px;background:repeating-linear-gradient(135deg,#ef73a2 0 6px,#fff1cf 6px 10px);box-shadow:0 0 3px #513e4630}.party-candle:after{content:'🔥';position:absolute;left:50%;top:-18px;transform:translateX(-50%);font-size:16px}
+.party-composite.bouquet .base{inset:6% 8% 0;width:84%}.party-composite.bouquet .item{width:29%;z-index:2}.party-composite.bouquet .i1{left:18%;top:10%}.party-composite.bouquet .i2{left:37%;top:3%}.party-composite.bouquet .i3{left:56%;top:10%}.party-composite.bouquet .i4{left:29%;top:21%}.party-composite.bouquet .i5{left:49%;top:22%}
+.party-composite.cups img,.party-composite.napkins img{inset:5%;width:90%;height:90%}
+.party-guest{position:absolute;z-index:11;pointer-events:none;object-fit:contain;filter:drop-shadow(0 6px 5px #513e4638)}
+.party-guest.butterfly{--butterfly-x:17%;--butterfly-y:43%;width:min(13%,86px);animation:partyButterflyArrive 2.2s ease-in-out both}
+.party-guest.bee{--bee-y:49%;width:min(10%,66px);animation:partyBeeArrive 2.35s ease-in-out both}
+.party-guest.grasshopper{--hopper-y:78%;width:min(15%,98px);animation:partyGrasshopperArrive 1.8s ease-out both}
+.party-guest.bird-flying{--bird-x:84%;--bird-y:53%;width:min(24%,155px);animation:partyBirdFly 1.55s ease-in-out both}
+.party-guest.bird-perched{--bird-x:84%;--bird-y:53%;left:var(--bird-x);top:var(--bird-y);width:min(13%,86px);transform:translate(-50%,-50%);animation:birdPerch .35s ease-out both}
+.party-mimi{--mimi-y:75%;position:absolute;z-index:12;left:82%;top:var(--mimi-y);width:min(20%,136px);transform:translate(-50%,-50%);pointer-events:none;object-fit:contain;filter:drop-shadow(0 7px 6px #513e4645);animation:partyMimiArrive 2.15s ease-out both,partyMimiDance 1.25s 2.15s ease-in-out infinite}
+.party-deer{position:absolute;z-index:10;left:-72%;bottom:2%;width:min(58%,400px);pointer-events:none;object-fit:contain;filter:drop-shadow(0 7px 5px #513e4635);animation:reindeerRun 5.7s ease-in-out both}
+@keyframes partyButterflyArrive{0%{left:-18%;top:31%;transform:rotate(-16deg) scale(.75)}38%{left:24%;top:22%;transform:rotate(9deg) scale(1)}72%{left:13%;top:39%;transform:rotate(-7deg) scale(.9)}100%{left:var(--butterfly-x);top:var(--butterfly-y);transform:rotate(0) scale(.86)}}
+@keyframes partyBeeArrive{0%{left:110%;top:24%;transform:rotate(-8deg) scale(.8)}38%{left:76%;top:30%;transform:rotate(10deg) scale(1)}72%{left:70%;top:42%;transform:rotate(-7deg) scale(.9)}100%{left:64%;top:var(--bee-y);transform:rotate(0) scale(.88)}}
+@keyframes partyGrasshopperArrive{0%{left:-18%;top:82%;transform:rotate(-8deg) scale(.7)}42%{left:15%;top:68%;transform:rotate(10deg) scale(1)}72%{left:23%;top:80%;transform:rotate(-5deg) scale(.92)}100%{left:30%;top:var(--hopper-y);transform:rotate(0) scale(.9)}}
+@keyframes partyBirdFly{0%{left:-30%;top:23%;transform:rotate(-8deg) scale(.78)}40%{left:36%;top:17%;transform:rotate(7deg) scale(1)}72%{left:70%;top:35%;transform:rotate(-5deg) scale(.92)}100%{left:var(--bird-x);top:var(--bird-y);transform:rotate(0) scale(.72)}}
+@keyframes partyMimiArrive{0%{left:116%;top:82%;transform:translate(-50%,-50%) rotate(7deg) scale(.78)}22%{top:74%;transform:translate(-50%,-50%) rotate(-5deg) scale(.86)}45%{top:80%;transform:translate(-50%,-50%) rotate(5deg) scale(.92)}68%{top:73%;transform:translate(-50%,-50%) rotate(-4deg) scale(.97)}84%{top:var(--mimi-y);transform:translate(-50%,-50%) rotate(2deg) scale(1)}100%{left:82%;top:var(--mimi-y);transform:translate(-50%,-50%) rotate(0) scale(1)}}
+@keyframes partyMimiDance{0%,100%{transform:translate(-50%,-50%) rotate(-2deg)}50%{transform:translate(-50%,-55%) rotate(3deg)}}
+@keyframes partyTreeBlink{to{filter:brightness(1.45) drop-shadow(0 0 15px #ffe75b)}}
+@media(max-width:520px){.scene-20 .scene-item img{max-height:58px}.party-table-wrap{top:41%;width:88%}.party-table-base{transform:translateY(19%)}.party-tree{right:-2%;top:20%;width:55.2%}.party-frame,.party-frame-image{top:30%;width:24%;border-width:6px}.party-placed.basket{left:23%;top:29%;width:27%}.party-placed.cake{left:49%;top:27%;width:27%}.party-placed.cups{left:49%;top:43%;width:23%}.party-placed.napkins{left:67%;top:43%;width:20%}.party-placed.bouquet{left:76%;top:29%;width:23%}}
+@media(max-width:520px){.party-guest.butterfly{--butterfly-y:49%;width:14%}.party-guest.bee{width:11%}.party-guest.grasshopper{--hopper-y:90%;width:17%}.party-guest.bird-flying{--bird-y:61%;width:21.6%}.party-guest.bird-perched{--bird-y:61%;width:13.6%;left:84%}.party-mimi{--mimi-y:87%;width:25.2%}.party-deer{width:70%;bottom:3%}}
+
+/* Shared candle control: keep the action beside the flame, not below the scene. */
+.blow-candle-btn{bottom:auto;left:66%;top:42%;transform:translate(-50%,-50%);pointer-events:auto;animation:blowButtonPulse 1.15s ease-in-out infinite}
+@keyframes blowButtonPulse{50%{transform:translate(-50%,-50%) scale(1.07);box-shadow:0 7px 18px #f2ad4260}}
+
+/* Desktop refinements after the phone layout was approved. */
+@media(min-width:521px){
+.scene-11 .tray{left:10%;right:10%;padding:6px 5px 5px}
+.scene-11 button[data-id="backpack"]{width:16%}.scene-11 button[data-id="compass"]{width:18%}.scene-11 button[data-id="hat"]{width:18%}.scene-11 button[data-id="vest"]{width:19%}.scene-11 button[data-id="boots"]{width:18%}
+.aquarium-bubbles span{bottom:-3%;animation-name:aquariumBubbleDesktop}
+@keyframes aquariumBubbleDesktop{0%{bottom:-3%;opacity:0;transform:translateX(0) scale(.65)}15%{opacity:.8}55%{transform:translateX(14px) scale(1)}100%{bottom:100%;opacity:0;transform:translateX(-8px) scale(.8)}}
+.scene-20 .tray{left:5%;right:5%;padding:6px 5px}.scene-20 .scene-item{height:82px}.scene-20 .scene-item .party-composite{height:78px;aspect-ratio:auto}.scene-20 .scene-item .party-composite img{max-height:78px}
+.party-table-wrap{top:31%;width:min(74%,530px)}
+.party-placed.basket{top:13.8%;width:24%}.party-placed.cake{top:10.6%;width:23.2%}.party-placed.cups{top:25%;width:20%}.party-placed.napkins{top:25%;width:17.6%}.party-placed.bouquet{top:13.8%;width:20%}
+.party-guest.butterfly{--butterfly-x:24%;--butterfly-y:31%}.party-guest.bee{--bee-y:33%}.party-guest.grasshopper{--hopper-y:84%}.party-guest.bird-flying,.party-guest.bird-perched{--bird-x:78%;--bird-y:46%}.party-guest.bird-perched{width:min(11%,73px)}.party-mimi{--mimi-y:78%}
+}
+
+</style></head>
+<body><main class="game">
+<header class="top"><a class="pill" href="geometry-games-catalog.html">← До ігор</a><h1 class="title">Майстерня кольорів</h1><button class="pill reset" id="reset">↻ Спочатку</button></header>
+<div class="progress" id="progress"></div><div class="question" id="question"></div><section class="scene" id="scene"></section><div class="message" id="message"></div>
+</main>
+<script>
+const ROOT='../../../../';
+const A=ROOT+'media/pograymo/assets/illustrations/';
+const AQUATIC=ROOT+'media/pograymo/pryroda/assets/aquatic/';
+const VOICE=ROOT+'audio/games/pograymo/figury/ihry/maisternia-koloriv/voice/';
+const COMMON=ROOT+'audio/games/common/';
+const SFX=ROOT+'audio/games/sfx/';
+const KOMAKHY=ROOT+'media/pograymo/pryroda/ihry/komakhy/';
+const fruits=[
+ {id:'apple',img:A+'fruits/apple-green.webp',label:'зелене яблуко',prompt:'Поклади в кошик зелене яблуко.',voice:'01_basket_green_apple.mp3'},
+ {id:'strawberry',img:A+'fruits/strawberry-red.webp',label:'червону полуницю',prompt:'Поклади в кошик червону полуницю.',voice:'01_basket_red_strawberry.mp3'},
+ {id:'plum',img:A+'fruits/plum-purple.webp',label:'фіолетову сливу',prompt:'Поклади в кошик фіолетову сливу.',voice:'01_basket_purple_plum.mp3'},
+ {id:'blackberry',img:A+'fruits/blackberry-blue.webp',label:'ожину синього кольору',prompt:'Поклади ожину синього кольору.',voice:'01_basket_blue_blackberry.mp3'},
+ {id:'apricot',img:A+'fruits/apricot-orange.webp',label:'помаранчевий абрикос',prompt:'Поклади в кошик помаранчевий абрикос.',voice:'01_basket_orange_apricot.mp3'}
+];
+const flowers=[
+ {id:'daisy',img:A+'plants/daisy-white.webp',label:'білу ромашку',prompt:'Додай до букета білу ромашку.',voice:'02_bouquet_white_daisy.mp3'},
+ {id:'hydrangea',img:A+'plants/hydrangea-blue.webp',label:'блакитну гортензію',prompt:'Додай до букета блакитну гортензію.',voice:'02_bouquet_blue_hydrangea.mp3'},
+ {id:'pansy',img:A+'plants/pansy-purple.webp',label:'фіолетові братки',prompt:'Додай до букета фіолетові братки.',voice:'02_bouquet_purple_pansy.mp3'},
+ {id:'rose',img:A+'plants/rose-red.webp',label:'червону троянду',prompt:'Додай до букета червону троянду.',voice:'02_bouquet_red_rose.mp3'},
+ {id:'tulip',img:A+'plants/tulip-yellow.webp',label:'жовтий тюльпан',prompt:'Додай до букета жовтий тюльпан.',voice:'02_bouquet_yellow_tulip.mp3'}
+];
+const toys=[
+ {id:'car',img:A+'toys/toy-car-blue.webp',label:'синю машинку',prompt:'Поклади в коробку синю машинку.',voice:'03_toybox_blue_car.mp3'},
+ {id:'ball',img:A+'toys/ball-red.webp',label:'червоний м’яч',prompt:'Поклади в коробку червоний м’яч.',voice:'03_toybox_red_ball.mp3'},
+ {id:'block',img:A+'toys/toy-block-yellow.webp',label:'жовтий кубик',prompt:'Поклади в коробку жовтий кубик.',voice:'03_toybox_yellow_block.mp3'},
+ {id:'top',img:A+'toys/spinning-top-green.webp',label:'зелену дзиґу',prompt:'Поклади в коробку зелену дзиґу.',voice:'03_toybox_green_top.mp3'},
+ {id:'bunny',img:A+'toys/bunny-plush-purple.webp',label:'фіолетового зайчика',prompt:'Поклади в коробку фіолетового зайчика.',voice:'03_toybox_purple_bunny.mp3'}
+];
+const pyramid=[
+ {id:'red',img:A+'toys/pyramid-ring-red.webp',label:'червоне кільце',prompt:'Одягни червоне кільце.',voice:'04_pyramid_red_ring.mp3'},
+ {id:'orange',img:A+'toys/pyramid-ring-orange.webp',label:'помаранчеве кільце',prompt:'Одягни помаранчеве кільце.',voice:'04_pyramid_orange_ring.mp3'},
+ {id:'yellow',img:A+'toys/pyramid-ring-yellow.webp',label:'жовте кільце',prompt:'Одягни жовте кільце.',voice:'04_pyramid_yellow_ring.mp3'},
+ {id:'green',img:A+'toys/pyramid-ring-green.webp',label:'зелене кільце',prompt:'Одягни зелене кільце.',voice:'04_pyramid_green_ring.mp3'},
+ {id:'blue',img:A+'toys/pyramid-ring-blue.webp',label:'синє кільце',prompt:'Одягни синє кільце.',voice:'04_pyramid_blue_ring.mp3'}
+];
+const tree=[
+ {id:'pink',img:A+'decorations/christmas-bauble-pink.webp',label:'рожеву кульку',prompt:'Повісь на ялинку рожеву кульку.',voice:'05_tree_pink_bauble.mp3'},
+ {id:'blue',img:A+'decorations/christmas-bauble-blue.webp',label:'блакитну кульку',prompt:'Повісь на ялинку блакитну кульку.',voice:'05_tree_blue_bauble.mp3'},
+ {id:'yellow',img:A+'decorations/christmas-bauble-yellow-star.webp',label:'жовту кульку',prompt:'Повісь на ялинку жовту кульку.',voice:'05_tree_yellow_bauble.mp3'},
+ {id:'purple',img:A+'decorations/christmas-bauble-purple.webp',label:'фіолетову кульку',prompt:'Повісь на ялинку фіолетову кульку.',voice:'05_tree_purple_bauble.mp3'},
+ {id:'bow1',img:A+'decorations/bow-red.webp',label:'червоний бантик',prompt:'Обери будь-який червоний бантик.',voice:'05_tree_red_bow_first.mp3'},
+ {id:'bow2',img:A+'decorations/bow-red.webp',label:'ще один червоний бантик',prompt:'Тепер обери другий червоний бантик.',voice:'05_tree_red_bow_second.mp3'}
+];
+const balloons=[
+ {id:'pink',img:A+'decorations/balloon-pink.webp',label:'рожеву кульку',prompt:'Додай Мімі рожеву кульку.',voice:'06_balloons_pink.mp3'},
+ {id:'blue',img:A+'decorations/balloon-blue.webp',label:'блакитну кульку',prompt:'Додай Мімі блакитну кульку.',voice:'06_balloons_blue.mp3'},
+ {id:'orange',img:A+'decorations/balloon-orange.webp',label:'помаранчеву кульку',prompt:'Додай Мімі помаранчеву кульку.',voice:'06_balloons_orange.mp3'},
+ {id:'purple',img:A+'decorations/balloon-purple.webp',label:'фіолетову кульку',prompt:'Додай Мімі фіолетову кульку.',voice:'06_balloons_purple.mp3'},
+ {id:'green',img:A+'decorations/balloon-green.webp',label:'зелену кульку',prompt:'Додай Мімі зелену кульку.',voice:'06_balloons_green.mp3'}
+];
+const icecream=[
+ {id:'pink',img:A+'food/ice-cream-scoop-pink.webp',label:'рожеву кульку морозива',prompt:'Додай рожеву кульку морозива.',voice:'07_icecream_pink.mp3'},
+ {id:'blue',img:A+'food/ice-cream-scoop-blue.webp',label:'блакитну кульку морозива',prompt:'Додай блакитну кульку морозива.',voice:'07_icecream_blue.mp3'},
+ {id:'orange',img:A+'food/ice-cream-scoop-orange.webp',label:'помаранчеву кульку морозива',prompt:'Додай помаранчеву кульку морозива.',voice:'07_icecream_orange.mp3'},
+ {id:'purple',img:A+'food/ice-cream-scoop-purple.webp',label:'фіолетову кульку морозива',prompt:'Додай фіолетову кульку морозива.',voice:'07_icecream_purple.mp3'},
+ {id:'green',img:A+'food/ice-cream-scoop-green.webp',label:'зелену кульку морозива',prompt:'Додай зелену кульку морозива.',voice:'07_icecream_green.mp3'}
+];
+const train=[
+ {id:'pink',img:A+'transport/train-wagon-pink.webp',label:'рожевий вагон',prompt:'Знайди рожевий вагон.',voice:'08_train_pink_wagon.mp3'},
+ {id:'blue',img:A+'transport/train-wagon-blue.webp',label:'синій вагон',prompt:'Знайди синій вагон.',voice:'08_train_blue_wagon.mp3'},
+ {id:'orange',img:A+'transport/train-wagon-orange.webp',label:'помаранчевий вагон',prompt:'Знайди помаранчевий вагон.',voice:'08_train_orange_wagon.mp3'},
+ {id:'yellow',img:A+'transport/train-wagon-yellow.webp',label:'жовтий вагон',prompt:'Знайди жовтий вагон.',voice:'08_train_yellow_wagon.mp3'},
+ {id:'purple',img:A+'transport/train-wagon-purple.webp',label:'фіолетовий вагон',prompt:'Знайди фіолетовий вагон.',voice:'08_train_purple_wagon.mp3'}
+];
+// Left/right are from the child's view of the screen (x < 50 / x > 50).
+const butterflyParts=[
+ {id:'heart-left',img:KOMAKHY+'assets/butterfly-workshop-heart-left.webp',label:'червоне сердечко',prompt:'Додай червоне сердечко на ліве крильце.',voice:'09_butterfly_red-heart-left-v2.mp3',kind:'heart',x:25,y:38},
+ {id:'heart-right',img:KOMAKHY+'assets/butterfly-workshop-heart-right.webp',label:'червоне сердечко',prompt:'Додай червоне сердечко на праве крильце.',voice:'09_butterfly_red-heart-right-v2.mp3',kind:'heart',x:75,y:38},
+ {id:'star-orange',img:KOMAKHY+'assets/butterfly-workshop-star-orange.webp',label:'помаранчева зірочка',prompt:'Додай помаранчеву зірочку на ліве крильце.',voice:'09_butterfly_orange-star-left-v2.mp3',kind:'star-orange',x:31,y:53},
+ {id:'star-yellow',img:KOMAKHY+'assets/butterfly-workshop-star-yellow.webp',label:'салатова зірочка',prompt:'Додай салатову зірочку на праве крильце.',voice:'09_butterfly_lime-star-right-v2.mp3',kind:'star-yellow',x:69,y:53},
+ {id:'drop-left',img:KOMAKHY+'assets/butterfly-workshop-drop-left.webp',label:'синя краплинка',prompt:'Додай синю краплинку на ліве крильце.',voice:'09_butterfly_blue-drop-left-v2.mp3',kind:'drop',x:30,y:74},
+ {id:'drop-right',img:KOMAKHY+'assets/butterfly-workshop-drop-right.webp',label:'синя краплинка',prompt:'Додай синю краплинку на праве крильце.',voice:'09_butterfly_blue-drop-right-v2.mp3',kind:'drop',x:70,y:74}
+];
+const houseParts=[
+ {id:'roof',img:A+'buildings/house-workshop-roof-orange.webp',label:'помаранчевий дах',prompt:'Поклади помаранчевий дах на будиночок.',voice:'10_house_orange-roof.mp3',x:50,y:17,w:96},
+ {id:'door',img:A+'buildings/house-workshop-door-pink.webp',label:'рожеві двері',prompt:'Додай рожеві двері.',voice:'10_house_pink-door.mp3',x:40,y:60,w:24},
+ {id:'window',img:A+'buildings/house-workshop-window-blue.webp',label:'синє вікно',prompt:'Додай синє вікно.',voice:'10_house_blue-window.mp3',x:71,y:60,w:27},
+ {id:'lamp',img:A+'buildings/house-workshop-lamp-yellow.webp',label:'жовтий ліхтар',prompt:'Повішай жовтий ліхтар біля дверей.',voice:'10_house_yellow-lamp.mp3',x:25,y:53,w:14},
+ {id:'mailbox',img:A+'buildings/house-workshop-mailbox-purple.webp',label:'фіолетова поштова скринька',prompt:'Постав фіолетову поштову скриньку.',voice:'10_house_purple-mailbox.mp3',x:90,y:83,w:16}
+];
+const explorer=[
+ {id:'hat',img:A+'adventure_and_clothes/explorer-hat-orange.webp',label:'помаранчеву панамку',prompt:'Одягни на Мімі помаранчеву панамку.',voice:'11_explorer_orange_hat.mp3',x:50,y:19,w:42.3},
+ {id:'vest',img:A+'adventure_and_clothes/explorer-vest-green.webp',label:'зелений жилет',prompt:'Одягни на Мімі зелений жилет.',voice:'11_explorer_green_vest.mp3',x:49,y:63.5,w:35},
+ {id:'boots',img:A+'adventure_and_clothes/explorer-boots-blue-front.webp',label:'сині черевички',prompt:'Одягни на Мімі сині черевички.',voice:'11_explorer_blue_boots.mp3',x:48.5,y:85.3,w:14.95},
+ {id:'backpack',img:A+'containers/mimi-backpack.webp',label:'бірюзовий рюкзак',prompt:'Дай Мімі бірюзовий рюкзак.',voice:'11_explorer_turquoise_backpack.mp3',x:65.5,y:76,w:22.45},
+ {id:'compass',img:A+'adventure_and_clothes/explorer-compass-purple.webp',label:'фіолетовий компас',prompt:'Дай Мімі фіолетовий компас.',voice:'11_explorer_purple_compass.mp3',x:41.84,y:65.5,w:18.37}
+];
+const aquariumFish=[
+ {id:'orange',img:AQUATIC+'fish/fish-goldfish-orange.webp',label:'помаранчева рибка',prompt:'Додай в акваріум помаранчеву рибку.',voice:'12_aquarium_orange_fish.mp3',x:34,y:45},
+ {id:'redwhite',img:AQUATIC+'fish/fish-koi.webp',label:'червоно-біла рибка',prompt:'Додай в акваріум червоно-білу рибку.',voice:'12_aquarium_red_white_fish.mp3',x:63,y:38,flip:true},
+ {id:'blue',img:AQUATIC+'fish/fish-discus-blue.webp',label:'блакитна рибка',prompt:'Додай в акваріум блакитну рибку.',voice:'12_aquarium_blue_fish.mp3',x:47,y:55,flip:true},
+ {id:'red',img:AQUATIC+'fish/fish-betta-red.webp',label:'червона рибка',prompt:'Додай в акваріум червону рибку.',voice:'12_aquarium_red_fish.mp3',x:67,y:61},
+ {id:'yellow',img:AQUATIC+'fish/fish-yellow-tang.webp',label:'жовта рибка',prompt:'Додай в акваріум жовту рибку.',voice:'12_aquarium_yellow_fish.mp3',x:35,y:67}
+];
+const cakeToppings=[
+ {id:'cherry',img:A+'food/cake-toppings/cake-topping-cherries-red.webp',label:'червону вишеньку',prompt:'Поклади на торт червону вишеньку.',voice:'13_cherry_red.mp3',x:22,y:22},
+ {id:'blueberry',img:A+'food/cake-toppings/cake-topping-blueberries-blue.webp',label:'синю лохину',prompt:'Поклади на торт синю лохину.',voice:'13_blueberry_blue.mp3',x:43,y:16},
+ {id:'raspberry',img:A+'food/cake-toppings/cake-topping-raspberry-red.webp',label:'рожеву малину',prompt:'Додай рожеву малину.',voice:'13_raspberry_pink.mp3',x:79,y:20},
+ {id:'orange',img:A+'food/cake-toppings/cake-topping-orange-orange.webp',label:'помаранчевий апельсин',prompt:'Поклади помаранчевий апельсин.',voice:'13_orange_orange.mp3',x:40,y:34},
+ {id:'kiwi',img:A+'food/cake-toppings/cake-topping-kiwi-green.webp',label:'зелене ківі',prompt:'Додай зелене ківі.',voice:'13_kiwi_green.mp3',x:68,y:34}
+];
+const gardenFlowers=[
+ {id:'cosmos',img:A+'plants/flower-pink-head.webp',box:[622,267,293,265],label:'рожеву космею',prompt:'Нехай на клумбі розквітне рожева космея.',voice:'14_pink_cosmos.mp3'},
+ {id:'lily',img:A+'plants/lily-orange-head.webp',box:[634,460,307,290],label:'помаранчеву лілію',prompt:'Нехай на клумбі розквітне помаранчева лілія.',voice:'14_orange_lily.mp3'},
+ {id:'daisy',img:A+'plants/daisy-white-head.webp',box:[643,314,280,248],label:'білу ромашку',prompt:'Нехай на клумбі розквітне біла ромашка.',voice:'14_white_daisy.mp3'},
+ {id:'tulip',img:A+'plants/tulip-purple-head.webp',box:[698,365,213,272],label:'фіолетовий тюльпан',prompt:'Нехай на клумбі розквітне фіолетовий тюльпан.',voice:'14_purple_tulip.mp3'},
+ {id:'bellflower',img:A+'plants/bellflower-blue-head.webp',box:[647,341,278,266],label:'синій дзвіночок',prompt:'Нехай на клумбі розквітне синій дзвіночок.',voice:'14_blue_bellflower.mp3'}
+];
+const gardenSlots=[{x:13.3,y:8.5},{x:28.3,y:2.9},{x:46,y:9.5},{x:61.8,y:10},{x:78.6,y:13}];
+function gardenGraphic(path,box,alt){const [x,y,w,h]=box;return '<span class="garden-crop" style="--crop-ratio:'+w+'/'+h+'"><img src="'+path+'" alt="'+alt+'" style="width:'+(1536/w*100)+'%;left:'+(-x/w*100)+'%;top:'+(-y/h*100)+'%"></span>'}
+const correct=['correct-1.mp3','correct-2.mp3','correct-3.mp3','correct-4.mp3','correct-5.mp3'];
+const retry=['retry-1.mp3','retry-2.mp3','retry-3.mp3'];
+const feedbackText={
+ 'correct-1.mp3':'Так! Молодець! ⭐','correct-2.mp3':'Правильно! Чудова робота! ⭐','correct-3.mp3':'У тебе все вийшло! ⭐','correct-4.mp3':'Супер! Ти все помічаєш! ⭐','correct-5.mp3':'Так тримати! ⭐',
+ 'retry-1.mp3':'Майже! Подивись ще раз 🐾','retry-2.mp3':'Спробуй іще раз — у тебе вийде 🐾','retry-3.mp3':'Не поспішай. Поглянь уважніше 🐾'
+};
+const basketSlots=[{x:44,y:57},{x:50,y:55},{x:56,y:57},{x:47,y:60},{x:53,y:60}];
+const basketSlotsMobile=[{x:44,y:52},{x:50,y:50},{x:56,y:52},{x:47,y:55},{x:53,y:55}];
+const bouquetSlots=[{x:42,y:45},{x:50,y:41},{x:58,y:45},{x:46,y:51},{x:54,y:51}];
+const pyramidSlots=[{x:50,y:61},{x:50,y:55},{x:50,y:49},{x:50,y:43},{x:50,y:37}];
+const treeSlots={pink:{x:50,y:27},blue:{x:41,y:37},yellow:{x:59,y:37},purple:{x:50,y:46},bow1:{x:39,y:48},bow2:{x:61,y:48}};
+const balloonSlots=[{x:24,y:22},{x:38,y:15},{x:52,y:12},{x:66,y:16},{x:79,y:24}];
+const icecreamSlots=[{x:16,y:38},{x:33,y:38},{x:50,y:38},{x:67,y:38},{x:84,y:38}];
+
+const garageCars=[
+ {id:'red',label:'червоний кабріолет',img:A+'transport/convertible-red.webp',box:[28,309,1193,745],prompt:'Постав червоний кабріолет у червоний гараж.',voice:'15_red_convertible.mp3',bay:0,color:'#ff3636'},
+ {id:'yellow',label:'жовта спортивна машина',img:A+'transport/sports-car-yellow.webp',box:[33,311,1191,709],prompt:'Постав жовту спортивну машину в жовтий гараж.',voice:'15_yellow_sports_car.mp3',bay:1,color:'#ffe13d'},
+ {id:'blue',label:'синя міська машина',img:A+'transport/city-car-blue.webp',box:[29,255,1202,876],prompt:'Постав синю міську машину в синій гараж.',voice:'15_blue_city_car.mp3',bay:2,color:'#28aaff'},
+ {id:'orange',label:'помаранчевий фургон',img:A+'transport/van-orange.webp',box:[65,221,1123,839],prompt:'Постав помаранчевий фургон у помаранчевий гараж.',voice:'15_orange_van.mp3',bay:3,color:'#ff942b'},
+ {id:'green',label:'зелений пікап',img:A+'transport/pickup-green.webp',box:[46,288,1176,789],prompt:'Постав зелений пікап у зелений гараж.',voice:'15_green_pickup.mp3',bay:4,color:'#75f12c'}
+];
+const garageDoors=[[110,632,164,156],[324,627,165,161],[540,623,173,165],[764,632,162,156],[978,633,160,155]];
+const garageLampX=[188,404,626,851,1064];
+function garageGraphic(path,box,alt){const [x,y,w,h]=box;return '<span class="garage-graphic" style="--crop-ratio:'+w+'/'+h+'"><img src="'+path+'" alt="'+alt+'" style="width:'+(1254/w*100)+'%;left:'+(-x/w*100)+'%;top:'+(-y/h*100)+'%"></span>'}
+function renderGarage(){
+ const image=A+'transport/garage-five-bays.webp';
+ scene.insertAdjacentHTML('afterbegin','<svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs><filter id="garage-black-key" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 4 4 4 0 0"/></filter></defs></svg><div class="garage-wrap" id="base"><div class="garage-base">'+garageGraphic(image,[0,404,1254,470],'П’ять кольорових гаражів')+'</div>'+garageDoors.map((box,i)=>'<div class="garage-bay" id="garage-bay-'+i+'" style="left:'+box[0]/1254*100+'%;top:'+(box[1]-404)/470*100+'%;width:'+box[2]/1254*100+'%;height:'+box[3]/470*100+'%"><div class="garage-door">'+garageGraphic(image,box,'Ворота '+garageCars[i].id)+'</div></div><span class="garage-lamp" id="garage-lamp-'+i+'" role="img" aria-label="Лампочка вимкнена" style="left:'+garageLampX[i]/1254*100+'%;top:'+([545,535,520,537,552][i]-404)/470*100+'%;--lamp-color:#ffe88a'+'"></span>').join('')+'</div>');
+}
+async function parkGarageCar(f,btn){
+ const garage=document.getElementById('base'),bay=document.getElementById('garage-bay-'+f.bay),lamp=document.getElementById('garage-lamp-'+f.bay);
+ const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+ bay.classList.add('open');await wait(700);if(!garage.isConnected)return;
+ const car=document.createElement('div');car.className='garage-car';const origin=btn.getBoundingClientRect(),bounds=garage.getBoundingClientRect();car.style.setProperty('--car-start-x',(origin.left+origin.width/2-bounds.left)/bounds.width*100+'%');car.style.setProperty('--car-start-y',(origin.top+origin.height/2-bounds.top)/bounds.height*100+'%');car.style.setProperty('--car-target-x',garageLampX[f.bay]/1254*100+'%');car.innerHTML=garageGraphic(f.img,f.box,f.label);garage.appendChild(car);
+ car.classList.add('drive');play(SFX+'car_drive_soft.mp3');const driveAudio=activeAudio;driveAudio.volume=.5;driveAudio.loop=true;await wait(1050);driveAudio.pause();driveAudio.currentTime=0;if(!garage.isConnected)return;
+ car.remove();bay.classList.remove('open');await wait(700);if(!garage.isConnected)return;
+ lamp.classList.add('lit');lamp.setAttribute('aria-label','Лампочка світиться');play(SFX+'soft_chime.mp3',afterCorrect);
+}
+
+
+const beachToys=[
+ {id:'shovel',label:'рожева лопатка',img:A+'toys/shovel_pink.webp',box:[652,318,232,326],prompt:'Поклади у відерце рожеву лопатку.',voice:'16_pink_shovel.mp3'},
+ {id:'rake',label:'бірюзові граблі',img:A+'toys/rake_turquoise.webp',box:[641,366,254,293],prompt:'Поклади у відерце бірюзові граблі.',voice:'16_turquoise_rake.mp3'},
+ {id:'star',label:'фіолетова морська зірка',img:A+'toys/star_purple.webp',box:[589,688,280,271],prompt:'Поклади фіолетову морську зірку.',voice:'16_purple_starfish.mp3'},
+ {id:'ball',label:'жовтий м’ячик',img:A+'toys/ball_yellow.webp',box:[633,448,269,267],prompt:'Поклади жовтий м’ячик.',voice:'16_yellow_ball.mp3'},
+ {id:'boat',label:'зелений кораблик',img:A+'toys/boat_green.webp',box:[585,387,310,251],prompt:'Поклади зелений кораблик.',voice:'16_green_boat.mp3'}
+];
+function beachOrder(){return [...shuffle(beachToys.slice(0,2)),...shuffle(beachToys.slice(2))]}
+function beachGraphic(path,box,alt,sourceWidth=1536){const [x,y,w,h]=box;return '<span class="beach-crop" style="--ratio:'+w+'/'+h+'"><img src="'+path+'" alt="'+alt+'" style="width:'+sourceWidth/w*100+'%;left:'+(-x/w*100)+'%;top:'+(-y/h*100)+'%"></span>'}
+let beachAmbience=null,beachAudioContext=null;
+function stopBeachAmbience(){if(beachAmbience){beachAmbience.pause();beachAmbience.currentTime=0;beachAmbience=null}}
+function startBeachAmbience(){stopBeachAmbience();const a=new Audio(SFX+'sea-waves-ambience.mp3');beachAmbience=a;a.loop=true;a.volume=.35;try{const C=window.AudioContext||window.webkitAudioContext;if(C){const c=beachAudioContext||(beachAudioContext=new C());const source=c.createMediaElementSource(a),gain=c.createGain();gain.gain.value=1.5;source.connect(gain);gain.connect(c.destination);c.resume().catch(()=>{});if(c.state==='suspended')showAudioStart()}}catch(e){a.volume=.45}a.play().catch(error=>{if(beachAmbience===a&&error.name==='NotAllowedError')showAudioStart()})}
+function renderBeach(){const bucket=beachGraphic(A+'containers/bucket_orange.webp',[737,264,549,426],'Помаранчеве відерце',1962);scene.insertAdjacentHTML('afterbegin','<img class="beach-background" src="'+A+'nature/beach/beach_background.webp" alt="Сонячний пляж"><div class="beach-bucket" id="base">'+bucket+'<div class="beach-bucket-front">'+bucket+'</div></div>')}
+function collectBeachToy(f){const bucket=document.getElementById('base');bucket.animate([{transform:'translate(-50%,-50%) rotate(-3deg)'},{transform:'translate(-50%,-50%) rotate(3deg)'},{transform:'translate(-50%,-50%) rotate(0deg)'}],{duration:400});play(SFX+'soft_click.mp3',afterCorrect)}
+function playShortWave(onEnd){play(SFX+'wave-shore.mp3');const a=activeAudio;let done=false;const finish=()=>{if(done)return;done=true;a.pause();a.currentTime=0;if(activeAudio===a&&sceneNo===16)onEnd()};a.onended=finish;setTimeout(finish,2000)}
+function finishBeach(){const bucket=document.getElementById('base');document.getElementById('tray').style.display='none';q.textContent='Відерце наповнене! Будуємо замок!';bucket.classList.add('wobble');setTimeout(()=>{if(!bucket.isConnected||sceneNo!==16)return;bucket.remove();const castle=document.createElement('div');castle.className='beach-castle';castle.innerHTML=beachGraphic(A+'nature/beach/sandcastle.webp',[569,121,850,488],'Піщаний замок',1962);scene.appendChild(castle);setTimeout(()=>{if(!castle.isConnected||sceneNo!==16)return;stopBeachAmbience();q.textContent='А ось і морська хвиля!';const water=document.createElement('div');water.className='beach-water';water.innerHTML=[0,1,2,3].map(i=>'<div class="beach-wave '+(['large','small','deep-one','deep-two'][i])+'">'+beachGraphic(A+'nature/beach/wave.webp',[0,433,1962,339],'Морська хвиля',1962)+'</div>').join('');scene.appendChild(water);playShortWave(()=>{if(castle.isConnected&&sceneNo===16){q.textContent='Яка чудова пригода на пляжі!';complete(17)}});setTimeout(()=>water.remove(),4800)},1500)},950)}
+
+
+
+const birdFeederItems=[
+ {id:'corn',label:'жовта кукурудза',img:A+'food/corn-yellow.webp',box:[26,615,419,304],source:[1672,941],prompt:'Поклади в годівничку жовту кукурудзу.',voice:'18_yellow_corn.mp3',x:31,y:76,kind:'food'},
+ {id:'berries',label:'червоні ягідки',img:A+'food/berries-red.webp',box:[377,650,327,237],source:[1672,941],prompt:'Поклади в годівничку червоні ягідки.',voice:'18_red_berries.mp3',x:43,y:76,kind:'food'},
+ {id:'apple',label:'зелене яблуко',img:A+'food/apple-green-slice.webp',box:[703,586,277,288],source:[1672,941],prompt:'Поклади в годівничку зелене яблуко.',voice:'18_green_apple.mp3',x:55,y:76,kind:'food'},
+ {id:'seeds',label:'помаранчеве насіння',img:A+'food/bird-seeds.webp',box:[994,639,320,279],source:[1672,941],prompt:'Поклади в годівничку помаранчеве насіння.',voice:'18_orange_seeds.mp3',x:67,y:76,kind:'food'},
+ {id:'water',label:'синя мисочка з водою',img:A+'containers/water-bowl-blue.webp',box:[24,24,306,232],source:[354,280],prompt:'Постав для пташки синю мисочку з водою.',voice:'18_blue_water.mp3',x:78,y:78,kind:'water'}
+];
+const paintedSceneItems=[
+ {id:'sun',label:'жовте сонечко',img:A+'painted_scene/painted-sun.webp',prompt:'Намалюй жовте сонечко.',voice:'19_yellow_sun.mp3'},
+ {id:'cloud',label:'світло-блакитна хмаринка',img:A+'painted_scene/painted-cloud.webp',prompt:'Намалюй світло-блакитну хмаринку.',voice:'19_light_blue_cloud.mp3'},
+ {id:'grass',label:'зелена травичка',img:A+'painted_scene/painted-grass.webp',prompt:'Намалюй зелену травичку.',voice:'19_green_grass.mp3'},
+ {id:'flower',label:'рожева квіточка',img:A+'painted_scene/painted-flower.webp',prompt:'Намалюй рожеву квіточку.',voice:'19_pink_flower.mp3'},
+ {id:'butterfly',label:'синій метелик',img:A+'painted_scene/painted-butterfly.webp',prompt:'Намалюй синього метелика.',voice:'19_blue_butterfly.mp3'}
+];
+const partyItems=[
+ {id:'basket',label:'кошик із фруктами',prompt:'Постав на святковий стіл кошик із фруктами.',voice:'20_basket.mp3'},
+ {id:'cake',label:'святковий торт',prompt:'Постав на стіл святковий торт.',voice:'20_cake.mp3'},
+ {id:'cups',label:'святкові чашечки',prompt:'Додай святкові чашечки.',voice:'20_cups.mp3'},
+ {id:'napkins',label:'святкові серветки',prompt:'Поклади на стіл святкові серветки.',voice:'20_napkins.mp3'},
+ {id:'bouquet',label:'готовий букет',prompt:'Прикрась святковий стіл готовим букетом.',voice:'20_bouquet.mp3'}
+];
+function partyComposite(type){
+ if(type==='basket')return '<span class="party-composite complete"><img src="'+A+'celebration/fruit-basket-complete.webp" alt="Кошик із фруктами"></span>';
+ if(type==='cake')return '<span class="party-composite complete"><img src="'+A+'celebration/cake-complete.webp" alt="Святковий торт"></span>';
+ if(type==='bouquet')return '<span class="party-composite complete"><img src="'+A+'celebration/flower-bouquet-complete.webp" alt="Святковий букет"></span>';
+ return '<span class="party-composite '+type+'"><img src="'+A+'celebration/party-'+type+'.webp" alt=""></span>'
+}
+function renderParty(){scene.insertAdjacentHTML('afterbegin','<img class="party-frame-image" src="'+A+'celebration/painted-picture-framed.webp" alt="Чарівний малюнок у рамці"><img class="party-tree" id="partyTree" src="'+A+'plants/christmas-tree-decorated.webp" alt="Прикрашена ялинка"><div class="party-table-wrap" id="base"><img class="party-table-base" src="'+A+'celebration/festive-table.webp" alt="Святковий стіл"></div>')}
+function placePartyItem(f){const table=document.getElementById('base'),el=document.createElement('div');el.className='party-placed '+f.id;el.innerHTML=partyComposite(f.id);table.appendChild(el);play(SFX+'soft_chime.mp3',afterCorrect)}
+function partyGuest(src,className,alt,sound){if(sceneNo!==20)return null;const im=document.createElement('img');im.className='party-guest '+className;im.src=src;im.alt=alt;scene.appendChild(im);if(sound){const a=new Audio(sound);a.volume=.75;a.play().catch(()=>{})}return im}
+function partyMimi(){if(sceneNo!==20)return;const mimi=document.createElement('img');mimi.className='party-mimi';mimi.src=ROOT+'media/mimi-library/illustrations/mimi-party-march.webp';mimi.alt='Мімі весело крокує до святкового столу';scene.appendChild(mimi)}
+function partyReindeer(){if(sceneNo!==20)return;const deer=document.createElement('img');deer.className='party-deer';deer.src=A+'nature/reindeer-family-running.webp';deer.alt='Три олені пробігають повз святковий стіл';scene.appendChild(deer)}
+function finishParty(){
+ document.getElementById('tray').style.display='none';q.textContent='До святкового столу збираються друзі!';const tree=document.getElementById('partyTree');tree.classList.add('celebrate');sparkles();play(SFX+'christmas_bells_soft.mp3');
+ setTimeout(partyReindeer,350);
+ setTimeout(()=>partyGuest(KOMAKHY+'assets/butterfly.webp','butterfly','До столу прилетів метелик',KOMAKHY+'audio/sfx/butterfly_wings.mp3'),5250);
+ setTimeout(()=>partyGuest(KOMAKHY+'assets/bee.webp','bee','До столу прилетіла бджілка',KOMAKHY+'audio/sfx/bee_buzz.mp3'),5950);
+ setTimeout(()=>partyGuest(KOMAKHY+'assets/grasshopper.webp','grasshopper','До столу прискакав коник',KOMAKHY+'audio/sfx/grasshopper_jump.mp3'),6850);
+ setTimeout(()=>{const flying=partyGuest(A+'nature/birds/bird-flying.webp','bird-flying','До столу летить пташка',SFX+'bird_chirp.mp3');if(!flying)return;setTimeout(()=>{if(!flying.isConnected||sceneNo!==20)return;flying.remove();partyGuest(A+'nature/birds/bird-perched.webp','bird-perched','Пташка сіла біля святкового столу')},1550)},7750);
+ setTimeout(partyMimi,9750);
+ setTimeout(()=>{if(sceneNo!==20)return;q.textContent='Мімі та всі друзі зібралися на свято!';progress.textContent='Майстерня кольорів • готово!';message.textContent='Ти створив справжнє свято! ✨';sparkles();play(VOICE+'21_game_finish.mp3')},12200)
+}
+function renderPainting(){scene.insertAdjacentHTML('afterbegin','<div class="painting-stage" id="base"><img class="painting-easel" src="'+A+'painted_scene/painting-easel.webp" alt="Мольберт із полотном"><div class="painting-canvas" id="paintingCanvas"></div><img class="painting-palette" src="'+A+'painted_scene/paint-palette.webp" alt="Палітра"><img class="painting-brush" id="paintingBrush" src="'+A+'painted_scene/paint-brush.webp" alt="Пензлик"></div>')}
+function paintPicturePiece(f){const canvas=document.getElementById('paintingCanvas'),brush=document.getElementById('paintingBrush');brush.classList.remove('painting');void brush.offsetWidth;brush.classList.add('painting');setTimeout(()=>{if(sceneNo===19)play(SFX+'paint-brush-stroke.mp3')},430);setTimeout(()=>{if(!canvas.isConnected||sceneNo!==19)return;const im=document.createElement('img');im.className='painted-piece '+f.id;im.src=f.img;im.alt=f.label;canvas.appendChild(im);setTimeout(afterCorrect,650)},930)}
+function finishPainting(){const stage=document.getElementById('base');document.getElementById('tray').style.display='none';q.textContent='Малюнок ожив!';stage.classList.add('alive');sparkles();play(COMMON+'meadow_unlock.mp3');setTimeout(()=>{if(stage.isConnected&&sceneNo===19)complete(20)},8200)}
+function birdChoiceGraphic(f){const [x,y,w,h]=f.box,[sw,sh]=f.source;return '<span class="bird-choice-crop"><img src="'+f.img+'" alt="'+f.label+'" style="width:'+sw/w*100+'%;left:'+(-x/w*100)+'%;top:'+(-y/w*100)+'%"></span>'}
+function renderBirdFeeder(){scene.insertAdjacentHTML('afterbegin','<div class="bird-feeder-wrap" id="base"><span class="bird-feeder-base"><img src="'+A+'nature/birds/bird-feeder.webp" alt="Годівничка для пташки"></span></div>')}
+function placeBirdFood(f){const wrap=document.getElementById('base'),im=document.createElement('span');im.className='bird-food-placed '+f.kind;im.innerHTML=birdChoiceGraphic(f);im.style.left=f.x+'%';im.style.top=f.y+'%';wrap.appendChild(im);play(SFX+'soft_click.mp3',afterCorrect)}
+function finishBirdFeeder(){document.getElementById('tray').style.display='none';q.textContent='До годівнички прилетіла пташка!';const flying=document.createElement('img');flying.className='bird-final flying';flying.src=A+'nature/birds/bird-flying.webp';flying.alt='Пташка прилітає';scene.appendChild(flying);play(SFX+'bird_chirp.mp3');setTimeout(()=>{if(!flying.isConnected||sceneNo!==18)return;flying.remove();const perched=document.createElement('img');perched.className='bird-final perched';perched.src=A+'nature/birds/bird-perched.webp';perched.alt='Пташка біля годівнички';scene.appendChild(perched)},1150);setTimeout(()=>{if(sceneNo===18)complete(19)},3000)}
+
+const backpackThings=[
+{id:'flashlight',label:'червоний ліхтарик',img:A+'adventure_and_clothes/flashlight_red.webp',box:[568,331,536,278],prompt:'Поклади в рюкзак червоний ліхтарик.',voice:'17_red_flashlight.mp3'},
+{id:'binoculars',label:'жовтий бінокль',img:A+'adventure_and_clothes/binoculars_yellow.webp',box:[556,300,559,341],prompt:'Поклади в рюкзак жовтий бінокль.',voice:'17_yellow_binoculars.mp3'},
+{id:'bottle',label:'синя пляшка',img:A+'adventure_and_clothes/bottle_blue.webp',box:[680,198,311,545],prompt:'Поклади в рюкзак синю пляшку.',voice:'17_blue_bottle.mp3'},
+{id:'compass',label:'фіолетовий компас',img:A+'adventure_and_clothes/explorer-compass-purple.webp',box:[591,286,491,368],prompt:'Поклади в рюкзак фіолетовий компас.',voice:'17_purple_compass.mp3'},
+{id:'lunchbox',label:'зелений ланчбокс',img:A+'adventure_and_clothes/lunchbox_green.webp',box:[557,262,557,416],prompt:'Поклади в рюкзак зелений ланчбокс.',voice:'17_green_lunchbox.mp3'}
+];
+function renderBackpack(){scene.insertAdjacentHTML('afterbegin','<img class="adventure-backpack" id="base" src="'+A+'containers/mimi-backpack.webp" alt="Рюкзак Мімі">')}
+function packThing(){const pack=document.getElementById('base');pack.animate([{transform:'translateX(-50%) rotate(-3deg)'},{transform:'translateX(-50%) rotate(3deg)'},{transform:'translateX(-50%) rotate(0deg)'}],{duration:450});play(SFX+'soft_click.mp3',afterCorrect)}
+function zipperSound(){try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const c=cakeAudioContext||(cakeAudioContext=new C());c.resume().catch(()=>{});const b=c.createBuffer(1,c.sampleRate*.3,c.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(.35+.65*Math.sin(i/90)**2);const src=c.createBufferSource(),filter=c.createBiquadFilter(),gain=c.createGain();src.buffer=b;filter.type='bandpass';filter.frequency.value=1800;gain.gain.setValueAtTime(.15,c.currentTime);gain.gain.exponentialRampToValueAtTime(.001,c.currentTime+.3);src.connect(filter);filter.connect(gain);gain.connect(c.destination);src.start()}catch(e){}}
+function finishBackpack(){const pack=document.getElementById('base');document.getElementById('tray').style.display='none';q.textContent='Усе готово! Рюкзак зібрано. Ходімо з Мімі у пригоду!';play(VOICE+'17_finish.mp3',()=>{if(!pack.isConnected||sceneNo!==17)return;zipperSound();pack.classList.add('packed');setTimeout(()=>{if(!pack.isConnected||sceneNo!==17)return;scene.innerHTML='';const v=document.createElement('video');v.className='backpack-walk';v.src=ROOT+'media/mimi-library/animations/mimi-adventure-backpack-walk.mp4';v.muted=true;v.playsInline=true;scene.appendChild(v);q.textContent='Ходімо з Мімі!';let music=null,done=false;const finish=()=>{if(done||!v.isConnected||sceneNo!==17)return;done=true;if(music){music.pause();music.currentTime=0}complete(18)};v.onplaying=()=>{if(music)return;play(ROOT+'media/rushaymo/pisni/hodimo-zi-mnoyu.m4a');music=activeAudio;music.volume=.95};v.ontimeupdate=()=>{if(music&&Number.isFinite(v.duration)){music.volume=.95*Math.min(1,Math.max(0,(v.duration-v.currentTime)/.6))}};v.onended=finish;v.onerror=finish;v.play().catch(finish);setTimeout(finish,8000)},500)})}
+
+const q=document.getElementById('question'),scene=document.getElementById('scene'),message=document.getElementById('message'),progress=document.getElementById('progress');
+let sceneNo=1,order=[],step=0,started=false,busy=false,activeAudio=null,feedbackBag=[],retryBag=[];
+function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function basketOrder(){const others=shuffle(fruits.filter(f=>f.id!=='blackberry'));const pos=2+Math.floor(Math.random()*3);others.splice(pos,0,fruits.find(f=>f.id==='blackberry'));return others}
+function nextFrom(files,type){let bag=type==='correct'?feedbackBag:retryBag;if(!bag.length){bag=shuffle(files);if(type==='correct')feedbackBag=bag;else retryBag=bag}return bag.pop()}
+let audioRetryPending=false;
+function showAudioStart(){if(audioRetryPending)return;audioRetryPending=true;document.addEventListener('click',()=>{audioRetryPending=false;if(beachAudioContext)beachAudioContext.resume().catch(()=>{});if(activeAudio)activeAudio.play().catch(error=>{if(error.name==='NotAllowedError')showAudioStart()});if(beachAmbience)beachAmbience.play().catch(error=>{if(error.name==='NotAllowedError')showAudioStart()})},{once:true})}
+function play(path,onEnd){if(activeAudio){activeAudio.pause();activeAudio.currentTime=0}const a=new Audio(path);activeAudio=a;a.onended=()=>{if(activeAudio===a&&onEnd)onEnd()};a.onerror=()=>{if(activeAudio===a&&onEnd)onEnd()};a.play().catch(error=>{if(activeAudio!==a)return;if(error.name==='NotAllowedError')showAudioStart();else if(onEnd)onEnd()})}
+const sceneNames=['','Кошик','Букет','Коробка іграшок','Пірамідка','Ялинка','Кульки для Мімі','Морозиво','Паровоз','Метелик','Будиночок','Мімі-мандрівник','Акваріум','Торт для Мімі','Клумба','Кольорові гаражі','Пляжне відерце','Рюкзак для пригод','Годівничка для пташки','Чарівний малюнок','Святковий стіл'];
+const sceneItems=[null,fruits,flowers,toys,pyramid,tree,balloons,icecream,train,butterflyParts,houseParts,explorer,aquariumFish,cakeToppings,gardenFlowers,garageCars,beachToys,backpackThings,birdFeederItems,paintedSceneItems,partyItems];
+const toySlots={car:{x:47,y:72},ball:{x:55,y:48},block:{x:54,y:72},top:{x:58,y:68},bunny:{x:43,y:51}};
+const toySlotsMobile={car:{x:47,y:55},ball:{x:55,y:44},block:{x:54,y:55},top:{x:58,y:59},bunny:{x:43,y:48}};
+function currentItems(){return sceneItems[sceneNo]}
+function prompt(){const f=order[step];q.textContent=f.prompt;progress.textContent=sceneNames[sceneNo]+' • '+(step+1)+' з '+(sceneNo===5||sceneNo===9?6:5);if(f.voice)play(VOICE+f.voice)}
+function renderScene(){
+ scene.className='scene scene-'+sceneNo;
+ const bases={1:'<img class="basket" id="base" src="'+A+'containers/fruit-basket.webp" alt="Кошик">',2:'<img class="bouquet" id="base" src="'+A+'plants/bouquet-wrapper-pink-bow.webp" alt="Букет">',3:'<img class="toy-box" id="base" src="'+A+'containers/toy-box.webp" alt="Коробка іграшок">',4:'<img class="pyramid-base" id="base" src="'+A+'toys/pyramid-base.webp" alt="Основа пірамідки">',5:'<img class="tree-base" id="base" src="'+A+'plants/christmas-tree-lights.webp" alt="Ялинка">',6:'<div class="mimi-flight" id="base"><img class="mimi-balloons" src="'+ROOT+'media/mimi-library/illustrations/mimi-paws-up.webp" alt="Мімі"></div>',7:'',8:'<div class="train-track"></div><div class="train-line" id="trainLine"><img class="train-unit" src="'+A+'transport/train-locomotive.webp" alt="Локомотив"></div>',9:'<div class="workshop-butterfly" id="base"><img src="'+KOMAKHY+'assets/butterfly-workshop-base.webp" alt="Метелик"></div>',10:'<div class="house-workshop" id="base"><img src="'+A+'buildings/house-workshop-base.webp" alt="Будиночок"><img class="house-mimi" id="houseMimi" src="'+ROOT+'media/mimi-library/illustrations/mimi-house-peeking-v2.webp" alt="Мімі"></div>',11:'<div class="explorer-figure" id="base"><img class="explorer-mimi" src="'+ROOT+'media/mimi-library/illustrations/mimi-standing-front.webp" alt="Мімі"></div>',12:'<div class="aquarium-wrap" id="base"><img class="aquarium-base" src="'+AQUATIC+'aquariums/aquarium-round.webp" alt="Акваріум"><div class="aquarium-bubbles" aria-hidden="true"><span style="--x:12%;--s:10px;--d:4.8s;--delay:-1s"></span><span style="--x:28%;--s:16px;--d:6.1s;--delay:-4s"></span><span style="--x:43%;--s:8px;--d:4.3s;--delay:-2s"></span><span style="--x:58%;--s:13px;--d:5.4s;--delay:-3s"></span><span style="--x:73%;--s:9px;--d:4.6s;--delay:-.5s"></span><span style="--x:86%;--s:15px;--d:6.4s;--delay:-5s"></span></div></div>'};
+ scene.innerHTML=(bases[sceneNo]||'')+(sceneNo===1?'<img class="basket-front" src="'+A+'containers/fruit-basket.webp" alt="">':sceneNo===2?'<img class="bouquet-front" src="'+A+'plants/bouquet-wrapper-pink-bow.webp" alt="">':sceneNo===3?'<img class="toy-front" src="'+A+'containers/toy-box.webp" alt="">':sceneNo===7?icecreamSlots.map((slot,i)=>'<div class="icecream-serving" id="icecream-slot-'+i+'" style="left:'+slot.x+'%"><img class="icecream-cone" src="'+A+'food/ice-cream-cone.webp" alt=""></div>').join(''):'')+'<div class="tray" id="tray"></div>';
+ if(sceneNo===13)scene.insertAdjacentHTML('afterbegin','<div class="cake-wrap" id="base"><img class="cake-base" src="'+A+'food/cake-toppings/cake.webp" alt="Торт для Мімі"></div>');
+ if(sceneNo===14)scene.insertAdjacentHTML('afterbegin','<div class="garden-wrap" id="base"><div class="garden-base">'+gardenGraphic(A+'plants/flowerbed-base.webp',[0,375,1101,613],'Клумба')+'</div></div>');
+ if(sceneNo===15)renderGarage();if(sceneNo===16)renderBeach();if(sceneNo===17)renderBackpack();if(sceneNo===18)renderBirdFeeder();if(sceneNo===19)renderPainting();if(sceneNo===20)renderParty();
+ const tray=document.getElementById('tray');
+ (sceneNo===4?pyramid:sceneNo===20?partyItems:shuffle(currentItems())).forEach(f=>{const b=document.createElement('button');b.className=(sceneNo===1?'fruit':sceneNo===2?'flower':sceneNo===4?'pyramid-ring':'scene-item')+(sceneNo===8?' train-choice':'');b.dataset.id=f.id;b.setAttribute('aria-label',f.label);b.innerHTML=f.img?'<img src="'+f.img+'" alt="'+f.label+'">':'';if(sceneNo===20)b.innerHTML=partyComposite(f.id);if(sceneNo===18)b.innerHTML=birdChoiceGraphic(f);if(sceneNo===14)b.innerHTML=gardenGraphic(f.img,f.box,f.label);if(sceneNo===17)b.innerHTML=beachGraphic(f.img,f.box,f.label,1672);if(sceneNo===15)b.innerHTML=garageGraphic(f.img,f.box,f.label);if(sceneNo===16){b.innerHTML=beachGraphic(f.img,f.box,f.label);const slot=[[20,63],[80,63],[20,82],[80,82],[49,82]][tray.children.length];b.style.setProperty('--x',slot[0]+'%');b.style.setProperty('--y',slot[1]+'%')}if(sceneNo===13&&f.id==='raspberry')b.querySelector('img').classList.add('raspberry-pink');b.onclick=()=>choose(b,f);tray.appendChild(b)});
+}
+function choose(btn,f){
+ if(!started||busy||btn.classList.contains('used'))return;
+ if(sceneNo===5&&step===4&&f.id.startsWith('bow')&&order[step].id.startsWith('bow')&&f.id!==order[step].id){[order[step],order[step+1]]=[order[step+1],order[step]]}
+ if(sceneNo===9?f.kind!==order[step].kind:f.id!==order[step].id){btn.classList.remove('bad');void btn.offsetWidth;btn.classList.add('bad');play(COMMON+'wrong_boop.mp3',()=>{const file=nextFrom(retry,'retry');message.textContent=feedbackText[file];play(COMMON+file)});return}
+ busy=true;btn.classList.add('used');
+ if(sceneNo===20){placePartyItem(f);return}if(sceneNo===19){paintPicturePiece(f);return}if(sceneNo===18){placeBirdFood(f);return}if(sceneNo===17){packThing();return}if(sceneNo===16){collectBeachToy(f);return}if(sceneNo===15){parkGarageCar(f,btn);return}
+ if(sceneNo===9){const target=order[step],im=document.createElement('img');im.className='wing-decoration'+(f.id==='star-yellow'?' yellow-star':f.kind==='heart'?' red-heart':'');im.src=f.img;im.alt='';im.style.left=target.x+'%';im.style.top=target.y+'%';document.getElementById('base').appendChild(im);play(SFX+'soft_chime.mp3',afterCorrect);return}
+ if(sceneNo===14){const slot=gardenSlots[step],flower=document.createElement('div');flower.className='garden-flower';flower.style.left=slot.x+'%';flower.style.top=slot.y+'%';if(f.id==='tulip')flower.style.width='13.5%';flower.innerHTML=gardenGraphic(f.img,f.box,f.label);document.getElementById('base').appendChild(flower);play(SFX+'soft_chime.mp3',afterCorrect);return}
+ if(sceneNo===13){const im=document.createElement('img');im.className='cake-topping'+(f.id==='raspberry'?' raspberry-pink':'');im.src=f.img;im.alt=f.label;im.style.left=f.x+'%';im.style.top=f.y+'%';document.getElementById('base').appendChild(im);play(SFX+'soft_click.mp3',afterCorrect);return}
+ if(sceneNo===12){const im=document.createElement('img');im.className='aquarium-fish'+(f.flip?' flip':'');im.dataset.fish=f.id;im.src=f.img;im.alt='';im.style.left=f.x+'%';im.style.top=f.y+'%';document.getElementById('base').appendChild(im);play(SFX+'soft_click.mp3',afterCorrect);return}
+ if(sceneNo===11){const im=document.createElement('img');im.className='explorer-piece '+f.id;im.src=f.img;im.alt='';im.style.left=f.x+'%';im.style.top=f.y+'%';im.style.width=f.w+'%';document.getElementById('base').appendChild(im);play(SFX+'soft_click.mp3',afterCorrect);return}
+ if(sceneNo===10){const im=document.createElement('img');im.className='house-piece'+(f.id==='door'?' door':'');im.src=f.img;im.alt='';im.style.left=f.x+'%';im.style.top=f.y+'%';im.style.width=f.w+'%';if(f.id==='door')im.id='houseDoor';if(f.id==='lamp')im.id='houseLamp';document.getElementById('base').appendChild(im);play(f.id==='lamp'?SFX+'soft_chime.mp3':SFX+'soft_click.mp3',afterCorrect);return}
+ if(sceneNo===8){
+  const line=document.getElementById('trainLine'),wagon=document.createElement('img');wagon.className='train-unit wagon';wagon.src=f.img;wagon.alt=f.label;
+  play(SFX+'train_wheels.mp3');line.appendChild(wagon);
+  wagon.addEventListener('animationend',()=>play(SFX+'soft_click.mp3',()=>afterCorrect()),{once:true});return;
+ }
+ const slots=sceneNo===1?(innerWidth<=520?basketSlotsMobile:basketSlots):sceneNo===2?bouquetSlots:sceneNo===3?toySlots:sceneNo===4?pyramidSlots:sceneNo===5?treeSlots:sceneNo===6?balloonSlots:icecreamSlots;
+ const slot=sceneNo===3?(innerWidth<=520?toySlotsMobile:toySlots)[f.id]:sceneNo===5?treeSlots[f.id]:slots[step],im=document.createElement('img');im.className=sceneNo===1?'placed':sceneNo===2?'bouquet-flower':sceneNo===3?'toy-placed':sceneNo===4?'pyramid-placed':sceneNo===5?'tree-decoration':sceneNo===6?'balloon-placed':'icecream-scoop';im.src=f.img;im.alt='';im.style.left=slot.x+'%';im.style.top=slot.y+'%';if(sceneNo===2)im.style.setProperty('--tilt',slot.x<48?'-16deg':slot.x>52?'16deg':'0deg');if(sceneNo===3&&f.id==='ball')im.id='toyBall';if(sceneNo===7){im.style.removeProperty('left');im.style.removeProperty('top');document.getElementById('icecream-slot-'+step).appendChild(im)}else scene.appendChild(im);
+ const sound=(sceneNo===4||sceneNo===7)?SFX+'soft_click.mp3':(sceneNo===5||sceneNo===6)?SFX+'soft_chime.mp3':COMMON+'item_place.mp3';play(sound,afterCorrect);
+}
+function afterCorrect(){const file=nextFrom(correct,'correct'),sceneAtStart=sceneNo,stepAtStart=step;let advanced=false;const advance=()=>{if(advanced||sceneNo!==sceneAtStart||step!==stepAtStart)return;advanced=true;step++;if(step===(sceneNo===5||sceneNo===9?6:5))finishScene();else{busy=false;message.textContent='';prompt()}};message.textContent=feedbackText[file];play(COMMON+file,advance);setTimeout(advance,4000)}
+function complete(next){play(COMMON+'scene_complete.mp3',()=>{if(next)setTimeout(()=>startScene(next),700)});sparkles()}
+function finishScene(){
+ busy=true;progress.textContent=sceneNames[sceneNo]+' • готово!';message.textContent='Чудова робота! ✨';
+ if(sceneNo===1){q.textContent='Кошик наповнений!';document.getElementById('base').classList.add('wobble');complete(2)}
+ else if(sceneNo===2){q.textContent='Букет готовий!';const b=document.createElement('img');b.className='butterfly';b.src=KOMAKHY+'assets/butterfly.webp';b.alt='Метелик';scene.appendChild(b);play(KOMAKHY+'audio/sfx/butterfly_wings.mp3',()=>complete(3))}
+ else if(sceneNo===3){q.textContent='Коробка наповнена!';const ball=document.getElementById('toyBall');if(ball)ball.classList.add('toy-bounce');play(SFX+'ball_bounce_2x_roll.mp3',()=>complete(4))}
+ else if(sceneNo===4){q.textContent='Пірамідка готова!';document.getElementById('base').classList.add('pyramid-wobble');complete(5)}
+ else if(sceneNo===5){q.textContent='Ялинка прикрашена! А ось і олені!';document.getElementById('base').classList.add('tree-glow');const deer=document.createElement('img');deer.className='reindeer-parade';deer.src=A+'nature/reindeer-family-running.webp';deer.alt='Три олені проскакали біля ялинки';scene.appendChild(deer);const bells=new Audio(SFX+'christmas_bells_soft.mp3');bells.volume=.75;bells.play().catch(()=>{});setTimeout(()=>{bells.pause();bells.currentTime=0;complete(6)},5100)}
+ else if(sceneNo===6){q.textContent='Мімі злітає!';const flight=document.getElementById('base');scene.querySelectorAll('.balloon-placed').forEach(x=>flight.appendChild(x));flight.classList.add('fly-up-return');play(SFX+'air_whoosh.mp3',()=>complete(7))}
+ else if(sceneNo===7){q.textContent='Морозиво готове!';const v=document.createElement('video');v.className='mimi-lick-video';v.src=ROOT+'media/mimi-library/animations/mimi-licking-lips.mp4';v.autoplay=true;v.muted=true;v.playsInline=true;scene.appendChild(v);const yum=new Audio(SFX+'mimi_yum_yum.mp3');yum.play().catch(()=>{});v.onended=()=>{yum.pause();v.remove();complete(8)}}
+ else if(sceneNo===8){q.textContent='Паровоз готовий!';play(SFX+'train_whistle.mp3',()=>{setTimeout(()=>{play(SFX+'train_wheels.mp3');document.getElementById('trainLine').classList.add('depart');setTimeout(()=>complete(9),2700)},350)})}
+ else if(sceneNo===9){q.textContent='Метелик готовий!';document.getElementById('base').classList.add('fly');play(KOMAKHY+'audio/sfx/butterfly_wings.mp3');setTimeout(()=>complete(10),3500)}
+ else if(sceneNo===10){q.textContent='Будиночок готовий!';document.getElementById('houseLamp').classList.add('house-lamp-glow');play(SFX+'soft_chime.mp3',()=>{play(SFX+'house_door_open_soft.mp3',()=>{document.getElementById('houseDoor').classList.add('open');setTimeout(()=>{document.getElementById('houseMimi').classList.add('show');q.textContent='Ой, хто це визирає? Це Мімі!';play(VOICE+'10_house_mimi-reveal.mp3',()=>complete(11))},850)})})}
+ else if(sceneNo===11){q.textContent='Мімі готовий до пригоди!';play(VOICE+'11_explorer_finish.mp3',()=>{scene.innerHTML='';const v=document.createElement('video');v.className='explorer-finish-video';v.src=ROOT+'media/mimi-library/blue-background/movement/mimi-explorer-compass.mp4';v.autoplay=true;v.muted=true;v.playsInline=true;scene.appendChild(v);const music=new Audio(ROOT+'audio/games/find-for-mimi/music/level-4.mp3');music.volume=.55;music.play().catch(()=>{});v.onended=()=>{music.pause();music.currentTime=0;complete(12)}})}
+ else if(sceneNo===12){q.textContent='Акваріум ожив!';const a=document.getElementById('base');a.classList.add('finished');const koi=a.querySelector('[data-fish="redwhite"]'),gold=a.querySelector('[data-fish="orange"]');if(koi&&gold){koi.classList.add('aquarium-kiss-left');gold.classList.add('aquarium-kiss-right');setTimeout(()=>play(SFX+'fish_kiss.mp3'),1250);setTimeout(()=>complete(13),2450)}else{play(SFX+'fish_kiss.mp3',()=>complete(13))}}
+ else if(sceneNo===13){q.textContent='Який гарний торт! Мімі точно сподобається.';const cake=document.getElementById('base');play(VOICE+'13_finish.mp3',()=>{if(cake.isConnected&&sceneNo===13)showCakeCandle(cake)})}
+ else if(sceneNo===14){q.textContent='Клумба розквітла!';document.getElementById('tray').style.display='none';const garden=document.getElementById('base');garden.classList.add('finished');play(KOMAKHY+'audio/sfx/grass_rustle.mp3',()=>{if(!garden.isConnected)return;const hopper=document.createElement('img');hopper.className='garden-insect garden-grasshopper';hopper.src=KOMAKHY+'assets/grasshopper.webp';hopper.alt='Коник';garden.appendChild(hopper);play(KOMAKHY+'audio/sfx/grasshopper_jump.mp3',()=>{if(!garden.isConnected)return;const bee=document.createElement('img');bee.className='garden-insect garden-bee';bee.src=KOMAKHY+'assets/bee.webp';bee.alt='Бджілка';garden.appendChild(bee);play(KOMAKHY+'audio/sfx/bee_buzz.mp3',()=>{if(garden.isConnected)complete(15)})})})}
+ else if(sceneNo===20){finishParty()}
+ else if(sceneNo===19){finishPainting()}
+ else if(sceneNo===18){finishBirdFeeder()}
+ else if(sceneNo===17){finishBackpack()}
+ else if(sceneNo===16){finishBeach()}
+ else if(sceneNo===15){q.textContent='Усі машинки вдома!';document.getElementById('tray').style.display='none';document.getElementById('base').classList.add('finished');play(SFX+'car_horn_beep_beep.mp3',()=>complete(16))}
+}
+let cakeAudioContext=null;
+function cakeSound(kind){
+ try{
+  const C=window.AudioContext||window.webkitAudioContext;if(!C)return;
+  const c=cakeAudioContext||(cakeAudioContext=new C());c.resume().catch(()=>{});
+  const now=c.currentTime;
+  if(kind==='blow'){
+   const buffer=c.createBuffer(1,c.sampleRate*.65,c.sampleRate),data=buffer.getChannelData(0);for(let i=0;i<data.length;i++)data[i]=(Math.random()*2-1)*.45;
+   const src=c.createBufferSource(),filter=c.createBiquadFilter(),gain=c.createGain();src.buffer=buffer;filter.type='lowpass';filter.frequency.value=1100;gain.gain.setValueAtTime(0,now);gain.gain.linearRampToValueAtTime(.34,now+.12);gain.gain.exponentialRampToValueAtTime(.001,now+.65);src.connect(filter);filter.connect(gain);gain.connect(c.destination);src.start(now);
+  }else{
+   [523.25,659.25,783.99,1046.5].forEach((f,i)=>{const o=c.createOscillator(),g=c.createGain();o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(0,now+i*.11);g.gain.linearRampToValueAtTime(.08,now+i*.11+.025);g.gain.exponentialRampToValueAtTime(.001,now+i*.11+.65);o.connect(g);g.connect(c.destination);o.start(now+i*.11);o.stop(now+i*.11+.7)});
+  }
+ }catch(e){}
+}
+function showCakeCandle(cake){
+ cake.insertAdjacentHTML('beforeend','<div class="cake-candle" role="img" aria-label="Запалена свічка"><span class="candle-wax"></span><span class="candle-wick"></span><span class="candle-flame"></span><span class="candle-smoke"></span><span class="candle-smoke second"></span></div>');
+ q.textContent='А тепер задуй свічку!';
+ const b=document.createElement('button');b.className='blow-candle-btn';b.textContent='Задуй свічку';b.disabled=true;scene.appendChild(b);
+ const enable=()=>{if(cake.isConnected)b.disabled=false};play(VOICE+'13_blow_candle.mp3',enable);
+ b.onclick=()=>{if(b.disabled)return;b.disabled=true;if(activeAudio){activeAudio.pause();activeAudio.currentTime=0}const candle=cake.querySelector('.cake-candle');candle.classList.add('blown');candle.setAttribute('aria-label','Свічка згасла');cakeSound('blow');b.remove();q.textContent='Свічка згасла!';setTimeout(()=>{if(!cake.isConnected||sceneNo!==13)return;cake.classList.add('finished');cakeSound('tada');sparkles();q.textContent='Торт для Мімі готовий!';message.textContent='Чудова робота! ✨';complete(14)},1800)};
+}
+function sparkles(){for(let i=0;i<9;i++){const s=document.createElement('span');s.className='spark';s.textContent=i%2?'✨':'⭐';s.style.left=(18+Math.random()*64)+'%';s.style.top=(25+Math.random()*42)+'%';scene.appendChild(s);setTimeout(()=>s.remove(),1100)}}
+function startScene(n){stopBeachAmbience();sceneNo=n;started=true;busy=false;step=0;feedbackBag=[];retryBag=[];message.textContent='';order=n===20?partyItems:n===16?beachOrder():n===1?basketOrder():n===4?pyramid:n===5?[...shuffle(tree.slice(0,4)),tree[4],tree[5]]:n===9?butterflyParts:n===10?houseParts:n===11?explorer:n===12?aquariumFish:shuffle(currentItems());renderScene();if(n===16)startBeachAmbience();if(n===20){busy=true;q.textContent='Підготуємо святковий стіл!';progress.textContent=sceneNames[n]+' • старт';const intro=new Audio(VOICE+'20_party_intro.mp3');activeAudio=intro;let launched=false;const launch=()=>{if(launched||sceneNo!==20)return;launched=true;busy=false;prompt()};intro.onended=launch;intro.onerror=launch;intro.play().catch(launch)}else if(n===17){busy=true;q.textContent='Мімі вирушає у пригоду! Допоможи зібрати його рюкзак.';progress.textContent=sceneNames[n]+' • старт';const base=document.getElementById('base');play(VOICE+'17_intro.mp3',()=>{if(base.isConnected&&sceneNo===17){busy=false;prompt()}})}else if(n===13){busy=true;q.textContent='Прикрасимо торт для Мімі! Обирай фрукти за кольором.';progress.textContent=sceneNames[n]+' • старт';play(VOICE+'13_intro.mp3',()=>{busy=false;prompt()})}else if(n===11){q.textContent='Мімі збирається у пригоду!';progress.textContent=sceneNames[n]+' • старт';const introAudio=new Audio(VOICE+'11_explorer_intro.mp3');introAudio.onended=prompt;introAudio.play().catch(prompt)}else prompt()}
+function begin(){startScene(1)}
+function intro(){stopBeachAmbience();started=false;busy=false;sceneNo=1;progress.textContent='Сцена 1 • Кошик';q.textContent='';message.textContent='';scene.innerHTML='<div class="start"><div><strong>Майстерня кольорів 🎨</strong><span>Допоможи створювати яскраві речі</span><button id="startBtn">Починаймо!</button></div></div>';document.getElementById('startBtn').onclick=()=>play(VOICE+'00_game_intro.mp3',begin)}
+document.getElementById('reset').onclick=()=>{if(activeAudio){activeAudio.pause();activeAudio.currentTime=0}intro()};const requestedScene=Number(new URLSearchParams(location.search).get('scene'));if(Number.isInteger(requestedScene)&&requestedScene>=1&&requestedScene<=20)startScene(requestedScene);else intro();
+</script></body></html>

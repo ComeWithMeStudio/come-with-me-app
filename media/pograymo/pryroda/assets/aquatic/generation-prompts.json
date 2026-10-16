@@ -1,0 +1,70 @@
+{
+  "tool": "built-in image_gen",
+  "style": "Soft shaded 3D children storybook illustration, glossy friendly eyes, transparent background, full creature isolated, no glow or cast shadow.",
+  "subjects": [
+    {
+      "id": "fish-goldfish-orange",
+      "subject": "One orange goldfish with flowing golden fan tail and fins, plump body"
+    },
+    {
+      "id": "fish-koi",
+      "subject": "One white and orange koi carp with red patches, two small barbels by the mouth and graceful fins"
+    },
+    {
+      "id": "fish-discus-blue",
+      "subject": "One turquoise blue discus fish with thin wavy darker blue stripes, round disk shaped body, small mouth, friendly eye"
+    },
+    {
+      "id": "fish-yellow-tang",
+      "subject": "One bright lemon yellow tang fish, disc shaped body and pointed snout"
+    },
+    {
+      "id": "fish-angelfish-silver",
+      "subject": "One freshwater silver angelfish with dark vertical stripes, tall triangular dorsal and anal fins and two thin pelvic fins"
+    },
+    {
+      "id": "fish-betta-red",
+      "subject": "One red and magenta betta fish, very large elegant flowing fan fins and tail"
+    },
+    {
+      "id": "fish-guppy-turquoise",
+      "subject": "One small turquoise guppy with very large orange spotted fan tail, slim small body"
+    },
+    {
+      "id": "fish-puffer-yellow",
+      "subject": "One inflated round yellow cream pufferfish, tiny rounded harmless spines and small side fins"
+    },
+    {
+      "id": "fish-perch-green",
+      "subject": "One green golden freshwater perch with dark vertical bars and orange lower fins"
+    },
+    {
+      "id": "fish-butterflyfish-yellow",
+      "subject": "One yellow white butterflyfish with black band through eye and fine diagonal orange stripes, small pointed mouth"
+    },
+    {
+      "id": "orca",
+      "subject": "One black and white orca, accurate white oval eye patch separate from actual eye, white belly, dorsal fin, two pectoral flippers and horizontal tail flukes"
+    },
+    {
+      "id": "seal",
+      "subject": "One cute grey spotted harbor seal, round head whiskers, no external ear flaps, foreflippers and paired rear flippers, playful swimming pose"
+    },
+    {
+      "id": "octopus",
+      "subject": "One coral lavender octopus with exactly EIGHT clearly separable arms, arranged in open fan with visible suction cups, no extra limbs"
+    },
+    {
+      "id": "dolphin",
+      "subject": "One friendly blue grey bottlenose dolphin with beaklike snout, dorsal fin two pectoral flippers horizontal tail flukes"
+    },
+    {
+      "id": "sea-turtle",
+      "subject": "One sea turtle with olive green patterned shell, exactly four swimming flippers, head and small tail, three quarter swimming view"
+    },
+    {
+      "id": "jellyfish",
+      "subject": "One lilac pink jellyfish, translucent domed bell and delicate trailing tentacles, small friendly face, keep bell colored and legible"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+const cfg=window.SCENE,voice=document.getElementById('voice'),start=document.getElementById('start'),caption=document.getElementById('caption'),bar=document.getElementById('progress'),scene=document.getElementById('scene');
+const sceneOrder=['pozhezhna','shvydka','politsiia','smittievoz','pidmitalna','snihoprybyralna','poshtovyi-furhon','evakuator'];
+const sceneSlug=location.pathname.split('/').filter(Boolean).at(-2),sceneIndex=sceneOrder.indexOf(sceneSlug);
+const sirenAt={pozhezhna:5.7,shvydka:6.1,politsiia:5.5}[sceneSlug];
+let sirenAudio=null,sirenPlayed=false;
+scene.dataset.direction=sceneIndex%2===1?'left':'right';
+function stopSiren(){if(!sirenAudio)return;sirenAudio.pause();sirenAudio.currentTime=0;sirenAudio=null}
+function playSiren(){if(sirenPlayed||sirenAt==null)return;sirenPlayed=true;sirenAudio=new Audio('/audio/games/sfx/emergency-siren-friendly.mp3');sirenAudio.volume=.22;sirenAudio.play().catch(()=>{sirenAudio=null})}
+function reset(){stopSiren();scene.classList.remove('playing','leaving');caption.textContent=cfg.ready;bar.style.width='0';start.hidden=false;start.style.background='';start.style.alignItems='center';start.style.paddingBottom='0';start.querySelector('span').textContent='↻ Послухати ще раз'}
+function play(){start.hidden=true;voice.currentTime=0;sirenPlayed=false;stopSiren();voice.volume=1;scene.classList.remove('playing','leaving');void scene.offsetWidth;scene.classList.add('playing');caption.textContent=cfg.lines[0].text;voice.play().catch(reset)}
+start.addEventListener('click',()=>{if(start.querySelector('span').textContent.includes('всю історію'))location.href=cfg.restart;else play()});
+voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||cfg.duration;bar.style.width=`${Math.min(100,t/d*100)}%`;let line=cfg.lines[0].text;for(const item of cfg.lines)if(t>=item.at)line=item.text;caption.textContent=line;if(sirenAt!=null&&t>=sirenAt)playSiren()});
+voice.addEventListener('ended',()=>{stopSiren();bar.style.width='100%';scene.classList.remove('playing');scene.classList.add('leaving');setTimeout(()=>{if(new URLSearchParams(location.search).get('mode')==='story'&&cfg.next){location.href=cfg.next;return}scene.classList.remove('leaving');start.hidden=false;if(cfg.restart){start.style.background='transparent';start.style.alignItems='end';start.style.paddingBottom='15%';start.querySelector('span').textContent='↻ Подивитися всю історію ще раз'}else start.querySelector('span').textContent='↻ Послухати ще раз'},850)});
+if(new URLSearchParams(location.search).get('mode')==='story')setTimeout(()=>{play();setTimeout(()=>{if(voice.paused&&voice.currentTime<.1)reset()},650)},220);

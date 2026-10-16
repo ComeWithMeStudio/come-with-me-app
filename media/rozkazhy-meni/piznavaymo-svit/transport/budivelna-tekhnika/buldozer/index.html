@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Бульдозер — Come With Me Studio</title>
+  <style>
+    :root{color-scheme:only light;--ink:#493b49;--cream:#fffaf0;--orange:#ff9450}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"Trebuchet MS",system-ui,sans-serif;color:var(--ink)}
+    body{background:linear-gradient(#c9f0f7 0 62%,#f4ddb1 62%);overflow-x:hidden}
+    button{font:inherit}.page{width:min(100%,760px);min-height:100vh;margin:auto;padding:16px 14px 28px;display:flex;flex-direction:column;gap:14px}
+    .head{display:flex;align-items:center;justify-content:space-between;gap:10px}.head h1{margin:0;font-size:clamp(28px,7vw,46px)}
+    .back{border:0;border-radius:999px;background:#fffaf0e8;color:var(--ink);padding:11px 15px;font-weight:900;box-shadow:0 5px 15px #614f3d24;text-decoration:none;white-space:nowrap}
+    .scene{position:relative;flex:0 1 680px;min-height:470px;border-radius:34px;overflow:hidden;background:#bfeaf6;box-shadow:0 14px 36px #59432827}
+    .site-bg{position:absolute;z-index:0;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 46%;filter:saturate(.9) brightness(1.04)}
+    .sun,.cloud{position:absolute;z-index:1;height:auto;object-fit:contain;filter:drop-shadow(0 5px 5px #55402c18)}.sun{right:6%;top:5%;width:13%}.cloud{left:7%;top:7%;width:16%}.cloud.second{left:31%;top:13%;width:13%;opacity:.88}
+    .dozer{position:absolute;z-index:3;right:9%;bottom:16%;width:58%;height:auto;object-fit:contain;filter:drop-shadow(0 10px 8px #60452e35);transform-origin:50% 100%;transition:transform 2.05s ease-in-out}
+    .dozer.entering{animation:drive-in 1.7s ease-out both}.dozer.pushing{transform:translateX(-24%) translateY(1px)}.dozer.level{transform:translateX(-150%) translateY(1px);transition-duration:2.2s;transition-timing-function:ease-in}
+    @keyframes drive-in{from{transform:translateX(105%)}to{transform:translateX(0)}}
+    .soil{position:absolute;z-index:4;left:12%;bottom:18.5%;width:36%;height:18%;opacity:1;transform:translateX(25%) scale(.82);transform-origin:50% 100%;transition:opacity .2s,transform 2.05s ease-in-out}
+    .soil:before{content:"";position:absolute;left:0;right:0;bottom:0;height:46%;border-radius:55% 48% 20% 18%;background:linear-gradient(#a9693a,#80502f);box-shadow:inset 0 5px 8px #d5995c55}
+    .clod{position:absolute;bottom:14%;width:31%;height:53%;border-radius:58% 46% 52% 39%;background:radial-gradient(circle at 32% 28%,#c98a50 0 9%,transparent 10%),linear-gradient(145deg,#b97842,#84502e);box-shadow:inset 3px 5px 7px #dca06455,2px 3px 3px #57351f35;transition:opacity .45s,transform .55s}
+    .clod:nth-child(1){left:2%;width:29%;height:47%;transform:rotate(-8deg)}.clod:nth-child(2){left:22%;bottom:24%;width:35%;height:64%;transform:rotate(5deg)}.clod:nth-child(3){left:49%;width:30%;height:51%;transform:rotate(-3deg)}.clod:nth-child(4){right:0;bottom:10%;width:27%;height:43%;transform:rotate(9deg)}
+    .soil.pushing{transform:translateX(-27%) scale(1)}.soil.level{opacity:.82;transform:translateX(-30%) scaleX(1.55) scaleY(.28)}.soil.level .clod{opacity:0;transform:translateY(55%) scaleY(.15)}
+    .caption{position:absolute;z-index:5;left:4%;right:4%;bottom:3%;min-height:76px;padding:15px 18px;border-radius:24px;background:#fffaf0ed;display:grid;place-items:center;text-align:center;font-size:clamp(19px,4.8vw,30px);font-weight:900;line-height:1.15;box-shadow:0 7px 20px #55402c2d}
+    .start{position:absolute;z-index:8;inset:0;border:0;background:#40324780;color:white;display:grid;place-items:center;cursor:pointer}.start span{padding:17px 25px;border-radius:999px;background:var(--orange);font-size:clamp(22px,6vw,34px);font-weight:900;box-shadow:0 8px 24px #0004}.start[hidden]{display:none}
+    .progress{height:8px;border-radius:999px;background:#fff9;overflow:hidden}.progress i{display:block;width:0;height:100%;background:var(--orange);transition:width .12s linear}
+    @media(max-width:540px){.page{padding:10px 10px 20px}.head h1{font-size:29px}.back{padding:9px 11px;font-size:13px}.scene{flex-basis:auto;height:64svh;min-height:540px;border-radius:28px}.dozer{width:65%;right:5%;bottom:18%}.soil{left:8%;bottom:20%;width:42%;height:19%}.caption{min-height:88px;font-size:21px}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="head"><h1>Бульдозер</h1><a class="back" href="../index.html">← Будівельні машини</a></header>
+    <section class="scene" aria-live="polite">
+      <img class="site-bg" src="../../../../../../media/pograymo/assets/illustrations/transport/construction/construction-site-background.webp?v=20261014" alt="">
+      <img class="sun" src="../../../../../../media/pograymo/assets/illustrations/painted_scene/painted-sun.webp" alt="Сонечко"><img class="cloud" src="../../../../../../media/pograymo/assets/illustrations/painted_scene/painted-cloud.webp" alt="Хмаринка"><img class="cloud second" src="../../../../../../media/pograymo/assets/illustrations/painted_scene/painted-cloud.webp" alt="Хмаринка">
+      <div class="soil" id="soil" aria-hidden="true"><i class="clod"></i><i class="clod"></i><i class="clod"></i><i class="clod"></i></div>
+      <img class="dozer" id="dozer" src="../../../../../../media/pograymo/assets/illustrations/transport/construction/bulldozer-yellow.webp?v=20261014-3" alt="Жовтий бульдозер">
+      <div class="caption" id="caption">Познайомимося з бульдозером!</div>
+      <button class="start" id="start" type="button"><span>▶ Послухати</span></button>
+    </section>
+    <div class="progress"><i id="progress"></i></div>
+  </main>
+  <audio id="voice" preload="auto" src="../../../../../../audio/rozkazhy-meni/piznavaymo-svit/transport/budivelna-tekhnika/02_buldozer.mp3"></audio>
+  <audio id="engine" preload="auto" loop src="../../../../../../audio/games/sfx/heavy-vehicle-engine.mp3"></audio>
+  <audio id="work" preload="auto" src="../../../../../../audio/games/sfx/heavy-machinery-working.mp3"></audio>
+  <script>
+    const voice=document.getElementById('voice'),engine=document.getElementById('engine'),work=document.getElementById('work');
+    const start=document.getElementById('start'),caption=document.getElementById('caption'),bar=document.getElementById('progress'),dozer=document.getElementById('dozer'),soil=document.getElementById('soil');
+    let stage='';
+    const show=(next,text)=>{caption.textContent=text;if(stage===next)return;stage=next;dozer.classList.toggle('pushing',next==='push');dozer.classList.toggle('level',next==='level');soil.classList.toggle('pushing',next==='push');soil.classList.toggle('level',next==='level')};
+    function reset(){engine.pause();work.pause();work.currentTime=11;stage='';dozer.className='dozer';soil.className='soil';caption.textContent='Познайомимося з бульдозером!';bar.style.width='0';start.hidden=false;start.querySelector('span').textContent='↻ Послухати ще раз'}
+    function play(){start.hidden=true;voice.currentTime=0;engine.currentTime=0;work.currentTime=11;work.volume=.16;voice.volume=1;stage='intro';dozer.className='dozer entering';soil.className='soil';caption.textContent='Бульдозер має широкий сильний відвал.';Promise.allSettled([work.play(),voice.play()]);setTimeout(()=>dozer.classList.remove('entering'),1750)}
+    start.addEventListener('click',play);
+    voice.addEventListener('timeupdate',()=>{const t=voice.currentTime,d=voice.duration||9.12;bar.style.width=`${Math.min(100,t/d*100)}%`;if(t<2.3)show('intro','Бульдозер має широкий сильний відвал.');else if(t<4.82)show('ready','Він штовхає землю та вирівнює майданчик.');else if(t<6.97)show('push','Відвал уперед — землю штовхає.');else show('level','Проїхав і рівненько все залишає!')});
+    voice.addEventListener('ended',()=>setTimeout(()=>{if(new URLSearchParams(location.search).get('mode')==='story')location.href='../samoskyd/index.html?mode=story&v=20261014';else reset()},1500));
+    if(new URLSearchParams(location.search).get('mode')==='story')setTimeout(()=>{play();setTimeout(()=>{if(voice.paused&&voice.currentTime<.1)reset()},650)},220);
+  </script>
+  <script src="../story-wake-lock.js?v=20261014"></script>
+</body>
+</html>

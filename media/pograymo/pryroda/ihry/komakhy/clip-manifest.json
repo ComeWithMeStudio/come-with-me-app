@@ -1,0 +1,319 @@
+{
+  "notice": "Voice clips are separated at pauses and named from the Word script. The SFX source is preserved untrimmed for later audition.",
+  "clips": {
+    "01_intro": {
+      "file": "audio/voice/01_intro.mp3",
+      "source": "ElevenLabs_Комахи_Блок_01_—_Вступ(1).mp3",
+      "start": 0.0,
+      "end": 6.862,
+      "duration": 6.896,
+      "text": "Привіт! Сьогодні ми вирушаємо на галявину. Тут живе стільки цікавих маленьких істот! Ходімо подивимося!"
+    },
+    "02_level_1_start": {
+      "file": "audio/voice/02_level_1_start.mp3",
+      "source": "ElevenLabs_Комахи_Блок_01_—_Вступ(1).mp3",
+      "start": 7.58,
+      "end": 10.393,
+      "duration": 2.821,
+      "text": "Полюємо на комах! Тільки обережно. Потім усіх відпустимо."
+    },
+    "03_find_butterfly": {
+      "file": "audio/voice/03_find_butterfly.mp3",
+      "source": "ElevenLabs_Комахи_Блок_02_—_Завдання_із_сачком(1).mp3",
+      "start": 0.0,
+      "end": 0.873,
+      "duration": 0.914,
+      "text": "Знайди метелика!"
+    },
+    "04_catch_ladybug": {
+      "file": "audio/voice/04_catch_ladybug.mp3",
+      "source": "ElevenLabs_Комахи_Блок_02_—_Завдання_із_сачком(1).mp3",
+      "start": 1.19,
+      "end": 1.981,
+      "duration": 0.836,
+      "text": "Спіймай сонечко!"
+    },
+    "05_find_bee": {
+      "file": "audio/voice/05_find_bee.mp3",
+      "source": "ElevenLabs_Комахи_Блок_02_—_Завдання_із_сачком(1).mp3",
+      "start": 2.285,
+      "end": 2.799,
+      "duration": 0.549,
+      "text": "Де бджілка?"
+    },
+    "06_find_beetle": {
+      "file": "audio/voice/06_find_beetle.mp3",
+      "source": "ElevenLabs_Комахи_Блок_02_—_Завдання_із_сачком(1).mp3",
+      "start": 3.154,
+      "end": 3.673,
+      "duration": 0.549,
+      "text": "Знайди жука!"
+    },
+    "07_find_ant": {
+      "file": "audio/voice/07_find_ant.mp3",
+      "source": "ElevenLabs_Комахи_Блок_02_—_Завдання_із_сачком(1).mp3",
+      "start": 4.039,
+      "end": 4.555,
+      "duration": 0.549,
+      "text": "А де мурашка?"
+    },
+    "08_find_dragonfly": {
+      "file": "audio/voice/08_find_dragonfly.mp3",
+      "source": "ElevenLabs_Комахи_Блок_02_—_Завдання_із_сачком(1).mp3",
+      "start": 4.874,
+      "end": 5.537,
+      "duration": 0.705,
+      "text": "Знайди бабку!"
+    },
+    "09_catch_grasshopper": {
+      "file": "audio/voice/09_catch_grasshopper.mp3",
+      "source": "ElevenLabs_Комахи_Блок_02_—_Завдання_із_сачком(1).mp3",
+      "start": 5.848,
+      "end": 6.945,
+      "duration": 1.123,
+      "text": "Спіймай коника!"
+    },
+    "10_level_2_start": {
+      "file": "audio/voice/10_level_2_start.mp3",
+      "source": "ElevenLabs_КОМАХИ_Блок_03_—_Знайомство(1).mp3",
+      "start": 0.0,
+      "end": 3.073,
+      "duration": 3.109,
+      "text": "А тепер познайомимося з мешканцями галявини ближче!"
+    },
+    "11_find_spider": {
+      "file": "audio/voice/11_find_spider.mp3",
+      "source": "ElevenLabs_КОМАХИ_Блок_03_—_Знайомство(1).mp3",
+      "start": 3.526,
+      "end": 4.395,
+      "duration": 0.914,
+      "text": "Знайди павука!"
+    },
+    "12_spider_fact": {
+      "file": "audio/voice/12_spider_fact.mp3",
+      "source": "ElevenLabs_КОМАХИ_Блок_03_—_Знайомство(1).mp3",
+      "start": 4.827,
+      "end": 8.709,
+      "duration": 3.918,
+      "text": "Це павучок. У нього вісім лапок. Павук — не комаха."
+    },
+    "13_find_ladybug": {
+      "file": "audio/voice/13_find_ladybug.mp3",
+      "source": "ElevenLabs_КОМАХИ_Блок_03_—_Знайомство(1).mp3",
+      "start": 9.312,
+      "end": 10.932,
+      "duration": 1.672,
+      "text": "А тепер знайди сонечко!"
+    },
+    "14_ladybug_fact": {
+      "file": "audio/voice/14_ladybug_fact.mp3",
+      "source": "ElevenLabs_КОМАХИ_Блок_03_—_Знайомство(1).mp3",
+      "start": 11.498,
+      "end": 14.647,
+      "duration": 3.187,
+      "text": "У сонечка шість лапок. Сонечко — комаха."
+    },
+    "15_find_snail": {
+      "file": "audio/voice/15_find_snail.mp3",
+      "source": "ElevenLabs_КОМАХИ_Блок_03_—_Знайомство(1).mp3",
+      "start": 15.181,
+      "end": 16.11,
+      "duration": 0.967,
+      "text": "Знайди равлика!"
+    },
+    "16_snail_fact": {
+      "file": "audio/voice/16_snail_fact.mp3",
+      "source": "ElevenLabs_КОМАХИ_Блок_03_—_Знайомство(1).mp3",
+      "start": 16.849,
+      "end": 20.879,
+      "duration": 4.075,
+      "text": "Це равлик. У нього є мушля. Равлик — не комаха."
+    },
+    "17_find_butterfly_2": {
+      "file": "audio/voice/03_find_butterfly.mp3",
+      "source": "ElevenLabs_КОМАХИ_Блок_03_—_Знайомство(1).mp3",
+      "start": 21.428,
+      "end": 22.324,
+      "duration": 0.94,
+      "text": "Знайди метелика!",
+      "aliasOf": "03_find_butterfly",
+      "note": "Reuses the earlier butterfly prompt, as specified in the script."
+    },
+    "18_butterfly_fact": {
+      "file": "audio/voice/18_butterfly_fact.mp3",
+      "source": "ElevenLabs_КОМАХИ_Блок_03_—_Знайомство(1).mp3",
+      "start": 22.911,
+      "end": 27.129,
+      "duration": 4.258,
+      "text": "У метелика шість лапок і чотири крила. Метелик — комаха."
+    },
+    "19_find_worm": {
+      "file": "audio/voice/19_find_worm.mp3",
+      "source": "ElevenLabs_КОМАХИ_Блок_03_—_Знайомство(1).mp3",
+      "start": 27.752,
+      "end": 30.309,
+      "duration": 2.586,
+      "text": "А де сховався черв'ячок?"
+    },
+    "20_worm_fact": {
+      "file": "audio/voice/20_worm_fact.mp3",
+      "source": "ElevenLabs_КОМАХИ_Блок_03_—_Знайомство(1).mp3",
+      "start": 30.946,
+      "end": 34.14,
+      "duration": 3.239,
+      "text": "Це черв'ячок. У нього немає лапок. Черв'ячок — не комаха."
+    },
+    "21_find_bee_2": {
+      "file": "audio/voice/21_find_bee_2.mp3",
+      "source": "ElevenLabs_КОМАХИ_Блок_03_—_Знайомство(1).mp3",
+      "start": 34.718,
+      "end": 35.581,
+      "duration": 0.914,
+      "text": "Знайди бджілку!"
+    },
+    "22_bee_fact": {
+      "file": "audio/voice/22_bee_fact.mp3",
+      "source": "ElevenLabs_КОМАХИ_Блок_03_—_Знайомство(1).mp3",
+      "start": 36.128,
+      "end": 39.754,
+      "duration": 3.657,
+      "text": "У бджілки шість лапок. Бджілка — комаха!"
+    },
+    "23_six_legs_rule": {
+      "file": "audio/voice/23_six_legs_rule.mp3",
+      "source": "ElevenLabs_Комахи_репліка_про_6_лапок(1).mp3",
+      "start": 0.0,
+      "end": 3.366,
+      "duration": 3.396,
+      "text": "Тепер ми знаємо секрет: у комах шість лапок!"
+    },
+    "24_level_3_start": {
+      "file": "audio/voice/24_level_3_start.mp3",
+      "source": "ElevenLabs_Комахи_Блок_04_—_«Кого_ловимо_»(1).mp3",
+      "start": 0.0,
+      "end": 3.647,
+      "duration": 3.683,
+      "text": "У сачок ловимо тільки комах. Готовий? Шукай уважно!"
+    },
+    "25_who_catch": {
+      "file": "audio/voice/25_who_catch.mp3",
+      "source": "ElevenLabs_Комахи_Блок_04_—_«Кого_ловимо_»(1).mp3",
+      "start": 4.012,
+      "end": 4.748,
+      "duration": 0.784,
+      "text": "Кого спіймаємо?"
+    },
+    "26_find_insect": {
+      "file": "audio/voice/26_find_insect.mp3",
+      "source": "ElevenLabs_Комахи_Блок_04_—_«Кого_ловимо_»(1).mp3",
+      "start": 5.124,
+      "end": 6.121,
+      "duration": 1.045,
+      "text": "Знайди комаху!"
+    },
+    "27_wrong_snail": {
+      "file": "audio/voice/27_wrong_snail.mp3",
+      "source": "ElevenLabs_Комахи_Блок_04_—_«Кого_ловимо_»(1).mp3",
+      "start": 6.516,
+      "end": 7.524,
+      "duration": 1.045,
+      "text": "Равлик не комаха. Шукай ще!"
+    },
+    "28_wrong_spider": {
+      "file": "audio/voice/28_wrong_spider.mp3",
+      "source": "ElevenLabs_Комахи_Блок_04_—_«Кого_ловимо_»(1).mp3",
+      "start": 8.442,
+      "end": 10.67,
+      "duration": 2.273,
+      "text": "Павучок не комаха. У нього вісім лапок!"
+    },
+    "29_wrong_worm": {
+      "file": "audio/voice/29_wrong_worm.mp3",
+      "source": "ElevenLabs_Комахи_Блок_04_—_«Кого_ловимо_»(1).mp3",
+      "start": 11.114,
+      "end": 15.318,
+      "duration": 4.232,
+      "text": "У черв'ячка немає лапок. Він не комаха."
+    },
+    "30_level_3_finish": {
+      "file": "audio/voice/30_level_3_finish.mp3",
+      "source": "ElevenLabs_Комахи_Блок_04_—_«Кого_ловимо_»(1).mp3",
+      "start": 15.763,
+      "end": 19.274,
+      "duration": 3.527,
+      "text": "Чудово! Тебе вже не заплутає ні павук, ні равлик!"
+    },
+    "31_level_4_start": {
+      "file": "audio/voice/31_level_4_start.mp3",
+      "source": "ElevenLabs_Комахи_Блок_05_—_«Хто_тут_зайвий_»(1).mp3",
+      "start": 0.0,
+      "end": 2.451,
+      "duration": 2.482,
+      "text": "А тепер найскладніше. Дивись уважно!"
+    },
+    "32_find_not_insect": {
+      "file": "audio/voice/32_find_not_insect.mp3",
+      "source": "ElevenLabs_Комахи_Блок_05_—_«Хто_тут_зайвий_»(1).mp3",
+      "start": 2.868,
+      "end": 4.282,
+      "duration": 1.463,
+      "text": "Знайди того, хто не комаха."
+    },
+    "33_final_question": {
+      "file": "audio/voice/33_final_question.mp3",
+      "source": "ElevenLabs_Комахи_Блок_05_—_«Хто_тут_зайвий_»(1).mp3",
+      "start": 4.785,
+      "end": 7.467,
+      "duration": 2.691,
+      "text": "Останнє завдання! Хто тут не комаха!"
+    },
+    "34_correct_spider": {
+      "file": "audio/voice/34_correct_spider.mp3",
+      "source": "ElevenLabs_Комахи_Блок_06_—_правильні_навчальні_відповіді(1).mp3",
+      "start": 0.0,
+      "end": 3.198,
+      "duration": 3.239,
+      "text": "Так! Павук не комаха. У нього вісім лапок!"
+    },
+    "35_correct_snail": {
+      "file": "audio/voice/35_correct_snail.mp3",
+      "source": "ElevenLabs_Комахи_Блок_06_—_правильні_навчальні_відповіді(1).mp3",
+      "start": 3.783,
+      "end": 5.533,
+      "duration": 1.776,
+      "text": "Так! Равлик не комаха."
+    },
+    "36_correct_worm": {
+      "file": "audio/voice/36_correct_worm.mp3",
+      "source": "ElevenLabs_Комахи_Блок_06_—_правильні_навчальні_відповіді(1).mp3",
+      "start": 5.958,
+      "end": 9.153,
+      "duration": 3.239,
+      "text": "Так! У черв'ячка немає лапок. Він не комаха."
+    },
+    "37_wrong_insect": {
+      "file": "audio/voice/37_wrong_insect.mp3",
+      "source": "ElevenLabs_Комахи_Блок_06_—_правильні_навчальні_відповіді(1).mp3",
+      "start": 9.643,
+      "end": 12.979,
+      "duration": 3.37,
+      "text": "Це комаха. У неї шість лапок. Шукай ще!"
+    },
+    "38_finish": {
+      "file": "audio/voice/38_finish.mp3",
+      "source": "ElevenLabs_Комахи_Блок_07_—_фінал(1).mp3",
+      "start": 0.0,
+      "end": 5.189,
+      "duration": 5.224,
+      "text": "Знайшов! Тепер ти знаєш, хто тут комаха! Ходімо подивимося, що вони роблять!"
+    },
+    "39_free_play": {
+      "file": "audio/voice/39_free_play.mp3",
+      "source": "ElevenLabs_Комахи_Блок_07_—_фінал(1).mp3",
+      "start": 5.748,
+      "end": 9.296,
+      "duration": 3.553,
+      "text": "Торкайся мешканців галявини й дивись, що вони вміють!"
+    }
+  }
+}
