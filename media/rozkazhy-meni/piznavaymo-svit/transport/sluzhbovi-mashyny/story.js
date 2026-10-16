@@ -3,12 +3,6 @@ const sceneOrder=['pozhezhna','shvydka','politsiia','smittievoz','pidmitalna','s
 const sceneSlug=location.pathname.split('/').filter(Boolean).at(-2),sceneIndex=sceneOrder.indexOf(sceneSlug);
 let engineAudio=null;
 scene.dataset.direction=sceneIndex%2===1?'left':'right';
-if(!scene.classList.contains('no-traffic')){
-  const trafficOne=document.createElement('img'),trafficTwo=document.createElement('img');
-  trafficOne.className='traffic-car one';trafficOne.alt='';trafficOne.src='/media/pograymo/assets/illustrations/transport/city-car-blue.webp';
-  trafficTwo.className='traffic-car two';trafficTwo.alt='';trafficTwo.src='/media/pograymo/assets/illustrations/transport/convertible-red.webp';
-  scene.prepend(trafficTwo);scene.prepend(trafficOne);
-}
 function stopEngine(){if(!engineAudio)return;engineAudio.pause();engineAudio.currentTime=0;engineAudio=null}
 function startEngine(){stopEngine();engineAudio=new Audio('/audio/games/sfx/car_drive_soft.mp3');engineAudio.loop=true;engineAudio.volume=.28;engineAudio.play().catch(()=>{engineAudio=null})}
 function reset(){stopEngine();scene.classList.remove('playing','leaving');caption.textContent=cfg.ready;bar.style.width='0';start.hidden=false;start.style.background='';start.style.alignItems='center';start.style.paddingBottom='0';start.querySelector('span').textContent='↻ Послухати ще раз'}
