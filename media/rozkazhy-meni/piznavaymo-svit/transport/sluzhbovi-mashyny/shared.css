@@ -161,3 +161,33 @@ button{font:inherit}
 .sweeper-scene .vehicle{left:7%;bottom:20%;width:78%}.sweeper-scene .litter{bottom:28%}.sweeper-scene .brush{bottom:34%}
 .snow-scene .vehicle{left:5%;bottom:20%;width:82%}
 }
+
+/* final review corrections v5 */
+.police-scene .thief-runner{left:-10%}
+.garbage-scene .vehicle{bottom:8%}.garbage-scene .garbage-loaded-state{bottom:9%}.garbage-scene .bin{bottom:19%}
+
+.sweeper-scene.completed .litter{opacity:0!important;animation:none!important}
+.snow-scene.completed .snow-cover{clip-path:inset(0 0 0 100%)!important}
+.snow-scene.completed .snow-clear{width:100%!important}
+.snow-scene.completed .snowbank{opacity:1!important;transform:scale(1.25)!important}
+@keyframes snow-follow{0%,18%{clip-path:inset(0 0 0 0)}82%{clip-path:inset(0 0 0 82%)}100%{clip-path:inset(0 0 0 100%)}}
+@keyframes road-follow{0%,18%{width:0}82%{width:82%}100%{width:100%}}
+
+.intro-scene .intro-vehicle{position:absolute;z-index:3;height:auto;object-fit:contain;opacity:0;filter:drop-shadow(0 10px 8px #46362b45)}
+.intro-scene .intro-sweeper{left:8%;bottom:16%;width:58%}
+.intro-scene .intro-garbage{left:21%;bottom:16%;width:66%}
+.intro-scene.playing .intro-sweeper{animation:intro-pass 8.36s linear forwards}
+.intro-scene.playing .intro-garbage{animation:intro-pass 8.36s linear .85s forwards}
+.intro-scene.leaving .intro-vehicle{opacity:0}
+@keyframes intro-pass{0%{opacity:0;transform:translateX(-145%)}7%{opacity:1}82%{opacity:1;transform:translateX(90%)}92%,100%{opacity:0;transform:translateX(145%)}}
+
+.final-scene .final-fire,.final-scene .final-ambulance,.final-scene .final-police{bottom:14%;width:44%;max-height:37%}
+.final-scene .final-fire{left:-2%;z-index:2}.final-scene .final-ambulance{left:28%;z-index:3}.final-scene .final-police{left:57%;z-index:4}
+
+@media(max-width:540px){
+.police-scene .thief-runner{left:-13%}
+.garbage-scene .vehicle{bottom:9%}.garbage-scene .garbage-loaded-state{bottom:12%}.garbage-scene .bin{bottom:21%}
+.intro-scene .intro-sweeper{left:2%;bottom:19%;width:64%}.intro-scene .intro-garbage{left:15%;bottom:19%;width:72%}
+.final-scene .final-fire,.final-scene .final-ambulance,.final-scene .final-police{bottom:15%;width:45%;max-height:35%}
+.final-scene .final-fire{left:-3%}.final-scene .final-ambulance{left:27%}.final-scene .final-police{left:57%}
+}
