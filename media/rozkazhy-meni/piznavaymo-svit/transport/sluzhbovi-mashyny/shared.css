@@ -191,3 +191,31 @@ button{font:inherit}
 .final-scene .final-fire,.final-scene .final-ambulance,.final-scene .final-police{bottom:15%;width:45%;max-height:35%}
 .final-scene .final-fire{left:-3%}.final-scene .final-ambulance{left:27%}.final-scene .final-police{left:57%}
 }
+
+
+/* live QA corrections v6 */
+.intro-scene.playing .intro-garbage{animation-delay:1.8s}
+
+@keyframes thief-chase{
+0%{opacity:0;transform:translateX(-100%) scaleX(1)}
+7%{opacity:1}
+37%{opacity:1;transform:translateX(400%) scaleX(1)}
+43%{opacity:0;transform:translateX(430%) scaleX(1)}
+49%{opacity:0;transform:translateX(430%) scaleX(-1)}
+54%{opacity:1}
+88%{opacity:1;transform:translateX(-170%) scaleX(-1)}
+94%,100%{opacity:0;transform:translateX(-195%) scaleX(-1)}
+}
+@keyframes police-chase{
+0%,8%{opacity:0;transform:translateX(-145%) scaleX(1)}
+15%{opacity:1}
+42%{opacity:1;transform:translateX(95%) scaleX(1)}
+47%{opacity:0;transform:translateX(115%) scaleX(1)}
+52%{opacity:0;transform:translateX(140%) scaleX(-1)}
+59%{opacity:1}
+92%{opacity:1;transform:translateX(-90%) scaleX(-1)}
+98%,100%{opacity:0;transform:translateX(-110%) scaleX(-1)}
+}
+
+.final-scene.completed .vehicle,
+.final-scene.leaving .vehicle{opacity:1!important;transform:none!important;animation:final-wave .8s ease-in-out infinite alternate!important}
