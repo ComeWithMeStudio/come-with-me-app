@@ -260,3 +260,23 @@ to{opacity:1;transform:translateX(0) scaleX(-1)}
 .final-scene .final-ambulance{left:27%;z-index:3}
 .final-scene .final-police{left:57%;z-index:4}
 }
+
+
+/* desktop-only trajectory QA v9 */
+@media(min-width:541px){
+.intro-scene.playing .intro-garbage{animation-delay:3.8s}
+.sweeper-scene.playing .vehicle{animation:sweeper-drive-desktop 8.5s linear forwards}
+.snow-scene.playing .vehicle{animation:snowplow-drive-desktop 7.84s linear forwards}
+}
+@keyframes sweeper-drive-desktop{
+0%{opacity:0;transform:translateX(-85%)}
+8%{opacity:1}
+90%{opacity:1;transform:translateX(60%)}
+100%{opacity:0;transform:translateX(105%)}
+}
+@keyframes snowplow-drive-desktop{
+0%{opacity:0;transform:translateX(-85%)}
+8%{opacity:1}
+92%{opacity:1;transform:translateX(62%)}
+100%{opacity:0;transform:translateX(105%)}
+}
