@@ -118,3 +118,46 @@ button{font:inherit}
 @keyframes tow-car-hide{0%,46%{opacity:1;transform:none}62%,100%{opacity:0;transform:translate(-70%,-45%) scale(.65)}}
 @keyframes tow-loaded{0%,54%{opacity:0;transform:scale(.96)}64%,100%{opacity:1;transform:scale(1)}}
 @media(max-width:540px){.garbage-loaded-state{left:2%;bottom:12%;width:96%;max-height:52%}.tow-loaded-state{left:1%;bottom:12%;width:96%;max-height:49%}}
+
+/* review corrections v4 */
+.police-scene .thief-runner{width:37.5%;left:2%;bottom:23%}
+.garbage-scene .vehicle{bottom:14%}.garbage-scene .garbage-loaded-state{bottom:14%}.garbage-scene .bin{bottom:24%}
+
+.sweeper-scene .vehicle{left:9%;bottom:17%;width:72%;max-height:43%}
+.sweeper-scene.playing .vehicle{animation:sweeper-drive 8.5s linear forwards}
+.sweeper-scene.leaving .vehicle{opacity:0;animation:none}
+.sweeper-scene .litter{bottom:25%}
+.sweeper-scene.playing .litter:nth-of-type(1){animation:litter-away 1.7s ease-in 2s forwards!important}
+.sweeper-scene.playing .litter:nth-of-type(2){animation:litter-away 1.7s ease-in 3s forwards!important}
+.sweeper-scene.playing .litter:nth-of-type(3){animation:litter-away 1.7s ease-in 4.1s forwards!important}
+.sweeper-scene.playing .litter:nth-of-type(4){animation:litter-away 1.7s ease-in 5.2s forwards!important}
+.sweeper-scene .brush{bottom:31%}
+@keyframes sweeper-drive{0%{opacity:0;transform:translateX(-150%)}8%{opacity:1}90%{opacity:1;transform:translateX(60%)}100%{opacity:0;transform:translateX(105%)}}
+@keyframes litter-away{0%{opacity:1;transform:scale(1) rotate(20deg)}100%{opacity:0;transform:scale(.08) rotate(210deg)}}
+
+.snow-scene .vehicle{left:7%;bottom:17%;width:76%;max-height:44%}
+.snow-scene.playing .vehicle{animation:snowplow-drive 7.84s linear forwards}
+.snow-scene.leaving .vehicle{opacity:0;animation:none}
+.snow-scene.playing .snow-cover{animation:snow-follow 7.84s linear forwards}
+.snow-scene.playing .snow-clear{animation:road-follow 7.84s linear forwards}
+.snow-scene.playing .snowbank{animation:bank-earlier 7.84s ease-out forwards}
+@keyframes snowplow-drive{0%{opacity:0;transform:translateX(-150%)}8%{opacity:1}92%{opacity:1;transform:translateX(62%)}100%{opacity:0;transform:translateX(105%)}}
+@keyframes snow-follow{0%,10%{clip-path:inset(0 0 0 0)}88%,100%{clip-path:inset(0 0 0 100%)}}
+@keyframes road-follow{0%,10%{width:0}88%,100%{width:100%}}
+@keyframes bank-earlier{0%,18%{opacity:0;transform:scale(.3)}56%,100%{opacity:1;transform:scale(1.25)}}
+
+.post-scene.playing .vehicle{animation:post-arrive 2.6s ease-out forwards,work 1.7s ease-in-out 2.8s infinite alternate}
+.post-scene.leaving .vehicle{opacity:1;animation:post-depart .78s ease-in forwards}
+@keyframes post-arrive{from{opacity:0;transform:translateX(-145%)}to{opacity:1;transform:translateX(0)}}
+@keyframes post-depart{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(145%)}}
+
+.tow-scene .broken-car{filter:url(#service-black-key) drop-shadow(0 7px 6px #46362b40)}
+.tow-scene.playing .broken-mark{animation:mark-away-fast 7.6s linear forwards}
+@keyframes mark-away-fast{0%,38%{opacity:1}48%,100%{opacity:0}}
+
+@media(max-width:540px){
+.police-scene .thief-runner{width:42%;left:-2%;bottom:26%}
+.garbage-scene .vehicle{bottom:19%}.garbage-scene .garbage-loaded-state{bottom:17%}.garbage-scene .bin{bottom:27%}
+.sweeper-scene .vehicle{left:7%;bottom:20%;width:78%}.sweeper-scene .litter{bottom:28%}.sweeper-scene .brush{bottom:34%}
+.snow-scene .vehicle{left:5%;bottom:20%;width:82%}
+}
