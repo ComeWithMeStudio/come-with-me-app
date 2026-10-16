@@ -4,7 +4,7 @@ const sceneSlug=location.pathname.split('/').filter(Boolean).at(-2),sceneIndex=s
 const sirenAt={pozhezhna:5.7,shvydka:6.1,politsiia:5.5}[sceneSlug];
 let sirenAudio=null,sirenPlayed=false,backgroundSiren=null,cityAmbience=null;
 function stopCityAmbience(){if(!cityAmbience)return;cityAmbience.pause();cityAmbience.currentTime=0;cityAmbience=null}
-function playCityAmbience(){if(sirenAt!=null)return;stopCityAmbience();cityAmbience=new Audio('/audio/games/sfx/City_Traffic_Ambience.mp3');cityAmbience.loop=true;cityAmbience.volume=.10;cityAmbience.play().catch(()=>{cityAmbience=null})}
+function playCityAmbience(){if(sirenAt!=null)return;stopCityAmbience();cityAmbience=new Audio('/audio/games/sfx/City_Traffic_Ambience.mp3');cityAmbience.loop=true;cityAmbience.volume=.24;cityAmbience.play().catch(()=>{cityAmbience=null})}
 function stopBackgroundSiren(){if(!backgroundSiren)return;backgroundSiren.pause();backgroundSiren.currentTime=0;backgroundSiren=null}
 function playBackgroundSiren(){if(sirenAt==null)return;stopBackgroundSiren();backgroundSiren=new Audio('/audio/games/sfx/emergency-siren.mp3');backgroundSiren.loop=true;backgroundSiren.volume=.10;backgroundSiren.play().catch(()=>{backgroundSiren=null})}
 scene.dataset.direction=sceneIndex%2===1?'left':'right';
