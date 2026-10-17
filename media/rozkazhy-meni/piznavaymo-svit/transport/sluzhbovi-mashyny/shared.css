@@ -280,3 +280,9 @@ to{opacity:1;transform:translateX(0) scaleX(-1)}
 92%{opacity:1;transform:translateX(62%)}
 100%{opacity:0;transform:translateX(105%)}
 }
+
+/* desktop-only final size polish: police chase and arriving empty tow truck */
+@media(min-width:541px){
+.police-scene .vehicle{width:62%;left:31%}
+.tow-scene .vehicle{width:75%;left:2%}
+}
