@@ -9,19 +9,19 @@
     body{margin:0;min-height:100vh;overflow:hidden;background:#a9e3f4;font-family:"Trebuchet MS",system-ui,sans-serif;color:#493b49}
     .scene{position:relative;width:100vw;height:100svh;min-height:560px;overflow:hidden;background:linear-gradient(#a9e3f4 0 51%,#8fca61 51% 64%,#c68c4f 64%)}
     .sun,.cloud{position:absolute;object-fit:contain;z-index:1}.sun{right:5%;top:4%;width:min(16vw,145px)}.cloud{left:6%;top:8%;width:min(25vw,230px)}
-    .farm,.tree{position:absolute;object-fit:contain;pointer-events:none}.farm{z-index:2;right:1%;bottom:35%;width:min(54vw,630px)}.tree{z-index:1}.apple-1{left:2%;bottom:47%;width:min(8vw,90px)}.apple-2{left:11%;bottom:44%;width:min(11vw,125px)}.apple-3{left:23%;bottom:40%;width:min(14vw,160px)}.pear-1{left:4%;bottom:38%;width:min(8vw,90px)}.pear-2{left:14%;bottom:35%;width:min(11vw,125px)}.pear-3{left:27%;bottom:32%;width:min(14vw,160px)}
+    .farm,.tree{position:absolute;object-fit:contain;pointer-events:none}.farm{z-index:2;right:1%;bottom:35%;width:min(54vw,630px)}.tree{z-index:1}.pear-1{left:1%;bottom:49%;width:min(7vw,78px)}.pear-2{left:9%;bottom:46%;width:min(9vw,102px)}.pear-3{left:19%;bottom:43%;width:min(11vw,126px)}.apple-1{left:12%;bottom:41%;width:min(10vw,112px)}.apple-2{left:23%;bottom:38%;width:min(13vw,148px)}.apple-3{left:37%;bottom:35%;width:min(16vw,182px)}
     .field{position:absolute;z-index:0;inset:64% 0 0;background:linear-gradient(#c68c4f,#ae713e)}
     .furrows{position:absolute;z-index:1;left:0;bottom:17%;width:0;height:20%;opacity:0;background:repeating-linear-gradient(to bottom,transparent 0 15px,#7c4a2d 16px 22px,transparent 23px 33px);border-radius:0 20px 20px 0;filter:drop-shadow(0 2px 0 #db9f5a55)}
     .rig{position:absolute;z-index:4;left:7%;bottom:22%;width:min(72vw,790px);height:min(34vw,370px);filter:drop-shadow(0 10px 8px #51311f45)}
     .tractor{position:absolute;right:0;bottom:0;width:54%;height:auto}.plow{position:absolute;left:0;bottom:2%;width:51%;height:auto}
-    .scene.running .rig{animation:drive 9s ease-in-out forwards}.scene.running .furrows{animation:furrowGrow 7.2s 1.2s linear forwards}
+    .scene.running .rig{animation:drive 9s ease-in-out forwards}.scene.running .furrows{animation:furrowGrow 8.2s .8s linear forwards}
     .dust{position:absolute;z-index:3;left:24%;bottom:29%;width:10px;height:10px;border-radius:50%;background:#e7c18c00}.scene.running .dust{animation:dust 4.5s 2s ease-out}
-    @keyframes drive{0%{left:-78%}20%{left:-22%}100%{left:16%}}
-    @keyframes furrowGrow{0%{width:0;opacity:0}8%{opacity:1}100%{width:47%}}
+    @keyframes drive{0%{left:-78%}18%{left:-24%}100%{left:105%}}
+    @keyframes furrowGrow{0%{width:0;opacity:0}8%{opacity:1}100%{width:100%}}
     @keyframes dust{0%{box-shadow:0 0 0 0 #e7c18ca0;opacity:0}25%{box-shadow:-15px -3px 0 8px #e7c18c99,-35px 4px 0 13px #e7c18c70;opacity:1}100%{box-shadow:-90px -25px 0 28px #e7c18c00,-125px -3px 0 34px #e7c18c00;opacity:0}}
     .top{position:absolute;z-index:8;left:12px;right:12px;top:12px;display:flex;justify-content:space-between;align-items:center}.pill{padding:10px 14px;border-radius:999px;background:#fffbe8e8;color:inherit;text-decoration:none;font-weight:900;box-shadow:0 5px 15px #614f3d20}.title{font-size:clamp(25px,6vw,40px)}
     .panel{position:absolute;z-index:7;left:4%;right:4%;bottom:3%;padding:18px 18px 15px;border-radius:28px;background:#fffaf0ee;text-align:center;box-shadow:0 10px 30px #604f7040}.text{min-height:52px;font-size:clamp(18px,4vw,27px);font-weight:900;line-height:1.25}.go{margin-top:12px;border:0;border-radius:999px;padding:13px 25px;background:#69b94d;color:#fff;font:900 clamp(18px,4vw,24px) "Trebuchet MS";box-shadow:0 7px 18px #355e2d50}.go:disabled{opacity:.55}.repeat{display:none}.done .start{display:none}.done .repeat{display:inline-block}
-    @media(max-width:600px){.farm{width:66%;right:-4%;bottom:35%}.apple-1{left:1%;bottom:49%;width:12%}.apple-2{left:10%;bottom:46%;width:16%}.apple-3{left:22%;bottom:42%;width:20%}.pear-1{left:3%;bottom:40%;width:12%}.pear-2{left:13%;bottom:37%;width:16%}.pear-3{left:26%;bottom:33%;width:20%}.rig{width:94vw;height:46vw;bottom:24%;left:2%}.tractor{width:55%}.plow{width:52%}.furrows{bottom:20%;height:17%}.panel{left:3%;right:3%;bottom:2%;padding:14px}.top{align-items:flex-start}.title{max-width:56%}}
+    @media(max-width:600px){.farm{width:66%;right:-4%;bottom:35%}.pear-1{left:1%;bottom:49%;width:10%}.pear-2{left:8%;bottom:46%;width:12%}.pear-3{left:17%;bottom:43%;width:14%}.apple-1{left:13%;bottom:42%;width:16%}.apple-2{left:25%;bottom:39%;width:19%}.apple-3{left:40%;bottom:36%;width:22%}.rig{width:94vw;height:46vw;bottom:24%;left:2%}.tractor{width:55%}.plow{width:52%}.furrows{bottom:20%;height:17%}.panel{left:3%;right:3%;bottom:2%;padding:14px}.top{align-items:flex-start}.title{max-width:56%}}
   </style>
 </head>
 <body>
