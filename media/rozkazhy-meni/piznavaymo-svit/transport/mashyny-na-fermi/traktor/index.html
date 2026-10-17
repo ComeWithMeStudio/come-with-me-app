@@ -1,11 +1,47 @@
-<!doctype html><html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Трактор — Машини на фермі</title><style>
-*{box-sizing:border-box}body{margin:0;min-height:100vh;overflow:hidden;background:#a9e3f4;font-family:"Trebuchet MS",system-ui,sans-serif;color:#493b49}.scene{position:relative;width:100vw;height:100svh;min-height:560px;overflow:hidden;background:linear-gradient(#a9e3f4 0 53%,#8fca61 53% 65%,#c68c4f 65%)}.sun,.cloud{position:absolute;object-fit:contain;z-index:1}.sun{right:5%;top:4%;width:min(16vw,145px)}.cloud{left:6%;top:8%;width:min(25vw,230px)}.barn{position:absolute;right:5%;bottom:35%;width:21%;height:21%;border-radius:18px 18px 4px 4px;background:#e95748;box-shadow:inset 0 -12px #c84339}.barn:before{content:"";position:absolute;left:-8%;right:-8%;top:-25%;height:35%;background:#873d34;clip-path:polygon(50% 0,100% 100%,0 100%)}.barn:after{content:"";position:absolute;left:35%;bottom:0;width:30%;height:58%;border-radius:8px 8px 0 0;background:#6b3d2d}
-.field{position:absolute;inset:65% 0 0;background:linear-gradient(#c68c4f,#ae713e)}.furrows{position:absolute;left:0;right:0;bottom:0;height:35%;opacity:0;background:repeating-linear-gradient(165deg,transparent 0 24px,#7d492c 25px 31px,transparent 32px 55px);clip-path:polygon(0 50%,100% 0,100% 100%,0 100%);transition:opacity 1.2s ease}.tractor{position:absolute;z-index:3;left:5%;bottom:24%;width:min(52vw,520px);height:auto;filter:drop-shadow(0 10px 8px #51311f45)}.scene.running .tractor{animation:drive 7s ease-in-out forwards}.scene.running .furrows{opacity:1;transition-delay:2.2s}.dust{position:absolute;z-index:2;left:22%;bottom:28%;width:12px;height:12px;border-radius:50%;background:#e7c18c00;box-shadow:0 0 #e7c18c00}.scene.running .dust{animation:dust 3.5s 1.8s ease-out}
-@keyframes drive{0%{left:-55%}28%{left:5%}78%{left:27%}100%{left:27%}}@keyframes dust{0%{box-shadow:0 0 0 0 #e7c18ca0;opacity:0}25%{box-shadow:-15px -3px 0 8px #e7c18c99,-35px 4px 0 13px #e7c18c70,-58px -5px 0 10px #e7c18c55;opacity:1}100%{box-shadow:-90px -25px 0 28px #e7c18c00,-125px -3px 0 34px #e7c18c00,-160px -35px 0 30px #e7c18c00;opacity:0}}
-.top{position:absolute;z-index:8;left:12px;right:12px;top:12px;display:flex;justify-content:space-between;align-items:center}.pill{padding:10px 14px;border-radius:999px;background:#fffbe8e8;color:inherit;text-decoration:none;font-weight:900;box-shadow:0 5px 15px #614f3d20}.title{font-size:clamp(25px,6vw,40px)}.panel{position:absolute;z-index:7;left:4%;right:4%;bottom:3%;padding:18px 18px 15px;border-radius:28px;background:#fffaf0ee;text-align:center;box-shadow:0 10px 30px #604f7040}.text{min-height:52px;font-size:clamp(18px,4vw,27px);font-weight:900;line-height:1.25}.go{margin-top:12px;border:0;border-radius:999px;padding:13px 25px;background:#69b94d;color:#fff;font:900 clamp(18px,4vw,24px) "Trebuchet MS";box-shadow:0 7px 18px #355e2d50}.go:disabled{opacity:.55}.repeat{display:none}.done .start{display:none}.done .repeat{display:inline-block}@media(max-width:600px){.barn{width:30%;height:18%;bottom:35%}.tractor{width:69vw;bottom:25%}.panel{left:3%;right:3%;bottom:2%;padding:14px}.top{align-items:flex-start}.title{max-width:56%}}
-</style></head><body><main class="scene" id="scene"><div class="top"><strong class="pill title">🚜 Трактор</strong><a class="pill" href="../index.html">← Машини</a></div><img class="sun" src="../../../../../pograymo/assets/illustrations/painted_scene/painted-sun.webp" alt=""><img class="cloud" src="../../../../../pograymo/assets/illustrations/painted_scene/painted-cloud.webp" alt=""><div class="barn"></div><div class="field"></div><div class="furrows"></div><div class="dust"></div><img class="tractor" src="../../../../../pograymo/assets/illustrations/transport/farm/tractor-green.webp?v=f442394" alt="Зелений трактор"><audio id="voice" preload="auto" src="/audio/rozkazhy-meni/piznavaymo-svit/transport/mashyny-na-fermi/01-traktor-gigi.mp3"></audio><section class="panel"><div class="text" id="text">Трактор — сильний помічник на фермі.</div><button class="go start" id="start">▶ Подивитися</button><button class="go repeat" id="repeat">↻ Ще раз</button></section></main><script>
-const scene=document.getElementById('scene'),text=document.getElementById('text'),start=document.getElementById('start'),repeat=document.getElementById('repeat'),voice=document.getElementById('voice');
-const captions=[['Трактор — сильний помічник на фермі.',0],['Він тягне плуг і готує землю до посіву.',2100],['Їде вперед — землю розпушує.',4300],['Рівні борозенки за собою залишає!',6100]];
-let timers=[];function finish(){scene.classList.add('done');start.disabled=false}function play(){timers.forEach(clearTimeout);timers=[];voice.pause();voice.currentTime=0;scene.classList.remove('running','done');void scene.offsetWidth;scene.classList.add('running');start.disabled=true;captions.forEach(([t,ms])=>timers.push(setTimeout(()=>text.textContent=t,ms)));voice.play().catch(()=>{});voice.onended=finish;timers.push(setTimeout(finish,9800))}
-start.addEventListener('click',play);repeat.addEventListener('click',play);
-</script></body></html>
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Трактор — Машини на фермі</title>
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;overflow:hidden;background:#a9e3f4;font-family:"Trebuchet MS",system-ui,sans-serif;color:#493b49}
+    .scene{position:relative;width:100vw;height:100svh;min-height:560px;overflow:hidden;background:linear-gradient(#a9e3f4 0 51%,#8fca61 51% 64%,#c68c4f 64%)}
+    .sun,.cloud{position:absolute;object-fit:contain;z-index:1}.sun{right:5%;top:4%;width:min(16vw,145px)}.cloud{left:6%;top:8%;width:min(25vw,230px)}
+    .farm,.tree{position:absolute;object-fit:contain;pointer-events:none}.farm{z-index:2;right:3%;bottom:36%;width:min(28vw,330px)}.apple{z-index:1;right:27%;bottom:43%;width:min(15vw,165px)}.pear{z-index:1;right:1%;bottom:43%;width:min(13vw,150px)}
+    .field{position:absolute;z-index:0;inset:64% 0 0;background:linear-gradient(#c68c4f,#ae713e)}
+    .furrows{position:absolute;z-index:1;left:0;bottom:17%;width:0;height:20%;opacity:0;background:repeating-linear-gradient(to bottom,transparent 0 15px,#7c4a2d 16px 22px,transparent 23px 33px);border-radius:0 20px 20px 0;filter:drop-shadow(0 2px 0 #db9f5a55)}
+    .rig{position:absolute;z-index:4;left:7%;bottom:22%;width:min(72vw,790px);height:min(34vw,370px);filter:drop-shadow(0 10px 8px #51311f45)}
+    .tractor{position:absolute;right:0;bottom:0;width:54%;height:auto}.plow{position:absolute;left:0;bottom:2%;width:51%;height:auto}
+    .scene.running .rig{animation:drive 9s ease-in-out forwards}.scene.running .furrows{animation:furrowGrow 7.2s 1.2s linear forwards}
+    .dust{position:absolute;z-index:3;left:24%;bottom:29%;width:10px;height:10px;border-radius:50%;background:#e7c18c00}.scene.running .dust{animation:dust 4.5s 2s ease-out}
+    @keyframes drive{0%{left:-78%}20%{left:-22%}100%{left:16%}}
+    @keyframes furrowGrow{0%{width:0;opacity:0}8%{opacity:1}100%{width:47%}}
+    @keyframes dust{0%{box-shadow:0 0 0 0 #e7c18ca0;opacity:0}25%{box-shadow:-15px -3px 0 8px #e7c18c99,-35px 4px 0 13px #e7c18c70;opacity:1}100%{box-shadow:-90px -25px 0 28px #e7c18c00,-125px -3px 0 34px #e7c18c00;opacity:0}}
+    .top{position:absolute;z-index:8;left:12px;right:12px;top:12px;display:flex;justify-content:space-between;align-items:center}.pill{padding:10px 14px;border-radius:999px;background:#fffbe8e8;color:inherit;text-decoration:none;font-weight:900;box-shadow:0 5px 15px #614f3d20}.title{font-size:clamp(25px,6vw,40px)}
+    .panel{position:absolute;z-index:7;left:4%;right:4%;bottom:3%;padding:18px 18px 15px;border-radius:28px;background:#fffaf0ee;text-align:center;box-shadow:0 10px 30px #604f7040}.text{min-height:52px;font-size:clamp(18px,4vw,27px);font-weight:900;line-height:1.25}.go{margin-top:12px;border:0;border-radius:999px;padding:13px 25px;background:#69b94d;color:#fff;font:900 clamp(18px,4vw,24px) "Trebuchet MS";box-shadow:0 7px 18px #355e2d50}.go:disabled{opacity:.55}.repeat{display:none}.done .start{display:none}.done .repeat{display:inline-block}
+    @media(max-width:600px){.farm{width:35%;right:1%;bottom:37%}.apple{width:20%;right:31%;bottom:44%}.pear{width:18%;right:-3%;bottom:44%}.rig{width:94vw;height:46vw;bottom:24%;left:2%}.tractor{width:55%}.plow{width:52%}.furrows{bottom:20%;height:17%}.panel{left:3%;right:3%;bottom:2%;padding:14px}.top{align-items:flex-start}.title{max-width:56%}}
+  </style>
+</head>
+<body>
+  <main class="scene" id="scene">
+    <div class="top"><strong class="pill title">🚜 Трактор</strong><a class="pill" href="../index.html">← Машини</a></div>
+    <img class="sun" src="../../../../../pograymo/assets/illustrations/painted_scene/painted-sun.webp" alt="">
+    <img class="cloud" src="../../../../../pograymo/assets/illustrations/painted_scene/painted-cloud.webp" alt="">
+    <img class="tree apple" src="../../../../../pograymo/assets/illustrations/farm_scene/apple-tree.webp?v=farm-scene-1" alt="Яблуня">
+    <img class="tree pear" src="../../../../../pograymo/assets/illustrations/farm_scene/pear-tree.webp?v=farm-scene-1" alt="Груша">
+    <img class="farm" src="../../../../../pograymo/assets/illustrations/farm_scene/farm-barn-red.webp?v=farm-scene-1" alt="Ферма">
+    <div class="field"></div><div class="furrows"></div><div class="dust"></div>
+    <div class="rig"><img class="plow" src="../../../../../pograymo/assets/illustrations/transport/farm/plow-red.webp?v=farm-scene-1" alt="Червоний плуг"><img class="tractor" src="../../../../../pograymo/assets/illustrations/transport/farm/tractor-green.webp?v=f442394" alt="Зелений трактор"></div>
+    <audio id="voice" preload="auto" src="/audio/rozkazhy-meni/piznavaymo-svit/transport/mashyny-na-fermi/01-traktor-gigi.mp3"></audio>
+    <section class="panel"><div class="text" id="text">Трактор — сильний помічник на фермі.</div><button class="go start" id="start">▶ Подивитися</button><button class="go repeat" id="repeat">↻ Ще раз</button></section>
+  </main>
+  <script>
+    const scene=document.getElementById('scene'),text=document.getElementById('text'),start=document.getElementById('start'),repeat=document.getElementById('repeat'),voice=document.getElementById('voice');
+    const captions=[['Трактор — сильний помічник на фермі.',0],['Він тягне плуг і готує землю до посіву.',2100],['Їде вперед — землю розпушує.',4300],['Рівні борозенки за собою залишає!',6100]];
+    let timers=[];function finish(){scene.classList.add('done');start.disabled=false}function play(){timers.forEach(clearTimeout);timers=[];voice.pause();voice.currentTime=0;scene.classList.remove('running','done');void scene.offsetWidth;scene.classList.add('running');start.disabled=true;captions.forEach(([t,ms])=>timers.push(setTimeout(()=>text.textContent=t,ms)));voice.play().catch(()=>{});voice.onended=finish;timers.push(setTimeout(finish,9800))}
+    start.addEventListener('click',play);repeat.addEventListener('click',play);
+  </script>
+</body>
+</html>
