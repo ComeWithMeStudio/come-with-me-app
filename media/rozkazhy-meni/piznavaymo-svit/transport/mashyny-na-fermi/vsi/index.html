@@ -34,12 +34,12 @@
     const base='/audio/rozkazhy-meni/piznavaymo-svit/transport/mashyny-na-fermi/';
     const scenes=[
       {page:'../traktor/index.html?mode=all&v=2',audio:'01-traktor-gigi.mp3',min:9800},
-      {page:'../kombayn/index.html?mode=all&v=2',audio:'02-kombayn-gigi.mp3',min:10500},
-      {page:'../obpryskuvach/index.html?mode=all&v=2',audio:'03-obpryskuvach-gigi.mp3',min:11000},
-      {page:'../pres-pidbyrach/index.html?mode=all&v=2',audio:'04-pres-pidbyrach-gigi.mp3',min:12500}
+      {page:'../kombayn/index.html?mode=all&v=3',audio:'02-kombayn-gigi.mp3',min:11400},
+      {page:'../obpryskuvach/index.html?mode=all&v=3',audio:'03-obpryskuvach-gigi.mp3',min:11400},
+      {page:'../pres-pidbyrach/index.html?mode=all&v=3',audio:'04-pres-pidbyrach-gigi.mp3',min:13000}
     ];
     let index=-1,began=0;
-    function playAudio(file,done,min=0){voice.onended=null;voice.src=base+file+'?v=1';began=Date.now();voice.onended=()=>setTimeout(done,Math.max(450,min-(Date.now()-began)));voice.play().catch(()=>{start.disabled=false});}
+    function playAudio(file,done,min=0){voice.onended=null;voice.src=base+file+'?v=2';began=Date.now();voice.onended=()=>setTimeout(done,Math.max(450,min-(Date.now()-began)));voice.play().catch(()=>{start.disabled=false});}
     function next(){index++;if(index>=scenes.length){document.body.className='finished';playAudio('05-final-gigi.mp3',()=>{},0);return}const item=scenes[index];document.body.className='playing';stage.src=item.page;playAudio(item.audio,next,item.min)}
     function begin(){if(document.body.dataset.started)return;document.body.dataset.started='1';start.hidden=true;start.disabled=true;index=-1;playAudio('00-vstup-gigi.mp3',next,6200)}
     start.onclick=begin;again.onclick=()=>{document.body.className='';document.body.dataset.started='';stage.src='';start.disabled=false;begin()};setTimeout(()=>{begin();setTimeout(()=>{if(voice.paused&&voice.currentTime<.1){document.body.dataset.started='';start.hidden=false;start.disabled=false}},700)},220);
