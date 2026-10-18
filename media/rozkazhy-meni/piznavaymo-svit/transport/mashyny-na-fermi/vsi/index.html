@@ -20,7 +20,7 @@
     <img class="sun" src="/media/pograymo/assets/illustrations/painted_scene/painted-sun.webp" alt="">
     <img class="cloud" src="/media/pograymo/assets/illustrations/painted_scene/painted-cloud.webp" alt="">
     <img class="farm" src="/media/pograymo/assets/illustrations/farm_scene/farm-barn-red.webp" alt="Ферма">
-    <div class="card"><h1>Машини на фермі</h1><p id="introText">Подивімося, як працює ферма!</p><button class="start" id="start">▶ Почати</button></div>
+    <div class="card"><h1>Машини на фермі</h1><p id="introText">Подивімося, як працює ферма!</p><button class="start" id="start" hidden>▶ Почати</button></div>
   </section>
   <iframe id="stage" title="Машини на фермі"></iframe>
   <section class="screen final">
@@ -41,8 +41,8 @@
     let index=-1,began=0;
     function playAudio(file,done,min=0){voice.onended=null;voice.src=base+file+'?v=1';began=Date.now();voice.onended=()=>setTimeout(done,Math.max(450,min-(Date.now()-began)));voice.play().catch(()=>{start.disabled=false});}
     function next(){index++;if(index>=scenes.length){document.body.className='finished';playAudio('05-final-gigi.mp3',()=>{},0);return}const item=scenes[index];document.body.className='playing';stage.src=item.page;playAudio(item.audio,next,item.min)}
-    function begin(){start.disabled=true;index=-1;playAudio('00-vstup-gigi.mp3',next,6200)}
-    start.onclick=begin;again.onclick=()=>{document.body.className='';stage.src='';start.disabled=false;begin()};
+    function begin(){if(document.body.dataset.started)return;document.body.dataset.started='1';start.hidden=true;start.disabled=true;index=-1;playAudio('00-vstup-gigi.mp3',next,6200)}
+    start.onclick=begin;again.onclick=()=>{document.body.className='';document.body.dataset.started='';stage.src='';start.disabled=false;begin()};setTimeout(()=>{begin();setTimeout(()=>{if(voice.paused&&voice.currentTime<.1){document.body.dataset.started='';start.hidden=false;start.disabled=false}},700)},220);
   </script>
 </body>
 </html>
