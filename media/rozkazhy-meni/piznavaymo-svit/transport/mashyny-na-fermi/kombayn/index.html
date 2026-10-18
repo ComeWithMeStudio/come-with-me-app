@@ -38,11 +38,12 @@
     <img class="combine" src="../../../../../pograymo/assets/illustrations/transport/farm/combine-harvester-green.webp?v=f442394" alt="Зелений комбайн збирає пшеницю">
     <section class="panel"><div class="text" id="text">Перед нами комбайн — головна машина на жнивах.</div><button class="go start" id="start">▶ Подивитися</button><button class="go repeat" id="repeat">↻ Ще раз</button></section>
   </main>
+  <audio id="voice" preload="auto" src="/audio/rozkazhy-meni/piznavaymo-svit/transport/mashyny-na-fermi/02-kombayn-gigi.mp3?v=1"></audio>
   <script>
-    const scene=document.getElementById('scene'),text=document.getElementById('text'),start=document.getElementById('start'),repeat=document.getElementById('repeat');
-    const captions=[['Перед нами комбайн — головна машина на жнивах.',0],['Жатка обережно зрізає стиглі колоски.',2300],['Позаду залишається коротка стерня.',5000],['Урожай зібрано — комбайн завершив роботу!',8300]];
-    let timers=[];function finish(){scene.classList.add('done');start.disabled=false}function play(){timers.forEach(clearTimeout);timers=[];scene.classList.remove('running','done');void scene.offsetWidth;scene.classList.add('running');start.disabled=true;captions.forEach(([t,ms])=>timers.push(setTimeout(()=>text.textContent=t,ms)));timers.push(setTimeout(finish,10500))}
-    start.addEventListener('click',play);repeat.addEventListener('click',play);
+    const scene=document.getElementById('scene'),text=document.getElementById('text'),start=document.getElementById('start'),repeat=document.getElementById('repeat'),voice=document.getElementById('voice'),isAll=new URLSearchParams(location.search).get('mode')==='all';
+    const captions=[['На поле виїжджає комбайн.',0],['Жатка обережно зрізає колоски.',1900],['Комбайн збирає зерно, а позаду залишає рівну стерню.',3900],['Урожай зібрано!',6900]];
+    let timers=[];function finish(){scene.classList.add('done');start.disabled=false}function play(){timers.forEach(clearTimeout);timers=[];if(!isAll){voice.pause();voice.currentTime=0}scene.classList.remove('running','done');void scene.offsetWidth;scene.classList.add('running');start.disabled=true;if(!isAll)voice.play().catch(()=>{});captions.forEach(([t,ms])=>timers.push(setTimeout(()=>text.textContent=t,ms)));timers.push(setTimeout(finish,10500))}
+    start.addEventListener('click',play);repeat.addEventListener('click',play);if(isAll){document.querySelector('.panel').style.display='none';play()}
   </script>
 </body>
 </html>
