@@ -42,10 +42,10 @@
     <section class="panel"><div class="text" id="text">Трактор — сильний помічник на фермі.</div><button class="go start" id="start">▶ Подивитися</button><button class="go repeat" id="repeat">↻ Ще раз</button></section>
   </main>
   <script>
-    const scene=document.getElementById('scene'),text=document.getElementById('text'),start=document.getElementById('start'),repeat=document.getElementById('repeat'),voice=document.getElementById('voice'),isAll=new URLSearchParams(location.search).get('mode')==='all';
+    const scene=document.getElementById('scene'),text=document.getElementById('text'),start=document.getElementById('start'),repeat=document.getElementById('repeat'),voice=document.getElementById('voice'),storyMode=new URLSearchParams(location.search).get('mode')==='story',isAll=new URLSearchParams(location.search).get('mode')==='all';
     const captions=[['Трактор — сильний помічник на фермі.',0],['Він тягне плуг і готує землю до посіву.',2100],['Їде вперед — землю розпушує.',4300],['Рівні борозенки за собою залишає!',6100]];
-    let timers=[];function finish(){scene.classList.add('done');start.disabled=false}function play(){timers.forEach(clearTimeout);timers=[];if(!isAll){voice.pause();voice.currentTime=0}scene.classList.remove('running','done');void scene.offsetWidth;scene.classList.add('running');start.disabled=true;captions.forEach(([t,ms])=>timers.push(setTimeout(()=>text.textContent=t,ms)));if(!isAll){voice.play().catch(()=>{});voice.onended=finish}timers.push(setTimeout(finish,9800))}
-    start.addEventListener('click',play);repeat.addEventListener('click',play);if(isAll){document.querySelector('.panel').style.display='none';setTimeout(play,120)}
+    let timers=[];function finish(){scene.classList.add('done');start.disabled=false;if(storyMode)setTimeout(()=>location.href='../kombayn/index.html?mode=story&v=4',500)}function play(){timers.forEach(clearTimeout);timers=[];if(!isAll){voice.pause();voice.currentTime=0}scene.classList.remove('running','done');void scene.offsetWidth;scene.classList.add('running');start.disabled=true;captions.forEach(([t,ms])=>timers.push(setTimeout(()=>text.textContent=t,ms)));if(!isAll){voice.play().catch(()=>{});voice.onended=finish}timers.push(setTimeout(finish,9800))}
+    start.addEventListener('click',play);repeat.addEventListener('click',play);if(isAll||storyMode){document.querySelector('.panel').style.display='none';setTimeout(play,120)}
   </script>
 </body>
 </html>
