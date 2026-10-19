@@ -22,6 +22,11 @@ function heli(cls='helicopter'){
  const rotor=document.createElement('span');rotor.className='rotor-plane';rotor.append(image('assets/rotor.webp'));e.append(rotor);
  e.append(image('assets/rotor.webp','tail-rotor'));return e;
 }
+function propellerIcon(){
+ const icon=document.createElement('div');icon.className='prop-icon';icon.setAttribute('role','img');icon.setAttribute('aria-label','Гвинтовий літак із рухомим пропелером');
+ const assembly=document.createElement('div');assembly.className='prop-assembly';assembly.append(image('assets/red-body.webp','body'));
+ const disc=document.createElement('span');disc.className='propeller-disc';disc.append(image('assets/red-propeller.webp'));assembly.append(disc);icon.append(assembly);return icon;
+}
 function stars(){
  const sky=document.createElement('div');sky.className='stars';sky.setAttribute('aria-hidden','true');
  // Deterministic positions retain the same night sky on replay and on resize.
@@ -49,7 +54,7 @@ function render(id){
  }else if(id==='airship'){stage.append(image('assets/airship.webp','aircraft airship','Синьо-сріблястий дирижабль'));cranes()}
  else if(id==='intro'){label('Небо кличе!');stage.append(balloon(),image(air+'passenger-airplane-blue-white.webp','aircraft intro-plane','Літак'),image('assets/airship.webp','aircraft intro-airship','Дирижабль'))}
  else if(id==='finish'){
-  label('До нових відкриттів!');const grid=document.createElement('div');grid.className='final-grid';grid.append(image('assets/balloon.webp','balloon-final','Повітряна куля'),heli('heli-icon'),image(air+'propeller-airplane-red.webp','','Гвинтовий літак'),image('assets/airship.webp','','Дирижабль'),image(air+'passenger-airplane-blue-white.webp','','Пасажирський літак'));stage.append(grid);
+  label('До нових відкриттів!');const grid=document.createElement('div');grid.className='final-grid';grid.append(image('assets/balloon.webp','balloon-final','Повітряна куля'),heli('heli-icon'),propellerIcon(),image('assets/airship.webp','','Дирижабль'),image(air+'passenger-airplane-blue-white.webp','','Пасажирський літак'));stage.append(grid);
  }
 }
 let wakePending=false;
