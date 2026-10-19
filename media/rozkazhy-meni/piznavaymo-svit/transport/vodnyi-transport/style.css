@@ -12,3 +12,70 @@
 @keyframes diveWide{0%{left:-50%;top:3%;transform:rotate(5deg)}25%{left:5%;top:15%;transform:rotate(8deg)}55%{left:23%;top:35%;transform:rotate(0)}85%{left:45%;top:36%;transform:rotate(0)}100%{left:108%;top:34%;transform:rotate(-2deg)}}
 .wake{opacity:.85;background:repeating-radial-gradient(ellipse at 100% 50%,#fffdf1bf 0 3px,transparent 5px 15px);height:18%;bottom:11%;left:-75%;width:110%}.wake::after{content:'';position:absolute;inset:12% 4%;border-bottom:3px solid #e5ffffb0;border-top:2px solid #fff8;border-radius:50%}
 .lake-fish .fish{scale:-1 1}.oar.near{left:42.5%;top:39.2%}.oar.far{left:37.3%;top:9.3%}.fleet .oar{display:none}
+
+/* Surface routes follow deep water, independently from the unchanged underwater chapter. */
+.stage.sailboat-scene>.sailboat{width:29%;top:53%;left:-36%;transform:translateY(-100%);animation-name:sailDeep}
+@keyframes sailDeep{0%{left:-36%}22%{left:3%}75%{left:52%}100%{left:112%}}
+.stage.motorboat-scene>.motorboat{width:46%;top:42%;left:51%;transform-origin:50% 100%;animation:motorApproach var(--duration,14s) linear both}
+@keyframes motorApproach{
+ 0%,8%{left:53%;top:40%;transform:translate(-50%,-100%) scale(.17) rotateY(-52deg)}
+ 43%{left:49%;top:53%;transform:translate(-50%,-100%) scale(.55) rotateY(-40deg)}
+ 59%{left:48%;top:62%;transform:translate(-50%,-100%) scale(.83) rotateY(-26deg)}
+ 70%{left:60%;top:61%;transform:translate(-50%,-100%) scale(.84) rotateY(0deg)}
+ 100%{left:145%;top:58%;transform:translate(-50%,-100%) scale(.84) rotateY(0deg)}
+}
+.motorboat-scene .wake{left:-44%;width:72%;height:17%;bottom:13%;opacity:.8}
+.bow-foam{position:absolute;pointer-events:none;z-index:4;width:55%;height:12%;object-fit:fill;bottom:12%;opacity:.82;animation:foamPulse .6s ease-in-out infinite alternate}
+.foam-left{left:-10%;transform:rotate(-7deg)}.foam-right{left:29%;width:42%;bottom:9%;transform:rotate(4deg);animation-delay:-.3s}
+@keyframes foamPulse{to{opacity:.5;scale:1.04 1.15}}
+.stage.ferry-scene>.ferry{width:46%;left:29%;top:54%;transform-origin:50% 100%;animation:ferryDeparture var(--duration,13s) ease-in-out both}
+.ferry-scene>.ferry .boat-body{scale:-1 1}
+@keyframes ferryDeparture{
+ 0%,12%{left:29%;top:54%;transform:translate(-50%,-100%) scale(.9)}
+ 32%{left:23%;top:51%;transform:translate(-50%,-100%) scale(.79)}
+ 63%{left:35%;top:44%;transform:translate(-50%,-100%) scale(.48)}
+ 100%{left:49%;top:39%;transform:translate(-50%,-100%) scale(.21)}
+}
+.stage.cargo-scene>.cargo{width:44%;top:48%;left:-48%;transform:translateY(-100%);animation:cargoDeep var(--duration,14s) linear both}
+@keyframes cargoDeep{0%{left:-48%}22%{left:-1%}78%{left:61%}100%{left:112%}}
+.dolphin-window{position:absolute;left:57%;top:44%;width:16%;height:22%;z-index:4;overflow:hidden}
+.leaping-dolphin{position:absolute;left:0;bottom:-5%;width:87%;height:auto;animation:dolphinLeap var(--duration,14s) linear both}
+@keyframes dolphinLeap{
+ 0%,31%{transform:translate(-20%,125%) rotate(-28deg)}
+ 42%{transform:translate(0,0) rotate(-25deg)}
+ 50%{transform:translate(9%,-15%) rotate(0deg)}
+ 61%{transform:translate(27%,125%) rotate(35deg)}
+ 100%{transform:translate(27%,125%) rotate(35deg)}
+}
+.dolphin-foam{position:absolute;left:-10%;bottom:-6%;width:120%;height:28%;object-fit:fill;opacity:0;animation:dolphinSplash var(--duration,14s) linear both}
+@keyframes dolphinSplash{0%,32%,72%,100%{opacity:0;transform:scaleY(.4)}38%,59%{opacity:.85;transform:scaleY(1)}}
+.intro-scene>.intro-sailing{width:24%;top:51%;left:-30%;transform:translateY(-100%);animation:introSail var(--duration,12s) linear both}
+@keyframes introSail{0%{left:-30%}12%{left:7%}42%{left:112%}100%{left:112%}}
+.emergence-window{position:absolute;left:34%;top:25%;width:34%;height:34%;overflow:hidden;z-index:5}
+.surfacing-sub{position:absolute;left:0;width:100%;bottom:-110%;animation:surfaceSub var(--duration,12s) ease-out both}
+@keyframes surfaceSub{0%,45%{bottom:-110%}77%,100%{bottom:-13%}}
+.surface-wave{position:absolute;left:-8%;bottom:-3%;width:116%;height:24%;object-fit:fill;z-index:6;opacity:0;animation:surfaceWave var(--duration,12s) ease-in-out both}
+@keyframes surfaceWave{0%,43%{opacity:0;transform:translateY(40%) scaleY(.3)}52%{opacity:.95;transform:translateY(-14%) scaleY(1.2)}78%,100%{opacity:.8;transform:translateY(0) scaleY(.7)}}
+.finish-scene .fleet>.rowboat{width:73%;justify-self:end;margin-right:-2%}
+.fleet .bow-foam{display:none}
+.single>.motorboat,.single>.ferry,.single>.cargo,.single>.sailboat,.single .leaping-dolphin,.single .dolphin-foam{animation-iteration-count:infinite}
+@media(max-width:600px){
+ .stage.sailboat-scene>.sailboat{width:52%;top:53%}
+ .stage.motorboat-scene>.motorboat{width:70%}
+ .stage.ferry-scene>.ferry{width:72%;top:54%}
+ .stage.cargo-scene>.cargo{width:62%;top:48%}
+ .dolphin-window{width:23%;height:20%;left:55%;top:46%}
+ .intro-scene>.intro-sailing{width:49%;top:52%}
+ .emergence-window{width:64%;left:19%;top:27%;height:29%}
+ .finish-scene .fleet>.rowboat{width:73%;margin-right:-2%}
+}
+@media(prefers-reduced-motion:reduce){
+ .stage.sailboat-scene>.sailboat{left:22%;top:53%;transform:translateY(-100%)}
+ .stage.motorboat-scene>.motorboat{left:49%;top:59%;transform:translate(-50%,-100%) scale(.8)}
+ .stage.ferry-scene>.ferry{left:32%;top:52%;transform:translate(-50%,-100%) scale(.75)}
+ .stage.cargo-scene>.cargo{left:22%;top:48%;transform:translateY(-100%)}
+ .intro-scene>.intro-sailing{display:none}.surfacing-sub{bottom:-13%}.surface-wave{opacity:.8}.leaping-dolphin{transform:translateY(125%)}.dolphin-foam{opacity:0}
+}
+.surfacing-sub{clip-path:inset(0 0 24% 0)}.surface-wave{height:42%;bottom:-2%}.motorboat-scene .bow-foam{height:22%;bottom:8%;opacity:1}.motorboat-scene .foam-right{bottom:5%}
+@keyframes ferryDeparture{0%,12%{left:35%;top:54%;transform:translate(-50%,-100%) scale(.9)}32%{left:30%;top:51%;transform:translate(-50%,-100%) scale(.79)}63%{left:38%;top:44%;transform:translate(-50%,-100%) scale(.48)}100%{left:49%;top:39%;transform:translate(-50%,-100%) scale(.21)}}
+.surfacing-sub{clip-path:inset(0 0 32% 0)}

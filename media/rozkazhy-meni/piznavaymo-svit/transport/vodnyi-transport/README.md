@@ -46,3 +46,13 @@ Full story auto-advances after each clip plus 1.2 seconds. CSS durations use act
 ## Verification
 
 Playwright at 393×852 and 1366×852: all six individual scenes, all eight chapters, automatic intro-to-rowboat transition, manual progression, pause/resume, mute, restart, image decode, no 404 or page errors, no horizontal overflow. Visual screenshots inspected and wide vessel dimensions adjusted to avoid clipping below stage. Physical device pronunciation and OS wake-lock behavior remain for user confirmation.
+
+## Surface route review — 19 October 2026
+
+- Intro now has one sailboat crossing the bay, then a submarine emerges through a clipped water window behind a foamy wave. No introductory rowboat repetition.
+- Original beach wave referenced from `media/pograymo/assets/illustrations/nature/beach/wave.webp`. Built-in imagegen precise-object edit prompt: preserve turquoise painted wave and white crest; remove all sand, shore, corrupted bands and streaks; isolate a clean broad wave on genuine transparency, irregular lower water edge, no beach/scenery/text. Result optimized at `assets/wave-clean.webp`.
+- Motorboat approaches from distance, grows, turns right and exits with paired foam overlays. Surface sailboat and cargo ship pass farther out; ferry faces left beside the pier and shrinks toward opposite shore. Gulls and resting seal retained.
+- Existing dolphin reused from nature aquatic mammals in a clipped leap window with a timed splash.
+- Final rowboat scaled to 73% of its grid cell and aligned right, away from pier.
+- Only intro narration rerecorded: synthesis uses «дізна́ємося» with an explicit stress mark; `00-intro-v2.mp3`. Other audio, sea sound effects and underwater scene are unchanged.
+- Local route checks at 393px and 1366px verify boat approach growth, ferry receding scale, cargo waterline above foreground rocks, all assets decoded and all story controls/transitions pass. Key route frames visually inspected.

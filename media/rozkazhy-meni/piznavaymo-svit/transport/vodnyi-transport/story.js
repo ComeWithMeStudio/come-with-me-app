@@ -1,7 +1,7 @@
 'use strict';
 (()=>{
 const $=id=>document.getElementById(id),stage=$('stage'),voice=$('voice');
-const chapters=[{"id": "intro", "title": "Ходімо зі мною на воду!", "audio": "00-intro", "lines": ["Ходімо зі мною на воду!", "На нас чекають озеро, море й підводні відкриття.", "Познайомимося із шістьма суднами!"]}, {"id": "rowboat", "title": "Човен із веслами", "audio": "01-rowboat", "lines": ["На тихому озері погойдується човен.", "Весла відштовхують воду й допомагають човну плисти.", "А в прозорій воді пропливають рибки."]}, {"id": "sailboat", "title": "Вітрильник", "audio": "02-sailboat", "lines": ["Вітер напинає вітрила.", "Вітрильник пливе морською затокою.", "А над водою кружляють чайки!"]}, {"id": "motorboat", "title": "Моторний катер", "audio": "03-motorboat", "lines": ["А ось моторний катер!", "Двигун допомагає катеру рухатися.", "Позаду розходиться білий слід на воді."]}, {"id": "ferry", "title": "Пасажирський пором", "audio": "04-ferry", "lines": ["Пором відходить від причалу.", "Він перевозить пасажирів до іншого берега.", "На камені біля води відпочиває тюлень."]}, {"id": "cargo", "title": "Контейнеровоз", "audio": "05-cargo", "lines": ["Який великий корабель!", "Він перевозить вантажі в контейнерах.", "Контейнеровоз повільно проходить повз маяк."]}, {"id": "submarine", "title": "Підводний човен", "audio": "06-submarine", "lines": ["А тепер зазирнімо під воду!", "Підводний човен занурюється й пливе в глибині.", "Поруч пропливають рибки й морська черепаха."]}, {"id": "finish", "title": "До нових подорожей!", "audio": "07-finish", "lines": ["Скільки різних суден ми побачили!", "Весла, вітер і двигуни допомагають їм рухатися.", "Дякую за нашу водну подорож!"]}];
+const chapters=[{"id": "intro", "title": "Ходімо зі мною на воду!", "audio": "00-intro-v2", "lines": ["Ходімо зі мною на воду!", "На нас чекають озеро, море й підводні відкриття.", "Познайомимося із шістьма суднами!"]}, {"id": "rowboat", "title": "Човен із веслами", "audio": "01-rowboat", "lines": ["На тихому озері погойдується човен.", "Весла відштовхують воду й допомагають човну плисти.", "А в прозорій воді пропливають рибки."]}, {"id": "sailboat", "title": "Вітрильник", "audio": "02-sailboat", "lines": ["Вітер напинає вітрила.", "Вітрильник пливе морською затокою.", "А над водою кружляють чайки!"]}, {"id": "motorboat", "title": "Моторний катер", "audio": "03-motorboat", "lines": ["А ось моторний катер!", "Двигун допомагає катеру рухатися.", "Позаду розходиться білий слід на воді."]}, {"id": "ferry", "title": "Пасажирський пором", "audio": "04-ferry", "lines": ["Пором відходить від причалу.", "Він перевозить пасажирів до іншого берега.", "На камені біля води відпочиває тюлень."]}, {"id": "cargo", "title": "Контейнеровоз", "audio": "05-cargo", "lines": ["Який великий корабель!", "Він перевозить вантажі в контейнерах.", "Контейнеровоз повільно проходить повз маяк."]}, {"id": "submarine", "title": "Підводний човен", "audio": "06-submarine", "lines": ["А тепер зазирнімо під воду!", "Підводний човен занурюється й пливе в глибині.", "Поруч пропливають рибки й морська черепаха."]}, {"id": "finish", "title": "До нових подорожей!", "audio": "07-finish", "lines": ["Скільки різних суден ми побачили!", "Весла, вітер і двигуни допомагають їм рухатися.", "Дякую за нашу водну подорож!"]}];
 let current=0,all=false,paused=false,muted=false,active=false,token=0,frame=0,transition=null,transitionDue=0,transitionLeft=0,wake=null,ended=false;
 function image(src,cls='',alt=''){const e=document.createElement('img');e.src=src;e.className=cls;e.alt=alt;e.draggable=false;return e}
 function div(cls){const e=document.createElement('div');e.className=cls;e.setAttribute('aria-hidden','true');return e}
@@ -12,7 +12,7 @@ function ship(id,cls=''){
   const far=image('assets/oar.webp','oar far');hull.append(far,image('assets/rowboat.webp','boat-body'),image('assets/oar.webp','oar near'));
  }else hull.append(image('assets/'+id+'.webp','boat-body'));
  if(id!=='submarine')hull.append(div('waterline'));
- if(id==='motorboat')hull.prepend(div('wake'));
+ if(id==='motorboat'){hull.prepend(div('wake'));hull.append(image('assets/wave-clean.webp','bow-foam foam-left'),image('assets/wave-clean.webp','bow-foam foam-right'))}
  mover.append(hull);return mover;
 }
 function birds(){const flock=div('gulls');for(let i=0;i<3;i++){const e=image('assets/gull.webp','gull');e.style.setProperty('--i',i);flock.append(e)}stage.append(flock)}
@@ -25,12 +25,21 @@ function render(id){
  stage.replaceChildren();stage.className='stage '+id+'-scene'+(all?'':' single');
  const bg=id==='rowboat'?'lake':id==='submarine'?'underwater':'bay';
  const picture=document.createElement('picture');picture.className='water-picture';const wide=document.createElement('source');wide.media='(min-width:601px)';wide.srcset='assets/'+bg+'-wide.webp';picture.append(wide,image('assets/'+bg+'.webp','water-background'));stage.append(picture);
- if(id==='intro'||id==='finish'){
-  const label=document.createElement('div');label.className='water-label';label.textContent=id==='intro'?'Вода кличе в подорож!':'До нових відкриттів!';stage.append(label);
-  const grid=div('fleet');grid.removeAttribute('aria-hidden');for(const name of (id==='intro'?['sailboat','ferry','submarine']:['rowboat','sailboat','motorboat','ferry','cargo','submarine']))grid.append(ship(name,'fleet-ship'));stage.append(grid);water();return;
+ if(id==='intro'){
+  const label=document.createElement('div');label.className='water-label';label.textContent='Вода кличе в подорож!';stage.append(label);
+  stage.append(ship('sailboat','intro-sailing'));
+  const window=div('emergence-window');window.append(image('assets/submarine.webp','surfacing-sub','Підводний човен виринає'));
+  const wave=image('assets/wave-clean.webp','surface-wave');window.append(wave);stage.append(window);water();return;
+ }
+ if(id==='finish'){
+  const label=document.createElement('div');label.className='water-label';label.textContent='До нових відкриттів!';stage.append(label);
+  const grid=div('fleet');grid.removeAttribute('aria-hidden');for(const name of ['rowboat','sailboat','motorboat','ferry','cargo','submarine'])grid.append(ship(name,'fleet-ship'));stage.append(grid);water();return;
  }
  if(id!=='submarine')water();
  if(id==='sailboat'||id==='cargo')birds();
+ if(id==='cargo'){
+  const leap=div('dolphin-window');leap.append(image('assets/dolphin.webp','leaping-dolphin','Дельфін вистрибує з води'),image('assets/wave-clean.webp','dolphin-foam'));stage.append(leap);
+ }
  if(id==='rowboat')fish(true);
  if(id==='ferry')stage.append(image('assets/seal-rock.webp','seal','Тюлень відпочиває біля води'));
  if(id==='submarine'){
