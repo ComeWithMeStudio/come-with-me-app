@@ -32,7 +32,7 @@ function stars(){
 }
 function cranes(){
  const group=document.createElement('div');group.className='crane-flock';group.setAttribute('role','img');group.setAttribute('aria-label','Ключ із семи журавлів');
- for(let i=0;i<7;i++){const crane=image('assets/crane.webp');const n=Math.ceil(i/2);crane.style.left=(42-n*14)+'%';crane.style.top=(i===0?40:(i%2===0?40+n*14:40-n*14))+'%';crane.style.animationDelay=-i*.3+'s';group.append(crane)}stage.append(group);
+ for(let i=0;i<7;i++){const crane=image('assets/crane.webp');const n=Math.ceil(i/2);crane.style.left=(3+n*22)+'%';crane.style.top=(i===0?50:(i%2===0?50+n*25:50-n*25))+'%';crane.style.animationDelay=-i*.3+'s';group.append(crane)}stage.append(group);
 }
 function label(text){const e=document.createElement('div');e.className='intro-label';e.textContent=text;stage.append(e)}
 function render(id){
