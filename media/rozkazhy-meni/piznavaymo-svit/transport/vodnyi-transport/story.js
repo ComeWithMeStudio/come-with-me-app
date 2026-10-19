@@ -38,7 +38,7 @@ function render(id){
  if(id!=='submarine')water();
  if(id==='sailboat')birds();
  if(id==='cargo'){
-  const leap=div('dolphin-window');leap.append(image('assets/dolphin.webp','leaping-dolphin','Дельфін вистрибує з води'),image('assets/wave-clean.webp','dolphin-foam'));stage.append(leap);
+  const leap=div('dolphin-window');const air=div('dolphin-air');air.append(image('assets/dolphin.webp','leaping-dolphin','Дельфін вистрибує з води'));leap.append(air,image('assets/wave-clean.webp','dolphin-foam'));stage.append(leap);
  }
  if(id==='rowboat')fish(true);
  if(id==='ferry')stage.append(image('assets/seal-rock.webp','seal','Тюлень відпочиває біля води'));

@@ -117,3 +117,6 @@
  .stage.ferry-scene>.ferry,.stage.cargo-scene>.cargo{animation:none}
  .leaping-dolphin{opacity:0}
 }
+
+/* Hide the submerged portion at the wave, leaving the full jump visible above it. */
+.dolphin-air{position:absolute;inset:0;clip-path:inset(-200% -200% 8% -200%)}

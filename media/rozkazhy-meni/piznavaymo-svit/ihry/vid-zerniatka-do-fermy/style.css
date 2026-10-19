@@ -16,3 +16,12 @@
 .yard-bird img{animation-duration:1.1s}
 .machine .trailer:not(.baler){left:10%}
 .scene:has(.target.manger) .animals{z-index:7}
+
+/* Introduce the yard birds one at a time instead of starting the flock together. */
+.yard-bird{--arrival:0s;opacity:0;animation-name:yardRunRight,yardAppear;animation-duration:26.4s,.15s;animation-delay:var(--arrival),var(--arrival);animation-iteration-count:infinite,1;animation-fill-mode:none,forwards}
+.yard-goose{--arrival:4s;animation-name:yardRunLeft,yardAppear;animation-duration:29.6s,.15s}
+.yard-duck{--arrival:8s;animation-duration:32s,.15s}
+.yard-chick{--arrival:12s;animation-duration:22.8s,.15s}
+.yard-chick2{--arrival:16s;animation-name:yardRunLeft,yardAppear;animation-duration:25.2s,.15s}
+@keyframes yardAppear{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.yard-bird{animation:none;opacity:1}}
