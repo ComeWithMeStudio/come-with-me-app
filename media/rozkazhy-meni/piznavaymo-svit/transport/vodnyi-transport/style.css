@@ -79,3 +79,22 @@
 .surfacing-sub{clip-path:inset(0 0 24% 0)}.surface-wave{height:42%;bottom:-2%}.motorboat-scene .bow-foam{height:22%;bottom:8%;opacity:1}.motorboat-scene .foam-right{bottom:5%}
 @keyframes ferryDeparture{0%,12%{left:35%;top:54%;transform:translate(-50%,-100%) scale(.9)}32%{left:30%;top:51%;transform:translate(-50%,-100%) scale(.79)}63%{left:38%;top:44%;transform:translate(-50%,-100%) scale(.48)}100%{left:49%;top:39%;transform:translate(-50%,-100%) scale(.21)}}
 .surfacing-sub{clip-path:inset(0 0 32% 0)}
+
+/* Review: retain the ferry's initial scale for the first 2.7 seconds. */
+.stage.ferry-scene>.ferry{animation-timing-function:linear}
+.ferry-scene>.ferry .boat-body{scale:1 1;transform:perspective(650px) rotateY(32deg);transform-origin:50% 75%}
+@keyframes ferryDeparture{
+ 0%{left:35%;top:54%;transform:translate(-50%,-100%) scale(.9);opacity:1}
+ 28%{left:41%;top:51%;transform:translate(-50%,-100%) scale(.9);opacity:1}
+ 63%{left:48%;top:43%;transform:translate(-50%,-100%) scale(.48);opacity:1}
+ 92%{left:55%;top:35%;transform:translate(-50%,-100%) scale(.12);opacity:1}
+ 100%{left:57%;top:33%;transform:translate(-50%,-100%) scale(.045);opacity:0}
+}
+.stage.cargo-scene>.cargo{width:31%;top:38%}
+@media(max-width:600px){.stage.cargo-scene>.cargo{width:43%;top:38%}}
+.dolphin-window{transform:scale(1.5);transform-origin:50% 75%}
+.surfacing-sub{clip-path:inset(0 0 12% 0)}
+@keyframes surfaceSub{0%,45%{bottom:-110%}77%,100%{bottom:-4%}}
+.surface-wave{height:32%;bottom:-3%}
+@keyframes surfaceWave{0%,71%{opacity:0;transform:translateY(25%) scaleY(.35)}75%{opacity:.95;transform:translateY(-8%) scaleY(1.05)}83%,100%{opacity:.85;transform:translateY(0) scaleY(.8)}}
+@media(prefers-reduced-motion:reduce){.surfacing-sub{bottom:-4%}.surface-wave{opacity:.85}}

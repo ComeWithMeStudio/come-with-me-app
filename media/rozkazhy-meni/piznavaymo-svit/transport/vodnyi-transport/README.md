@@ -56,3 +56,7 @@ Playwright at 393×852 and 1366×852: all six individual scenes, all eight chapt
 - Final rowboat scaled to 73% of its grid cell and aligned right, away from pier.
 - Only intro narration rerecorded: synthesis uses «дізна́ємося» with an explicit stress mark; `00-intro-v2.mp3`. Other audio, sea sound effects and underwater scene are unchanged.
 - Local route checks at 393px and 1366px verify boat approach growth, ferry receding scale, cargo waterline above foreground rocks, all assets decoded and all story controls/transitions pass. Key route frames visually inspected.
+
+### Follow-up review
+
+Intro wave appears only at 71–75% of the chapter, roughly 0.5–0.7 seconds before surfacing completes; submarine lower mask relaxed to 12%. Cargo width reduced to 31% desktop / 43% mobile, waterline raised to 38% so the ship passes behind the pier. Dolphin and its splash window enlarged together by 1.5. Ferry bow faces into the lagoon with a foreshortened view; initial .9 scale held through 28% (about 2.7 seconds), then gradual recession and final disappearance. Rowboat narration v2 uses «Ве́сла» in synthesis. Other approved scenes and audio remain intact. Frame checks at 393 and 1366 pixels confirm the initial ferry scale hold, delayed wave and complete asset loads.
