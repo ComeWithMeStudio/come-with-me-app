@@ -9,3 +9,5 @@ Scenery uses the same barn, sun, clouds and fruit-tree coordinates as Машин
 Gigi voice: `n7Wi4g1bhpw4Bs8HK5ph`, Eleven Multilingual v2, stability .65, similarity .23, style .43, speaker boost. Ten local MP3 clips include the introduction and finish. Voice failure never gates interaction; every instruction also appears as text. Audio stops on navigation and when the document becomes hidden. The replay control can repeat the current narration. Screen wake lock is requested after the initial gesture when supported, and released after completion or navigation.
 
 Animal feeding is intentionally simplified for the game: wheat is a poultry treat; cattle receive separate meadow hay, and harvested wheat straw becomes bedding.
+
+Intro update: the first in-game Рушаймо button plays `00-intro-grow.mp3` with the visible welcome phrase. Hen, goose, duck and two chicks jog through the yard until the first activity begins. Pear-tree left positions are shifted by five percentage points in both layouts.

@@ -19,7 +19,7 @@ const steps=[
   {id:'bedding',title:'М’яка підстилка',instruction:'Перенеси солому на позначене місце біля хліва. Потрібні три тюки.',audio:'08-bedding',win:'М’яка підстилка готова. Як затишно на фермі!'}
 ];
 let stepIndex=-1,completed=false,started=false,muted=false,selected=false,deliveryCount=0;
-let cells=[],laneProgress=[0,0,0],rowBusy=new Set(),run=0,currentClip='00-intro',drag=null,swipe=null,wake=null;
+let cells=[],laneProgress=[0,0,0],rowBusy=new Set(),run=0,currentClip='00-intro-grow',drag=null,swipe=null,wake=null;
 const pending=new Set();
 const schedule=(fn,ms)=>{const token=run;const id=setTimeout(()=>{pending.delete(id);if(token===run)fn()},ms);pending.add(id);return id;};
 const clearPending=()=>{run++;pending.forEach(clearTimeout);pending.clear();rowBusy.clear();clearDrag();swipe=null;};
@@ -32,6 +32,12 @@ function scenery(){
  for(let i=1;i<=4;i++)bg.append(img(farm+'apple-tree.webp','tree apple a'+i));
  bg.append(img(farm+'farm-barn-red.webp','farm'));
  $('mimi').src='/media/mimi-library/illustrations/mimi-standing-front.webp';
+}
+function showIntroBirds(){
+ const flock=document.createElement('div');flock.className='intro-flock';flock.setAttribute('aria-label','Курочка, гуска, качка й двоє курчат бігають подвір’ям');
+ const birds=[['hen.webp','yard-hen','Курочка'],['goose.webp','yard-goose','Гуска'],['duck.webp','yard-duck','Качка'],['chick.webp','yard-chick','Курчатко'],['chick-yellow-wings-down.webp','yard-chick2','Друге курчатко']];
+ for(const [file,cls,alt] of birds){const bird=document.createElement('span');bird.className='yard-bird '+cls;bird.append(img(animalsPath+file,'',alt));flock.append(bird)}
+ animals.replaceChildren(flock);
 }
 function speak(clip=currentClip){
  currentClip=clip;voice.pause();voice.src='audio/'+clip+'.mp3';voice.muted=muted;
@@ -177,8 +183,8 @@ function finish(){
 }
 function restart(){started=true;clearPending();scene.classList.remove('finish-scene');$('begin').textContent='Рушаймо! 🌾';$('begin').onclick=begin;enterStep(0)}
 function begin(){
- started=true;$('welcome').hidden=true;$('replay').disabled=false;$('taskTitle').textContent='Ходімо на ферму!';$('instruction').textContent='Посіємо пшеницю, зберемо врожай і подбаємо про тварин. Готові?';
- next.hidden=false;next.textContent='Почнімо →';speak('00-intro');keepAwake();
+ started=true;$('welcome').hidden=true;$('replay').disabled=false;$('taskTitle').textContent='Виростімо добрі справи!';$('instruction').textContent='Посіємо пшеницю, зберемо врожай і подбаємо про тварин.';
+ showIntroBirds();next.hidden=false;next.textContent='Почнімо →';speak('00-intro-grow');keepAwake();
 }
 next.addEventListener('click',()=>{if(stepIndex<0)enterStep(0);else if(completed){if(stepIndex===steps.length-1)finish();else enterStep(stepIndex+1)}});
 $('begin').onclick=begin;
