@@ -98,3 +98,9 @@
 .surface-wave{height:32%;bottom:-3%}
 @keyframes surfaceWave{0%,71%{opacity:0;transform:translateY(25%) scaleY(.35)}75%{opacity:.95;transform:translateY(-8%) scaleY(1.05)}83%,100%{opacity:.85;transform:translateY(0) scaleY(.8)}}
 @media(prefers-reduced-motion:reduce){.surfacing-sub{bottom:-4%}.surface-wave{opacity:.85}}
+
+/* Slow position travel independently of the approved shrinking. */
+.stage.ferry-scene>.ferry{animation-name:ferryDeparture,ferryTravel;animation-duration:var(--duration,13s),calc(var(--duration,13s) * 3);animation-timing-function:linear;animation-fill-mode:both}
+@keyframes ferryTravel{0%{left:35%;top:54%}28%{left:41%;top:51%}63%{left:48%;top:43%}92%{left:55%;top:35%}100%{left:57%;top:33%}}
+.ferry-scene.narration-ended *{animation-play-state:paused!important}
+@media(min-width:601px){.stage.cargo-scene>.cargo{top:48%}}
