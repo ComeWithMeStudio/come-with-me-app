@@ -10,3 +10,9 @@
 @media(min-width:601px){.scene:not(.finish-scene) .welcome .mimi{position:relative;top:12%}}
 .machine .trailer.baler{left:15%}
 .animals{z-index:9}.animal.chick,.animal.chick2{bottom:1%}
+
+/* Calm introductory birds, attached plow, cattle behind the hay manger. */
+.yard-bird{animation-duration:26.4s}.yard-goose{animation-duration:29.6s}.yard-duck{animation-duration:32s}.yard-chick{animation-duration:22.8s}.yard-chick2{animation-duration:25.2s}
+.yard-bird img{animation-duration:1.1s}
+.machine .trailer:not(.baler){left:10%}
+.scene:has(.target.manger) .animals{z-index:7}
