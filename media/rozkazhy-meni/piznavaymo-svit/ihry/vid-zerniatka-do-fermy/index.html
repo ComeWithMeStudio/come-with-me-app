@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#a9e3f4">
+<title>Від зернятка до ферми — Come With Me Studio</title>
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+<main class="shell">
+  <header class="head">
+    <div><small class="eyebrow">Граємо й піклуємося</small><h1>Від зернятка до ферми</h1></div>
+    <a class="back" href="../index.html">← Ігри</a>
+  </header>
+  <div class="journey" aria-label="Прогрес пригоди"><span id="stepLabel">Наша фермерська пригода</span><span id="stepCount">🌾</span><div class="track"><i id="progress"></i></div></div>
+  <section class="scene" id="scene" aria-label="Знайома ферма">
+    <div id="scenery" aria-hidden="true"></div>
+    <div id="field" class="field" hidden aria-label="Поле з трьома смужками"></div>
+    <div id="machine" class="machine" aria-hidden="true" hidden></div>
+    <div id="animals" class="animals" aria-label="Тварини на фермі"></div>
+    <div id="deliveries" class="deliveries"></div>
+    <div id="sparkles" class="sparkles" aria-hidden="true"></div>
+    <div class="welcome" id="welcome">
+      <img class="mimi" id="mimi" alt="Мімі запрошує на ферму">
+      <div class="welcome-card"><span class="tag">Маленька велика турбота</span><h2>Виростімо добрі справи!</h2><p>Посіємо пшеницю, зберемо врожай<br>і подбаємо про тварин.</p><button id="begin" class="primary">Рушаймо! 🌾</button></div>
+    </div>
+  </section>
+  <section class="panel" aria-label="Завдання">
+    <div class="panel-top"><strong id="taskTitle">Мімі чекає на тебе</strong><div class="audio-controls"><button id="replay" class="small-button" aria-label="Повторити підказку" disabled>↻ 🔊</button><button id="mute" class="small-button" aria-label="Вимкнути звук" aria-pressed="false">🔊</button></div></div>
+    <p id="instruction" aria-live="polite">На знайомій фермі стільки добрих справ. Допоможемо разом?</p>
+    <div class="actions"><div id="supplies" class="supplies"></div><span id="feedback" role="status"></span><button id="next" class="primary" hidden>Далі →</button></div>
+  </section>
+  <p class="footnote">У своєму темпі • пальчиком або мишкою</p>
+</main>
+<audio id="voice" preload="auto"></audio>
+<script src="game.js?v=1"></script>
+</body>
+</html>
