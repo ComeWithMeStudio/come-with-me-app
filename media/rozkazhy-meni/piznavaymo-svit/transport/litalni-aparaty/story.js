@@ -4,10 +4,10 @@ const $=id=>document.getElementById(id),stage=$('stage'),voice=$('voice');
 const shared='/media/pograymo/assets/illustrations/',air=shared+'transport/air/';
 const chapters=[
  {id:'intro',title:'Ходімо зі мною в небо!',audio:'00-intro',lines:['Ходімо зі мною в небо!','Повітряна куля, гвинтокрил, два літаки й дирижабль.','У кожного — своя подорож!']},
- {id:'balloon',title:'Повітряна куля',audio:'01-balloon',lines:['Над пагорбами пливе повітряна куля.','Нагріте повітря допомагає їй підійматися.','Велика куля близенько, а дві маленькі — далеко.','Як гарно видно землю згори!']},
+ {id:'balloon',title:'Повітряна куля',audio:'01-balloon-v2',lines:['Над пагорбами пливе повітряна куля.','Нагріте повітря допомагає їй підійматися.','Велика куля близько, а дві маленькі — далеко.','Як гарно видно землю згори!']},
  {id:'helicopter',title:'Гвинтокрил',audio:'02-helicopter',lines:['Гвинт обертається — гвинтокрил підіймається.','Гвинтокрил може зависати в повітрі.','Трохи постоїть над землею — і полетить далі!']},
  {id:'propeller',title:'Гвинтовий літак',audio:'03-propeller',lines:['Маленький літак із пропелером!','Пропелер обертається й допомагає літаку рухатися вперед.','Літак пролітає між пухнастими хмаринками.','Одні хмаринки близько, інші — далеко!']},
- {id:'airship',title:'Дирижабль',audio:'04-airship',lines:['Назустріч нам повільно пливе дирижабль.','Його корпус наповнений легким газом.','Унизу видніється річка, а вдалині летить ключ журавлів.','Спокійна подорож триває!']},
+ {id:'airship',title:'Дирижабль',audio:'04-airship-v2',lines:['Назустріч нам повільно пливе дирижабль.','Його корпус наповнений легким газом.','Під нами видніється річка. А далеко в небі летить ключ журавлів.','Спокійна подорож триває!']},
  {id:'night',title:'Нічний політ',audio:'05-night',lines:['Настала ніч, а літак продовжує подорож.','У небі світить місяць і мерехтять зірочки.','Одна зірочка майнула й згасла!','Літак несе пасажирів до нового міста.']},
  {id:'finish',title:'До нових відкриттів!',audio:'06-finish',lines:['Скільки різних подорожей у небі!','Куля пливе, гвинтокрил зависає, а літаки й дирижабль летять далі.','Дякую, що вирушили зі мною!']}
 ];
@@ -28,7 +28,7 @@ function stars(){
  for(let i=0;i<64;i++){const s=document.createElement('i');s.className='star';s.style.left=((i*37.81+7)%100)+'%';s.style.top=((i*23.17+3)%79)+'%';s.style.width=s.style.height=(i%4===0?3:2)+'px';s.style.animationDelay=-(i%11)*.43+'s';sky.append(s)}
  const moon=document.createElement('div');moon.className='moon';moon.setAttribute('aria-label','Серп місяця');moon.setAttribute('role','img');
  const shooting=document.createElement('div');shooting.className='shooting-star';shooting.setAttribute('aria-hidden','true');
- const haze=document.createElement('div');haze.className='night-cloud';stage.append(sky,moon,shooting,haze);
+ const haze=document.createElement('div');haze.className='night-cloud';stage.append(sky,shooting);
 }
 function cranes(){
  const group=document.createElement('div');group.className='crane-flock';group.setAttribute('role','img');group.setAttribute('aria-label','Ключ із семи журавлів');

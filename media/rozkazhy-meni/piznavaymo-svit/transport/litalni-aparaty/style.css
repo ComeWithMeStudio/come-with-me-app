@@ -7,3 +7,22 @@
 
 .crane-flock img{scale:-1 1}
 .final-grid{grid-template-rows:repeat(2,minmax(0,1fr))}.final-grid>*{min-width:0;min-height:0}@media(max-width:600px){.final-grid{grid-template-rows:repeat(3,minmax(0,1fr))}.card:last-child{grid-column:1/-1}.card:last-child>img{height:160px}}
+/* Keep body and both rotors in the same intrinsic aspect-ratio box, including the final grid. */
+.heli-icon{aspect-ratio:1.5;height:auto!important;align-self:center}
+.heli-icon .heli-body{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.heli-icon .tail-rotor{left:22%;top:40%}
+.heli-icon .rotor-plane{width:83%}
+/* Distant birds and a prominent airship. */
+.airship-scene .airship{width:82%;height:60%;top:18%;animation-name:airshipClose}
+.airship-scene .crane-flock{width:23%;height:11%;top:10%}
+@keyframes airshipClose{0%{left:-4%;transform:translateY(6px)}50%{transform:translateY(-8px)}100%{left:20%;transform:translateY(2px)}}
+/* Enter through the clear left sky; pass behind the lower cloud only briefly. */
+.propeller-scene .propeller-plane{animation-name:planeOpenSky}
+@keyframes planeOpenSky{0%{left:-60%;top:16%;transform:rotate(-3deg)}20%{left:1%;top:15%;transform:rotate(-3deg)}70%{left:42%;top:21%;transform:rotate(0deg)}100%{left:112%;top:18%;transform:rotate(-3deg)}}
+@media(max-width:600px){
+.airship-scene .airship{width:115%;height:52%;top:25%;animation-name:airshipCloseMobile}
+.airship-scene .crane-flock{width:32%;height:9%;top:12%}
+.propeller-scene .propeller-plane{animation-name:planeOpenSkyMobile}
+}
+@keyframes airshipCloseMobile{0%{left:-16%;transform:translateY(6px)}50%{transform:translateY(-7px)}100%{left:2%;transform:translateY(3px)}}
+@keyframes planeOpenSkyMobile{0%{left:-84%;top:18%;transform:rotate(-3deg)}23%{left:-1%;top:17%;transform:rotate(-3deg)}70%{left:35%;top:24%;transform:rotate(0deg)}100%{left:112%;top:21%;transform:rotate(-3deg)}}

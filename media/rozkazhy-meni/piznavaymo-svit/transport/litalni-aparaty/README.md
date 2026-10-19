@@ -34,3 +34,9 @@ The old balloon, airship and helicopter WebP files in the shared aircraft folder
 Gigi voice: `n7Wi4g1bhpw4Bs8HK5ph`, Eleven Multilingual v2, stability .65, similarity .23, style .43, speaker boost. Full text is in `narration.json`; seven local MP3 files cover the intro, five aircraft and finish.
 
 Validation: all five individual scenes and the complete chapter sequence tested at phone and laptop widths, including image decoding, pause/resume, mute, replay, menu return and restart. Reduced-motion styles retain static visible aircraft and disable the shooting star.
+
+
+## Review corrections — 19 October 2026
+- Balloon narration: «близько». Airship narration: «Під нами видніється річка. А далеко в небі летить ключ журавлів». New versioned MP3 files.
+- Enlarged airship, smaller distant crane flock; red plane enters the clear left sky with propeller attached to its parent. Final helicopter icon uses the same 1.5 aspect-ratio coordinate box as the animated scene.
+- Painted reusable night backgrounds: assets/night-landscape.webp (portrait), assets/night-landscape-wide.webp (desktop). Built-in imagegen. Prompt: magical sapphire/indigo starry sky, natural golden crescent upper right, moonlit cloud banks, distant illuminated city and winding river, clear middle flight corridor; no aircraft or text. CSS adds independent twinkling lights and shooting star; CSS moon removed from rendered scene.
