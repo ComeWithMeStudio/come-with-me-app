@@ -44,5 +44,5 @@
     function begin(){if(document.body.dataset.started)return;document.body.dataset.started='1';start.hidden=true;start.disabled=true;index=-1;playAudio('00-vstup-gigi.mp3',next,6200)}
     start.onclick=begin;again.onclick=()=>{document.body.className='';document.body.dataset.started='';stage.src='';start.disabled=false;begin()};setTimeout(()=>{begin();setTimeout(()=>{if(voice.paused&&voice.currentTime<.1){document.body.dataset.started='';start.hidden=false;start.disabled=false}},700)},220);
   </script>
-</body>
+<script src="/audio/games/sfx/scene-ambience.js?v=1" data-ambience="/audio/games/sfx/farm-yard-ambience.mp3"></script></body>
 </html>
