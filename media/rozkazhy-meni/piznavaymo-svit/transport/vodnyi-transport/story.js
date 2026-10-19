@@ -1,6 +1,15 @@
 'use strict';
 (()=>{
 const $=id=>document.getElementById(id),stage=$('stage'),voice=$('voice');
+const sea=new Audio('/audio/games/sfx/sea-waves-ambience.mp3');
+sea.loop=true;sea.volume=.12;sea.preload='none';
+voice.addEventListener('play',()=>{sea.muted=voice.muted;if(!document.hidden)sea.play().catch(()=>{})});
+voice.addEventListener('pause',()=>sea.pause());
+voice.addEventListener('ended',()=>sea.pause());
+voice.addEventListener('volumechange',()=>{sea.muted=voice.muted});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)sea.pause()});
+window.addEventListener('pagehide',()=>sea.pause());
+
 const chapters=[{"id": "intro", "title": "Ходімо зі мною на воду!", "audio": "00-intro-v2", "lines": ["Ходімо зі мною на воду!", "На нас чекають озеро, море й підводні відкриття.", "Познайомимося із шістьма суднами!"]}, {"id": "rowboat", "title": "Човен із веслами", "audio": "01-rowboat-v3", "lines": ["На тихому озері погойдується човен.", "Весла відштовхують воду й допомагають човну плисти.", "А в прозорій воді пропливають рибки."]}, {"id": "sailboat", "title": "Вітрильник", "audio": "02-sailboat", "lines": ["Вітер напинає вітрила.", "Вітрильник пливе морською затокою.", "А над водою кружляють чайки!"]}, {"id": "motorboat", "title": "Моторний катер", "audio": "03-motorboat", "lines": ["А ось моторний катер!", "Двигун допомагає катеру рухатися.", "Позаду розходиться білий слід на воді."]}, {"id": "ferry", "title": "Пасажирський пором", "audio": "04-ferry", "lines": ["Пором відходить від причалу.", "Він перевозить пасажирів до іншого берега.", "На камені біля води відпочиває тюлень."]}, {"id": "cargo", "title": "Контейнеровоз", "audio": "05-cargo", "lines": ["Який великий корабель!", "Він перевозить вантажі в контейнерах.", "Контейнеровоз повільно проходить повз маяк."]}, {"id": "submarine", "title": "Підводний човен", "audio": "06-submarine", "lines": ["А тепер зазирнімо під воду!", "Підводний човен занурюється й пливе в глибині.", "Поруч пропливають рибки й морська черепаха."]}, {"id": "finish", "title": "До нових подорожей!", "audio": "07-finish", "lines": ["Скільки різних суден ми побачили!", "Весла, вітер і двигуни допомагають їм рухатися.", "Дякую за нашу водну подорож!"]}];
 let current=0,all=false,paused=false,muted=false,active=false,token=0,frame=0,transition=null,transitionDue=0,transitionLeft=0,wake=null,ended=false;
 function image(src,cls='',alt=''){const e=document.createElement('img');e.src=src;e.className=cls;e.alt=alt;e.draggable=false;return e}
