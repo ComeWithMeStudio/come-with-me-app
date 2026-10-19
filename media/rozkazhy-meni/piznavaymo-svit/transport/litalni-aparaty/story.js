@@ -52,8 +52,20 @@ function render(id){
   label('До нових відкриттів!');const grid=document.createElement('div');grid.className='final-grid';grid.append(image('assets/balloon.webp','balloon-final','Повітряна куля'),heli('heli-icon'),image(air+'propeller-airplane-red.webp','','Гвинтовий літак'),image('assets/airship.webp','','Дирижабль'),image(air+'passenger-airplane-blue-white.webp','','Пасажирський літак'));stage.append(grid);
  }
 }
-async function keepAwake(){if(!active||document.hidden||!navigator.wakeLock)return;try{wake=await navigator.wakeLock.request('screen')}catch(_){}}
-function releaseWake(){if(wake){wake.release().catch(()=>{});wake=null}}
+let wakePending=false;
+async function keepAwake(){
+ if(!active||document.hidden||!navigator.wakeLock||wakePending||(wake&&!wake.released))return;
+ wakePending=true;
+ try{
+  const acquired=await navigator.wakeLock.request('screen');
+  if(!active||document.hidden){await acquired.release();return}
+  wake=acquired;
+  acquired.addEventListener('release',()=>{if(wake===acquired)wake=null});
+ }catch(_){}finally{wakePending=false}
+}
+function releaseWake(){const held=wake;wake=null;if(held)held.release().catch(()=>{})}
+document.addEventListener('pointerdown',()=>{if(active)keepAwake()});
+voice.addEventListener('play',keepAwake);
 function clearTransition(){if(transition!==null)clearTimeout(transition);transition=null;transitionLeft=0}
 function scheduleNext(ms){transitionLeft=ms;transitionDue=performance.now()+ms;transition=setTimeout(()=>{transition=null;transitionLeft=0;if(active&&!paused&&all&&current<6)playChapter(current+1)},ms)}
 function updateDuration(){if(!Number.isFinite(voice.duration)||voice.duration<=0)return;stage.style.setProperty('--duration',Math.max(9,voice.duration+1.2)+'s')}
