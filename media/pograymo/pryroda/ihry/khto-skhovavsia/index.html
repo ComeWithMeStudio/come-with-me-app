@@ -20,14 +20,16 @@
 .friends button.mimi-friend-button img.mimi-friend{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom}
 
 .friends img.kitten-friend{transform:scale(1.15);transform-origin:center bottom}
+
+.locations{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:12px 0}.location{background:#fffbea;color:#344a37;border-radius:22px;padding:10px 15px;font-weight:bold}.location[aria-pressed="true"]{background:#638a61;color:white}.scene.forest{background:linear-gradient(#b5d9d0,#d6e4bc 47%,#709b67 48%,#577f50)}.scene.forest .hill{background:#7fa470}.scene.forest .path{background:#c3b78c}.scene.forest .sun{background:#fff0b1}.scene.farm{background:linear-gradient(#bce4f3,#f1edc7 47%,#c8d68d 48%,#9cbe72)}.scene.farm .hill{background:#bfd28b}.scene.farm .path{background:#e5cf9e}.location-note{font-size:14px;text-align:center;color:#526a4d;margin:4px 0}
 </style></head>
 <body><main class="shell"><header class="top"><a class="pill" href="../../../../../nature-games.html">← Природа</a><h1>Хто сховався? 🌿</h1><button class="pill" id="sound" aria-pressed="false" aria-label="Увімкнути озвучення">🔇</button></header><p class="intro" id="intro">У саду хтось сховався! Торкайся схованок і шукай друзів разом із Мімі.</p>
-<section class="scene" aria-label="Сад зі схованками"><div class="sun"></div><div class="cloud"></div><div class="hill"></div><div class="path"></div><img class="guide" id="guide" src="../../../../../mimi-run-transparent-v2b.webp" alt="Мімі"><div class="spots" id="spots"></div><div class="friends" id="friends" aria-label="Знайдені друзі"></div></section>
+<nav class="locations" aria-label="Обери пригоду"><button class="location" data-location="0">🌿 Сад</button><button class="location" data-location="1">🌲 Ліс</button><button class="location" data-location="2">🏡 Ферма</button><button class="location" id="adventure">🐾 Уся пригода</button></nav><section class="scene" aria-label="Сад зі схованками"><div class="sun"></div><div class="cloud"></div><div class="hill"></div><div class="path"></div><img class="guide" id="guide" src="../../../../../mimi-run-transparent-v2b.webp" alt="Мімі"><div class="spots" id="spots"></div><div class="friends" id="friends" aria-label="Знайдені друзі"></div></section>
 <section class="panel"><div class="progress" id="progress" aria-label="Поступ"></div><p class="hint" id="hint" role="status" aria-live="polite">Готові до хованок?</p><div class="controls"><button class="action" id="next">Почнімо!</button><button class="action secondary" id="repeat" hidden>🔊 Підказка</button><button class="action secondary" id="peek" hidden>Ще підказка 👀</button></div><p class="status" id="voiceNote" hidden>Озвучення залежить від українського голосу на пристрої.</p></section></main>
 <script>
 'use strict';
 const farm='../../assets/farm/',mimi='../../../../../mimi-run-transparent-v2b.webp';
-const rounds=[
+let rounds=[
 {name:'Кошеня',image:farm+'kitten-gray-sitting.webp',hint:'Няв-няв! Хто сховався у саду?',extra:'У нього вуса, м’які лапки й довгий хвостик.'},
 {name:'Цуценя',image:farm+'puppy-cream-caramel-sitting.webp',hint:'Гав-гав! Хто кличе нас погратися?',extra:'Цей маленький друг махає хвостиком і любить гуляти.'},
 {name:'Каченя',image:farm+'duckling.webp',hint:'Кря-кря! Чий це голос?',extra:'У нього дзьобик і лапки, якими зручно плавати.'},
@@ -35,12 +37,12 @@ const rounds=[
 {name:'Курчатко',image:farm+'chick-yellow-wings-down.webp',hint:'Пі-пі-пі! Хто такий маленький і пухнастий?',extra:'Воно вилупилося з яйця. Його мама — курочка.'},
 {name:'Мімі',image:mimi,hint:'А де ж Мімі? Тепер її черга ховатися!',extra:'Шукай нашу подружку. Вона весь цей час гралася з тобою!'}
 ];
-const covers=[
+let covers=[
 '<svg class="cover" viewBox="0 0 200 220" aria-hidden="true"><path fill="#719e59" d="M15 202Q-8 159 29 130Q10 91 57 85Q60 30 105 51Q156 16 167 83Q208 85 187 133Q224 182 181 205Z"/><path fill="#8db96b" d="M28 175Q3 127 53 119Q48 69 96 87Q124 40 151 93Q200 102 174 152Q201 191 151 192Z"/><circle fill="#e5a5a7" cx="59" cy="147" r="7"/><circle fill="#e5a5a7" cx="142" cy="118" r="6"/></svg>',
 '<svg class="cover" viewBox="0 0 200 220" aria-hidden="true"><path d="M81 211L87 95H119L130 211Z" fill="#aa8056"/><path d="M99 151L57 112M110 133L150 90" stroke="#aa8056" stroke-width="15" stroke-linecap="round"/><path fill="#7da761" d="M15 100Q-5 61 38 45Q38 5 84 21Q113-9 146 22Q194 13 185 58Q218 93 180 114Q154 142 120 120Q76 146 49 118Q24 125 15 100Z"/><path fill="#9bc17b" d="M36 75Q29 42 66 47Q83 14 113 40Q156 24 163 60Q186 89 150 100Q110 80 89 108Q54 114 36 75Z"/></svg>',
 '<svg class="cover" viewBox="0 0 200 220" aria-hidden="true"><path d="M42 120C33 17 171 17 162 120" fill="none" stroke="#b88a55" stroke-width="13"/><path d="M17 109L34 205Q100 223 169 205L185 109Z" fill="#caa16d"/><path d="M22 135H180M27 162H175M32 188H170M55 115L62 210M88 115L90 215M120 115L118 215M151 115L145 211" stroke="#e6c48c" stroke-width="8"/><path d="M17 109Q100 91 185 109" fill="none" stroke="#a77a48" stroke-width="14" stroke-linecap="round"/></svg>'
 ];
-const labels=['Кущик','Дерево','Кошик'],spots=document.getElementById('spots'),hint=document.getElementById('hint'),next=document.getElementById('next'),repeat=document.getElementById('repeat'),peek=document.getElementById('peek'),friends=document.getElementById('friends'),guide=document.getElementById('guide'),progress=document.getElementById('progress');
+let labels=['Кущик','Дерево','Кошик'];const spots=document.getElementById('spots'),hint=document.getElementById('hint'),next=document.getElementById('next'),repeat=document.getElementById('repeat'),peek=document.getElementById('peek'),friends=document.getElementById('friends'),guide=document.getElementById('guide'),progress=document.getElementById('progress');
 let round=-1,target=-1,solved=false,sound=false,finished=false,lastTarget=-1,timers=[];
 function later(fn,ms){const t=setTimeout(fn,ms);timers.push(t)}
 function clearTimers(){timers.forEach(clearTimeout);timers=[]}
@@ -49,11 +51,56 @@ function say(text){hint.textContent=text;speak(text)}
 function updateProgress(){progress.textContent=rounds.map((_,i)=>i<round||(i===round&&solved)?'●':'○').join('');progress.setAttribute('aria-label','Знайдено '+Math.max(0,round+(solved?1:0))+' із '+rounds.length)}
 function startRound(){clearTimers();round++;solved=false;next.hidden=true;repeat.hidden=false;peek.hidden=false;peek.disabled=false;let choices=[0,1,2].filter(i=>i!==lastTarget);target=choices[Math.floor(Math.random()*choices.length)];lastTarget=target;spots.replaceChildren();guide.hidden=round===rounds.length-1;for(let i=0;i<3;i++){const b=document.createElement('button');b.className='spot'+(round===rounds.length-1?' mimi-round':'');b.setAttribute('aria-label','Пошукати: '+labels[i]);b.innerHTML=(i===target?'<img class="hidden-animal" src="'+rounds[round].image+'" alt="">':'')+covers[i]+'<span class="label">'+labels[i]+'</span>';b.addEventListener('click',()=>choose(i,b));spots.append(b)}say(rounds[round].hint);updateProgress()}
 function choose(i,b){if(solved||finished)return;if(i!==target){b.classList.remove('wiggle');void b.offsetWidth;b.classList.add('wiggle');const s=document.createElement('span');s.className='surprise';s.textContent=i===0?'🦋':i===1?'🍃':'✨';b.append(s);later(()=>s.remove(),1600);say('Тут маленький сюрприз! Пошукаймо ще. '+rounds[round].hint);return}solved=true;spots.querySelectorAll('button').forEach(el=>el.disabled=true);b.classList.remove('peek');b.classList.add('revealed');b.querySelector('.hidden-animal').alt=rounds[round].name;peek.hidden=true;repeat.hidden=true;say(round===5?'Ось і Мімі! Ми знайшли всіх друзів!':'Ось хто сховався! '+rounds[round].name+'!');updateProgress();later(()=>{const img=document.createElement('img');img.src=rounds[round].image;img.alt=rounds[round].name;if(round===0)img.classList.add('kitten-friend');if(round===rounds.length-1)img.classList.add('mimi-friend');friends.append(img);b.querySelector('.hidden-animal').style.visibility='hidden';next.textContent=round===5?'До всіх друзів 🌸':'Шукаймо далі →';next.hidden=false},1300)}
-next.addEventListener('click',()=>{if(finished){finished=false;round=-1;lastTarget=-1;friends.replaceChildren();friends.style.height='';friends.style.left='';document.getElementById('intro').textContent='У саду хтось сховався! Торкайся схованок і шукай друзів разом із Мімі.';startRound();return}if(round===5&&solved){clearTimers();finished=true;spots.replaceChildren();guide.hidden=true;friends.style.height='42%';friends.style.left='4%';say('Усі друзі разом! Дякуємо за веселі хованки!');next.textContent='Зіграємо ще раз?';document.getElementById('intro').textContent='Торкнися друга — згадаймо, кого ми знайшли!';Array.from(friends.children).forEach(img=>{const b=document.createElement('button');b.style.cssText='background:transparent;padding:0;width:16%;height:100%';b.setAttribute('aria-label',img.alt);if(img.classList.contains('mimi-friend'))b.classList.add('mimi-friend-button');img.style.width='100%';b.append(img);if(img.classList.contains('mimi-friend')){b.disabled=true;b.setAttribute('aria-label','Мімі радіє разом із друзями')}else b.onclick=()=>say(img.alt+'!');friends.append(b)});return}friends.style.height='';friends.style.left='';startRound()});
+next.addEventListener('click',()=>{if(finished){if(wholeAdventure&&locationIndex<2){selectLocation(locationIndex+1,true);startRound();return}finished=false;round=-1;lastTarget=-1;friends.replaceChildren();friends.style.height='';friends.style.left='';document.getElementById('intro').textContent=locations[locationIndex].intro;startRound();return}if(round===5&&solved){clearTimers();finished=true;spots.replaceChildren();guide.hidden=true;friends.style.height='42%';friends.style.left='4%';say('Усі друзі разом! Дякуємо за веселі хованки!');next.textContent=wholeAdventure&&locationIndex<2?'Далі: '+locations[locationIndex+1].name+' →':'Зіграємо ще раз?';document.getElementById('intro').textContent='Торкнися друга — згадаймо, кого ми знайшли!';Array.from(friends.children).forEach(img=>{const b=document.createElement('button');b.style.cssText='background:transparent;padding:0;width:16%;height:100%';b.setAttribute('aria-label',img.alt);if(img.classList.contains('mimi-friend'))b.classList.add('mimi-friend-button');img.style.width='100%';b.append(img);if(img.classList.contains('mimi-friend')){b.disabled=true;b.setAttribute('aria-label','Мімі радіє разом із друзями')}else b.onclick=()=>say(img.alt+'!');friends.append(b)});return}friends.style.height='';friends.style.left='';startRound()});
 repeat.onclick=()=>{if(round>=0)say(rounds[round].hint)};
 peek.onclick=()=>{if(solved||round<0)return;say(rounds[round].extra);spots.children[target].classList.add('peek');peek.disabled=true};
 document.getElementById('sound').onclick=()=>{sound=!sound;const b=document.getElementById('sound');b.textContent=sound?'🔊':'🔇';b.setAttribute('aria-pressed',String(sound));b.setAttribute('aria-label',sound?'Вимкнути озвучення':'Увімкнути озвучення');document.getElementById('voiceNote').hidden=!sound;if(sound)speak(hint.textContent);else if('speechSynthesis'in window)window.speechSynthesis.cancel()};
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&'speechSynthesis'in window)window.speechSynthesis.cancel()});
 window.addEventListener('pagehide',()=>{clearTimers();if('speechSynthesis'in window)window.speechSynthesis.cancel()});
-updateProgress();
+
+const gardenRounds=rounds,gardenCovers=covers,gardenLabels=labels;
+const forest='../../assets/forest/';
+const makeRound=(name,file,hint,extra)=>({name,image:file,hint,extra});
+const mimiRound=gardenRounds[5];
+const svg=body=>'<svg class="cover" viewBox="0 0 200 220" aria-hidden="true">'+body+'</svg>';
+const locations=[
+{name:'Сад',theme:'garden',intro:'У саду хтось сховався! Торкайся схованок і шукай друзів разом із Мімі.',rounds:gardenRounds,covers:gardenCovers,labels:gardenLabels},
+{name:'Ліс',theme:'forest',intro:'Мімі завітала до лісу. Хто ховається поміж деревами?',labels:['Ялинка','Пеньочок','Кущик'],covers:[
+svg('<path fill="#856543" d="M86 153H115V215H86Z"/><path fill="#477e59" d="M100 8L159 89H137L181 153H153L196 203H4L47 153H19L65 89H42Z"/><path fill="#63956a" d="M100 8L99 190H17L62 143H40L81 79H65Z"/>'),
+svg('<path fill="#a87e52" d="M29 97L36 202Q99 222 170 202L179 97Z"/><path d="M52 115L61 192M89 124L90 203M129 124L125 197M157 113L150 187" fill="none" stroke="#89623f" stroke-width="7"/><ellipse fill="#d9b784" cx="104" cy="96" rx="76" ry="30"/><ellipse fill="none" stroke="#b88f5e" stroke-width="4" cx="104" cy="96" rx="50" ry="17"/><ellipse fill="none" stroke="#b88f5e" stroke-width="3" cx="104" cy="96" rx="22" ry="8"/><path fill="#83a364" d="M24 187Q48 163 62 198Q92 176 109 210H31Z"/>'),
+gardenCovers[0]],rounds:[
+makeRound('Білочка',forest+'red-squirrel-sitting.webp','На гілці майнув пухнастий хвостик. Хто сховався?','Вона спритно стрибає по деревах і гризе горішки.'),
+makeRound('Їжачок',forest+'hedgehog-walking.webp','У листі щось зашурхотіло. Хто там?','На його спинці багато голочок. Коли страшно, він згортається клубочком.'),
+makeRound('Лисичка',forest+'red-fox-standing.webp','Руда шубка, пухнастий хвіст… Хто причаївся?','У неї гострі вушка і довга мордочка.'),
+makeRound('Зайчик',forest+'brown-hare-sitting.webp','Довгі вуха виглядають зі схованки. Кого шукаємо?','Він швидко бігає та стрибає. Його хвостик зовсім коротенький.'),
+makeRound('Сова',forest+'tawny-owl-standing.webp','Угу-угу! Хто озвався поміж деревами?','Цей птах має великі очі й часто полює вночі.'),
+mimiRound]},
+{name:'Ферма',theme:'farm',intro:'Ми на фермі! Прислухаймося: хто грається з нами у хованки?',labels:['Сіно','Хатинка','Парканчик'],covers:[
+svg('<path fill="#d8ad52" d="M26 203L21 115Q24 57 101 31Q175 57 179 115L174 203Z"/><path fill="#edcb77" d="M25 115Q30 62 101 31L96 203H26Z"/><path d="M62 87L48 184M90 58L77 195M118 61L130 193M145 88L158 187M30 139L175 139" stroke="#bf963f" stroke-width="5" fill="none"/>'),
+svg('<path fill="#d99b73" d="M32 94H169V209H32Z"/><path fill="#bb725e" d="M10 98L100 20L190 98Z"/><path fill="#f1cc97" d="M75 132Q101 110 126 132V209H75Z"/><path fill="#a8d3d3" stroke="#fff4d7" stroke-width="7" d="M45 113H68V145H45Z"/><path fill="#a8d3d3" stroke="#fff4d7" stroke-width="7" d="M135 113H158V145H135Z"/><circle fill="#987044" cx="114" cy="170" r="4"/>'),
+svg('<path d="M3 137H197M3 181H197" stroke="#d1ae7d" stroke-width="16"/><path fill="#f0d6aa" d="M15 211V105L34 83L53 105V211ZM81 211V105L100 83L119 105V211ZM147 211V105L166 83L185 105V211Z"/><path d="M27 137H40M93 137H106M159 137H172" stroke="#ae885c" stroke-width="5"/>')],rounds:[
+makeRound('Теля',farm+'calf.webp','Му-у! Хто кличе маму-корову?','Це маленька дитина корови.'),
+makeRound('Лоша',farm+'foal-caramel-trotting.webp','І-го-го! Хто тупотить копитцями?','Його мама — кобила. Коли підросте, стане конем.'),
+makeRound('Ягня',farm+'lamb.webp','Бе-е! Хто має м’яку кучеряву шубку?','Це маленька дитина вівці.'),
+makeRound('Порося',farm+'piglet.webp','Хрю-хрю! Хто заховав свій п’ятачок?','У нього маленькі копитця й хвостик гачечком.'),
+makeRound('Козеня',farm+'kid.webp','Ме-е! Хто так весело стрибає на фермі?','Його мама — коза. Воно любить гратися і підстрибувати.'),
+mimiRound]}
+];
+let locationIndex=0,wholeAdventure=false;
+function selectLocation(index,all=false){
+clearTimers();if('speechSynthesis'in window)window.speechSynthesis.cancel();
+locationIndex=index;wholeAdventure=all;rounds=locations[index].rounds;covers=locations[index].covers;labels=locations[index].labels;
+round=-1;target=-1;lastTarget=-1;solved=false;finished=false;
+spots.replaceChildren();friends.replaceChildren();friends.style.height='';friends.style.left='';guide.hidden=false;
+document.querySelector('.scene').className='scene '+locations[index].theme;
+document.querySelector('.scene').setAttribute('aria-label',locations[index].name+' зі схованками');
+document.getElementById('intro').textContent=locations[index].intro;
+document.querySelectorAll('[data-location]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.location)===index)));
+document.getElementById('adventure').setAttribute('aria-pressed',String(all));
+next.hidden=false;next.textContent='Почнімо!';repeat.hidden=true;peek.hidden=true;say('Хованки: '+locations[index].name+'. Готові шукати друзів?');updateProgress();
+}
+document.querySelectorAll('[data-location]').forEach(b=>b.onclick=()=>selectLocation(Number(b.dataset.location)));
+document.getElementById('adventure').onclick=()=>selectLocation(0,true);
+selectLocation(0);
+
 </script></body></html>
