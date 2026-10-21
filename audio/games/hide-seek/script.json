@@ -309,7 +309,10 @@
       "id": "line-057",
       "text": "Лоша!",
       "spoken": "Лоша́!",
-      "revision": 2
+      "revision": 3,
+      "source_clip": "line-056",
+      "source_start_seconds": 1.1,
+      "source_duration_seconds": 0.72
     },
     {
       "id": "line-058",
