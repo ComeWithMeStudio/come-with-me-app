@@ -1,13 +1,14 @@
 'use strict';
 (()=>{
 const $=id=>document.getElementById(id),stage=$('stage'),voice=$('voice');
-const sea=new Audio('/audio/games/sfx/sea-waves-ambience.mp3');
-sea.loop=true;sea.volume=.12;sea.preload='none';
+const sea=new Audio('/audio/games/sfx/sea-waves-ambience-audible.mp3');
+sea.loop=true;sea.volume=.22;sea.preload='none';
 voice.addEventListener('play',()=>{sea.muted=voice.muted;if(!document.hidden)sea.play().catch(()=>{})});
 voice.addEventListener('pause',()=>sea.pause());
 voice.addEventListener('ended',()=>sea.pause());
 voice.addEventListener('volumechange',()=>{sea.muted=voice.muted});
-document.addEventListener('visibilitychange',()=>{if(document.hidden)sea.pause()});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)sea.pause();else if(!voice.paused&&!voice.muted)sea.play().catch(()=>{})});
+document.addEventListener('pointerdown',()=>{if(!voice.paused&&!voice.muted&&!document.hidden)sea.play().catch(()=>{})});
 window.addEventListener('pagehide',()=>sea.pause());
 
 const chapters=[{"id": "intro", "title": "Ходімо зі мною на воду!", "audio": "00-intro-v2", "lines": ["Ходімо зі мною на воду!", "На нас чекають озеро, море й підводні відкриття.", "Познайомимося із шістьма суднами!"]}, {"id": "rowboat", "title": "Човен із веслами", "audio": "01-rowboat-v3", "lines": ["На тихому озері погойдується човен.", "Весла відштовхують воду й допомагають човну плисти.", "А в прозорій воді пропливають рибки."]}, {"id": "sailboat", "title": "Вітрильник", "audio": "02-sailboat", "lines": ["Вітер напинає вітрила.", "Вітрильник пливе морською затокою.", "А над водою кружляють чайки!"]}, {"id": "motorboat", "title": "Моторний катер", "audio": "03-motorboat", "lines": ["А ось моторний катер!", "Двигун допомагає катеру рухатися.", "Позаду розходиться білий слід на воді."]}, {"id": "ferry", "title": "Пасажирський пором", "audio": "04-ferry", "lines": ["Пором відходить від причалу.", "Він перевозить пасажирів до іншого берега.", "На камені біля води відпочиває тюлень."]}, {"id": "cargo", "title": "Контейнеровоз", "audio": "05-cargo", "lines": ["Який великий корабель!", "Він перевозить вантажі в контейнерах.", "Контейнеровоз повільно проходить повз маяк."]}, {"id": "submarine", "title": "Підводний човен", "audio": "06-submarine", "lines": ["А тепер зазирнімо під воду!", "Підводний човен занурюється й пливе в глибині.", "Поруч пропливають рибки й морська черепаха."]}, {"id": "finish", "title": "До нових подорожей!", "audio": "07-finish", "lines": ["Скільки різних суден ми побачили!", "Весла, вітер і двигуни допомагають їм рухатися.", "Дякую за нашу водну подорож!"]}];
@@ -36,7 +37,7 @@ function render(id){
  const picture=document.createElement('picture');picture.className='water-picture';const wide=document.createElement('source');wide.media='(min-width:601px)';wide.srcset='assets/'+bg+'-wide.webp';picture.append(wide,image('assets/'+bg+'.webp','water-background'));stage.append(picture);
  if(id==='intro'){
   const label=document.createElement('div');label.className='water-label';label.textContent='Вода кличе в подорож!';stage.append(label);
-  stage.append(ship('sailboat','intro-sailing'));
+  stage.append(ship('motorboat','intro-sailing'));
   const window=div('emergence-window');window.append(image('assets/submarine.webp','surfacing-sub','Підводний човен виринає'));
   const wave=image('assets/wave-clean.webp','surface-wave');window.append(wave);stage.append(window);water();return;
  }

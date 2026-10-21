@@ -120,3 +120,7 @@
 
 /* Hide the submerged portion at the wave, leaving the full jump visible above it. */
 .dolphin-air{position:absolute;inset:0;clip-path:inset(-200% -200% 8% -200%)}
+
+/* A quick motorboat crosses the bay before the submarine surfaces. */
+.intro-scene>.intro-sailing.motorboat{width:32%;top:51%}
+@media(max-width:600px){.intro-scene>.intro-sailing.motorboat{width:55%;top:52%}}
