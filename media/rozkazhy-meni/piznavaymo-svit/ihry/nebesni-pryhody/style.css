@@ -16,3 +16,12 @@
 
 /* The arriving aircraft remains visible above the runway surface. */
 .craft.passenger{z-index:7;pointer-events:none}
+
+/* Mimi descends from outside the scene, safely under a fully open parachute. */
+.mimi-descent{position:absolute;left:5%;top:0;width:36%;height:92%;z-index:1;pointer-events:none;animation:parachute-descent 14s linear infinite;will-change:transform}
+.mimi-descent img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 5px 8px #50647d20)}
+.welcome .welcome-card{position:absolute;right:6%;left:auto;width:45%;max-width:440px;z-index:2}
+.audio-retry{margin:0 0 12px;background:#ebe2fb}
+@keyframes parachute-descent{0%{transform:translate(0,-110%) rotate(-3deg)}45%{transform:translate(4%,0) rotate(2deg)}100%{transform:translate(-2%,140%) rotate(-2deg)}}
+@media(max-width:600px){.mimi-descent{left:24%;width:52%;height:68%;animation-duration:16s}.welcome .welcome-card{left:8%;right:8%;bottom:6%;width:auto}}
+@media(prefers-reduced-motion:reduce){.mimi-descent{animation:none;transform:translateY(-10%)}}
