@@ -29,3 +29,6 @@
 .mimi-descent{height:70%;animation-duration:18s}
 @keyframes parachute-descent{0%{transform:translate(0,-110%) rotate(-3deg)}30%{transform:translate(4%,-5%) rotate(2deg)}60%{transform:translate(1%,25%) rotate(0deg)}100%{transform:translate(-2%,155%) rotate(-2deg)}}
 @media(max-width:600px){.mimi-descent{top:-10%;left:28%;width:44%;height:48%;animation-duration:18s}}
+
+/* Align the runway and its label horizontally with the arriving aircraft. */
+.target.airport{transform:none}

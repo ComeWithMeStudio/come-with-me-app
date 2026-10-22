@@ -20,3 +20,5 @@ Pause suspends Web Animations, CSS animation, audio and target interaction. Hidi
 
 
 Follow-up review: Mimi now descends from above the visible welcome scene under an open parachute. The reference-preserving transparent sprite was made with built-in imagegen from the existing Mimi character; prompt: preserve white/orange kitten, blue eyes, red collar and bell, add blue/orange open parachute and harness, no background or text. Reduced motion retains a static parachute pose. Three v2 Gigi clips correct the opening pronunciation and explicitly ask the child to tap cloud numbers or landmarks. The new audio filenames and cache versions prevent reuse of earlier cached prompts. A visible replay affordance appears if automatic narration playback is rejected.
+
+Final mobile review: runway rotation is removed so its centerline aligns horizontally with the aircraft. New versioned Gigi clips explicitly mark нати́сни (red airplane), місто́к (airship) and обери́ (passenger airplane) for synthesis. Visible text remains unchanged.
