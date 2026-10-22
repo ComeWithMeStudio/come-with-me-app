@@ -9,3 +9,13 @@
 .target{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
 .target img{display:block;min-width:0;min-height:0;max-width:100%;max-height:100%}
 .finish-grid .oar{display:none}
+
+/* Follow the pier painted into the bay, keeping badges upright. */
+.vessel.toward-pier .ship-icon{transform:scaleX(-1)}
+.vessel.toward-pier.speeding:after{left:auto;right:-35%}
+.target.destination{width:20%;height:14%;background:#fffaf0b3;border-color:#fff9}
+.target.destination.done{background:#d9edc6c9}
+.container-icon{display:grid;place-items:center;font-size:21px;color:#345866;text-shadow:0 1px 2px #fff9}
+.finish-grid>.ship-icon:nth-child(-n+2){transform:translateY(15px)}
+.finish-grid>.ship-icon:nth-child(-n+2)>img,.finish-grid>.ship-icon:first-child .boat{object-position:center bottom}
+@media(max-width:600px){.finish-grid>.ship-icon:nth-child(-n+2){transform:translateY(16px)}.target.destination{width:22%;font-size:12px}.container-icon{font-size:18px}}
