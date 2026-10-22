@@ -25,3 +25,7 @@
 @keyframes parachute-descent{0%{transform:translate(0,-110%) rotate(-3deg)}45%{transform:translate(4%,0) rotate(2deg)}100%{transform:translate(-2%,140%) rotate(-2deg)}}
 @media(max-width:600px){.mimi-descent{left:24%;width:52%;height:68%;animation-duration:16s}.welcome .welcome-card{left:8%;right:8%;bottom:6%;width:auto}}
 @media(prefers-reduced-motion:reduce){.mimi-descent{animation:none;transform:translateY(-10%)}}
+/* Leave enough room to see the whole canopy and kitten during the slow middle of the descent. */
+.mimi-descent{height:70%;animation-duration:18s}
+@keyframes parachute-descent{0%{transform:translate(0,-110%) rotate(-3deg)}30%{transform:translate(4%,-5%) rotate(2deg)}60%{transform:translate(1%,25%) rotate(0deg)}100%{transform:translate(-2%,155%) rotate(-2deg)}}
+@media(max-width:600px){.mimi-descent{top:-10%;left:28%;width:44%;height:48%;animation-duration:18s}}
