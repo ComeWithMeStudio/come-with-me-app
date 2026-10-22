@@ -1,0 +1,61 @@
+{
+  "status": "Planned game-specific clips; not yet generated. Runtime currently reuses existing Gigi educational narration.",
+  "voice_id": "n7Wi4g1bhpw4Bs8HK5ph",
+  "model_id": "eleven_multilingual_v2",
+  "voice_settings": {
+    "stability": 0.65,
+    "similarity_boost": 0.23,
+    "style": 0.43,
+    "use_speaker_boost": true
+  },
+  "clips": [
+    {
+      "file": "00-intro.mp3",
+      "text": "Ходімо зі мною в небо! Обирай літальні апарати й допомагай їм у подорожах."
+    },
+    {
+      "file": "01-balloon-choose.mp3",
+      "text": "На чому вирушимо в спокійну подорож над пагорбами? Знайди повітряну кулю."
+    },
+    {
+      "file": "02-balloon-action.mp3",
+      "text": "Торкнися стрілочки — допоможи кулі піднятися вище."
+    },
+    {
+      "file": "03-helicopter-choose.mp3",
+      "text": "Хто може піднятися прямо вгору й зависнути над галявиною?"
+    },
+    {
+      "file": "04-helicopter-action.mp3",
+      "text": "Торкнися позначки над майданчиком. Гвинтокрил підніметься й зависне!"
+    },
+    {
+      "file": "05-propeller-choose.mp3",
+      "text": "Знайди маленький червоний літак із пропелером. Він полетить між хмаринками!"
+    },
+    {
+      "file": "06-propeller-action.mp3",
+      "text": "Торкайся хмаринок по черзі: один, два, три. Прокладемо літаку шлях!"
+    },
+    {
+      "file": "07-airship-choose.mp3",
+      "text": "Обери дирижабль для повільної подорожі над річкою."
+    },
+    {
+      "file": "08-airship-action.mp3",
+      "text": "Пливімо над долиною! Знайди на землі місток, будиночок і дерево."
+    },
+    {
+      "file": "09-passenger-choose.mp3",
+      "text": "На чому пасажири полетять до іншого міста? Обери пасажирський літак."
+    },
+    {
+      "file": "10-passenger-action.mp3",
+      "text": "Знайди освітлений аеродром. Торкнися його — і літак вирушить до міста."
+    },
+    {
+      "file": "11-finish.mp3",
+      "text": "Усі п’ять пригод пройдено! Дякую за подорож. До нових небесних пригод!"
+    }
+  ]
+}
