@@ -22,5 +22,10 @@
 
 .vessel.rowboat .ship-icon{transform:scaleX(-1)}
 /* The rowboat sprite has more transparent space below its hull. */
-.finish-grid>.ship-icon:first-child{transform:translateY(calc(15px + 22%))}
-@media(max-width:600px){.finish-grid>.ship-icon:first-child{transform:translateY(calc(16px + 22%))}}
+.finish-grid>.ship-icon:first-child{transform:translateY(calc(23px + 22%)) scale(.9)}
+@media(max-width:600px){.finish-grid>.ship-icon:first-child{transform:translateY(calc(24px + 22%)) scale(.9)}}
+
+/* Flip each oar about its handle; the boat itself keeps its heading. */
+.vessel.rowboat .oar.near{scale:-1 1}
+.vessel.rowboat .oar.far{scale:-1 -1}
+.finish-grid>.ship-icon:first-child{transform-origin:center bottom}

@@ -32,7 +32,7 @@ function choose(id,button){if(phase!=='choose'||paused)return;const c=chapters[i
 }
 function makeActivity(id){
  if(id==='rowboat'){
-  vessel.style.left=matchMedia('(max-width:600px)').matches?'43%':'57%';vessel.style.top='45%';buoy(5,56);const b=target('Зробити гребок веслом',3,74,'oar-button current');b.append(image(assets+'oar.webp'));
+  vessel.style.left=matchMedia('(max-width:600px)').matches?'43%':'57%';vessel.style.top='45%';buoy(5,56);const b=target('Зробити гребок веслом',72,74,'oar-button current');b.append(image(assets+'oar.webp'));
   b.onclick=async()=>{if(busy||paused||phase!=='action')return;busy=true;b.disabled=true;vessel.classList.add('rowing');if(!await moveTo((matchMedia('(max-width:600px)').matches?[30,16,4]:[40,23,6])[moves],45,2000))return;vessel.classList.remove('rowing');moves++;tone();if(moves===3){b.classList.remove('current');complete()}else{busy=false;b.disabled=false;$('feedback').textContent='Гребок '+moves+' / 3. Веслуймо далі!'}};
  }else if(id==='sailboat'){
   vessel.style.left='5%';const puff=div('wind-puff');puff.innerHTML='<i></i><i></i><i></i>';scenery.append(puff);const b=target('Додати вітер у вітрила',7,76,'wind-button current','≋');
