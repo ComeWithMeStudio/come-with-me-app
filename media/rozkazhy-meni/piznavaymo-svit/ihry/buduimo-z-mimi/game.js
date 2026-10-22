@@ -70,7 +70,7 @@
     $('walkway').className = 'walkway'; $('road').className = 'road'; $('road').removeAttribute('style');
     $('walls').className = 'walls'; $('walls').removeAttribute('style');
     $('roof').className = 'roof'; $('roof').removeAttribute('style');
-    $('sandbox').className = 'sandbox'; $('sand').className = 'sand'; $('flowers').className = 'flowers';
+    $('sandcastle').className = 'sandcastle'; $('sandbox').className = 'sandbox'; $('sand').className = 'sand'; $('flowers').className = 'flowers';
     $('piles').querySelectorAll('i').forEach(el => el.className = '');
     $('time').hidden = true; $('mimi').className = 'mimi working';
     startChapter(0);
@@ -175,7 +175,7 @@
   function finish() {
     cancel(); phase = 'finish'; busy = false; release();
     $('vehicle').replaceChildren(); $('action').hidden = true; $('choices').replaceChildren();
-    $('flowers').classList.add('visible'); $('mimi').className = 'mimi finished';
+    $('sandcastle').classList.add('visible'); $('flowers').classList.add('visible'); $('mimi').className = 'mimi finished';
     $('title').textContent = 'Ми з тобою це збудували!';
     $('instruction').textContent = 'І будиночок є, і пісочниця, і рівненька дорога. Дякую за допомогу!';
     $('feedback').textContent = 'Усі вісім машин попрацювали разом 💛';
@@ -206,3 +206,4 @@
   });
   window.addEventListener('pagehide', () => { cancel(); chime.pause(); release(); });
 })();
+
