@@ -19,3 +19,11 @@
 .finish-grid>.ship-icon:nth-child(-n+2){transform:translateY(15px)}
 .finish-grid>.ship-icon:nth-child(-n+2)>img,.finish-grid>.ship-icon:first-child .boat{object-position:center bottom}
 @media(max-width:600px){.finish-grid>.ship-icon:nth-child(-n+2){transform:translateY(16px)}.target.destination{width:22%;font-size:12px}.container-icon{font-size:18px}}
+
+/* Reverse the oar blades while retaining their attachment to the boat. */
+.rowboat-assembly>.oar.near{left:-4%;scale:-1 1;transform-origin:90% 50%}
+.rowboat-assembly>.oar.far{left:-10%;scale:-1 -1;transform-origin:90% 50%}
+.oar-button img{transform:scaleX(-1)}
+/* The rowboat sprite has more transparent space below its hull. */
+.finish-grid>.ship-icon:first-child{transform:translateY(calc(15px + 22%))}
+@media(max-width:600px){.finish-grid>.ship-icon:first-child{transform:translateY(calc(16px + 22%))}}
