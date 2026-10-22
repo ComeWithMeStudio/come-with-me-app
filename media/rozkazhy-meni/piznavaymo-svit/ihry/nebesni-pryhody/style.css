@@ -13,3 +13,6 @@
 .target.airport.done{background:#35465e;opacity:1;border-color:#f5ddb0}
 .airport span{font-size:clamp(11px,1.6vw,15px)}
 @media(max-width:600px){.pad{left:14%;width:65%;bottom:9%;height:8%;border-width:4px}.craft.helicopter{height:auto}}
+
+/* The arriving aircraft remains visible above the runway surface. */
+.craft.passenger{z-index:7;pointer-events:none}
