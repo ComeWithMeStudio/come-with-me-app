@@ -16,3 +16,5 @@
 .sandcastle img{position:absolute;left:-65%;top:-20%;width:230%;height:160%;max-width:none;object-fit:fill}
 .sandcastle.visible{opacity:1;visibility:visible}
 @media(max-width:600px){.house{top:32%}.foundation{top:67%}.flowers{top:67%}.walkway{top:69%;height:15%}.sandbox{height:auto;aspect-ratio:3/2}}
+
+.voice-controls{display:flex;gap:6px;flex-shrink:0}.voice-controls .pill{padding:10px;min-width:40px}.panel-head h2{flex:1}.audio-retry{margin-bottom:12px;background:#f7e8bf}@media(max-width:600px){.voice-controls{gap:4px}.voice-controls .pill{padding:9px 7px;font-size:13px;min-width:34px}.panel-head{align-items:flex-start}.panel-head h2{font-size:20px}}

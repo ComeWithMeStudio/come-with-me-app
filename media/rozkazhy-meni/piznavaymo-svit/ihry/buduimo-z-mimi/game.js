@@ -27,6 +27,29 @@
   let wake = null, wakePending = false;
   const chime = new Audio('/audio/games/common/correct_chime.mp3');
   chime.volume = .18;
+  const voice = $('voice');
+  let muted = false, lastClip = null, audioRequest = 0;
+  const clipFor = (kind) => String(index * 2 + (kind === 'choose' ? 1 : 2)).padStart(2,'0') + '-' + chapters[index].id + '-' + kind;
+  function stopVoice() { audioRequest++; voice.pause(); $('audioRetry').hidden = true; }
+  function playClip(file, remember = true) {
+    const request = ++audioRequest;
+    voice.pause();
+    if (remember) lastClip = file;
+    voice.src = 'audio/' + file + '.mp3'; voice.muted = muted; voice.load();
+    $('replay').disabled = paused; $('audioRetry').hidden = true;
+    if (!paused) voice.play().catch(() => { if (request === audioRequest && !paused) $('audioRetry').hidden = false; });
+  }
+  function repeatHint() { if (!paused && lastClip) playClip(lastClip); }
+  voice.addEventListener('ended', () => { if (phase === 'intro') reset(); });
+  voice.addEventListener('error', () => { if (!paused && voice.getAttribute('src')) $('audioRetry').hidden = false; });
+  $('replay').onclick = repeatHint;
+  $('audioRetry').onclick = repeatHint;
+  $('mute').onclick = () => {
+    muted = !muted; voice.muted = chime.muted = muted;
+    $('mute').textContent = muted ? '🔇' : '🔊';
+    $('mute').setAttribute('aria-label', muted ? 'Увімкнути звук' : 'Вимкнути звук');
+    $('mute').setAttribute('aria-pressed', String(muted));
+  };
   function tone() { chime.currentTime = 0; chime.play().catch(() => {}); }
   async function awake() {
     if (!navigator.wakeLock || wake || wakePending || document.hidden || paused || !['choose','action','complete'].includes(phase)) return;
@@ -63,7 +86,7 @@
     $('action').disabled = busy || paused;
   }
   function reset() {
-    cancel(); index = -1; phase = 'welcome'; busy = paused = false; moves = 0;
+    stopVoice(); cancel(); index = -1; phase = 'welcome'; busy = paused = false; moves = 0;
     document.body.classList.remove('paused'); $('pause').textContent = 'Ⅱ'; $('pause').setAttribute('aria-label','Пауза');
     $('vehicle').removeAttribute('style'); $('vehicle').replaceChildren();
     $('foundation').className = 'foundation'; $('foundation').removeAttribute('style');
@@ -79,11 +102,13 @@
     if (phase !== 'choose' || busy || paused) return;
     const chapter = chapters[index];
     if (chapter.id !== id) {
+      playClip('18-retry', false);
       wrong++; button.classList.remove('wrong'); void button.offsetWidth; button.classList.add('wrong');
       $('feedback').textContent = `Спробуй ще. Нам потрібен ${machines[chapter.id][0].toLocaleLowerCase('uk')}.`;
       if (wrong >= 2) $('choices').querySelector(`[data-id="${chapter.id}"]`).classList.add('hint');
       return;
     }
+    playClip(clipFor('action'));
     phase = 'action'; busy = true; tone(); $('choices').replaceChildren();
     $('instruction').textContent = chapter.action; $('feedback').textContent = 'Машина їде на допомогу…';
     const cls = {crane:'crane',loader:'loader',paver:'paver',roller:'roller',excavator:'excavator',bulldozer:'bulldozer'}[id] || '';
@@ -95,7 +120,7 @@
   }
   async function act() {
     if (phase !== 'action' || busy || paused) return;
-    busy = true; updateAction();
+    stopVoice(); busy = true; updateAction();
     const chapter = chapters[index], id = chapter.id;
     if (id === 'bulldozer') {
       if (!await animate($('vehicle'), [{left:$('vehicle').style.left || '3%'},{left:(10 + moves * 8) + '%'}], 1000)) return;
@@ -145,6 +170,7 @@
     moves++; tone();
     if (moves < chapter.total) {
       busy = false; updateAction();
+      if (id === 'crane') playClip('17-roof-action');
       $('feedback').textContent = id === 'crane' ? 'Стіни на місці! Тепер опустімо дах.' : `Зроблено: ${moves} / ${chapter.total}. Продовжуй!`;
       return;
     }
@@ -170,7 +196,7 @@
       const label = document.createElement('span'); label.textContent = machines[id][0];
       b.append(img,label); b.onclick = () => choose(id,b); $('choices').append(b);
     });
-    awake();
+    playClip(clipFor('choose')); awake();
   }
   function finish() {
     cancel(); phase = 'finish'; busy = false; release();
@@ -180,6 +206,7 @@
     $('instruction').textContent = 'І будиночок є, і пісочниця, і рівненька дорога. Дякую за допомогу!';
     $('feedback').textContent = 'Усі вісім машин попрацювали разом 💛';
     $('count').textContent = '8 / 8 ✓'; $('pause').disabled = true;
+    playClip('19-finish');
     $('next').textContent = 'Збудувати ще раз ↻'; $('next').hidden = false; tone();
   }
   function togglePause() {
@@ -191,9 +218,13 @@
       if (paused) { b.dataset.prePause = String(b.disabled); b.disabled = true; }
       else b.disabled = b.dataset.prePause === 'true';
     }
-    if (paused) { chime.pause(); release(); } else awake();
+    $('replay').disabled = paused || !lastClip;
+    if (paused) { voice.pause(); chime.pause(); release(); } else { if (voice.currentTime < voice.duration) voice.play().catch(() => { $('audioRetry').hidden = false; }); awake(); }
   }
-  $('start').onclick = reset;
+  $('start').onclick = () => {
+    if (phase === 'intro') { reset(); return; }
+    phase = 'intro'; $('pause').disabled = false; $('start').textContent = 'Почнімо! →'; playClip('00-intro');
+  };
   $('action').onclick = act;
   $('next').onclick = () => {
     if (busy || paused) return;
@@ -204,6 +235,6 @@
   document.addEventListener('visibilitychange',() => {
     if (document.hidden) { if (!paused && !['welcome','finish'].includes(phase)) togglePause(); release(); }
   });
-  window.addEventListener('pagehide', () => { cancel(); chime.pause(); release(); });
+  window.addEventListener('pagehide', () => { stopVoice(); cancel(); chime.pause(); release(); });
 })();
 
