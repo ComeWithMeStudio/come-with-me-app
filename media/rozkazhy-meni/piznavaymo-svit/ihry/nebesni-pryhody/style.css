@@ -6,3 +6,10 @@
 .assembly>.plane-box,.assembly>.heli-box{height:100%;width:auto;max-width:100%;justify-self:center;min-width:0;min-height:0}
 .choice .icon{flex:none;overflow:hidden}
 .choice>span{display:block;margin-top:7px;position:relative}
+
+/* Approved discovery helipad: same flat ellipse, placement and H perspective. */
+.pad{bottom:4%;left:25%;width:45%;height:12%;border-radius:50%;background:#8195a0;border:6px solid #e3e9e4;font-size:clamp(27px,5vw,54px);color:#f7f9ef;box-shadow:0 8px 0 #73856c55;transform:none}
+.pad span{transform:scaleY(.55)}
+.target.airport.done{background:#35465e;opacity:1;border-color:#f5ddb0}
+.airport span{font-size:clamp(11px,1.6vw,15px)}
+@media(max-width:600px){.pad{left:14%;width:65%;bottom:9%;height:8%;border-width:4px}.craft.helicopter{height:auto}}
