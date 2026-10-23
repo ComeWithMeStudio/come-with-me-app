@@ -13,9 +13,9 @@
     roller: ['Дорожній коток', 'road-roller-orange-repaired.webp']
   };
   const chapters = [
-    {id:'bulldozer', title:'Готуємо майданчик', question:'Спочатку вирівняймо майданчик. Знайди бульдозер!', action:'Натисни на кнопку тричі, щоб розрівняти три купи землі.', button:'Розрівняти землю', total:3, options:['loader','bulldozer','roller'], success:'Майданчик рівний. Можна починати будівництво!'},
-    {id:'excavator', title:'Місце для фундаменту', question:'Тепер викопаймо місце для фундаменту. Знайди екскаватор!', action:'Натисни на кнопку тричі. Допоможемо екскаватору копати!', button:'Копнути ковшем', total:3, options:['excavator','paver','crane'], success:'Місце для фундаменту готове!'},
-    {id:'dump', title:'Міцна основа', question:'Для міцної основи потрібен щебінь. Поклич самоскид!', action:'Натисни на кнопку, щоб підняти кузов і висипати щебінь.', button:'Висипати щебінь', total:1, options:['mixer','roller','dump'], success:'Щебінь на місці — маємо основу для фундаменту!'},
+    {id:'bulldozer', title:'Готуємо майданчик', question:'Спочатку розрівняємо майданчик. Знайди бульдозер!', action:'Натисни на кнопку тричі, щоб розрівняти три купи землі.', button:'Розрівняти землю', total:3, options:['loader','bulldozer','roller'], success:'Майданчик рівний. Можна починати будівництво!'},
+    {id:'excavator', title:'Місце для фундаменту', question:'Тепер зробимо місце для фундаменту. Знайди екскаватор!', action:'Натисни на кнопку тричі. Допоможемо екскаватору копати!', button:'Копнути ковшем', total:3, options:['excavator','paver','crane'], success:'Місце для фундаменту готове!'},
+    {id:'dump', title:'Міцна основа', question:'Для міцної основи потрібен щебінь. Поклич самоскид!', action:'Натисни на кнопку. Самоскид підніме кузов і висипле щебінь.', button:'Висипати щебінь', total:1, options:['mixer','roller','dump'], success:'Щебінь на місці — маємо основу для фундаменту!'},
     {id:'mixer', title:'Заливаємо фундамент', question:'Заллємо основу бетоном. Знайди бетонозмішувач!', action:'Натисни на кнопку, щоб залити основу бетоном.', button:'Залити бетон', total:1, options:['dump','mixer','bulldozer'], success:'Минув час, бетон затвердів. Фундамент готовий!'},
     {id:'crane', title:'Будиночок росте', question:'Поставимо готові стіни й дах. Яка техніка піднімає важкі вантажі? Знайди автокран!', action:'Спочатку встановімо готові стіни. Потім опустимо на них дах!', button:'Встановити стіни', total:2, options:['crane','loader','excavator'], success:'Стіни й дах на місці. Який гарний будиночок!'},
     {id:'loader', title:'Пісочниця у дворику', question:'Наповнімо пісочницю піском. Знайди навантажувач!', action:'Натисни на кнопку, щоб насипати пісок із ковша.', button:'Насипати пісок', total:1, options:['paver','excavator','loader'], success:'Пісочниця готова до ігор!'},
@@ -29,7 +29,7 @@
   chime.volume = .18;
   const voice = $('voice');
   let muted = false, lastClip = null, audioRequest = 0, retryHint = false, resumeVoice = false;
-  const audioRevision = 'pronunciation-20261024';
+  const audioRevision = 'simple-words-20261024';
   const clipFor = (kind) => String(index * 2 + (kind === 'choose' ? 1 : 2)).padStart(2,'0') + '-' + chapters[index].id + '-' + kind;
   function stopVoice() { audioRequest++; retryHint = resumeVoice = false; voice.pause(); $('audioRetry').hidden = true; }
   function playClip(file, remember = true, followWithHint = false) {
