@@ -27,7 +27,12 @@
   let wake = null, wakePending = false;
   const chime = new Audio('/audio/games/common/correct_chime.mp3');
   chime.volume = .18;
+  const ambience = new Audio('/audio/games/sfx/heavy-machinery-working.mp3');
+  ambience.loop = true; ambience.preload = 'none'; ambience.volume = .09;
+  function background() { if (!document.hidden && phase !== 'welcome' && phase !== 'finish') ambience.play().catch(() => {}); }
   const voice = $('voice');
+  voice.addEventListener('playing', () => { ambience.volume = .025; });
+  for (const event of ['pause','ended','error']) voice.addEventListener(event, () => { ambience.volume = .09; });
   let muted = false, lastClip = null, audioRequest = 0, retryHint = false, resumeVoice = false;
   const audioRevision = 'simple-words-20261024';
   const clipFor = (kind) => String(index * 2 + (kind === 'choose' ? 1 : 2)).padStart(2,'0') + '-' + chapters[index].id + '-' + kind;
@@ -51,7 +56,7 @@
   $('replay').onclick = repeatHint;
   $('audioRetry').onclick = repeatHint;
   $('mute').onclick = () => {
-    muted = !muted; voice.muted = chime.muted = muted;
+    muted = !muted; voice.muted = chime.muted = ambience.muted = muted;
     $('mute').textContent = muted ? '🔇' : '🔊';
     $('mute').setAttribute('aria-label', muted ? 'Увімкнути звук' : 'Вимкнути звук');
     $('mute').setAttribute('aria-pressed', String(muted));
@@ -200,10 +205,10 @@
       const label = document.createElement('span'); label.textContent = machines[id][0];
       b.append(img,label); b.onclick = () => choose(id,b); $('choices').append(b);
     });
-    playClip(clipFor('choose')); awake();
+    playClip(clipFor('choose')); background(); awake();
   }
   function finish() {
-    cancel(); phase = 'finish'; busy = false; release();
+    cancel(); phase = 'finish'; busy = false; ambience.pause(); ambience.currentTime = 0; release();
     $('vehicle').replaceChildren(); $('action').hidden = true; $('choices').replaceChildren();
     $('sandcastle').classList.add('visible'); $('flowers').classList.add('visible'); $('mimi').className = 'mimi finished';
     $('title').textContent = 'Ми з тобою це збудували!';
@@ -215,7 +220,7 @@
   }
   $('start').onclick = () => {
     if (phase === 'intro') { reset(); return; }
-    phase = 'intro'; $('start').textContent = 'Почнімо! →'; playClip('00-intro');
+    phase = 'intro'; background(); $('start').textContent = 'Почнімо! →'; playClip('00-intro');
   };
   $('action').onclick = act;
   $('next').onclick = () => {
@@ -225,11 +230,11 @@
   };
   function suspendMedia() {
     resumeVoice = resumeVoice || (!voice.paused && !voice.ended);
-    voice.pause(); chime.pause(); release();
+    voice.pause(); chime.pause(); ambience.pause(); release();
   }
   function restoreMedia() {
     if (document.hidden) return;
-    awake();
+    awake(); background();
     if (!resumeVoice) return;
     resumeVoice = false;
     const request = audioRequest;
