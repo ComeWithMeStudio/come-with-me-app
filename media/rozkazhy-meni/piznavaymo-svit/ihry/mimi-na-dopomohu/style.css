@@ -16,3 +16,16 @@
 
 /* Stable curb position and foreground traffic. */
 .crossing-cat{bottom:27%}.detour-car{z-index:11}.post-scene .vehicle{z-index:9}.try-again{outline:3px solid #e5ac6a;animation:try-again .55s ease-in-out}#feedback{font-weight:700}@keyframes try-again{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}@media(max-width:600px){.crossing-cat{bottom:26%}}
+
+/* Laptop review: fit traffic within the road without changing the approved phone layout. */
+@media(min-width:601px){
+ .scene[data-chapter="snow"] .vehicle{bottom:9%}
+ .scene[data-chapter="ambulance"] .yielding-car{bottom:20%!important}
+ .scene[data-chapter="ambulance"] .yielding-car.yielded{bottom:-7%!important}
+ .scene[data-chapter="cones"] .detour-car{bottom:16%!important}
+ .scene[data-chapter="tow"] .car{bottom:23%!important}
+ .scene[data-chapter="tow"] .vehicle{bottom:8%}
+ .scene[data-chapter="crossing"] .crossing-car{bottom:21%!important}
+ .water[data-jet="1"]{transform:rotate(-15deg)}
+ .water[data-jet="2"]{transform:rotate(-12deg)}
+}
