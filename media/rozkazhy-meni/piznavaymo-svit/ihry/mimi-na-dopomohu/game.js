@@ -21,12 +21,12 @@ const imageCache=new Map();
 const preloadFiles=[...Object.values(machines).map(m=>base+m[1]),base+'city-car-blue.webp',base+'convertible-red.webp',base+'service/tow-truck-loaded-blue-car-v1.webp',base+'municipal/garbage-truck-bin-raised-v1.webp',...['rabbit-gray-white-sitting.webp','kitten-gray-sitting.webp','cat-mother.webp','cow.webp'].map(f=>farm+f),'/mimi-run-transparent-v2b.webp','/media/pograymo/assets/illustrations/effects/fire-flames-v1.webp'];
 function preloadImage(src){if(!imageCache.has(src)){const img=new Image();img.src=src;imageCache.set(src,img.decode().catch(()=>{}));}return imageCache.get(src);}
 const imagesReady=Promise.all(preloadFiles.map(preloadImage));
-for(const file of ['00-intro',...chapters.flatMap((_,i)=>[String(i+1).padStart(2,'0')+'-choose',String(i+1).padStart(2,'0')+'-action']),'11-finish']){const link=document.createElement('link');link.rel='prefetch';link.href='audio/'+file+'.mp3?v=20261024c';document.head.append(link);}
+for(const file of ['00-intro',...chapters.flatMap((_,i)=>[String(i+1).padStart(2,'0')+'-choose',String(i+1).padStart(2,'0')+'-action']),'11-finish']){const link=document.createElement('link');link.rel='prefetch';link.href='audio/'+file+'.mp3?v=20261024d';document.head.append(link);}
 
 let index=-1,phase='welcome',busy=false,done=0,selected=null,muted=false,token=0,lastClip='00-intro',wrong=0,wake=null;
 const voice=$('voice'), bg=new Audio('/audio/games/sfx/City_Traffic_Ambience.mp3'), chime=new Audio('/audio/games/common/correct_chime.mp3');bg.loop=true;bg.volume=.1;chime.volume=.18;
 const pause=ms=>new Promise(resolve=>setTimeout(resolve,matchMedia('(prefers-reduced-motion: reduce)').matches?30:ms));
-function speak(file){lastClip=file;voice.pause();voice.src='audio/'+file+'.mp3?v=20261024c';voice.muted=muted;voice.play().catch(()=>{$('feedback').textContent='Торкнися «Підказка Мімі», щоб почути репліку.';});}
+function speak(file){lastClip=file;voice.pause();voice.src='audio/'+file+'.mp3?v=20261024d';voice.muted=muted;voice.play().catch(()=>{$('feedback').textContent='Торкнися «Підказка Мімі», щоб почути репліку.';});}
 function tone(){chime.currentTime=0;chime.play().catch(()=>{});}
 voice.addEventListener('playing',()=>bg.volume=.025);for(const e of ['ended','pause','error'])voice.addEventListener(e,()=>bg.volume=.1);
 function background(){if(index>=0&&phase!=='finish'&&!document.hidden)bg.play().catch(()=>{});}
@@ -34,6 +34,19 @@ async function awake(){if(!navigator.wakeLock||wake||document.hidden||index<0||p
 function stop(){voice.pause();bg.pause();chime.pause();if(wake)wake.release().catch(()=>{});}
 $('mute').onclick=()=>{muted=!muted;[voice,bg,chime].forEach(a=>a.muted=muted);$('mute').textContent=muted?'🔇':'🔊';$('mute').setAttribute('aria-pressed',String(muted));$('mute').setAttribute('aria-label',muted?'Увімкнути звук':'Вимкнути звук');};
 $('replay').onclick=()=>speak(lastClip);
+
+let lastActivity=Date.now();
+const markActivity=()=>{lastActivity=Date.now();};
+for(const event of ['pointerdown','keydown'])document.addEventListener(event,markActivity,{passive:true});
+for(const event of ['playing','ended'])voice.addEventListener(event,markActivity);
+document.addEventListener('visibilitychange',markActivity);
+setInterval(()=>{
+ if(document.hidden||busy||!['choose','action'].includes(phase)||(!voice.paused&&!voice.ended)||Date.now()-lastActivity<18000)return;
+ markActivity();
+ $('feedback').textContent=phase==='choose'?'Я поруч. Обери машину, яка допоможе.':'Не поспішай. Послухаймо підказку ще раз.';
+ speak(lastClip);
+},1000);
+
 function image(path){const img=new Image();img.src=path;img.alt='';img.draggable=false;return img;}
 function object(cls,label,left,bottom,path){const el=document.createElement('button');el.type='button';el.className='object '+cls;el.setAttribute('aria-label',label);if(left!=null)el.style.left=left+'%';if(bottom!=null)el.style.bottom=bottom+'%';if(path)el.append(image(path));$('objects').append(el);return el;}
 function decoration(cls,left,bottom,path){const button=object(cls,'',left,bottom,path);const el=document.createElement('div');el.className=button.className;el.style.cssText=button.style.cssText;el.append(...button.childNodes);el.setAttribute('aria-hidden','true');button.replaceWith(el);return el;}
@@ -52,8 +65,18 @@ if(id==='sweep'||id==='snow')for(let i=0;i<3;i++){const patch=object('patch','П
 if(id==='crossing'){
  const stripes=document.createElement('i');stripes.className='crossing';$('objects').append(stripes);
  const cat=decoration('animal small crossing-cat',59,0,farm+'kitten-gray-sitting.webp');
- const mimiBottom=parseFloat(getComputedStyle(document.querySelector('.mimi')).bottom);
- cat.style.bottom=mimiBottom+'px';
+ const alignCat=()=>{
+  const mimi=document.querySelector('.mimi'),img=cat.querySelector('img');
+  const m=mimi.getBoundingClientRect(),k=cat.getBoundingClientRect();
+  const ms=Math.min(m.width/mimi.naturalWidth,m.height/mimi.naturalHeight);
+  const ks=Math.min(k.width/img.naturalWidth,k.height/img.naturalHeight);
+  if(!Number.isFinite(ms)||!Number.isFinite(ks))return;
+  const mimiGround=m.bottom-(mimi.naturalHeight-897)*ms;
+  const catGround=k.bottom-((k.height-img.naturalHeight*ks)/2+(img.naturalHeight-1119)*ks);
+  const current=parseFloat(getComputedStyle(cat).bottom);
+  cat.style.bottom=(current+catGround-mimiGround)+'px';
+ };
+ requestAnimationFrame(alignCat);imagesReady.then(alignCat);
  const traffic=['city-car-blue.webp','convertible-red.webp'].map((file,i)=>{
   const car=decoration('car crossing-car',106,13,base+file);
   const animation=car.animate([{left:'106%'},{left:'-26%'}],{duration:8000,iterations:Infinity,delay:i?-4000:0,easing:'linear'});
@@ -70,8 +93,8 @@ if(id==='crossing'){
  });
 }
 
-if(id==='garbage')for(let i=0;i<3;i++){const bin=object('bin','Спорожнити контейнер '+(i+1),49+i*16,13);bin.textContent='♻';bin.onclick=()=>perform(bin,async()=>{bin.style.transform='translate(-80%,-75%) rotate(-120deg)';await pause(800);$('vehicle').src=base+'municipal/garbage-truck-bin-raised-v1.webp';await pause(500);bin.classList.add('empty');bin.style.transform='';$('vehicle').src=base+machines.garbage[1];await pause(800);},3);}
-if(id==='post'){const symbols=['★','♥','●'];for(let i=0;i<3;i++){const parcel=action('📦 '+symbols[i],()=>{if(phase!=='action'||busy||parcel.disabled)return;selected=i;$('feedback').textContent='Знайди будиночок зі знаком '+symbols[i];});parcel.classList.add('parcel');parcel.dataset.parcel=i;const house=object('house','Будинок зі знаком '+symbols[i],39+i*20,38);house.textContent=symbols[i];house.onclick=()=>{if(phase!=='action'||busy||house.dataset.done)return;if(selected!==i){$('feedback').textContent=selected===null?'Спочатку обери посилку.':'Подивись уважніше на знак на посилці.';return;}perform(house,async()=>{parcel.disabled=true;selected=null;house.textContent='✓';await pause(500);},3);};}}
+if(id==='garbage')for(let i=0;i<3;i++){const bin=object('bin','Спорожнити контейнер '+(i+1),49+i*16,13);bin.textContent='♻';bin.onclick=()=>perform(bin,async()=>{$('vehicle').style.left=(15+done*12)+'%';await pause(900);bin.style.transform='translate(-80%,-75%) rotate(-120deg)';await pause(800);$('vehicle').src=base+'municipal/garbage-truck-bin-raised-v1.webp';$('vehicle').style.transform='scale(1.12)';await pause(850);bin.classList.add('empty');bin.style.transform='';$('vehicle').src=base+machines.garbage[1];$('vehicle').style.transform='';await pause(800);},3);}
+if(id==='post'){const symbols=['★','♥','●'];for(let i=0;i<3;i++){const parcel=action('📦 '+symbols[i],()=>{if(phase!=='action'||busy||parcel.disabled)return;selected=i;$('feedback').textContent='Знайди будиночок зі знаком '+symbols[i];});parcel.classList.add('parcel');parcel.dataset.parcel=i;const house=object('house','Будинок зі знаком '+symbols[i],39+i*20,38);house.textContent=symbols[i];house.onclick=()=>{if(phase!=='action'||busy||house.dataset.done)return;if(selected!==i){$('feedback').textContent=selected===null?'Спочатку обери посилку.':'Подивись уважніше на знак на посилці.';return;}perform(house,async()=>{parcel.disabled=true;selected=null;$('vehicle').style.left=(15+done*12)+'%';await pause(900);house.textContent='✓';await pause(500);},3);};}}
 if(id==='family'){const child=decoration('animal small',36,31,farm+'rabbit-gray-white-sitting.webp');const candidates=[['Кішка','cat-mother.webp'],['Мама-зайчиха','rabbit-gray-white-sitting.webp'],['Корова','cow.webp']];candidates.forEach(([name,file],i)=>{const parent=object('animal',name,52+i*16,31,farm+file);parent.onclick=()=>{if(phase!=='action'||busy)return;if(i!==1){$('feedback').textContent='Це '+name.toLowerCase()+'. А нам потрібна мама-зайчиха. Спробуй ще!';return;}perform(parent,async()=>{child.style.transition='left 1.3s';child.style.left='68%';child.style.zIndex='9';await pause(1300);const heart=document.createElement('span');heart.className='win-heart';heart.textContent='💛';$('objects').append(heart);},1);};});}
 }
 function chapter(n){$('scene').classList.remove('finished');token++;index=n;phase='choose';busy=false;wrong=0;$('welcome').hidden=true;$('next').hidden=true;$('vehicle').hidden=true;const c=chapters[n];$('title').textContent=c.title;$('instruction').textContent=c.question;$('count').textContent=(n+1)+' / 10';$('feedback').textContent='Обери помічника для цієї справи.';progress(n);prepare();$('choices').replaceChildren();$('objects').inert=true;$('controls').hidden=true;c.options.forEach(id=>{const b=document.createElement('button');b.className='choice';b.dataset.machine=id;b.append(image(base+machines[id][1]));const name=document.createElement('span');name.textContent=machines[id][0];b.append(name);b.onclick=()=>{if(phase!=='choose')return;if(id!==c.machine){wrong++;$('feedback').textContent='Спробуй ще. Нам потрібна інша машина.';if(wrong>=2)$('choices').querySelector('[data-machine="'+c.machine+'"]').classList.add('hint');return;}phase='action';vehicle(id);$('choices').replaceChildren();$('objects').inert=false;$('controls').hidden=false;$('instruction').textContent=c.hint;$('feedback').textContent='Допоможімо разом!';speak(String(n+1).padStart(2,'0')+'-action');tone();};$('choices').append(b);});speak(String(n+1).padStart(2,'0')+'-choose');background();awake();}
