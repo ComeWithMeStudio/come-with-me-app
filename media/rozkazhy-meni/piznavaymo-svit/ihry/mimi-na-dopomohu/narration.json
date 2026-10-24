@@ -100,5 +100,25 @@
       "file": "12-retry",
       "text": "Спробуй ще раз. Я поруч. У тебе вийде!"
     }
-  ]
+  ],
+  "shared_praise": [
+    "/audio/games/common/correct-1.mp3",
+    "/audio/games/common/correct-2.mp3",
+    "/audio/games/common/correct-3.mp3",
+    "/audio/games/common/correct-4.mp3",
+    "/audio/games/common/correct-5.mp3"
+  ],
+  "sound": {
+    "city": "/audio/games/sfx/City_Traffic_Ambience.mp3",
+    "city_volume": 0.14,
+    "city_under_voice": 0.04,
+    "siren": "/audio/games/sfx/emergency-siren.mp3",
+    "siren_duration_ms": 2600,
+    "siren_scenes": [
+      "fire",
+      "ambulance"
+    ],
+    "siren_volume": 0.12,
+    "siren_under_voice": 0.05
+  }
 }
