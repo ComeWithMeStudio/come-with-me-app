@@ -10,3 +10,6 @@
 
 .welcome{background:#f9fbf0;justify-content:flex-end;padding:20px 12px;gap:12px}.welcome-cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1}.welcome:after{content:'';position:absolute;inset:30% 0 0;background:linear-gradient(transparent,#f9fbf0e8);z-index:-1}.welcome>span{font-size:clamp(20px,3vw,30px);text-shadow:0 1px 3px #fff}.welcome>.primary{box-shadow:0 3px 15px #243f4926}@media(max-width:600px){.welcome-cover{object-position:center}.welcome{gap:10px;padding-bottom:18px}}
 .welcome-cover{height:auto;aspect-ratio:3/1;object-fit:cover}
+
+/* Foreground refuse truck, background bins; both truck states share one scale. */
+.garbage-scene .vehicle{bottom:4%;z-index:9}.garbage-scene .bin{z-index:7}.detour-car{z-index:6}.medical-tool{font-size:32px;line-height:1}
