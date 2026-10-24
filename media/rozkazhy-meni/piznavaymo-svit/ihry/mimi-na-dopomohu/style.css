@@ -3,3 +3,7 @@
 /* Opaque non-interactive characters and familiar running Mimi. */
 .object[aria-hidden="true"]{pointer-events:none;opacity:1}.object:disabled{opacity:1}.car img{filter:url(#car-black-key)}.mimi{bottom:16%;width:21%;height:41%;object-position:center bottom}.scene.finished .mimi{display:none}.object.animal.small{width:10%;height:18%}.traffic-cone{display:inline-block;position:relative;width:38px;height:48px;flex-shrink:0;background:linear-gradient(to bottom,#f58a24 0 27%,#fff7eb 27% 40%,#ed7922 40% 61%,#fff7eb 61% 74%,#eb7022 74%);clip-path:polygon(44% 0,56% 0,84% 83%,100% 87%,100% 100%,0 100%,0 87%,16% 83%);filter:drop-shadow(1px 3px 2px #0003)}.slot{height:17%;width:9%;min-height:48px}.slot .traffic-cone{width:85%;height:100%}#controls button:has(.traffic-cone){display:flex;align-items:center;gap:10px}.slot.filled{background:transparent}.object.animal{background:none;box-shadow:none}.bandage{z-index:1}@media(max-width:600px){.mimi{width:23%;height:36%;bottom:18%}.object.animal.small{width:10%;height:16%}}
 .object.animal.small{min-width:0;min-height:0}
+
+/* Review pass: lower water, surround the pothole, and yield downwards. */
+.water{top:66%}.yielding-car{transition:bottom .8s}.crossing-car img{transform:scaleX(-1)}.crossing-cat{z-index:8}.win-heart{left:70%}
+.water{top:70%}
