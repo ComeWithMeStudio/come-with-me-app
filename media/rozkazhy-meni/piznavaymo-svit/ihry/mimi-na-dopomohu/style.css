@@ -13,3 +13,6 @@
 
 /* Foreground refuse truck, background bins; both truck states share one scale. */
 .garbage-scene .vehicle{bottom:4%;z-index:9}.garbage-scene .bin{z-index:7}.detour-car{z-index:6}.medical-tool{font-size:32px;line-height:1}
+
+/* Stable curb position and foreground traffic. */
+.crossing-cat{bottom:27%}.detour-car{z-index:11}.post-scene .vehicle{z-index:9}.try-again{outline:3px solid #e5ac6a;animation:try-again .55s ease-in-out}#feedback{font-weight:700}@keyframes try-again{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}@media(max-width:600px){.crossing-cat{bottom:26%}}
