@@ -6,8 +6,6 @@ const completed=new Set();
 const shapes=[['кол','Коло','<circle cx="60" cy="55" r="43"/>'],['трикут','Трикутник','<path d="M60 9L110 98H10Z"/>'],['квадрат','Квадрат','<rect x="17" y="12" width="86" height="86"/>'],['прямокут','Прямокутник','<rect x="5" y="25" width="110" height="60"/>'],['овал','Овал','<ellipse cx="60" cy="55" rx="54" ry="35"/>']];
 const colors=[['червон','Червоний','#e95d65'],['син','Синій','#3572c9'],['жовт','Жовтий','#efd052'],['зелен','Зелений','#62a579'],['помаранч','Помаранчевий','#ee9d42'],['біл','Білий','#fff']];
 const shapeColors=['#ee9b68','#7ea9b9','#a691bd','#74aa94','#de879e'];
-function stopMedia(){mediaGeneration++;clearTimeout(timer);timer=null;$('dance').pause();$('dance').onended=null;if(voice){voice.pause();voice=null}}
-function praise(){if(muted)return;voice=new Audio('/audio/games/common/correct-'+(1+(danceIndex%5))+'.mp3');voice.volume=.65;voice.play().catch(()=>{})}
 function setVisual(text,all=false){
  const el=$('visual');el.replaceChildren();
 
@@ -26,20 +24,55 @@ function setVisual(text,all=false){
  }
 }
 function chrome(){
- $('levels').replaceChildren();config.levels.forEach((l,i)=>{const b=document.createElement('button');b.textContent=i+1;b.setAttribute('aria-label',`Рівень ${i+1}: ${l.name}`);b.setAttribute('aria-current',i===level?'step':'false');b.className=i===level?'active':l.tasks.every(t=>completed.has(t.id))?'complete':'';b.onclick=()=>{stopMedia();level=i;index=0;showTask()};$('levels').append(b)});
+ $('levels').replaceChildren();config.levels.forEach((l,i)=>{const b=document.createElement('button');b.textContent=i+1;b.setAttribute('aria-label',`Рівень ${i+1}: ${l.name}`);b.setAttribute('aria-current',i===level?'step':'false');b.className=i===level?'active':l.tasks.every(t=>completed.has(t.id))?'complete':'';b.onclick=()=>{stopMedia();level=i;index=0;showTask(true)};$('levels').append(b)});
  $('badge').textContent=`${level+1}. ${config.levels[level].name}`;
  $('count').textContent=`${completed.size} / 20`;
  $('dots').innerHTML=config.levels[level].tasks.map((t,i)=>`<i class="${completed.has(t.id)?'done':phase==='task'&&i===index?'current':''}"></i>`).join('');
- $('visual').hidden=false;$('celebration').hidden=true;$('skip').hidden=true;
+ $('demo').hidden=true;document.querySelector('.board').classList.remove('with-motion');$('pause').hidden=false;$('visual').hidden=false;$('celebration').hidden=true;$('skip').hidden=true;
 }
-function intro(){stopMedia();phase='intro';chrome();setVisual('',true);$('instruction').textContent='Вирушаємо на полювання?';$('hint').textContent='Виконуй завдання в кімнаті, а потім натискай «Готово!». Обирай лише легкі й безпечні предмети. Якщо не впевнений — поклич дорослого.';$('primary').textContent='Почати →'}
-function showTask(){stopMedia();phase='task';chrome();const t=config.levels[level].tasks[index];setVisual(t.text);$('instruction').textContent=t.text;$('hint').textContent=document.body.dataset.game==='colors'&&level>0?'Шукай стільки предметів, скільки є поруч. Можна попросити дорослого допомогти.':'Виконуй у своєму темпі. Коли завершиш, натисни «Готово!».';$('primary').textContent='Готово! ✓';$('skip').hidden=false}
-function playDance(){const generation=mediaGeneration;const v=$('dance');clearTimeout(timer);v.src=window.HUNT_DANCES[danceIndex%window.HUNT_DANCES.length];v.onended=()=>{clearTimeout(timer);v.pause()};v.play().catch(()=>{if(generation!==mediaGeneration)return;$('cheer').textContent='У тебе вийшло! Натисни «Ще потанцюємо», щоб запустити танець.'});timer=setTimeout(()=>v.pause(),6500)}
-function celebrate(){stopMedia();phase='celebrate';completed.add(config.levels[level].tasks[index].id);chrome();$('visual').hidden=true;$('celebration').hidden=false;$('instruction').textContent='Мімі святкує разом із тобою!';$('hint').textContent='Можеш потанцювати разом із Мімі ♥';$('cheer').textContent=['Чудово!','У тебе вийшло!','Так тримати!'][danceIndex%3];$('primary').textContent=index===4?(level===3?'До фіналу →':'Рівень пройдено →'):'Наступне завдання →';playDance();praise();danceIndex++}
-function advance(){stopMedia();if(index<4){index++;showTask();return}phase=level===3?'finish':'break';chrome();setVisual('',true);$('instruction').textContent=phase==='finish'?'Чудове полювання!':`Рівень ${level+1} завершено!`;$('hint').textContent=phase==='finish'?`Виконано ${completed.size} із 20 завдань. ${completed.size<20?'До пропущених можна повернутися кнопками рівнів.':'Ти справжній дослідник!'} Поверни речі на місце.`:'Час перепочити. Продовжимо, коли захочеш.';$('primary').textContent=phase==='finish'?'Пограти ще раз ↻':`До рівня ${level+2} →`}
-$('primary').onclick=()=>{if(phase==='intro')showTask();else if(phase==='task')celebrate();else if(phase==='celebrate')advance();else if(phase==='break'){level++;index=0;showTask()}else{completed.clear();level=0;index=0;intro()}};
-$('skip').onclick=()=>{if(phase==='task')advance()};
-$('restart').onclick=()=>{completed.clear();level=0;index=0;intro()};
-$('replay').onclick=()=>{danceIndex--;playDance();danceIndex++};
-$('sound').onclick=()=>{muted=!muted;$('sound').textContent=muted?'♫ Звук вимкнено':'♫ Звук увімкнено';$('sound').setAttribute('aria-pressed',String(muted));if(muted&&voice)voice.pause()};
-window.addEventListener('pagehide',stopMedia);document.addEventListener('visibilitychange',()=>{if(document.hidden)stopMedia()});intro();
+const gameMode=document.body.dataset.game,A=(key,count)=>({key,count});
+let paused=false,music=null,musicLevel=-1,voiceToken=0,resolveVoice=null,motionToken=0;
+function taskMotions(){
+ if(gameMode==='shapes'){
+  if(level===1)return[A('look')];
+  if(level===2)return[[A('spin')],[A('clap',3)],[A('march',4)],[A('stretch')],[A('arms')]][index];
+  if(level===3)return[[A('look')],[A('clap',3)],[A('march',4)],[A('clap',2)],[A('jump')]][index];
+  return[];
+ }
+ if(level===0)return[[A('smile')],[A('waves')],[A('squat'),A('stretch')],[A('clap',2)],[A('spin')]][index];
+ if(level===1||level===2)return[A('look')];
+ return[[A('clap',2)],[A('squat'),A('clap',1)],[A('march',3)],[A('look')],[A('jump')]][index];
+}
+function duck(){if(music)music.volume=muted?0:(voice&&!voice.paused?.045:.14)}
+function startMusic(){if(musicLevel!==level){if(music)music.pause();music=new Audio(`/audio/games/find-for-mimi/music/level-${level+1}.mp3`);music.loop=true;musicLevel=level;}duck();if(!muted&&!paused&&phase!=='intro'){const m=music;m.play().then(()=>{if(m!==music||muted||paused||phase==='intro')m.pause()}).catch(()=>{})}}
+function cancelVoice(){voiceToken++;if(voice){voice.pause();voice.onended=null;voice.onerror=null;voice=null}if(resolveVoice){const r=resolveVoice;resolveVoice=null;r(false)}duck()}
+function stopMedia(){mediaGeneration++;motionToken++;cancelVoice();for(const id of ['motion','dance']){const v=$(id);v.pause();v.onended=null;v.ontimeupdate=null;v.onloadedmetadata=null;v.onerror=null;v.dataset.resume='false'}paused=false;$('pause').textContent='Ⅱ Пауза';$('pause').setAttribute('aria-pressed','false');$('audioStatus').hidden=true}
+function voiceError(){$('audioStatus').textContent='Натисни «Послухати ще», щоб увімкнути голос Мімі.';$('audioStatus').hidden=false}
+async function speak(ids){cancelVoice();if(muted||paused)return;const token=voiceToken;
+ for(const id of ids){if(token!==voiceToken||muted)return;const ok=await new Promise(resolve=>{resolveVoice=resolve;const a=new Audio(window.HUNT_NARRATION[id]?'hunting/'+window.HUNT_NARRATION[id]:id);voice=a;a.volume=.85;
+ const finish=success=>{if(token!==voiceToken)return;a.onended=null;a.onerror=null;voice=null;resolveVoice=null;duck();resolve(success)};
+ a.onended=()=>finish(true);a.onerror=()=>{voiceError();finish(false)};a.play().then(()=>{if(token!==voiceToken||paused){a.pause();return}duck()}).catch(()=>{if(token===voiceToken){voiceError();finish(false)}});
+ });if(!ok)return;}
+}
+function setPaused(value){paused=value;$('pause').textContent=value?'▶ Продовжити':'Ⅱ Пауза';$('pause').setAttribute('aria-pressed',String(value));if(value){if(voice)voice.pause();if(music)music.pause();for(const id of ['motion','dance']){const v=$(id);v.dataset.resume=String(!v.paused);v.pause()}}else{startMusic();if(voice&&!muted)voice.play().then(duck).catch(voiceError);for(const id of ['motion','dance']){const v=$(id);if(v.dataset.resume==='true')v.play().catch(()=>{})}}}
+function motionSequence(seq){const token=++motionToken,v=$('motion');v.pause();let pos=0,repetition=0;
+ function next(){if(token!==motionToken||pos>=seq.length)return;const a=seq[pos],m=window.HUNT_MOVES[a.key];$('motionLabel').textContent=m.label+(a.count?' · '+a.count:'')+(seq.length>1?` (${pos+1}/${seq.length})`:'');v.setAttribute('aria-label',m.label);let done=false;
+ const start=a.key==='clap'?.5:0,end=a.key==='clap'?1.05:a.key==='spin'?2.65:a.key==='jump'?1.35:a.key==='march'?Math.min(3,a.count*.55):a.key==='waves'?3:null;
+ const finish=()=>{if(done||token!==motionToken)return;done=true;v.pause();if(a.key==='clap'&&++repetition<(a.count||1)){next();return}repetition=0;pos++;if(pos<seq.length)next()};
+ v.onended=finish;v.ontimeupdate=()=>{if(end&&v.currentTime>=end)finish()};v.onerror=()=>{if(token===motionToken)$('motionLabel').textContent='Спробуй натиснути «Покажи ще».'};v.onloadedmetadata=()=>{if(token!==motionToken)return;v.currentTime=start;if(!paused)v.play().catch(()=>{})};v.src=m.src;
+ }next();
+}
+function demo(seq){if(!seq.length)return;$('demo').hidden=false;document.querySelector('.board').classList.add('with-motion');motionSequence(seq)}
+function intro(){stopMedia();phase='intro';if(music)music.pause();chrome();setVisual('',true);$('instruction').textContent='Вирушаємо на полювання?';$('hint').textContent='Виконуй завдання в кімнаті, а потім натискай «Готово!». Обирай лише легкі й безпечні предмети. Якщо не впевнений — поклич дорослого.';$('primary').textContent='Почати →';$('pause').hidden=true}
+function welcome(){stopMedia();phase='welcome';chrome();setVisual('',true);demo([A('wave')]);$('instruction').textContent='Привіт! Ходімо зі мною!';$('hint').textContent='Обирай лише легкі й безпечні предмети. Якщо не впевнений — поклич дорослого. Коли виконаєш завдання, натискай «Готово!».';$('primary').textContent='До першого завдання →';startMusic();speak([gameMode+'-intro'])}
+function showTask(withLevel=false){stopMedia();phase='task';chrome();const t=config.levels[level].tasks[index];setVisual(t.text);$('instruction').textContent=t.text;$('hint').textContent=gameMode==='colors'&&level>0?'Шукай стільки предметів, скільки є поруч. Можна попросити дорослого допомогти.':'Виконуй у своєму темпі. Коли завершиш, натисни «Готово!».';$('primary').textContent='Готово! ✓';$('skip').hidden=false;demo(taskMotions());startMusic();speak(withLevel?[`${gameMode}-level-${level+1}`,t.id]:[t.id])}
+function playDance(){const token=mediaGeneration,v=$('dance'),isMovement=taskMotions().some(a=>a.key!=='look');v.src=isMovement?window.HUNT_MOVES.clap.src:window.HUNT_DANCES[danceIndex%window.HUNT_DANCES.length];v.onended=()=>v.pause();v.ontimeupdate=()=>{if(v.currentTime>=6.5)v.pause()};v.play().catch(()=>{if(token===mediaGeneration)$('cheer').textContent='Натисни «Ще раз», щоб побачити Мімі.'})}
+function praise(){speak(['/audio/games/common/correct-'+(1+danceIndex%5)+'.mp3'])}
+function celebrate(){stopMedia();phase='celebrate';completed.add(config.levels[level].tasks[index].id);chrome();$('visual').hidden=true;$('celebration').hidden=false;$('instruction').textContent='Мімі святкує разом із тобою!';$('hint').textContent='Радіємо твоїм відкриттям разом ♥';$('cheer').textContent=['Чудово!','У тебе вийшло!','Так тримати!'][danceIndex%3];$('replay').textContent='↻ Ще раз';$('primary').textContent=index===4?(level===3?'До фіналу →':'Рівень пройдено →'):'Наступне завдання →';playDance();startMusic();praise();danceIndex++}
+function advance(){stopMedia();if(index<4){index++;showTask();return}phase=level===3?'finish':'break';chrome();setVisual('',true);$('instruction').textContent=phase==='finish'?'Чудове полювання!':`Рівень ${level+1} завершено!`;$('hint').textContent=phase==='finish'?`Виконано ${completed.size} із 20 завдань. ${completed.size<20?'До пропущених можна повернутися кнопками рівнів.':'Ти справжній дослідник!'} Поверни речі на місце.`:'Час перепочити. Продовжимо, коли захочеш.';$('primary').textContent=phase==='finish'?'Пограти ще раз ↻':`До рівня ${level+2} →`;demo([A(phase==='finish'?'kiss':'bow')]);startMusic();speak([phase==='finish'?'finish':'level-done'])}
+function repeatVoice(){if(paused)setPaused(false);$('audioStatus').hidden=true;if(phase==='intro'||phase==='welcome')speak([gameMode+'-intro']);else if(phase==='task')speak([config.levels[level].tasks[index].id]);else if(phase==='finish'||phase==='break')speak([phase==='finish'?'finish':'level-done']);else speak(['/audio/games/common/correct-'+(1+(danceIndex+4)%5)+'.mp3'])}
+$('primary').onclick=()=>{if(phase==='intro')welcome();else if(phase==='welcome')showTask(true);else if(phase==='task')celebrate();else if(phase==='celebrate')advance();else if(phase==='break'){level++;index=0;showTask(true)}else{completed.clear();level=0;index=0;intro()}};
+$('skip').onclick=()=>{if(phase==='task')advance()};$('restart').onclick=()=>{completed.clear();level=0;index=0;intro()};$('replay').onclick=()=>{if(paused)setPaused(false);danceIndex--;playDance();danceIndex++};
+$('repeatMotion').onclick=()=>{if(paused)setPaused(false);motionSequence(phase==='welcome'?[A('wave')]:phase==='finish'?[A('kiss')]:phase==='break'?[A('bow')]:taskMotions())};$('repeatVoice').onclick=repeatVoice;$('pause').onclick=()=>setPaused(!paused);
+$('sound').onclick=()=>{muted=!muted;$('sound').textContent=muted?'♫ Звук вимкнено':'♫ Звук увімкнено';$('sound').setAttribute('aria-pressed',String(muted));if(muted){cancelVoice();if(music)music.pause()}else{startMusic();repeatVoice()}duck()};
+window.addEventListener('pagehide',()=>{stopMedia();if(music)music.pause()});document.addEventListener('visibilitychange',()=>{if(document.hidden&&phase!=='intro')setPaused(true)});intro();

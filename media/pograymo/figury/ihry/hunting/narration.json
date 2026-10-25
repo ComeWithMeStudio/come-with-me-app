@@ -1,167 +1,325 @@
 {
-  "status": "pending_recording",
+  "status": "generated",
   "voice_id": "n7Wi4g1bhpw4Bs8HK5ph",
   "model_id": "eleven_multilingual_v2",
-  "tasks": [
+  "clips": [
     {
       "text": "Намалюй пальчиком коло в повітрі.",
-      "id": "shapes-1-1"
+      "id": "shapes-1-1",
+      "history_item_id": "gc8fYFxGavxHSPuoMF13",
+      "file": "audio/shapes-1-1.mp3"
     },
     {
       "text": "Склади пальчики трикутником.",
-      "id": "shapes-1-2"
+      "id": "shapes-1-2",
+      "history_item_id": "Zd5yVLZWKw2uEwcH6oF5",
+      "file": "audio/shapes-1-2.mp3"
     },
     {
       "text": "Намалюй у повітрі великий квадрат.",
-      "id": "shapes-1-3"
+      "id": "shapes-1-3",
+      "history_item_id": "pZ9Zn7cwPHUbLKHNEFkk",
+      "file": "audio/shapes-1-3.mp3"
     },
     {
       "text": "Намалюй руками в повітрі широкий прямокутник.",
-      "id": "shapes-1-4"
+      "id": "shapes-1-4",
+      "history_item_id": "BLl7YT3tC6GMjWnVY9jC",
+      "file": "audio/shapes-1-4.mp3"
     },
     {
       "text": "Намалюй пальчиком овал у повітрі.",
-      "id": "shapes-1-5"
+      "id": "shapes-1-5",
+      "history_item_id": "mgu34BRsssyufSkPwgEY",
+      "file": "audio/shapes-1-5.mp3"
     },
     {
       "text": "Знайди щось кругле.",
-      "id": "shapes-2-1"
+      "id": "shapes-2-1",
+      "history_item_id": "sCtcUnK36g20UPKQpflW",
+      "file": "audio/shapes-2-1.mp3"
     },
     {
       "text": "Знайди щось прямокутне.",
-      "id": "shapes-2-2"
+      "id": "shapes-2-2",
+      "history_item_id": "CZ10R3xlcvdhQ2MGDrx6",
+      "file": "audio/shapes-2-2.mp3"
     },
     {
       "text": "Знайди предмет із чотирма кутиками.",
-      "id": "shapes-2-3"
+      "id": "shapes-2-3",
+      "history_item_id": "lgyisGcQc1DbcfozpFqW",
+      "file": "audio/shapes-2-3.mp3"
     },
     {
       "text": "Знайди предмет без кутиків.",
-      "id": "shapes-2-4"
+      "id": "shapes-2-4",
+      "history_item_id": "fqb4eM9TyK0Uv7fNY5Su",
+      "file": "audio/shapes-2-4.mp3"
     },
     {
       "text": "Знайди щось, схоже на квадрат.",
-      "id": "shapes-2-5"
+      "id": "shapes-2-5",
+      "history_item_id": "1rGECTXQxZOuZNgVAAuy",
+      "file": "audio/shapes-2-5.mp3"
     },
     {
       "text": "Побачив коло — покрутися один раз.",
-      "id": "shapes-3-1"
+      "id": "shapes-3-1",
+      "history_item_id": "UqJiIhbavAHEsDlJ9cGM",
+      "file": "audio/shapes-3-1.mp3"
     },
     {
       "text": "Побачив трикутник — плесни в долоньки тричі.",
-      "id": "shapes-3-2"
+      "id": "shapes-3-2",
+      "history_item_id": "xFu6oii4jfM6Xuikk4OB",
+      "file": "audio/shapes-3-2.mp3"
     },
     {
       "text": "Побачив квадрат — зроби чотири кроки.",
-      "id": "shapes-3-3"
+      "id": "shapes-3-3",
+      "history_item_id": "z5Xv1vm4DcJcOLr0VEY5",
+      "file": "audio/shapes-3-3.mp3"
     },
     {
       "text": "Побачив овал — потягнися високо-високо.",
-      "id": "shapes-3-4"
+      "id": "shapes-3-4",
+      "history_item_id": "ePlFd0bWhbZwEpioKUwy",
+      "file": "audio/shapes-3-4.mp3"
     },
     {
       "text": "Побачив прямокутник — широко розведи руки.",
-      "id": "shapes-3-5"
+      "id": "shapes-3-5",
+      "history_item_id": "5Jezcd3g9LWdNgVf7lul",
+      "file": "audio/shapes-3-5.mp3"
     },
     {
       "text": "Намалюй у повітрі коло, а потім знайди щось кругле.",
-      "id": "shapes-4-1"
+      "id": "shapes-4-1",
+      "history_item_id": "xHa3rDWgvjqk3h4LE3Na",
+      "file": "audio/shapes-4-1.mp3"
     },
     {
       "text": "Плесни в долоньки тричі, а потім склади пальчики трикутником.",
-      "id": "shapes-4-2"
+      "id": "shapes-4-2",
+      "history_item_id": "thvDeGimAquL981sApy6",
+      "file": "audio/shapes-4-2.mp3"
     },
     {
       "text": "Знайди предмет із чотирма кутиками, доторкнися по черзі до кожного кутика, а потім зроби чотири кроки.",
-      "id": "shapes-4-3"
+      "id": "shapes-4-3",
+      "history_item_id": "pThxtiG9JVDRh4egOexC",
+      "file": "audio/shapes-4-3.mp3"
     },
     {
       "text": "Знайди щось прямокутне, намалюй прямокутник у повітрі, а потім плесни в долоньки двічі.",
-      "id": "shapes-4-4"
+      "id": "shapes-4-4",
+      "history_item_id": "z66Mbd5qZlhFSjdxwp6t",
+      "file": "audio/shapes-4-4.mp3"
     },
     {
       "text": "Знайди предмет без кутиків, назви його і зроби переможний стрибок.",
-      "id": "shapes-4-5"
+      "id": "shapes-4-5",
+      "history_item_id": "EZ5nADjOA9cJXBBs3SZa",
+      "file": "audio/shapes-4-5.mp3"
     },
     {
       "text": "Побачив жовтий — усміхнися, як сонечко.",
-      "id": "colors-1-1"
+      "id": "colors-1-1",
+      "history_item_id": "Ve1PjBHKqYjWT4i9oTGW",
+      "file": "audio/colors-1-1.mp3"
     },
     {
       "text": "Побачив синій — похитай руками, ніби хвилі в морі.",
-      "id": "colors-1-2"
+      "id": "colors-1-2",
+      "history_item_id": "EOmAcebM6QSzS50XoAs0",
+      "file": "audio/colors-1-2.mp3"
     },
     {
       "text": "Побачив зелений — присядь, а потім вирости вгору, наче молоде деревце.",
-      "id": "colors-1-3"
+      "id": "colors-1-3",
+      "history_item_id": "c3Th5y8l3tLjKQUHmiiy",
+      "file": "audio/colors-1-3.mp3"
     },
     {
       "text": "Побачив червоний — плесни в долоньки двічі, наче запалюєш вогники.",
-      "id": "colors-1-4"
+      "id": "colors-1-4",
+      "history_item_id": "huuXtpl7VBcT5or6ef87",
+      "file": "audio/colors-1-4.mp3"
     },
     {
       "text": "Побачив помаранчевий — покрутися один раз, наче котиться апельсин.",
-      "id": "colors-1-5"
+      "id": "colors-1-5",
+      "history_item_id": "mbdZNI0bQF9r7pRKpm2m",
+      "file": "audio/colors-1-5.mp3"
     },
     {
       "text": "Знайди один червоний предмет.",
-      "id": "colors-2-1"
+      "id": "colors-2-1",
+      "history_item_id": "LzErKTVn9bgjXG3kB27n",
+      "file": "audio/colors-2-1.mp3"
     },
     {
       "text": "Знайди два сині предмети.",
-      "id": "colors-2-2"
+      "id": "colors-2-2",
+      "history_item_id": "Ozi3sopEO0Mju3tZkrjp",
+      "file": "audio/colors-2-2.mp3"
     },
     {
       "text": "Знайди один жовтий предмет.",
-      "id": "colors-2-3"
+      "id": "colors-2-3",
+      "history_item_id": "Wk82xuUmhkG9RGnM8hSh",
+      "file": "audio/colors-2-3.mp3"
     },
     {
       "text": "Знайди три зелені предмети.",
-      "id": "colors-2-4"
+      "id": "colors-2-4",
+      "history_item_id": "KzDL56aCnbdYq281w9H9",
+      "file": "audio/colors-2-4.mp3"
     },
     {
       "text": "Знайди три білі предмети.",
-      "id": "colors-2-5"
+      "id": "colors-2-5",
+      "history_item_id": "rCd9CrdI32AI7tdTloyg",
+      "file": "audio/colors-2-5.mp3"
     },
     {
       "text": "Знайди п’ять предметів одного кольору.",
-      "id": "colors-3-1"
+      "id": "colors-3-1",
+      "history_item_id": "Vpzw1d2s41aWfjVu4Dx6",
+      "file": "audio/colors-3-1.mp3"
     },
     {
       "text": "Знайди чотири предмети одного кольору та поклади їх у ряд.",
-      "id": "colors-3-2"
+      "id": "colors-3-2",
+      "history_item_id": "TmihPPfIhtnXexAJzEP0",
+      "file": "audio/colors-3-2.mp3"
     },
     {
       "text": "Знайди два червоні та один жовтий предмет.",
-      "id": "colors-3-3"
+      "id": "colors-3-3",
+      "history_item_id": "TRE0c7QXaQrwToBckd4M",
+      "file": "audio/colors-3-3.mp3"
     },
     {
       "text": "Знайди два сині та три зелені предмети.",
-      "id": "colors-3-4"
+      "id": "colors-3-4",
+      "history_item_id": "V0sF8nM3IAIHBVmh3Ikq",
+      "file": "audio/colors-3-4.mp3"
     },
     {
       "text": "Збери дві кольорові команди. У кожній команді має бути по три предмети одного кольору.",
-      "id": "colors-3-5"
+      "id": "colors-3-5",
+      "history_item_id": "dKqKxt49Iak5lx8qjMP3",
+      "file": "audio/colors-3-5.mp3"
     },
     {
       "text": "Доторкнися до зеленого предмета і плесни в долоньки двічі.",
-      "id": "colors-4-1"
+      "id": "colors-4-1",
+      "history_item_id": "C824BVZFqAutJsBFCZ8h",
+      "file": "audio/colors-4-1.mp3"
     },
     {
       "text": "Знайди жовтий предмет, доторкнися до нього, присядь один раз і плесни в долоньки.",
-      "id": "colors-4-2"
+      "id": "colors-4-2",
+      "history_item_id": "b4Q1BmFf6OlHOE39FfIA",
+      "file": "audio/colors-4-2.mp3"
     },
     {
       "text": "Спочатку доторкнися до червоного предмета, потім — до синього, а тоді зроби три кроки на місці.",
-      "id": "colors-4-3"
+      "id": "colors-4-3",
+      "history_item_id": "4nbodCL1o2h7ZCV5Wru0",
+      "file": "audio/colors-4-3.mp3"
     },
     {
       "text": "Знайди три легкі предмети різних кольорів, поклади їх у ряд, назви кольори по порядку, а потім поверни все на місце.",
-      "id": "colors-4-4"
+      "id": "colors-4-4",
+      "history_item_id": "Zaq2XUUaumdmB8DFVmtW",
+      "file": "audio/colors-4-4.mp3"
     },
     {
       "text": "Знайди предмет свого улюбленого кольору, назви цей колір і зроби переможний стрибок.",
-      "id": "colors-4-5"
+      "id": "colors-4-5",
+      "history_item_id": "D30UUxvyApYtlyEFWVlZ",
+      "file": "audio/colors-4-5.mp3"
+    },
+    {
+      "id": "finish",
+      "text": "Яке чудове полювання! Дякую, що граєш зі мною! Поверни речі на місце. До нових пригод!",
+      "history_item_id": "q2F7HG2llGciDa2lFZFG",
+      "file": "audio/finish.mp3"
+    },
+    {
+      "id": "level-done",
+      "text": "Чудово! Рівень завершено. Перепочинь, а потім рушаймо далі!",
+      "history_item_id": "eJPIfPeUTSBqP8STg6DK",
+      "file": "audio/level-done.mp3"
+    },
+    {
+      "id": "colors-level-4",
+      "text": "Майстер кольорів! Знаходь кольори та виконуй дії по черзі.",
+      "history_item_id": "eKsxc1tJsilraX1UQj5O",
+      "file": "audio/colors-level-4.mp3"
+    },
+    {
+      "id": "colors-level-2",
+      "text": "Шукаємо! Знайди кольорові предмети поруч. Якщо їх менше, знайди стільки, скільки зможеш.",
+      "history_item_id": "H4eFBxfN6twjkoeKTlNi",
+      "file": "audio/colors-level-2.mp3"
+    },
+    {
+      "id": "colors-intro",
+      "text": "Ходімо зі мною на полювання на кольори! Виконуй завдання поруч із собою. Коли завершиш, натисни «Готово». Обирай лише легкі й безпечні предмети. Якщо не впевнений, поклич дорослого.",
+      "history_item_id": "NRznEadIsJxjaltEjWlc",
+      "file": "audio/colors-intro.mp3"
+    },
+    {
+      "id": "colors-level-3",
+      "text": "Кольорові команди! Збирай предмети, рахуй та групуй. Якщо їх не вистачає, попроси дорослого допомогти.",
+      "history_item_id": "zuXL3ftvEP7ATtYHhFGX",
+      "file": "audio/colors-level-3.mp3"
+    },
+    {
+      "id": "colors-level-1",
+      "text": "Кольорова розминка! Дивись на кольори та рухайся разом зі мною.",
+      "history_item_id": "dnLMHV1nndrHvJAqDQas",
+      "file": "audio/colors-level-1.mp3"
+    },
+    {
+      "id": "shapes-level-2",
+      "text": "Шукаємо! Знайди знайомі форми навколо себе.",
+      "history_item_id": "3gQzb1IcgI8dSv4fY4Ig",
+      "file": "audio/shapes-level-2.mp3"
+    },
+    {
+      "id": "shapes-level-1",
+      "text": "Починаємо! Малюй фігури в повітрі.",
+      "history_item_id": "7eI6r39w1qzO6Qawwpla",
+      "file": "audio/shapes-level-1.mp3"
+    },
+    {
+      "id": "shapes-level-3",
+      "text": "Місія! Дивись на фігури й виконуй рухи.",
+      "history_item_id": "KbxgVz4CZcoKc6IcXzdT",
+      "file": "audio/shapes-level-3.mp3"
+    },
+    {
+      "id": "shapes-level-4",
+      "text": "Майстер Мімі! Виконай кілька дій по черзі.",
+      "history_item_id": "NjIQLuZmDzbxEq2T8297",
+      "file": "audio/shapes-level-4.mp3"
+    },
+    {
+      "id": "shapes-intro",
+      "text": "Ходімо зі мною на полювання на фігури! Виконуй завдання поруч із собою. Коли завершиш, натисни «Готово». Обирай лише легкі й безпечні предмети. Якщо не впевнений, поклич дорослого.",
+      "history_item_id": "aETwZQqmZdsALfErohYz",
+      "file": "audio/shapes-intro.mp3"
     }
-  ]
+  ],
+  "voice_settings": {
+    "stability": 0.65,
+    "similarity_boost": 0.23,
+    "style": 0.43,
+    "use_speaker_boost": true
+  }
 }
