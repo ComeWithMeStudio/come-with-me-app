@@ -12,8 +12,11 @@
     {
       "text": "Склади пальчики трикутником.",
       "id": "shapes-1-2",
-      "history_item_id": "Zd5yVLZWKw2uEwcH6oF5",
-      "file": "audio/shapes-1-2.mp3"
+      "file": "audio/shapes-1-2-v2.mp3",
+      "previous_history_item_id": "Zd5yVLZWKw2uEwcH6oF5",
+      "synthesis_text": "Склади пальчики трику́тником.",
+      "revised_at": "2026-10-26",
+      "pronunciation_review": "Awaiting author listening"
     },
     {
       "text": "Намалюй у повітрі великий квадрат.",
@@ -72,8 +75,11 @@
     {
       "text": "Побачив трикутник — плесни в долоньки тричі.",
       "id": "shapes-3-2",
-      "history_item_id": "xFu6oii4jfM6Xuikk4OB",
-      "file": "audio/shapes-3-2.mp3"
+      "file": "audio/shapes-3-2-v2.mp3",
+      "previous_history_item_id": "xFu6oii4jfM6Xuikk4OB",
+      "synthesis_text": "Побачив трику́тник — плесни в доло́ньки тричі.",
+      "revised_at": "2026-10-26",
+      "pronunciation_review": "Awaiting author listening"
     },
     {
       "text": "Побачив квадрат — зроби чотири кроки.",
@@ -90,8 +96,11 @@
     {
       "text": "Побачив прямокутник — широко розведи руки.",
       "id": "shapes-3-5",
-      "history_item_id": "5Jezcd3g9LWdNgVf7lul",
-      "file": "audio/shapes-3-5.mp3"
+      "file": "audio/shapes-3-5-v2.mp3",
+      "previous_history_item_id": "5Jezcd3g9LWdNgVf7lul",
+      "synthesis_text": "Побачив прямокутник — широ́ко розведи руки.",
+      "revised_at": "2026-10-26",
+      "pronunciation_review": "Awaiting author listening"
     },
     {
       "text": "Намалюй у повітрі коло, а потім знайди щось кругле.",
