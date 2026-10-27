@@ -147,8 +147,11 @@
     {
       "text": "Побачив зелений — присядь, а потім вирости вгору, наче молоде деревце.",
       "id": "colors-1-3",
-      "history_item_id": "c3Th5y8l3tLjKQUHmiiy",
-      "file": "audio/colors-1-3.mp3"
+      "file": "audio/colors-1-3-v2.mp3",
+      "previous_history_item_id": "c3Th5y8l3tLjKQUHmiiy",
+      "synthesis_text": "Побачив зелений — прися́дь, а потім вирости вгору, наче молоде деревце.",
+      "revised_at": "2026-10-27",
+      "pronunciation_review": "Awaiting author listening"
     },
     {
       "text": "Побачив червоний — плесни в долоньки двічі, наче запалюєш вогники.",
@@ -159,8 +162,11 @@
     {
       "text": "Побачив помаранчевий — покрутися один раз, наче котиться апельсин.",
       "id": "colors-1-5",
-      "history_item_id": "mbdZNI0bQF9r7pRKpm2m",
-      "file": "audio/colors-1-5.mp3"
+      "file": "audio/colors-1-5-v2.mp3",
+      "previous_history_item_id": "mbdZNI0bQF9r7pRKpm2m",
+      "synthesis_text": "Побачив помаранчевий — покрути́ся один раз, наче котиться апельсин.",
+      "revised_at": "2026-10-27",
+      "pronunciation_review": "Awaiting author listening"
     },
     {
       "text": "Знайди один червоний предмет.",
@@ -231,8 +237,11 @@
     {
       "text": "Знайди жовтий предмет, доторкнися до нього, присядь один раз і плесни в долоньки.",
       "id": "colors-4-2",
-      "history_item_id": "b4Q1BmFf6OlHOE39FfIA",
-      "file": "audio/colors-4-2.mp3"
+      "file": "audio/colors-4-2-v2.mp3",
+      "previous_history_item_id": "b4Q1BmFf6OlHOE39FfIA",
+      "synthesis_text": "Знайди жовтий предмет, доторкнися до нього, прися́дь один раз і плесни в долоньки.",
+      "revised_at": "2026-10-27",
+      "pronunciation_review": "Awaiting author listening"
     },
     {
       "text": "Спочатку доторкнися до червоного предмета, потім — до синього, а тоді зроби три кроки на місці.",
