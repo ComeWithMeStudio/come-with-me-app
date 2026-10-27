@@ -44,6 +44,10 @@ function chrome(){
 }
 const gameMode=document.body.dataset.game,A=(key,count)=>({key,count});
 let paused=false,music=null,musicLevel=-1,voiceToken=0,resolveVoice=null,motionToken=0;
+// Reuse the same voice element across user gestures and queued level/task clips.
+const voicePlayer=new Audio();voicePlayer.preload='auto';voicePlayer.volume=.85;
+let voiceWatchdog=null;
+function clearVoiceHandlers(){clearInterval(voiceWatchdog);voiceWatchdog=null;for(const event of ['ended','error','playing','waiting','stalled','timeupdate'])voicePlayer['on'+event]=null}
 function taskMotions(){
  if(gameMode==='shapes'){
   if(level===1)return[A('look')];
@@ -57,14 +61,30 @@ function taskMotions(){
 }
 function duck(){if(music)music.volume=muted?0:(voice&&!voice.paused?.045:.14)}
 function startMusic(){if(musicLevel!==level){if(music)music.pause();music=new Audio(`/audio/games/find-for-mimi/music/level-${level+1}.mp3`);music.loop=true;musicLevel=level;}duck();if(!muted&&!paused&&phase!=='intro'){const m=music;m.play().then(()=>{if(m!==music||muted||paused||phase==='intro')m.pause()}).catch(()=>{})}}
-function cancelVoice(){voiceToken++;if(voice){voice.pause();voice.onended=null;voice.onerror=null;voice=null}if(resolveVoice){const r=resolveVoice;resolveVoice=null;r(false)}duck()}
+function cancelVoice(){voiceToken++;clearVoiceHandlers();voicePlayer.pause();voicePlayer.removeAttribute('src');voicePlayer.load();voice=null;if(resolveVoice){const r=resolveVoice;resolveVoice=null;r(false)}duck()}
 function stopMedia(){mediaGeneration++;motionToken++;cancelVoice();for(const id of ['motion','dance']){const v=$(id);v.pause();v.onended=null;v.ontimeupdate=null;v.onloadedmetadata=null;v.onerror=null;v.onplaying=null;v.onwaiting=null;v.removeAttribute('src');v.load();v.dataset.resume='false'}paused=false;$('pause').textContent='Ⅱ Пауза';$('pause').setAttribute('aria-pressed','false');$('audioStatus').hidden=true;$('videoStatus').hidden=true}
 function voiceError(){$('audioStatus').textContent='Натисни «Послухати ще», щоб увімкнути голос Мімі.';$('audioStatus').hidden=false}
-async function speak(ids){cancelVoice();if(muted||paused)return;const token=voiceToken;
- for(const id of ids){if(token!==voiceToken||muted)return;const ok=await new Promise(resolve=>{resolveVoice=resolve;const a=new Audio(window.HUNT_NARRATION[id]?'hunting/'+window.HUNT_NARRATION[id]:id);voice=a;a.volume=.85;
- const finish=success=>{if(token!==voiceToken)return;a.onended=null;a.onerror=null;voice=null;resolveVoice=null;duck();resolve(success)};
- a.onended=()=>finish(true);a.onerror=()=>{voiceError();finish(false)};a.play().then(()=>{if(token!==voiceToken||paused){a.pause();return}duck()}).catch(()=>{if(token===voiceToken){voiceError();finish(false)}});
- });if(!ok)return;}
+async function speak(ids){
+ cancelVoice();if(muted||paused)return;const token=voiceToken;
+ for(const id of ids){
+  if(token!==voiceToken||muted)return;
+  // A failed level announcement must not discard the task that follows it.
+  await new Promise(resolve=>{
+   const a=voicePlayer;voice=a;resolveVoice=resolve;let settled=false,retries=0,attempt=0,lastProgress=Date.now();
+   const active=()=>!settled&&token===voiceToken;
+   const finish=success=>{if(!active())return;settled=true;clearVoiceHandlers();a.pause();voice=null;resolveVoice=null;duck();resolve(success)};
+   const waiting=()=>{if(!active()||paused)return;$('audioStatus').textContent='Завантажуємо голос Мімі…';$('audioStatus').hidden=false};
+   const failed=error=>{if(!active())return;if(error?.name==='NotAllowedError'){voiceError();finish(false);return}if(retries++<1){start();return}voiceError();finish(false)};
+   const start=()=>{if(!active())return;const run=++attempt;lastProgress=Date.now();a.src=window.HUNT_NARRATION[id]?'hunting/'+window.HUNT_NARRATION[id]:id;a.load();if(paused)return;
+    a.play().then(()=>{if(!active()||run!==attempt)return;if(paused)a.pause();else duck()}).catch(e=>{if(active()&&run===attempt)failed(e)});
+   };
+   a.onended=()=>finish(true);a.onerror=()=>failed(a.error);a.onwaiting=waiting;a.onstalled=waiting;
+   a.onplaying=()=>{if(active()){$('audioStatus').hidden=true;lastProgress=Date.now();duck()}};
+   a.ontimeupdate=()=>{if(active())lastProgress=Date.now()};
+   voiceWatchdog=setInterval(()=>{if(!active())return;if(paused){lastProgress=Date.now();return}const elapsed=Date.now()-lastProgress;if(elapsed>15000)failed();else if(elapsed>1500)waiting()},500);
+   start();
+  });
+ }
 }
 function setPaused(value){paused=value;$('pause').textContent=value?'▶ Продовжити':'Ⅱ Пауза';$('pause').setAttribute('aria-pressed',String(value));if(value){if(voice)voice.pause();if(music)music.pause();for(const id of ['motion','dance']){const v=$(id);v.dataset.resume=String(!v.paused);v.pause()}}else{startMusic();if(voice&&!muted)voice.play().then(duck).catch(voiceError);for(const id of ['motion','dance']){const v=$(id);if(v.dataset.resume==='true')v.play().catch(()=>{})}}}
 function motionSequence(seq){const token=++motionToken,v=$('motion');v.pause();let pos=0,repetition=0;

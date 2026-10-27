@@ -35,3 +35,10 @@
 - Video poster and waiting/error messages prevent an empty celebration panel. Navigation releases previous video requests; repeated clap segments reuse their loaded source.
 - Gigi clips colors-1-3, colors-1-5 and colors-4-2 regenerated with stress cues; author listening remains pending.
 - Chromium validation: all 40 tasks and celebration video starts; 20/20 completion per game; explicit color counts; pause/resume; no JavaScript errors; overflow checks at 320, 390, 768, 1280px. Screenshots visually checked at 390px. Real-device network performance still needs user confirmation.
+
+## 2026-10-28 — intermittent narration
+- A single persistent voice Audio element now serves all clips instead of creating a new player for each phrase. Cancel/replay/navigation clear handlers and pending requests with token guards.
+- A failed level announcement no longer discards the queued first task. Transient load failures retry once; waiting/stalled audio shows a status and has a bounded watchdog (suspended during pause).
+- `colors-2-1-v2.mp3` regenerates the red-object instruction with «Знайди́» stress. Author pronunciation review pending.
+- Found and replaced a truncated arms animation with validated `video/arms-v2.mp4`; media mapping updated.
+- Chromium regression checks: both games, all 8 level announcements followed by their first tasks, all 40 task clips; one voice element reused; simulated failed intro still runs task; transient task failure retries; rapid navigation/replay; pause/resume and mute; all 18 mapped videos load/decode; no JS errors. This verifies the identified failure paths, not every mobile browser/device condition.
