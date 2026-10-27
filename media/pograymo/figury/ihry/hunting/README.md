@@ -42,3 +42,9 @@
 - `colors-2-1-v2.mp3` regenerates the red-object instruction with «Знайди́» stress. Author pronunciation review pending.
 - Found and replaced a truncated arms animation with validated `video/arms-v2.mp4`; media mapping updated.
 - Chromium regression checks: both games, all 8 level announcements followed by their first tasks, all 40 task clips; one voice element reused; simulated failed intro still runs task; transient task failure retries; rapid navigation/replay; pause/resume and mute; all 18 mapped videos load/decode; no JS errors. This verifies the identified failure paths, not every mobile browser/device condition.
+
+## 2026-10-28 — mobile media start and recovery
+- Verified production URLs for all 18 video clips and 25 shape voice clips: HTTP 200 and valid ffprobe duration/decoding metadata.
+- Motion playback is requested synchronously during the triggering gesture; metadata callback only positions the clip. Repeated clips retain their loaded source rather than clearing/reloading on every task transition.
+- Explicit muted/defaultMuted/playsInline settings, video start watchdog and combined «Увімкнути голос і рух» control recover blocked playback from a fresh tap. Audio distinguishes blocked playback from load failure.
+- Exact user-device issue remains unconfirmed. Remote Chromium could not open the production page (ERR_EMPTY_RESPONSE); production files were separately fetched and validated. Local strict autoplay and injected failures are used for regression validation.
