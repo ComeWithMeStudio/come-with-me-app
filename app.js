@@ -182,6 +182,7 @@ if(storyHomeBack){
   });
 }
 document.querySelectorAll('[data-story-section]').forEach(button=>button.addEventListener('click',()=>{
+  if(button.dataset.storySection==='adventures'){location.href='mimi-adventures.html';return;}
   if(button.dataset.storySection==='learning'){
     location.href='media/rozkazhy-meni/piznavaymo-svit/index.html';
     return;
@@ -223,3 +224,6 @@ if(location.hash==='#figures'&&shapesWorld){
     window.scrollTo(0,0);
   });
 }
+
+// Return from Mimi adventures to the story world.
+if(new URLSearchParams(location.search).get('section')==='story'){window.addEventListener('load',()=>{document.querySelector('[data-world="story"]').click();});}
