@@ -117,7 +117,7 @@ function watchVideo(v){
 }
 function playDance(){
  const token=mediaGeneration,v=$('dance');
- const match=gameMode==='shapes'&&(level===2||(level===3&&(index===0||index===2)));
+ const match=(gameMode==='shapes'&&(level===2||(level===3&&(index===0||index===2))))||(gameMode==='colors'&&((level===0&&[0,1,4].includes(index))||(level===3&&index===2)));
  const move=match?taskMotions()[0]:null;
  const movement=taskMotions().some(a=>a.key!=='look');
  const m=move&&window.HUNT_MOVES[move.key];
