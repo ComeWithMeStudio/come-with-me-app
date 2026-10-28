@@ -52,7 +52,7 @@ function taskMotions(){
  if(gameMode==='shapes'){
   if(level===1)return[A('look')];
   if(level===2)return[[A('spin')],[A('clap',3)],[A('march',4)],[A('stretch')],[A('arms')]][index];
-  if(level===3)return[[A('look')],[A('clap',3)],[A('march',4)],[A('clap',2)],[A('jump')]][index];
+  if(level===3)return[[A('spin')],[A('clap',3)],[A('march',4)],[A('clap',2)],[A('jump')]][index];
   return[];
  }
  if(level===0)return[[A('smile')],[A('waves')],[A('squat'),A('stretch')],[A('clap',2)],[A('spin')]][index];
@@ -115,9 +115,25 @@ function watchVideo(v){
   if(Date.now()-lastProgress>8000)videoMessage('Рух Мімі ще не запустився. Спробуй увімкнути ще раз.',true);
  },1000);
 }
-function playDance(){const token=mediaGeneration,v=$('dance'),isMovement=taskMotions().some(a=>a.key!=='look');
- watchVideo(v);v.onended=()=>{v.dataset.intended='false';v.pause()};v.ontimeupdate=()=>{if(v.currentTime>=6.5){v.dataset.intended='false';v.pause()}};
- v.src=isMovement?window.HUNT_MOVES.clap.src:window.HUNT_DANCES[danceIndex%window.HUNT_DANCES.length];v.load();v.dataset.intended='true';
+function playDance(){
+ const token=mediaGeneration,v=$('dance');
+ const match=gameMode==='shapes'&&(level===2||level===3&&index===0);
+ const move=match?taskMotions()[0]:null;
+ const movement=taskMotions().some(a=>a.key!=='look');
+ const m=move&&window.HUNT_MOVES[move.key];
+ const clip=move?({spin:[0,2.65],clap:[.5,1.05],march:[0,Math.min(3,(move.count||4)*.55)],stretch:[0,null],arms:[0,null]})[move.key]:null;
+ const repetitions=move?.key==='clap'?(move.count||1):1;
+ let played=0,finished=false;
+ watchVideo(v);
+ const finish=()=>{if(finished||token!==mediaGeneration)return;
+   if(++played<repetitions){v.currentTime=clip?.[0]||0;v.play().catch(()=>{});return}
+   finished=true;v.dataset.intended='false';v.pause()};
+ v.onended=finish;
+ v.ontimeupdate=()=>{if(clip?.[1]!=null&&v.currentTime>=clip[1])finish();
+   else if(!clip&&v.currentTime>=6.5)finish()};
+ v.onloadedmetadata=()=>{if(clip?.[0])v.currentTime=clip[0]};
+ v.src=m?m.src:movement?window.HUNT_MOVES.clap.src:window.HUNT_DANCES[danceIndex%window.HUNT_DANCES.length];
+ v.load();v.dataset.intended='true';
  v.play().then(()=>{if(token===mediaGeneration&&paused)v.pause()}).catch(()=>{if(token===mediaGeneration)videoMessage('Натисни «Увімкнути голос і рух», щоб побачити Мімі.',true)});
 }
 function praise(){speak(['/audio/games/common/correct-'+(1+danceIndex%5)+'.mp3'])}
