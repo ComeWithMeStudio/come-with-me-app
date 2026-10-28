@@ -52,7 +52,7 @@ function taskMotions(){
  if(gameMode==='shapes'){
   if(level===1)return[A('look')];
   if(level===2)return[[A('spin')],[A('clap',3)],[A('march',4)],[A('stretch')],[A('arms')]][index];
-  if(level===3)return[[A('spin')],[A('clap',3)],[A('march',4)],[A('clap',2)],[A('jump')]][index];
+  if(level===3)return[[A('spin')],[A('clap',3)],[A('march',4)],[A('arms')],[A('jump')]][index];
   return[];
  }
  if(level===0)return[[A('smile')],[A('waves')],[A('squat'),A('stretch')],[A('clap',2)],[A('spin')]][index];
@@ -117,7 +117,7 @@ function watchVideo(v){
 }
 function playDance(){
  const token=mediaGeneration,v=$('dance');
- const match=gameMode==='shapes'&&(level===2||level===3&&index===0);
+ const match=gameMode==='shapes'&&(level===2||(level===3&&(index===0||index===2)));
  const move=match?taskMotions()[0]:null;
  const movement=taskMotions().some(a=>a.key!=='look');
  const m=move&&window.HUNT_MOVES[move.key];
