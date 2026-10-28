@@ -18,6 +18,11 @@
     .hs-window{left:23%;top:22%}.hs-shelf{right:15%;top:18%}.hs-pillow{left:46%;bottom:36%}.hs-blanket{right:16%;bottom:24%}
     .crumb{left:26%;right:auto;top:38%}.paw{left:73%;bottom:23%}
     @media(max-width:540px){.scene{height:auto;min-height:250px;aspect-ratio:3/2}.mimi{width:25%;height:42%}.hotspot{min-width:48px;min-height:48px}.hotspot span{font-size:25px}.hotspot small{font-size:9px}.hs-window{left:20%;top:18%}.hs-shelf{right:11%;top:14%}.hs-pillow{left:44%;bottom:34%}.hs-blanket{right:12%;bottom:20%}}
+
+    .hotspot.ready{animation:readyPulse 1.15s ease-in-out infinite;background:#fff5cde8;border-color:#f6ce63;box-shadow:0 0 0 7px #f5cf6550,0 8px 24px #765b3450}
+    .scene.case-opening:after{content:"СПРАВА № 1";position:absolute;inset:0;z-index:20;display:grid;place-items:center;background:#5d496cbb;color:#fffaf0;font-size:clamp(28px,7vw,58px);font-weight:900;letter-spacing:.08em;animation:caseIntro 1.15s both}
+    .false-trail{position:absolute;left:50%;top:8%;z-index:18;transform:translateX(-50%);padding:9px 15px;border-radius:999px;background:#fff7e8e8;color:#6a556d;font-size:13px;font-weight:900;box-shadow:0 6px 18px #4d3e512e;animation:pop .45s both}
+    @keyframes readyPulse{50%{transform:scale(1.1)}}@keyframes caseIntro{0%{opacity:0}25%,70%{opacity:1}100%{opacity:0;visibility:hidden}}
 </style>
 </head>
 <body>
@@ -50,12 +55,33 @@ const clues={
 };
 function play(file,volume=.7){if(!sound)return;if(lastAudio){lastAudio.pause();lastAudio.currentTime=0}lastAudio=new Audio(common+file);lastAudio.volume=volume;lastAudio.play().catch(()=>{})}
 function setMessage(text){message.textContent=text}
-function reveal(place,button){if(!active||finished||found.includes(place))return;const clue=clues[place],el=document.createElement('span');el.className='evidence '+clue.className;el.textContent=clue.icon;clueLayer.append(el);found.push(place);button.disabled=true;setMessage(clue.line);notes.insertAdjacentHTML('beforeend','<li>'+clue.note+'</li>');play(place==='window'?'wrong_boop.mp3':'item_place.mp3',.55);if(place!=='window'){const index=found.filter(x=>x!=='window').length-1;if(dots[index]){dots[index].textContent='✓';dots[index].classList.add('found')}}if(place==='blanket'){laterFinish()}else if(found.filter(x=>x!=='window').length===2){setTimeout(()=>setMessage('Дві справжні підказки ведуть до ліжка. Де ще не перевірили?'),1000)}}
+function peekNotebook(){notebook.classList.add('open');clearTimeout(peekNotebook.timer);peekNotebook.timer=setTimeout(()=>{if(!finished)notebook.classList.remove('open')},1800)}
+function markRealClue(){const count=found.filter(x=>x!=='window').length,index=count-1;if(dots[index]){dots[index].textContent='✓';dots[index].classList.add('found')}if(count===2&&!found.includes('blanket')){const target=document.querySelector('[data-place="blanket"]');target.classList.add('ready');setTimeout(()=>setMessage('Ниточка й шерстинка ведуть до ліжка. Тепер уважно оглянь ковдру!'),650)}}
+function reveal(place,button){
+  if(!active||finished||found.includes(place))return;
+  if(place==='blanket'&&found.filter(x=>x==='shelf'||x==='pillow').length<2){
+    setMessage('Під ковдрою щось є… Але спершу знайдімо дві підказки, щоб бути певними.');
+    button.animate([{transform:'scale(1)'},{transform:'scale(1.08)'},{transform:'scale(1)'}],{duration:650});
+    play('retry-1.mp3',.45);
+    return;
+  }
+  const clue=clues[place],el=document.createElement('span');
+  el.className='evidence '+clue.className;el.textContent=clue.icon;clueLayer.append(el);
+  found.push(place);button.disabled=true;button.classList.remove('ready');setMessage(clue.line);
+  notes.insertAdjacentHTML('beforeend','<li>'+clue.note+'</li>');
+  if(place==='window'){
+    play('wrong_boop.mp3',.45);
+    const tag=document.createElement('span');tag.className='false-trail';tag.textContent='Хибний слід — і це теж відкриття!';document.querySelector('.scene').append(tag);setTimeout(()=>tag.remove(),1700);
+  }else{
+    play('item_place.mp3',.55);markRealClue();peekNotebook();
+  }
+  if(place==='blanket')laterFinish();
+}
 function laterFinish(){spots.forEach(b=>b.disabled=true);setTimeout(finish,850)}
 function finish(){finished=true;const bear=document.createElement('div');bear.className='bear';bear.innerHTML='<span class="bear-face"></span>';document.querySelector('.scene').append(bear);setMessage('Справу розкрито! Ведмедик не зник — він затишно заснув під ковдрою.');notes.insertAdjacentHTML('beforeend','<li><strong>Справу розкрито:</strong> ведмедик заснув під ковдрою.</li>');notebook.classList.add('open');dots.forEach(d=>{d.textContent='★';d.classList.add('found')});play('scene_complete.mp3',.65);confetti();hint.hidden=true;again.hidden=false}
 function confetti(){const colors=['#f0bd56','#d99ab5','#8fc2b4','#8f7bc2'];for(let i=0;i<22;i++){const c=document.createElement('i');c.style.left=Math.random()*100+'%';c.style.background=colors[i%colors.length];c.style.animationDelay=Math.random()*.55+'s';$('confetti').append(c)}}
-function begin(){active=true;document.body.classList.add('case-open');start.hidden=true;hint.hidden=false;notesButton.hidden=false;setMessage('У справжнього детектива уважні очі. Торкайся місць у кімнаті й шукай підказки.');$('magnifier').classList.add('show');setTimeout(()=>$('magnifier').classList.remove('show'),1700)}
-function reset(){active=false;document.body.classList.remove('case-open');finished=false;found=[];clueLayer.replaceChildren();$('confetti').replaceChildren();document.querySelector('.bear')?.remove();spots.forEach(b=>b.disabled=false);dots.forEach(d=>{d.textContent='?';d.classList.remove('found')});notes.innerHTML='<li>Ведмедик зник після тихої години.</li>';notebook.classList.remove('open');again.hidden=true;notesButton.hidden=true;hint.hidden=true;start.hidden=false;setMessage('У кімнаті зник улюблений ведмедик. Допоможемо Мімі розкрити справу?')}
+function begin(){active=true;const scene=document.querySelector('.scene');scene.classList.add('case-opening');start.hidden=true;setMessage('Справа № 1. Зник улюблений ведмедик. Головний детектив — ти, а Мімі допомагатиме!');play('game_start.mp3',.5);setTimeout(()=>{document.body.classList.add('case-open');scene.classList.remove('case-opening');hint.hidden=false;notesButton.hidden=false;setMessage('Оглядай кімнату й торкайся місць, де може ховатися підказка.');$('magnifier').classList.add('show');setTimeout(()=>$('magnifier').classList.remove('show'),1700)},1150)}
+function reset(){active=false;document.body.classList.remove('case-open');finished=false;found=[];clearTimeout(peekNotebook.timer);clueLayer.replaceChildren();$('confetti').replaceChildren();document.querySelector('.bear')?.remove();spots.forEach(b=>{b.disabled=false;b.classList.remove('ready')});dots.forEach(d=>{d.textContent='?';d.classList.remove('found')});notes.innerHTML='<li>Ведмедик зник після тихої години.</li>';notebook.classList.remove('open');again.hidden=true;notesButton.hidden=true;hint.hidden=true;start.hidden=false;setMessage('У кімнаті зник улюблений ведмедик. Допоможемо Мімі розкрити справу?')}
 function showHint(){const order=['shelf','pillow','blanket'],next=order.find(x=>!found.includes(x));if(!next)return;const label={shelf:'поличку',pillow:'подушку',blanket:'ковдру'}[next];setMessage('Мімі радить уважніше оглянути '+label+'.');const target=document.querySelector('[data-place="'+next+'"]');target.animate([{transform:'scale(1)'},{transform:'scale(1.13)'},{transform:'scale(1)'}],{duration:800});play('retry-1.mp3',.55)}
 spots.forEach(b=>b.addEventListener('click',function(){reveal(this.dataset.place,this)}));start.onclick=begin;hint.onclick=showHint;again.onclick=reset;notesButton.onclick=()=>notebook.classList.toggle('open');$('sound').onclick=()=>{sound=!sound;$('sound').textContent=sound?'🔊':'🔇';$('sound').setAttribute('aria-pressed',String(sound));$('sound').setAttribute('aria-label',sound?'Вимкнути звук':'Увімкнути звук');if(!sound&&lastAudio){lastAudio.pause();lastAudio.currentTime=0}};document.addEventListener('visibilitychange',()=>{if(document.hidden&&lastAudio)lastAudio.pause()});
 </script>
