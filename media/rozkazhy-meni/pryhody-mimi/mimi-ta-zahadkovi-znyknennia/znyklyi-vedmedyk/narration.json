@@ -1,0 +1,86 @@
+{
+  "game": "Мімі та загадкові зникнення — Зниклий ведмедик",
+  "updated": "2026-10-28",
+  "provider": "ElevenLabs",
+  "voice": {
+    "name": "Gigi - Cute, Peppy, Energetic",
+    "volume_percent": 100,
+    "speed": 1.1,
+    "stability_percent": 65,
+    "similarity_percent": 23,
+    "style_exaggeration_percent": 43,
+    "speaker_boost": true
+  },
+  "pronunciation_notes": [
+    "Мімі — хлопчик; у текстах використовувати «помічник», «твій помічник».",
+    "Якщо в інших матеріалах трапляється слово «помічниця», подавати в ElevenLabs як «помічни́ця» з позначеним наголосом."
+  ],
+  "music": {
+    "title": "Жасминова місія",
+    "file": "/audio/games/find-for-mimi/music/level-4.mp3",
+    "volume": 0.11,
+    "loop": true
+  },
+  "lines": [
+    {
+      "id": "mystery-bear-01-open",
+      "file": "audio/mystery-bear-01-open.mp3",
+      "text": "У кімнаті зник улюблений ведмедик. Справа номер один. Головний детектив — ти, а Мімі — твій помічник!"
+    },
+    {
+      "id": "mystery-bear-02-search",
+      "file": "audio/mystery-bear-02-search.mp3",
+      "text": "Оглядай кімнату й торкайся місць, де може ховатися підказка."
+    },
+    {
+      "id": "mystery-bear-03-shelf",
+      "file": "audio/mystery-bear-03-shelf.mp3",
+      "text": "Синя ниточка! Вона схожа на нитку з шарфика ведмедика."
+    },
+    {
+      "id": "mystery-bear-04-pillow",
+      "file": "audio/mystery-bear-04-pillow.mp3",
+      "text": "М’яка коричнева шерстинка. Ведмедик точно був біля подушки."
+    },
+    {
+      "id": "mystery-bear-05-false-trail",
+      "file": "audio/mystery-bear-05-false-trail.mp3",
+      "text": "Крихта! Цікаво… але ведмедик печива не їсть. Це хибний слід. І це теж відкриття!"
+    },
+    {
+      "id": "mystery-bear-06-blanket-early",
+      "file": "audio/mystery-bear-06-blanket-early.mp3",
+      "text": "Під ковдрою щось є… Але спершу знайдімо дві підказки, щоб бути певними."
+    },
+    {
+      "id": "mystery-bear-07-two-clues",
+      "file": "audio/mystery-bear-07-two-clues.mp3",
+      "text": "Ниточка й шерстинка ведуть до ліжка. Тепер уважно оглянь ковдру!"
+    },
+    {
+      "id": "mystery-bear-08-blanket",
+      "file": "audio/mystery-bear-08-blanket.mp3",
+      "text": "Ось відбиток лапки! Зазирнімо під ковдру."
+    },
+    {
+      "id": "mystery-bear-09-hint-shelf",
+      "file": "audio/mystery-bear-09-hint-shelf.mp3",
+      "text": "Мімі радить уважніше оглянути поличку."
+    },
+    {
+      "id": "mystery-bear-10-hint-pillow",
+      "file": "audio/mystery-bear-10-hint-pillow.mp3",
+      "text": "Мімі радить уважніше оглянути подушку."
+    },
+    {
+      "id": "mystery-bear-11-hint-blanket",
+      "file": "audio/mystery-bear-11-hint-blanket.mp3",
+      "text": "Мімі радить уважніше оглянути ковдру."
+    },
+    {
+      "id": "mystery-bear-12-finish",
+      "file": "audio/mystery-bear-12-finish.mp3",
+      "text": "Справу розкрито! Ведмедик не зник — він затишно заснув під ковдрою."
+    }
+  ]
+}
