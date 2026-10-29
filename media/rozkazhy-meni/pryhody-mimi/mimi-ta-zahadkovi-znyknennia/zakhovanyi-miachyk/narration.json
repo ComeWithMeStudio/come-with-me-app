@@ -1,0 +1,76 @@
+{
+  "game": "Захований м’ячик",
+  "updated": "2026-10-29",
+  "status": "Awaiting Gigi recording and author scene review",
+  "voice": {
+    "name": "Gigi",
+    "model": "eleven_multilingual_v2",
+    "speed": 1.1,
+    "stability": 0.65,
+    "similarity_boost": 0.23,
+    "style": 0.43,
+    "speaker_boost": true
+  },
+  "lines": [
+    {
+      "id": "case-open",
+      "file": "audio/case-open.mp3",
+      "text": "Справа номер чотири: червоний м’ячик покотився й зник у саду!"
+    },
+    {
+      "id": "explore",
+      "file": "audio/explore.mp3",
+      "text": "Оглядай сад і шукай підказки, куди покотився м’ячик."
+    },
+    {
+      "id": "false-trail",
+      "file": "audio/false-trail.mp3",
+      "text": "Круглий камінець! Він схожий на м’ячик, але це хибний слід."
+    },
+    {
+      "id": "bench",
+      "file": "audio/bench.mp3",
+      "text": "Під лавкою прим’ята трава. Тут міг прокотитися м’ячик!"
+    },
+    {
+      "id": "path",
+      "file": "audio/path.mp3",
+      "text": "Круглий слід на стежці! Він веде просто до куща."
+    },
+    {
+      "id": "bush-locked",
+      "file": "audio/bush-locked.mp3",
+      "text": "Під кущем щось є… Та спершу знайдімо дві підказки."
+    },
+    {
+      "id": "bush-ready",
+      "file": "audio/bush-ready.mp3",
+      "text": "Прим’ята трава й круглий слід ведуть до куща. Перевірмо його!"
+    },
+    {
+      "id": "bush",
+      "file": "audio/bush.mp3",
+      "text": "За листочками щось червоне. Зазирнімо під кущ!"
+    },
+    {
+      "id": "complete",
+      "file": "audio/complete.mp3",
+      "text": "Справу розкрито! М’ячик прокотився під лавкою й стежкою аж під кущ. Тепер можна знову гратися!"
+    },
+    {
+      "id": "hint-bench",
+      "file": "audio/hint-bench.mp3",
+      "text": "Мімі радить уважніше оглянути лавку."
+    },
+    {
+      "id": "hint-path",
+      "file": "audio/hint-path.mp3",
+      "text": "Мімі радить уважніше оглянути піщану стежку."
+    },
+    {
+      "id": "hint-bush",
+      "file": "audio/hint-bush.mp3",
+      "text": "Мімі радить уважніше оглянути кущ."
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "updated": "2026-10-29",
+  "voice": "Gigi",
+  "provider": "ElevenLabs",
+  "status": "Existing recordings preserved; playback sequencing repaired",
+  "lines": [
+    {
+      "id": "intro",
+      "file": "audio/intro.mp3",
+      "text": "Стрічка для подарунка зникла зі столу. Допоможемо Мімі її знайти?"
+    },
+    {
+      "id": "case-open",
+      "file": "audio/case-open.mp3",
+      "text": "Справа номер три: коралова стрічка щойно лежала на столі, а тепер її немає!"
+    },
+    {
+      "id": "explore",
+      "file": "audio/explore.mp3",
+      "text": "Оглядай творчу кімнату й шукай сліди коралової стрічки."
+    },
+    {
+      "id": "false-trail",
+      "file": "audio/false-trail.mp3",
+      "text": "Папір є, але стрічки тут немає. Це хибний слід."
+    },
+    {
+      "id": "scissors",
+      "file": "audio/scissors.mp3",
+      "text": "На ножицях коралова ниточка — стрічку тут відрізали."
+    },
+    {
+      "id": "drawer",
+      "file": "audio/drawer.mp3",
+      "text": "Маленький обрізок! Отже, стрічка була біля шухляди."
+    },
+    {
+      "id": "basket-locked",
+      "file": "audio/basket-locked.mp3",
+      "text": "У кошику щось є… Та спершу знайдімо дві підказки."
+    },
+    {
+      "id": "basket-ready",
+      "file": "audio/basket-ready.mp3",
+      "text": "Ниточка й обрізок ведуть до кошика з тканинами. Перевірмо його!"
+    },
+    {
+      "id": "basket",
+      "file": "audio/basket.mp3",
+      "text": "Між тканинами щось коралове. Зазирнімо в кошик!"
+    },
+    {
+      "id": "complete",
+      "file": "audio/complete.mp3",
+      "text": "Справу розкрито! Стрічка зісковзнула зі столу просто в кошик із тканинами."
+    },
+    {
+      "id": "hint-scissors",
+      "file": "audio/hint-scissors.mp3",
+      "text": "Мімі радить уважніше оглянути ножиці."
+    },
+    {
+      "id": "hint-drawer",
+      "file": "audio/hint-drawer.mp3",
+      "text": "Мімі радить уважніше оглянути відчинену шухляду."
+    },
+    {
+      "id": "hint-basket",
+      "file": "audio/hint-basket.mp3",
+      "text": "Мімі радить уважніше оглянути кошик із тканинами."
+    }
+  ]
+}
