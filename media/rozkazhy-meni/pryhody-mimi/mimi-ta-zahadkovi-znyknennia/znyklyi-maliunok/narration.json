@@ -1,0 +1,92 @@
+{
+  "game": "Зниклий малюнок",
+  "updated": "2026-10-29",
+  "status": "Awaiting Gigi recording and author scene review",
+  "voice": {
+    "name": "Gigi",
+    "id": "n7Wi4g1bhpw4Bs8HK5ph",
+    "model": "eleven_multilingual_v2",
+    "speed": 1.1,
+    "stability": 0.65,
+    "similarity_boost": 0.23,
+    "style": 0.43,
+    "speaker_boost": true
+  },
+  "lines": [
+    {
+      "id": "case-open",
+      "file": "audio/case-open.mp3",
+      "text": "Справа номер п’ять: зі столу зник малюнок Мімі!"
+    },
+    {
+      "id": "explore",
+      "file": "audio/explore.mp3",
+      "text": "Оглядай кімнату й шукай підказки, куди подівся малюнок."
+    },
+    {
+      "id": "false-trail",
+      "file": "audio/false-trail.mp3",
+      "text": "Знайшовся олівець! Але він не підкаже, куди подівся малюнок. Це хибний слід."
+    },
+    {
+      "id": "table",
+      "file": "audio/table.mp3",
+      "text": "На столі порожнє місце. Малюнок був тут, а тепер зник!"
+    },
+    {
+      "id": "window",
+      "file": "audio/window.mp3",
+      "text": "Вікно відчинене! Вітерець ворушить штору. Біля неї видно паперовий куточок."
+    },
+    {
+      "id": "curtain-locked",
+      "file": "audio/curtain-locked.mp3",
+      "text": "Штора ворушиться… Та спершу знайдімо дві підказки."
+    },
+    {
+      "id": "curtain-ready",
+      "file": "audio/curtain-ready.mp3",
+      "text": "Малюнок зник зі столу, а біля вікна видно папір. Де перевіримо?"
+    },
+    {
+      "id": "curtain",
+      "file": "audio/curtain.mp3",
+      "text": "За шторою кольоровий аркуш. Зазирнімо туди!"
+    },
+    {
+      "id": "complete",
+      "file": "audio/complete.mp3",
+      "text": "Справу розкрито! Вітерець підхопив малюнок зі столу й заніс за штору."
+    },
+    {
+      "id": "hint-table",
+      "file": "audio/hint-table.mp3",
+      "text": "Мімі радить уважніше оглянути стіл."
+    },
+    {
+      "id": "hint-window",
+      "file": "audio/hint-window.mp3",
+      "text": "Мімі радить уважніше оглянути відчинене вікно."
+    },
+    {
+      "id": "hint-curtain",
+      "file": "audio/hint-curtain.mp3",
+      "text": "Мімі радить уважніше оглянути штору."
+    },
+    {
+      "id": "choose-again",
+      "file": "audio/choose-again.mp3",
+      "text": "У скриньці іграшки. А вітерець дме від вікна. Спробуй інше місце!"
+    },
+    {
+      "id": "choose-curtain",
+      "file": "audio/choose-curtain.mp3",
+      "text": "Так! Перевірмо штору біля відчиненого вікна."
+    },
+    {
+      "id": "series-complete",
+      "file": "audio/series-complete.mp3",
+      "text": "П’ять справ розкрито! Дякую тобі, детективе!"
+    }
+  ]
+}

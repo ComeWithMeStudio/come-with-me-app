@@ -17,7 +17,7 @@ function load(name,places){
   vm.runInContext(html.match(/<script>([\s\S]*?)<\/script>/)[1].replace('narrationReady=false','narrationReady=true'),ctx);
   return code=>vm.runInContext(code,ctx);
 }
-for(const [name,places] of [['zahublena-strichka',['box','scissors','drawer','basket']],['zakhovanyi-miachyk',['pot','bench','path','bush']]]){
+for(const [name,places] of [['zahublena-strichka',['box','scissors','drawer','basket']],['zakhovanyi-miachyk',['pot','bench','path','bush']],['znyklyi-maliunok',['pencil','table','window','curtain']]]){
   const run=load(name,places),[,a,b,target]=places,click=key=>run(`reveal('${key}',spots.find(s=>s.dataset.place==='${key}'))`);
   run('begin()');await flush();assert(run('transitioning'));assert(run('lastVoice.src.includes("case-open")'));
   run('lastVoice.finish()');await flush();assert(run('lastVoice.src.includes("explore")'));assert(run('transitioning'));
@@ -25,10 +25,11 @@ for(const [name,places] of [['zahublena-strichka',['box','scissors','drawer','ba
   click(target);await flush();assert(!run('finished'));run('lastVoice.finish()');await flush();
   click(b);await flush();assert(run('transitioning'));run('lastVoice.finish()');await flush();assert(!run('transitioning'));
   click(a);await flush();run('lastVoice.finish()');await flush();assert(run('transitioning'));assert(run(`lastVoice.src.includes('${target}-ready')`));
-  run('lastVoice.finish()');await flush();click(target);await flush();assert(!run('finished'));
+  run('lastVoice.finish()');await flush();if(name==='znyklyi-maliunok'){click(target);await flush();assert(!run('finished'));assert(!run("$('deduction').hidden"));run("$('chooseChest').onclick()");await flush();assert(!run('deductionSolved'));run('lastVoice.finish()');await flush();run("$('chooseCurtain').onclick()");await flush();run('lastVoice.finish()');await flush()}click(target);await flush();assert(!run('finished'));
   run('lastVoice.finish()');await flush();assert(run('finished'));assert(run('lastVoice.src.includes("complete")'));
   run('reset()');await flush();assert(!run('voicePlaying'));assert.equal(run('voiceQueue.length'),0);assert(!run('active'));
   run('begin()');await flush();run('reset()');await flush();assert(!run('document.body.classList.contains("case-open")'));
-  run('sound=false;begin()');await flush();click(a);await flush();click(b);await flush();click(target);await flush();assert(run('finished'));
+  run('sound=false;begin()');await flush();click(a);await flush();click(b);await flush();if(name==='znyklyi-maliunok')run("$('chooseCurtain').onclick()");click(target);await flush();assert(run('finished'));
+  if(name==='znyklyi-maliunok'){run("$('seriesEnd').onclick()");await flush();assert(run("scene.children.some(e=>e.className==='series-end')"))}
   console.log(name+': narration order, clue gate, reverse clue order, finale, replay cancellation, silent mode PASS');
 }
