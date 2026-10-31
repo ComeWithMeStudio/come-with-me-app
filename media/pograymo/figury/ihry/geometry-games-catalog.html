@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="uk" style="color-scheme:only light">
-<head>
+<head><script src="../../../../game-access.js?v=20261031-access1"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#f4ebef">
@@ -48,11 +48,6 @@
     <a class="card paid-card" data-target="kolorova-laboratoriia.html" href="#" aria-label="Кольорова лабораторія Мімі, платний матеріал"><span class="colors-cover" aria-hidden="true"><img src="../../assets/illustrations/painted_scene/paint-palette.webp" alt=""><img src="../../assets/illustrations/painted_scene/paint-brush.webp" alt=""></span><span class="badge">ПЛАТНО</span><span class="lock" aria-hidden="true">🔒</span><span class="veil"><strong>Кольорова лабораторія Мімі</strong><small>2 рівні • 12 кольорових дослідів</small></span></a><p class="note">Змішуй фарби, відкривай нові відтінки й знаходь підказку на пензлику 🎨</p>
     <a class="card paid-card" data-target="poliuvannia-na-fihury/index.html" href="#" aria-label="Полювання на фігури, платний матеріал"><img class="game-cover" src="poliuvannia-na-fihury/assets/cover.png?v=20261028" alt="Мімі знаходить коло, трикутник і квадрат"><span class="badge">ПЛАТНО</span><span class="lock" aria-hidden="true">🔒</span><span class="veil"><strong>Полювання на фігури</strong><small>4 рівні · 20 завдань · танці Мімі</small></span></a><p class="note">Показуй • шукай • рухайся</p><a class="card paid-card" data-target="poliuvannia-na-kolory/index.html" href="#" aria-label="Полювання на кольори, платний матеріал"><img class="game-cover" src="poliuvannia-na-kolory/assets/cover.png?v=20261028" alt="Мімі знаходить червоний, жовтий і синій кольори"><span class="badge">ПЛАТНО</span><span class="lock" aria-hidden="true">🔒</span><span class="veil"><strong>Полювання на кольори</strong><small>4 рівні · 20 завдань · танці Мімі</small></span></a><p class="note">Знаходь • рахуй • танцюй</p><div class="message" id="lockedMessage" hidden>Ця гра входить до платної колекції Come With Me Studio ❤️</div>
   </main>
-  <script>
-    const params=new URLSearchParams(location.search);if(params.get('preview')==='alona')sessionStorage.setItem('cwm-author-preview','1');const isAuthor=sessionStorage.getItem('cwm-author-preview')==='1';
-    
-    const cards=[...document.querySelectorAll('.paid-card')],message=document.getElementById('lockedMessage');
-    cards.forEach(card=>{if(isAuthor){card.querySelector('.badge').textContent='РЕЖИМ АВТОРА';card.querySelector('.lock').textContent='🔓';card.href=card.dataset.target}else card.addEventListener('click',event=>{event.preventDefault();message.hidden=false;message.scrollIntoView({behavior:'smooth',block:'center'})})});
-  </script>
+
 </body>
 </html>
