@@ -11,4 +11,4 @@ for(const path of author.api.paidPaths){assert(author.api.isPaid('/'+path));asse
 assert(!author.api.isPaid('/media/pograymo/figury/pisni/geometry-song.html'));assert(!author.api.isPaid('/nature-games.html'));assert(!author.api.isPaid('https://other.example/game.html'));
 let noStorage=load(game,'?preview=alona',false,true);noStorage.ready();assert(noStorage.api.author);
 assert.equal(new URL(author.api.authorURL('/index.html?section=story#figures')).searchParams.get('section'),'story');assert.equal(new URL(author.api.authorURL('/index.html?section=story#figures')).hash,'#figures');
-console.log('Author entry, session carryover, blocked storage fallback, all 22 paid pages, guest gate and free-song exclusion PASS');
+console.log('Author entry, session carryover, blocked storage fallback, all 24 paid pages, guest gate and free-song exclusion PASS');
