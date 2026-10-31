@@ -1,7 +1,7 @@
 {
   "game": "Захований м’ячик",
-  "updated": "2026-10-29",
-  "status": "Awaiting Gigi recording and author scene review",
+  "updated": "2026-10-31",
+  "status": "Gigi recordings connected; awaiting author listening review",
   "voice": {
     "name": "Gigi",
     "model": "eleven_multilingual_v2",
@@ -15,62 +15,74 @@
     {
       "id": "case-open",
       "file": "audio/case-open.mp3",
-      "text": "Справа номер чотири: червоний м’ячик покотився й зник у саду!"
+      "text": "Справа номер чотири: червоний м’ячик покотився й зник у саду!",
+      "duration_seconds": 3.788
     },
     {
       "id": "explore",
       "file": "audio/explore.mp3",
-      "text": "Оглядай сад і шукай підказки, куди покотився м’ячик."
+      "text": "Оглядай сад і шукай підказки, куди покотився м’ячик.",
+      "duration_seconds": 3.291
     },
     {
       "id": "false-trail",
       "file": "audio/false-trail.mp3",
-      "text": "Круглий камінець! Він схожий на м’ячик, але це хибний слід."
+      "text": "Круглий камінець! Він схожий на м’ячик, але це хибний слід.",
+      "duration_seconds": 3.657
     },
     {
       "id": "bench",
       "file": "audio/bench.mp3",
-      "text": "Під лавкою прим’ята трава. Тут міг прокотитися м’ячик!"
+      "text": "Під лавкою прим’ята трава. Тут міг прокотитися м’ячик!",
+      "duration_seconds": 3.187
     },
     {
       "id": "path",
       "file": "audio/path.mp3",
-      "text": "Круглий слід на стежці! Він веде просто до куща."
+      "text": "Круглий слід на стежці! Він веде просто до куща.",
+      "duration_seconds": 2.926
     },
     {
       "id": "bush-locked",
       "file": "audio/bush-locked.mp3",
-      "text": "Під кущем щось є… Та спершу знайдімо дві підказки."
+      "text": "Під кущем щось є… Та спершу знайдімо дві підказки.",
+      "duration_seconds": 3.187
     },
     {
       "id": "bush-ready",
       "file": "audio/bush-ready.mp3",
-      "text": "Прим’ята трава й круглий слід ведуть до куща. Перевірмо його!"
+      "text": "Прим’ята трава й круглий слід ведуть до куща. Перевірмо його!",
+      "duration_seconds": 3.605
     },
     {
       "id": "bush",
       "file": "audio/bush.mp3",
-      "text": "За листочками щось червоне. Зазирнімо під кущ!"
+      "text": "За листочками щось червоне. Зазирнімо під кущ!",
+      "duration_seconds": 3.004
     },
     {
       "id": "complete",
       "file": "audio/complete.mp3",
-      "text": "Справу розкрито! М’ячик прокотився під лавкою й стежкою аж під кущ. Тепер можна знову гратися!"
+      "text": "Справу розкрито! М’ячик прокотився під лавкою й стежкою аж під кущ. Тепер можна знову гратися!",
+      "duration_seconds": 6.087
     },
     {
       "id": "hint-bench",
       "file": "audio/hint-bench.mp3",
-      "text": "Мімі радить уважніше оглянути лавку."
+      "text": "Мімі радить уважніше оглянути лавку.",
+      "duration_seconds": 2.325
     },
     {
       "id": "hint-path",
       "file": "audio/hint-path.mp3",
-      "text": "Мімі радить уважніше оглянути піщану стежку."
+      "text": "Мімі радить уважніше оглянути піщану стежку.",
+      "duration_seconds": 2.926
     },
     {
       "id": "hint-bush",
       "file": "audio/hint-bush.mp3",
-      "text": "Мімі радить уважніше оглянути кущ."
+      "text": "Мімі радить уважніше оглянути кущ.",
+      "duration_seconds": 2.351
     }
   ]
 }

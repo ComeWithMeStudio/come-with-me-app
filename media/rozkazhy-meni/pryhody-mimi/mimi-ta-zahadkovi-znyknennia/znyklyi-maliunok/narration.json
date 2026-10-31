@@ -1,7 +1,7 @@
 {
   "game": "Зниклий малюнок",
-  "updated": "2026-10-29",
-  "status": "Awaiting Gigi recording and author scene review",
+  "updated": "2026-10-31",
+  "status": "Gigi recordings connected; awaiting author listening review",
   "voice": {
     "name": "Gigi",
     "id": "n7Wi4g1bhpw4Bs8HK5ph",
@@ -16,77 +16,92 @@
     {
       "id": "case-open",
       "file": "audio/case-open.mp3",
-      "text": "Справа номер п’ять: зі столу зник малюнок Мімі!"
+      "text": "Справа номер п’ять: зі столу зник малюнок Мімі!",
+      "duration_seconds": 3.187
     },
     {
       "id": "explore",
       "file": "audio/explore.mp3",
-      "text": "Оглядай кімнату й шукай підказки, куди подівся малюнок."
+      "text": "Оглядай кімнату й шукай підказки, куди подівся малюнок.",
+      "duration_seconds": 3.109
     },
     {
       "id": "false-trail",
       "file": "audio/false-trail.mp3",
-      "text": "Знайшовся олівець! Але він не підкаже, куди подівся малюнок. Це хибний слід."
+      "text": "Знайшовся олівець! Але він не підкаже, куди подівся малюнок. Це хибний слід.",
+      "duration_seconds": 4.545
     },
     {
       "id": "table",
       "file": "audio/table.mp3",
-      "text": "На столі порожнє місце. Малюнок був тут, а тепер зник!"
+      "text": "На столі порожнє місце. Малюнок був тут, а тепер зник!",
+      "duration_seconds": 3.291
     },
     {
       "id": "window",
       "file": "audio/window.mp3",
-      "text": "Вікно відчинене! Вітерець ворушить штору. Біля неї видно паперовий куточок."
+      "text": "Вікно відчинене! Вітерець ворушить штору. Біля неї видно паперовий куточок.",
+      "duration_seconds": 4.859
     },
     {
       "id": "curtain-locked",
       "file": "audio/curtain-locked.mp3",
-      "text": "Штора ворушиться… Та спершу знайдімо дві підказки."
+      "text": "Штора ворушиться… Та спершу знайдімо дві підказки.",
+      "duration_seconds": 3.187
     },
     {
       "id": "curtain-ready",
       "file": "audio/curtain-ready.mp3",
-      "text": "Малюнок зник зі столу, а біля вікна видно папір. Де перевіримо?"
+      "text": "Малюнок зник зі столу, а біля вікна видно папір. Де перевіримо?",
+      "duration_seconds": 4.023
     },
     {
       "id": "curtain",
       "file": "audio/curtain.mp3",
-      "text": "За шторою кольоровий аркуш. Зазирнімо туди!"
+      "text": "За шторою кольоровий аркуш. Зазирнімо туди!",
+      "duration_seconds": 2.952
     },
     {
       "id": "complete",
       "file": "audio/complete.mp3",
-      "text": "Справу розкрито! Вітерець підхопив малюнок зі столу й заніс за штору."
+      "text": "Справу розкрито! Вітерець підхопив малюнок зі столу й заніс за штору.",
+      "duration_seconds": 4.441
     },
     {
       "id": "hint-table",
       "file": "audio/hint-table.mp3",
-      "text": "Мімі радить уважніше оглянути стіл."
+      "text": "Мімі радить уважніше оглянути стіл.",
+      "duration_seconds": 2.273
     },
     {
       "id": "hint-window",
       "file": "audio/hint-window.mp3",
-      "text": "Мімі радить уважніше оглянути відчинене вікно."
+      "text": "Мімі радить уважніше оглянути відчинене вікно.",
+      "duration_seconds": 2.926
     },
     {
       "id": "hint-curtain",
       "file": "audio/hint-curtain.mp3",
-      "text": "Мімі радить уважніше оглянути штору."
+      "text": "Мімі радить уважніше оглянути штору.",
+      "duration_seconds": 2.273
     },
     {
       "id": "choose-again",
       "file": "audio/choose-again.mp3",
-      "text": "У скриньці іграшки. А вітерець дме від вікна. Спробуй інше місце!"
+      "text": "У скриньці іграшки. А вітерець дме від вікна. Спробуй інше місце!",
+      "duration_seconds": 4.206
     },
     {
       "id": "choose-curtain",
       "file": "audio/choose-curtain.mp3",
-      "text": "Так! Перевірмо штору біля відчиненого вікна."
+      "text": "Так! Перевірмо штору біля відчиненого вікна.",
+      "duration_seconds": 2.821
     },
     {
       "id": "series-complete",
       "file": "audio/series-complete.mp3",
-      "text": "П’ять справ розкрито! Дякую тобі, детективе!"
+      "text": "П’ять справ розкрито! Дякую тобі, детективе!",
+      "duration_seconds": 2.769
     }
   ]
 }
