@@ -16,7 +16,8 @@
       "id": "case-open",
       "file": "audio/case-open.mp3",
       "text": "Справа номер чотири: червоний м’ячик покотився й зник у саду!",
-      "duration_seconds": 3.788
+      "duration_seconds": 3.709,
+      "spoken_text": "Справа номер чотири: червоний м’ячик покотився й зник у саду́!"
     },
     {
       "id": "explore",
@@ -34,7 +35,8 @@
       "id": "bench",
       "file": "audio/bench.mp3",
       "text": "Під лавкою прим’ята трава. Тут міг прокотитися м’ячик!",
-      "duration_seconds": 3.187
+      "duration_seconds": 3.291,
+      "spoken_text": "Під лавкою прим’я́та трава. Тут міг прокотитися м’ячик!"
     },
     {
       "id": "path",
@@ -52,7 +54,8 @@
       "id": "bush-ready",
       "file": "audio/bush-ready.mp3",
       "text": "Прим’ята трава й круглий слід ведуть до куща. Перевірмо його!",
-      "duration_seconds": 3.605
+      "duration_seconds": 3.526,
+      "spoken_text": "Прим’я́та трава й круглий слід ведуть до куща. Перевірмо його!"
     },
     {
       "id": "bush",
