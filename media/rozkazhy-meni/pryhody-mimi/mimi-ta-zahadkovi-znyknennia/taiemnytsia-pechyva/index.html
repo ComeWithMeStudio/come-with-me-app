@@ -15,7 +15,10 @@
     .napkin-icon{display:block!important;width:clamp(36px,7vw,58px);height:clamp(36px,7vw,58px);background:url("assets/napkin-icon.webp?v=20261028a") center/contain no-repeat;filter:drop-shadow(0 2px 1px #fff)}
     .false-trail{width:max-content;max-width:calc(100% - 24px);border-radius:20px;line-height:1.25;text-align:center;white-space:normal}
     @media(max-width:540px){.mimi{width:132%;height:130%;left:-49%;bottom:-29%}}
-  </style>
+
+/* Keep the approved phone layout; enlarge Mimi on wider screens. */
+@media(min-width:541px){.mimi{left:-17%;bottom:-13%;width:clamp(350px,73%,644px);height:98%}}
+</style>
 </head>
 <body>
 <main class="shell">
