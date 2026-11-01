@@ -20,7 +20,7 @@ const url = 'http://127.0.0.1:8765/media/pograymo/figury/ihry/find-for-mimi-game
       const right = await page.evaluate(() => levels[level].choices.findIndex(c=>c.correct));
       if (wrong < 0 || right < 0) throw Error('Missing right/wrong choices on question '+(i+1));
       await page.locator('.choice').nth(wrong).click();
-      const stillHere = await page.evaluate(() => !answered && level === i, i);
+      const stillHere = await page.evaluate(index => !answered && level === index, i);
       if (!stillHere) throw Error('Wrong answer accepted on question '+(i+1));
       await page.locator('.choice').nth(right).click();
       const correct = await page.evaluate(() => answered);
