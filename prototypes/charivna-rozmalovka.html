@@ -1,4 +1,4 @@
-<!doctype html><html lang="uk"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><title>Чарівна розмальовка — прототип</title><style>body{margin:0;background:#fff5e8;font:18px system-ui;color:#47345b;text-align:center}h1{font-size:25px;margin:12px}.tools{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:8px}button{border:2px solid #dbc6ee;border-radius:16px;padding:10px;background:white;font-size:17px;cursor:pointer}.selected{outline:3px solid #7955bc}canvas{width:min(94vw,520px);height:auto;touch-action:none;background:white;border:7px solid #e8c88f;border-radius:18px;box-sizing:border-box}#colors button{width:42px;height:42px;border-radius:50%;padding:0}small{display:block;padding:8px}</style><h1>🎨 Чарівна розмальовка</h1><div class="tools"><button id="brush" class="selected">🖌️ Пензлик</button><button id="fill">🪣 Заливка</button><button id="eraser">🧽 Гумка</button><button id="clear">↻ Очистити</button></div><div id="colors" class="tools"></div><div id="gallery"><button data-scene="butterfly" class="active">🦋 Метелик</button><button data-scene="flower">🌼 Квіточка</button><button data-scene="balloon">🎈 Кульки</button></div><div id="status">Обери малюнок у галереї</div><canvas id="board" width="600" height="600"></canvas><div class="tools"><button id="nextScene">Наступний малюнок ➜</button></div><small>Обери колір і води пальчиком. Фарба залишається всередині обраної ділянки.</small><script>
+<!doctype html><html lang="uk"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><title>Чарівна розмальовка — прототип</title><style>body{margin:0;background:#fff5e8;font:18px system-ui;color:#47345b;text-align:center}h1{font-size:25px;margin:12px}.tools{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:8px}button{border:2px solid #dbc6ee;border-radius:16px;padding:10px;background:white;font-size:17px;cursor:pointer}.selected{outline:3px solid #7955bc}canvas{width:min(94vw,520px);height:auto;touch-action:none;background:white;border:7px solid #e8c88f;border-radius:18px;box-sizing:border-box}#colors button{width:42px;height:42px;border-radius:50%;padding:0}small{display:block;padding:8px}</style><h1>🎨 Чарівна розмальовка</h1><div class="tools"><button id="brush" class="selected">🖌️ Пензлик</button><button id="fill">🪣 Заливка</button><button id="eraser">🧽 Гумка</button><button id="clear">↻ Очистити</button></div><div id="colors" class="tools"></div><div id="gallery"><button data-scene="butterfly" class="active">🦋 Метелик</button><button data-scene="flower">🌼 Квіточка</button><button data-scene="balloon">🎈 Кульки</button><button data-scene="house">🏠 Будиночок</button><button data-scene="sun">☀️ Сонечко</button><button data-scene="fish">🐟 Рибка</button></div><div id="status">Обери малюнок у галереї</div><canvas id="board" width="600" height="600"></canvas><div class="tools"><button id="nextScene">Наступний малюнок ➜</button></div><small>Обери колір і води пальчиком. Фарба залишається всередині обраної ділянки.</small><script>
 const canvas=document.querySelector('#board'),ctx=canvas.getContext('2d'),W=600;
 const shapes=[
 {path:'M300 290 C210 170 95 130 95 245 C95 330 210 365 300 310 Z',color:'#ffe4e9'},
@@ -36,13 +36,16 @@ flower:[
 'M280 400 L320 400 L320 520 L280 520 Z',
 'M250 460 Q170 395 150 470 Q190 520 250 485 Z',
 'M350 460 Q430 395 450 470 Q410 520 350 485 Z'],
+house:['M155 290 L300 140 L445 290 Z','M190 290 L410 290 L410 490 L190 490 Z','M265 375 L335 375 L335 490 L265 490 Z','M215 320 L265 320 L265 370 L215 370 Z','M345 320 L395 320 L395 370 L345 370 Z'],
+sun:['M300 185 A115 115 0 1 1 299.9 185 Z','M270 45 L330 45 L315 135 L285 135 Z','M430 95 L480 135 L415 195 L390 165 Z','M465 270 L550 285 L550 330 L465 325 Z','M390 435 L430 410 L490 470 L445 510 Z','M120 130 L170 95 L210 165 L185 195 Z','M45 285 L135 270 L135 325 L45 330 Z'],
+fish:['M105 300 Q255 115 455 300 Q255 485 105 300 Z','M455 300 L555 205 L555 395 Z','M240 210 L315 110 L355 215 Z','M240 390 L315 490 L355 385 Z','M175 270 A22 22 0 1 1 174.9 270 Z'],
 balloon:[
 'M190 125 C85 125 90 300 190 355 C290 300 295 125 190 125 Z',
 'M410 125 C305 125 310 300 410 355 C510 300 515 125 410 125 Z',
 'M300 270 C210 270 215 420 300 460 C385 420 390 270 300 270 Z',
 'M175 355 L205 355 L190 375 Z',
 'M395 355 L425 355 L410 375 Z']};
-const sceneColors={flower:['#f6c2dc','#f9d46d','#a4d783','#79cba3','#90c2ef'],balloon:['#f5a6c8','#a5d7f5','#ffdb7e','#e5b3ff','#b5e5c6']};
+const sceneColors={flower:['#f6c2dc','#f9d46d','#a4d783','#79cba3','#90c2ef'],balloon:['#f5a6c8','#a5d7f5','#ffdb7e','#e5b3ff','#b5e5c6'],house:['#ffc9a5','#ffdfac','#a4c9ed','#c7b3ec','#c7b3ec'],sun:['#ffe47a','#ffcb85','#ffcb85','#ffcb85','#ffcb85','#ffcb85','#ffcb85'],fish:['#a8ddec','#e5b4f2','#f4c47a','#f4c47a','#fff']};
 function setScene(name){
 if(name==='butterfly'){shapes.splice(0,shapes.length,...originalShapes.map(s=>({...s})))}
 else{shapes.splice(0,shapes.length,...scenePaths[name].map((path,i)=>({path,color:sceneColors[name][i]})))}
@@ -53,5 +56,5 @@ document.querySelector('#status').textContent='Малюй пальчиком! З
 draw();
 }
 const originalShapes=shapes.map(s=>({...s}));
-document.querySelectorAll('#gallery button').forEach(b=>b.addEventListener('click',()=>setScene(b.dataset.scene)));let sceneIndex=0;const sceneOrder=['butterfly','flower','balloon'];document.querySelector('#nextScene').addEventListener('click',()=>{sceneIndex=(sceneOrder.indexOf(document.querySelector('#gallery button.active').dataset.scene)+1)%sceneOrder.length;setScene(sceneOrder[sceneIndex])});
+document.querySelectorAll('#gallery button').forEach(b=>b.addEventListener('click',()=>setScene(b.dataset.scene)));let sceneIndex=0;const sceneOrder=['butterfly','flower','balloon','house','sun','fish'];document.querySelector('#nextScene').addEventListener('click',()=>{sceneIndex=(sceneOrder.indexOf(document.querySelector('#gallery button.active').dataset.scene)+1)%sceneOrder.length;setScene(sceneOrder[sceneIndex])});
 </script></html>
