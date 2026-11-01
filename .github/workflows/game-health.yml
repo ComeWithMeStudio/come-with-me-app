@@ -1,0 +1,25 @@
+name: Game asset health check
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 5 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/check_game_assets.py'
+      - '.github/workflows/game-health.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify-game-assets:
+    name: Verify game asset references
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Check local files referenced by games
+        run: python3 tools/check_game_assets.py
