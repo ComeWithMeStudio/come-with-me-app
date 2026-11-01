@@ -51,3 +51,9 @@ jobs:
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/cwm-pixel-server.log 2>&1 &
           sleep 2
           node tools/pixel_play_first_game.cjs
+
+      - name: Pixel plays Find for Mimi (30 questions)
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/cwm-pixel-second-server.log 2>&1 &
+          sleep 2
+          node tools/pixel_play_find_for_mimi.cjs
