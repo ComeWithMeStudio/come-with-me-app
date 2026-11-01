@@ -26,3 +26,19 @@ jobs:
       - name: Check public game pages on the live website
         if: always()
         run: python3 tools/check_live_routes.py
+
+  browser-smoke:
+    name: Open app and linked games in mobile browser
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser test tools
+        run: |
+          npm install --no-save playwright@1.58.2
+          npx playwright install --with-deps chromium
+      - name: Test mobile browser navigation
+        run: node tools/browser_smoke.cjs
