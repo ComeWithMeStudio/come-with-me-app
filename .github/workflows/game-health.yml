@@ -7,7 +7,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'tools/check_game_assets.py'
+      - 'tools/**'
       - '.github/workflows/game-health.yml'
 
 permissions:
