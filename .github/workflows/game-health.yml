@@ -45,3 +45,9 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Test mobile browser navigation
         run: node tools/browser_smoke.cjs
+
+      - name: Pixel plays the first game locally
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/cwm-pixel-server.log 2>&1 &
+          sleep 2
+          node tools/pixel_play_first_game.cjs
