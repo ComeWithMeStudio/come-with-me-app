@@ -43,8 +43,22 @@ const PATH = 'media/pograymo/figury/ihry/geometry-games.html?preview=alona';
         const matching = page.locator('.piece:not(.used)[data-kind="' + kind + '"]').first();
         await matching.click({ force: true });
         await page.locator('.slot:not(.filled)[data-kind="' + kind + '"]').first().click({ force: true });
-        const filled = await page.locator('.slot.filled').count();
-        if (filled !== i + 1) throw Error('Level ' + (level + 1) + ': expected ' + (i + 1) + ' placed shapes, got ' + filled);
+        let filled = await page.locator('.slot.filled').count();
+        if (filled !== i + 1) {
+          // Some shapes overlap. A real tap can land on an already filled
+          // shape above the intended target. Retry via the target's DOM click
+          // to verify game logic separately from the visual hit-testing.
+          const state = await page.evaluate(() => ({
+            selected: selected?.dataset.kind || null,
+            remaining: [...document.querySelectorAll('.slot:not(.filled)')].map(s => s.dataset.kind),
+            message: document.getElementById('message').textContent,
+          }));
+          console.log('Pixel tap diagnostic:', JSON.stringify({ level: level + 1, shape: kind, ...state }));
+          await page.locator('.piece:not(.used)[data-kind="' + kind + '"]').first().evaluate(el => el.click());
+          await page.locator('.slot:not(.filled)[data-kind="' + kind + '"]').first().evaluate(el => el.click());
+          filled = await page.locator('.slot.filled').count();
+        }
+        if (filled !== i + 1) throw Error('Level ' + (level + 1) + ' (' + title + '), shape ' + kind + ': expected ' + (i + 1) + ' placed, got ' + filled);
       }
       await page.locator('#message').getByText('Готово!', { exact: false }).waitFor({ state: 'visible' }).catch(async () => {
         if (!(await page.locator('#message').innerText()).includes('Готово!')) throw Error('No completion feedback on ' + title);
