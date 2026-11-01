@@ -12,6 +12,7 @@ const PATH = 'media/pograymo/figury/ihry/geometry-games.html?preview=alona';
   });
   page.setDefaultTimeout(12000);
   const failures = [];
+  const touchWarnings = [];
   page.on('pageerror', error => failures.push(error.message));
   try {
     const response = await page.goto(BASE + PATH, { waitUntil: 'domcontentloaded' });
@@ -53,7 +54,8 @@ const PATH = 'media/pograymo/figury/ihry/geometry-games.html?preview=alona';
             remaining: [...document.querySelectorAll('.slot:not(.filled)')].map(s => s.dataset.kind),
             message: document.getElementById('message').textContent,
           }));
-          console.log('Pixel tap diagnostic:', JSON.stringify({ level: level + 1, shape: kind, ...state }));
+          touchWarnings.push({ level: level + 1, construction: title, shape: kind, ...state });
+          console.log('PIXEL_TOUCH_WARNING:', JSON.stringify(touchWarnings[touchWarnings.length - 1]));
           await page.locator('.piece:not(.used)[data-kind="' + kind + '"]').first().evaluate(el => el.click());
           await page.locator('.slot:not(.filled)[data-kind="' + kind + '"]').first().evaluate(el => el.click());
           filled = await page.locator('.slot.filled').count();
@@ -76,6 +78,8 @@ const PATH = 'media/pograymo/figury/ihry/geometry-games.html?preview=alona';
         }
       }
     }
+    console.log('PIXEL_TOUCH_SUMMARY: ' + touchWarnings.length + ' placements required a programmatic retry');
+    if (touchWarnings.length) console.log('PIXEL_TOUCH_REVIEW: These may indicate overlapping targets or other touch hit-testing issues; inspect manually before changing game layout.');
     if (failures.length) throw Error('Browser errors: ' + failures.join('; '));
     console.log('PASS: Pixel completed all ' + count + ' constructions and tested wrong answer, next, and final.');
   } finally {
