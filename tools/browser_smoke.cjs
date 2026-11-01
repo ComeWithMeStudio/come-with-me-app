@@ -13,6 +13,25 @@ const base = 'https://app.comewithme.studio/';
     for (const selector of targets) {
       if (await page.locator(selector).count() === 0) throw Error('Missing application section: ' + selector);
     }
+    // Exercise each main navigation button and its return path on a mobile viewport.
+    const navigation = [
+      ['go', 'goWorld', 'goHubBack'],
+      ['quiet', 'quietWorld', 'quietBack'],
+      ['story', 'storyWorld', 'storyHomeBack'],
+      ['play', 'playWorld', 'playBack'],
+    ];
+    for (const [world, panel, back] of navigation) {
+      await page.locator('[data-world="' + world + '"]').click();
+      await page.locator('#' + panel).waitFor({ state: 'visible', timeout: 10000 });
+      await page.locator('#' + back).click();
+      await page.locator('#stage').waitFor({ state: 'visible', timeout: 10000 });
+    }
+    // Check the catalog entry point and its return navigation.
+    await page.locator('[data-world="play"]').click();
+    await page.locator('[data-play-section="shapes"]').click();
+    await page.locator('#shapesWorld').waitFor({ state: 'visible', timeout: 10000 });
+    await page.locator('#shapesBack').click();
+    await page.locator('#playWorld').waitFor({ state: 'visible', timeout: 10000 });
     const links = await page.locator('a[href$=".html"]').evaluateAll(nodes =>
       [...new Set(nodes.map(n => n.href))].filter(u => u.startsWith(location.origin)).slice(0, 35));
     for (const url of links) {
