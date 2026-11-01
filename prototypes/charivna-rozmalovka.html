@@ -1,19 +1,31 @@
 <!doctype html><html lang="uk"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><title>Чарівна розмальовка — прототип</title><style>body{margin:0;background:#fff5e8;font:18px system-ui;color:#47345b;text-align:center}h1{font-size:25px;margin:12px}.tools{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:8px}button{border:2px solid #dbc6ee;border-radius:16px;padding:10px;background:white;font-size:17px;cursor:pointer}.selected{outline:3px solid #7955bc}canvas{width:min(94vw,520px);height:auto;touch-action:none;background:white;border:7px solid #e8c88f;border-radius:18px;box-sizing:border-box}#colors button{width:42px;height:42px;border-radius:50%;padding:0}small{display:block;padding:8px}</style><h1>🎨 Чарівна розмальовка</h1><div id="gallery"><button data-scene="butterfly" class="active">🦋 Метелик</button><button data-scene="flower">🌼 Квіточка</button><button data-scene="balloon">🎈 Кульки</button><button data-scene="house">🏠 Будиночок</button><button data-scene="sun">☀️ Сонечко</button><button data-scene="fish">🐟 Рибка</button></div><div class="tools"><button id="brush" class="selected">🖌️ Пензлик</button><button id="fill">🪣 Заливка</button><button id="eraser">🧽 Гумка</button><button id="clear">↻ Очистити</button></div><div id="colors" class="tools"></div><div id="status">Обери малюнок у галереї</div><canvas id="board" width="600" height="600"></canvas><div class="tools"><button id="nextScene">Наступний малюнок ➜</button></div><small>Обери колір і води пальчиком. Фарба залишається всередині обраної ділянки.</small><script>
 const canvas=document.querySelector('#board'),ctx=canvas.getContext('2d'),W=600;
+// Butterfly: 14 independently colorable, closed vector regions.
 const shapes=[
-{path:'M300 290 C210 170 95 130 95 245 C95 330 210 365 300 310 Z',color:'#ffe4e9'},
-{path:'M300 290 C390 170 505 130 505 245 C505 330 390 365 300 310 Z',color:'#e3e8ff'},
-{path:'M300 320 C190 310 125 365 160 430 C205 500 280 420 300 350 Z',color:'#fff0c8'},
-{path:'M300 320 C410 310 475 365 440 430 C395 500 320 420 300 350 Z',color:'#d9f5e5'},
-{path:'M286 245 Q300 225 314 245 L314 405 Q300 428 286 405 Z',color:'#f8c3a8'},
-{path:'M285 245 Q250 205 255 185',color:null},
-{path:'M315 245 Q350 205 345 185',color:null}
+{path:'M291 282 C224 169 102 118 93 215 C83 307 204 348 287 319 Z',color:'#f8d6e9'},
+{path:'M309 282 C376 169 498 118 507 215 C517 307 396 348 313 319 Z',color:'#dce6ff'},
+{path:'M286 327 C202 299 111 354 146 431 C184 506 264 438 294 361 Z',color:'#ffe5b0'},
+{path:'M314 327 C398 299 489 354 454 431 C416 506 336 438 306 361 Z',color:'#d5f3df'},
+// Broad spots are large enough for children's fingers.
+{path:'M169 211 C135 196 120 224 145 253 C173 279 218 276 222 250 C225 232 196 218 169 211 Z',color:'#fff0a9'},
+{path:'M431 211 C465 196 480 224 455 253 C427 279 382 276 378 250 C375 232 404 218 431 211 Z',color:'#fff0a9'},
+{path:'M235 276 C211 253 185 269 197 291 C211 313 247 320 258 302 C265 292 252 281 235 276 Z',color:'#e6c7ff'},
+{path:'M365 276 C389 253 415 269 403 291 C389 313 353 320 342 302 C335 292 348 281 365 276 Z',color:'#e6c7ff'},
+{path:'M207 367 C171 361 161 387 185 406 C208 424 241 405 241 387 C241 375 223 369 207 367 Z',color:'#f7b9d3'},
+{path:'M393 367 C429 361 439 387 415 406 C392 424 359 405 359 387 C359 375 377 369 393 367 Z',color:'#f7b9d3'},
+{path:'M248 404 C229 405 224 427 242 438 C258 446 277 424 275 413 C273 402 261 401 248 404 Z',color:'#b5e0fa'},
+{path:'M352 404 C371 405 376 427 358 438 C342 446 323 424 325 413 C327 402 339 401 352 404 Z',color:'#b5e0fa'},
+{path:'M286 289 Q300 277 314 289 L313 411 Q300 432 287 411 Z',color:'#f5b896'},
+{path:'M281 274 C276 249 286 229 300 229 C314 229 324 249 319 274 Q300 291 281 274 Z',color:'#f9c8aa'},
+{path:'M289 233 Q253 195 261 174',color:null},
+{path:'M311 233 Q347 195 339 174',color:null}
 ];
-const regions=shapes.slice(0,5).map(s=>({path:new Path2D(s.path),paint:document.createElement('canvas')}));regions.forEach(r=>{r.paint.width=r.paint.height=W});
+const regions=shapes.filter(s=>s.color!==null).map(s=>({path:new Path2D(s.path),paint:document.createElement('canvas')}));
+regions.forEach(r=>{r.paint.width=r.paint.height=W});
 let mode='brush',color='#ef6384',down=false,active=-1,last=null;
 const palette=['#ef6384','#ffae42','#f5d84e','#72c78a','#5aaee6','#9a78da','#704b3b','#ffffff'];
 const cs=document.querySelector('#colors');palette.forEach((c,i)=>{let b=document.createElement('button');b.style.background=c;b.title='Колір '+(i+1);b.onclick=()=>{color=c;document.querySelectorAll('#colors button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected')};cs.append(b);if(!i)b.classList.add('selected')});
-function draw(){ctx.clearRect(0,0,W,W);ctx.fillStyle='#fff';ctx.fillRect(0,0,W,W);regions.forEach((r,i)=>{ctx.save();ctx.fillStyle=shapes[i].color;ctx.fill(r.path);ctx.clip(r.path);ctx.drawImage(r.paint,0,0);ctx.restore();ctx.strokeStyle='#43334e';ctx.lineWidth=6;ctx.lineJoin='round';ctx.stroke(r.path)});ctx.strokeStyle='#43334e';ctx.lineWidth=6;shapes.slice(5).forEach(s=>ctx.stroke(new Path2D(s.path)));ctx.fillStyle='#43334e';ctx.beginPath();ctx.arc(294,269,3,0,7);ctx.arc(306,269,3,0,7);ctx.fill()}
+function draw(){ctx.clearRect(0,0,W,W);ctx.fillStyle='#fff';ctx.fillRect(0,0,W,W);regions.forEach((r,i)=>{ctx.save();ctx.fillStyle=shapes[i].color;ctx.fill(r.path);ctx.clip(r.path);ctx.drawImage(r.paint,0,0);ctx.restore();ctx.strokeStyle='#43334e';ctx.lineWidth=6;ctx.lineJoin='round';ctx.stroke(r.path)});ctx.strokeStyle='#43334e';ctx.lineWidth=6;shapes.filter(s=>s.color===null).forEach(s=>ctx.stroke(new Path2D(s.path)));ctx.fillStyle='#43334e';ctx.beginPath();ctx.arc(294,255,3,0,7);ctx.arc(306,255,3,0,7);ctx.fill()}
 function point(e){let b=canvas.getBoundingClientRect();return{x:(e.clientX-b.left)*W/b.width,y:(e.clientY-b.top)*W/b.height}}
 function hit(p){for(let i=regions.length-1;i>=0;i--)if(ctx.isPointInPath(regions[i].path,p.x,p.y))return i;return -1}
 function stroke(p){if(active<0)return;let r=regions[active],c=r.paint.getContext('2d');c.save();c.beginPath();c.clip(r.path);c.lineWidth=mode==='eraser'?38:28;c.lineCap='round';c.lineJoin='round';c.globalCompositeOperation=mode==='eraser'?'destination-out':'source-over';c.strokeStyle=color;c.beginPath();c.moveTo(last?last.x:p.x,last?last.y:p.y);c.lineTo(p.x,p.y);c.stroke();c.restore();last=p;draw()}
