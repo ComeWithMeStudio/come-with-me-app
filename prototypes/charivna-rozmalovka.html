@@ -1,0 +1,24 @@
+<!doctype html><html lang="uk"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><title>Чарівна розмальовка — прототип</title><style>body{margin:0;background:#fff5e8;font:18px system-ui;color:#47345b;text-align:center}h1{font-size:25px;margin:12px}.tools{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:8px}button{border:2px solid #dbc6ee;border-radius:16px;padding:10px;background:white;font-size:17px;cursor:pointer}.selected{outline:3px solid #7955bc}canvas{width:min(94vw,520px);height:auto;touch-action:none;background:white;border:7px solid #e8c88f;border-radius:18px;box-sizing:border-box}#colors button{width:42px;height:42px;border-radius:50%;padding:0}small{display:block;padding:8px}</style><h1>🎨 Чарівна розмальовка</h1><div class="tools"><button id="brush" class="selected">🖌️ Пензлик</button><button id="fill">🪣 Заливка</button><button id="eraser">🧽 Гумка</button><button id="clear">↻ Очистити</button></div><div id="colors" class="tools"></div><canvas id="board" width="600" height="600"></canvas><small>Обери колір і води пальчиком. Фарба залишається всередині обраної ділянки.</small><script>
+const canvas=document.querySelector('#board'),ctx=canvas.getContext('2d'),W=600;
+const shapes=[
+{path:'M300 290 C210 170 95 130 95 245 C95 330 210 365 300 310 Z',color:'#ffe4e9'},
+{path:'M300 290 C390 170 505 130 505 245 C505 330 390 365 300 310 Z',color:'#e3e8ff'},
+{path:'M300 320 C190 310 125 365 160 430 C205 500 280 420 300 350 Z',color:'#fff0c8'},
+{path:'M300 320 C410 310 475 365 440 430 C395 500 320 420 300 350 Z',color:'#d9f5e5'},
+{path:'M286 245 Q300 225 314 245 L314 405 Q300 428 286 405 Z',color:'#f8c3a8'},
+{path:'M285 245 Q250 205 255 185',color:null},
+{path:'M315 245 Q350 205 345 185',color:null}
+];
+const regions=shapes.slice(0,5).map(s=>({path:new Path2D(s.path),paint:document.createElement('canvas')}));regions.forEach(r=>{r.paint.width=r.paint.height=W});
+let mode='brush',color='#ef6384',down=false,active=-1,last=null;
+const palette=['#ef6384','#ffae42','#f5d84e','#72c78a','#5aaee6','#9a78da','#704b3b','#ffffff'];
+const cs=document.querySelector('#colors');palette.forEach((c,i)=>{let b=document.createElement('button');b.style.background=c;b.title='Колір '+(i+1);b.onclick=()=>{color=c;document.querySelectorAll('#colors button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected')};cs.append(b);if(!i)b.classList.add('selected')});
+function draw(){ctx.clearRect(0,0,W,W);ctx.fillStyle='#fff';ctx.fillRect(0,0,W,W);regions.forEach((r,i)=>{ctx.save();ctx.fillStyle=shapes[i].color;ctx.fill(r.path);ctx.clip(r.path);ctx.drawImage(r.paint,0,0);ctx.restore();ctx.strokeStyle='#43334e';ctx.lineWidth=6;ctx.lineJoin='round';ctx.stroke(r.path)});ctx.strokeStyle='#43334e';ctx.lineWidth=6;shapes.slice(5).forEach(s=>ctx.stroke(new Path2D(s.path)));ctx.fillStyle='#43334e';ctx.beginPath();ctx.arc(294,269,3,0,7);ctx.arc(306,269,3,0,7);ctx.fill()}
+function point(e){let b=canvas.getBoundingClientRect();return{x:(e.clientX-b.left)*W/b.width,y:(e.clientY-b.top)*W/b.height}}
+function hit(p){for(let i=regions.length-1;i>=0;i--)if(ctx.isPointInPath(regions[i].path,p.x,p.y))return i;return -1}
+function stroke(p){if(active<0)return;let r=regions[active],c=r.paint.getContext('2d');c.save();c.beginPath();c.clip(r.path);c.lineWidth=mode==='eraser'?38:28;c.lineCap='round';c.lineJoin='round';c.globalCompositeOperation=mode==='eraser'?'destination-out':'source-over';c.strokeStyle=color;c.beginPath();c.moveTo(last?last.x:p.x,last?last.y:p.y);c.lineTo(p.x,p.y);c.stroke();c.restore();last=p;draw()}
+canvas.addEventListener('pointerdown',e=>{e.preventDefault();canvas.setPointerCapture(e.pointerId);let p=point(e);active=hit(p);if(active<0)return;down=true;last=null;if(mode==='fill'){let c=regions[active].paint.getContext('2d');c.clearRect(0,0,W,W);c.fillStyle=color;c.fillRect(0,0,W,W);draw();down=false}else stroke(p)});
+canvas.addEventListener('pointermove',e=>{if(down)stroke(point(e))});['pointerup','pointercancel'].forEach(n=>canvas.addEventListener(n,()=>{down=false;active=-1;last=null}));
+['brush','fill','eraser'].forEach(id=>document.getElementById(id).onclick=()=>{mode=id;document.querySelectorAll('.tools button').forEach(b=>b.classList.remove('selected'));document.getElementById(id).classList.add('selected')});
+document.getElementById('clear').onclick=()=>{regions.forEach(r=>r.paint.getContext('2d').clearRect(0,0,W,W));draw()};draw();
+</script></html>
