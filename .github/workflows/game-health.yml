@@ -23,6 +23,9 @@ jobs:
         uses: actions/checkout@v4
       - name: Check local files referenced by games
         run: python3 tools/check_game_assets.py
+      - name: Pixel checks first game structure
+        if: always()
+        run: python3 tools/check_first_game.py
       - name: Check public game pages on the live website
         if: always()
         run: python3 tools/check_live_routes.py
