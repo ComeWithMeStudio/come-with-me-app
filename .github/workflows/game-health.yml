@@ -81,3 +81,9 @@ jobs:
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pixel-pyramid.log 2>&1 &
           sleep 2
           node tools/pixel_pyramid.cjs
+
+      - name: Pixel decorates Colors Workshop tree
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pixel-tree.log 2>&1 &
+          sleep 2
+          node tools/pixel_tree.cjs
