@@ -8,7 +8,7 @@ const { chromium } = require('playwright');
   const response=await page.goto('http://127.0.0.1:8765/media/pograymo/figury/ihry/maisternia-koloriv.html?preview=alona&scene=13',{waitUntil:'domcontentloaded'});
   if(!response||response.status()!==200)throw Error('Cake scene unavailable');
   if(await page.locator('.cwm-access-gate').count())throw Error('Author preview blocked');
-  await page.waitForFunction(()=>!busy,{timeout:20000});
+  // A real first tap unlocks browser audio for the cake introduction.\n  await page.locator('#scene').click({position:{x:8,y:8}});\n  await page.waitForFunction(()=>!busy,{timeout:25000});
   const total=await page.evaluate(()=>order.length);
   if(total<2)throw Error('Expected multiple cake decorations, got '+total);
   const wrong=await page.evaluate(()=>[...document.querySelectorAll('#tray button')].find(b=>b.dataset.id!==order[0].id)?.dataset.id);
