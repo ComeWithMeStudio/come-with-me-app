@@ -75,3 +75,9 @@ jobs:
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/cwm-pixel-toys-server.log 2>&1 &
           sleep 2
           node tools/pixel_play_colors_toy_box.cjs
+
+      - name: Pixel tests the pyramid
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pixel-pyramid.log 2>&1 &
+          sleep 2
+          node tools/pixel_pyramid.cjs
