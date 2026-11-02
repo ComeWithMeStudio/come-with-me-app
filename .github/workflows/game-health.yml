@@ -50,70 +50,70 @@ jobs:
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/cwm-pixel-server.log 2>&1 &
           sleep 2
-          node tools/pixel_play_first_game.cjs
+          bash tools/pixel_report.sh node tools/pixel_play_first_game.cjs
 
       - name: Pixel plays Find for Mimi (30 questions)
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/cwm-pixel-second-server.log 2>&1 &
           sleep 2
-          node tools/pixel_play_find_for_mimi.cjs
+          bash tools/pixel_report.sh node tools/pixel_play_find_for_mimi.cjs
 
       - name: Pixel plays Colors Workshop basket scene
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/cwm-pixel-colors-server.log 2>&1 &
           sleep 2
-          node tools/pixel_play_colors_basket.cjs
+          bash tools/pixel_report.sh node tools/pixel_play_colors_basket.cjs
 
       - name: Pixel plays Colors Workshop bouquet scene
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/cwm-pixel-bouquet-server.log 2>&1 &
           sleep 2
-          node tools/pixel_play_colors_bouquet.cjs
+          bash tools/pixel_report.sh node tools/pixel_play_colors_bouquet.cjs
 
       - name: Pixel plays Colors Workshop toy box scene
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/cwm-pixel-toys-server.log 2>&1 &
           sleep 2
-          node tools/pixel_play_colors_toy_box.cjs
+          bash tools/pixel_report.sh node tools/pixel_play_colors_toy_box.cjs
 
       - name: Pixel tests the pyramid
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pixel-pyramid.log 2>&1 &
           sleep 2
-          node tools/pixel_pyramid.cjs
+          bash tools/pixel_report.sh node tools/pixel_pyramid.cjs
 
       - name: Pixel decorates Colors Workshop tree
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pixel-tree.log 2>&1 &
           sleep 2
-          node tools/pixel_tree.cjs
+          bash tools/pixel_report.sh node tools/pixel_tree.cjs
 
       - name: Pixel tests Mimi balloon flight
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pixel-balloons.log 2>&1 &
           sleep 2
-          node tools/pixel_balloons.cjs
+          bash tools/pixel_report.sh node tools/pixel_balloons.cjs
 
       - name: Pixel tests Colors Workshop ice cream
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pixel-icecream.log 2>&1 &
           sleep 2
-          node tools/pixel_icecream.cjs
+          bash tools/pixel_report.sh node tools/pixel_icecream.cjs
 
       - name: Pixel tests Colors Workshop train
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pixel-train.log 2>&1 &
           sleep 2
-          node tools/pixel_train.cjs
+          bash tools/pixel_report.sh node tools/pixel_train.cjs
 
       - name: Pixel tests Colors Workshop butterfly
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pixel-butterfly.log 2>&1 &
           sleep 2
-          node tools/pixel_butterfly.cjs
+          bash tools/pixel_report.sh node tools/pixel_butterfly.cjs
 
       - name: Pixel tests Colors Workshop house
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pixel-house.log 2>&1 &
           sleep 2
-          node tools/pixel_house.cjs
+          bash tools/pixel_report.sh node tools/pixel_house.cjs
