@@ -195,3 +195,9 @@ jobs:
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pixel-hunt-shapes.log 2>&1 &
           sleep 2
           bash tools/pixel_report.sh node tools/pixel_hunt_shapes.cjs
+
+      - name: Pixel tests Color Hunting 20 tasks and finale
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pixel-hunt-colors.log 2>&1 &
+          sleep 2
+          bash tools/pixel_report.sh node tools/pixel_hunt_colors.cjs
