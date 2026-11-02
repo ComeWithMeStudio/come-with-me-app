@@ -7,7 +7,7 @@ const {chromium}=require('playwright');
   const response=await page.goto('http://127.0.0.1:8765/media/pograymo/figury/ihry/maisternia-koloriv.html?preview=alona&scene=17',{waitUntil:'domcontentloaded'});
   if(!response||response.status()!==200)throw Error('Backpack scene unavailable');
   if(await page.locator('.cwm-access-gate').count())throw Error('Preview access blocked');
-  await page.waitForFunction(()=>!busy,{timeout:20000});
+  // Mobile browsers may block the introduction audio until a first user gesture.\n  await page.locator('#scene').click({position:{x:8,y:8}});\n  await page.waitForFunction(()=>!busy,{timeout:25000});
   const total=await page.evaluate(()=>order.length);
   if(total!==5)throw Error('Expected five backpack items, got '+total);
   const wrong=await page.evaluate(()=>[...document.querySelectorAll('#tray button')].find(b=>b.dataset.id!==order[0].id)?.dataset.id);
