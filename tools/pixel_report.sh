@@ -11,10 +11,7 @@ elapsed=$((SECONDS-started))
 warnings=$(grep -c 'PIXEL_TOUCH_WARNING:' "$log_file" || true)
 summary=${GITHUB_STEP_SUMMARY:-}
 if [[ -n "$summary" ]]; then
-  if [[ ! -f /tmp/pixel-summary-header ]]; then
-    printf '%s\n' '## 🤖 Журнал Пікселя' '' '| Тест | Час | Результат | Повтори дотиків |' '|---|---:|---|---:|' >> "$summary"
-    touch /tmp/pixel-summary-header
-  fi
+  printf '%s\n' '## 🤖 Журнал Пікселя' '' '| Тест | Час | Результат | Повтори дотиків |' '|---|---:|---|---:|' >> "$summary"
   if [[ "$result" -eq 0 ]]; then status="✅ Успішно"; else status="❌ Помилка"; fi
   printf '| `%s` | %d с | %s | %s |\n' "$label" "$elapsed" "$status" "$warnings" >> "$summary"
   if [[ "$warnings" -gt 0 ]]; then
