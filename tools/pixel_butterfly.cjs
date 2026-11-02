@@ -17,7 +17,9 @@ const { chromium } = require('playwright');
   console.log('Pixel rejected wrong butterfly part');
   for(let i=0;i<total;i++){
    await page.waitForFunction(()=>!busy);
-   // Butterfly accepts any unused piece of the required kind, not necessarily the same ID.\n   const id=await page.evaluate(()=>{const kind=order[step].kind;return [...document.querySelectorAll('#tray button:not(.used)')].map(b=>b.dataset.id).find(id=>currentItems().some(f=>f.id===id&&f.kind===kind))});\n   if(!id)throw Error('No available butterfly piece of required kind at step '+i);
+   // Butterfly accepts any unused piece of the required kind, not necessarily the same ID.
+   const id=await page.evaluate(()=>{const kind=order[step].kind;return [...document.querySelectorAll('#tray button:not(.used)')].map(b=>b.dataset.id).find(id=>currentItems().some(f=>f.id===id&&f.kind===kind))});
+   if(!id)throw Error('No available butterfly piece of required kind at step '+i);
    await page.locator('#tray button[data-id="'+id+'"]').click();
    await page.waitForFunction(index=>step>index||sceneNo===10,i,{timeout:12000});
    console.log('Pixel placed butterfly part '+(i+1)+'/'+total);
