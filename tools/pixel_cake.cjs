@@ -27,7 +27,7 @@ const { chromium } = require('playwright');
   const blow=page.locator('button.blow-candle-btn');
   await blow.waitFor({state:'visible',timeout:15000});
   await page.waitForFunction(()=>{const b=document.querySelector('.blow-candle-btn');return b&&!b.disabled},{timeout:20000});
-  await blow.click();
+  // The candle button pulses continuously; Playwright's default stable-element check never settles.\n  // A force click still dispatches a real pointer action at the button.\n  await blow.click({force:true});
   await page.locator('.cake-candle.blown').waitFor({state:'attached',timeout:10000});
   console.log('Pixel blew out the candle');
   await page.waitForFunction(()=>sceneNo===14,{timeout:20000});
