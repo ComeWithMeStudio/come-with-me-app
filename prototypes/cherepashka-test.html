@@ -1,5 +1,6 @@
 <!doctype html><html lang="uk"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Черепашка — розмальовка</title><style>body{margin:0;background:#fff4e7;font:16px system-ui;text-align:center;color:#4b3760}h2{margin:12px}main{max-width:850px;margin:auto}svg{width:96%;background:white;border-radius:20px;touch-action:none;box-shadow:0 2px 15px #cdb9aa}button{font:inherit;border:0;border-radius:13px;padding:10px;background:#fff;box-shadow:0 2px 5px #b6a5a0;margin:3px}button.active{outline:3px solid #8656bc}.palette button{width:36px;height:36px;border:2px solid #777}.paint{fill:white;stroke:#29212c;stroke-width:4;stroke-linejoin:round;stroke-linecap:round}path.detail{fill:none;stroke:#29212c;stroke-width:3;pointer-events:none}#art{cursor:crosshair}small{display:block;margin:10px}</style><main><h2>🐢 Черепашка</h2><svg id="art" viewBox="0 0 800 570" xmlns="http://www.w3.org/2000/svg">
-<!-- All colorable shapes are closed SVG regions. Back legs and neck sit behind the shell. -->
+<!-- All colorable shapes are closed SVG regions. Tail is attached behind the shell. -->
+<path class="paint" d="M204 395 Q175 380 153 389 Q140 401 158 423 Q177 445 207 437 L230 413Z"/>
 <g>
 
 <path class="paint" d="M266 377 Q220 380 199 418 Q180 448 191 474 Q205 498 240 493 Q272 488 285 453 L302 406Z"/>
@@ -20,9 +21,10 @@
 <path class="paint" d="M438 337 L523 351 Q456 387 359 397 L364 360Z"/>
 <path class="paint" d="M205 357 Q357 413 535 348 Q546 365 519 389 Q366 454 224 401 Q205 386 205 357Z"/>
 </g>
-<!-- Foreground right foot, intentionally layered above the shell edge -->
-<path class="paint" d="M522 376 Q559 375 580 408 Q600 440 581 468 Q562 491 533 470 Q513 452 496 414Z"/>
-<path class="detail" d="M545 458 Q557 438 570 457"/>
+<!-- Far front foot remains behind the shell, as in the reference. -->
+<!-- Near front foot comes forward over the shell rim. -->
+<path class="paint" d="M412 394 Q447 374 477 397 Q503 423 503 460 Q502 491 475 503 Q436 516 410 493 Q392 477 397 446 Q399 413 412 394Z"/>
+<path class="detail" d="M422 482 Q433 462 445 480 M454 489 Q465 468 479 483"/>
 <!-- Round, expressive head -->
 <g>
 <path class="paint" d="M521 290 Q523 236 565 211 Q611 180 658 206 Q694 226 702 273 Q731 291 731 325 Q729 373 681 398 Q629 425 579 395 Q535 370 523 331Z"/>
@@ -34,7 +36,7 @@
 <circle cx="667" cy="268" r="4" fill="white" pointer-events="none"/>
 
 
-<path class="detail" d="M611 350 Q647 385 691 344 M565 237 Q579 222 594 229 M656 226 Q669 214 682 228"/>
+<circle cx="654" cy="329" r="3.5" fill="#29212c" pointer-events="none"/><circle cx="674" cy="326" r="3.5" fill="#29212c" pointer-events="none"/><path class="detail" d="M611 350 Q647 385 691 344 M565 237 Q579 222 594 229 M656 226 Q669 214 682 228"/>
 <path class="paint" d="M636 369 Q654 391 672 363 Q654 374 636 369Z"/>
 </g>
 <g>
