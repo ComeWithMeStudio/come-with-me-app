@@ -27,7 +27,7 @@ const { chromium } = require('playwright');
   const blow=page.locator('button.blow-candle-btn');
   await blow.waitFor({state:'visible',timeout:15000});
   await page.waitForFunction(()=>{const b=document.querySelector('.blow-candle-btn');return b&&!b.disabled},{timeout:20000});
-  // The candle button pulses continuously; Playwright's default stable-element check never settles.\n  // A force click still dispatches a real pointer action at the button.\n  await blow.click({force:true});
+  // The candle button pulses continuously; click its current visible center.\n  const box=await blow.boundingBox();\n  if(!box)throw Error('Candle button has no visible bounding box');\n  await page.mouse.click(box.x+box.width/2,box.y+box.height/2);
   // The blown candle is transient and can be removed during the next scene transition.\n  await page.waitForFunction(()=>sceneNo===14 || document.querySelector('.cake-candle.blown') || document.querySelector('#question')?.textContent?.includes('Свічка згасла'),{timeout:12000});
   console.log('Pixel blew out the candle');
   await page.waitForFunction(()=>sceneNo===14,{timeout:20000});
