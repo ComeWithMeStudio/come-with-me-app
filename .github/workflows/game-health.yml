@@ -183,3 +183,9 @@ jobs:
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pixel-color-lab.log 2>&1 &
           sleep 2
           bash tools/pixel_report.sh node tools/pixel_color_lab_level1.cjs
+
+      - name: Pixel tests Color Laboratory level two and finale
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pixel-color-lab-level2.log 2>&1 &
+          sleep 2
+          bash tools/pixel_report.sh node tools/pixel_color_lab_level2.cjs
