@@ -11,4 +11,6 @@ for(const path of author.api.paidPaths){assert(author.api.isPaid('/'+path));asse
 assert(!author.api.isPaid('/media/pograymo/figury/pisni/geometry-song.html'));assert(!author.api.isPaid('/nature-games.html'));assert(!author.api.isPaid('https://other.example/game.html'));
 let noStorage=load(game,'?preview=alona',false,true);noStorage.ready();assert(noStorage.api.author);
 assert.equal(new URL(author.api.authorURL('/index.html?section=story#figures')).searchParams.get('section'),'story');assert.equal(new URL(author.api.authorURL('/index.html?section=story#figures')).hash,'#figures');
-console.log('Author entry, session carryover, blocked storage fallback, all 24 paid pages, guest gate and free-song exclusion PASS');
+const manifest=JSON.parse(fs.readFileSync(new URL('./paid-game-paths.json',import.meta.url),'utf8'));
+assert.deepEqual([...author.api.paidPaths].sort(),manifest.sort(),'catalog access and paid-page manifest stay synchronized');
+console.log(`Author entry, session carryover, blocked storage fallback, all ${author.api.paidPaths.length} paid pages, manifest, guest gate and free-song exclusion PASS`);

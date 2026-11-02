@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Стежинки Мімі — Come With Me Studio</title>
+  <script src="../../../../game-access.js?v=20261102-paths"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <header><a href="../../../../mimi-adventures.html">← Ігри</a><button id="sound" aria-pressed="true">Звук: увімкнено</button></header>
+  <h1>Стежинки Мімі</h1>
+  <section id="welcome">
+    <img class="cover" src="assets/cover.webp" alt="Мімі з рюкзачком іде садовою стежинкою до подарунка">
+    <h2>Куди повернемо?</h2>
+    <p>Допоможи Мімі дійти до подарунка.<br>Натискай на стрілки та обходь клумби.</p>
+    <p class="small">3 рівні · 12 нових стежинок · без поспіху</p>
+    <button id="start" class="primary">Рушаймо!</button>
+  </section>
+  <section id="play" hidden>
+    <p id="progress"></p><progress id="meter" max="12" value="0" aria-label="Завершені стежинки"></progress>
+    <div class="game-layout">
+      <div><div id="board" role="img" aria-label="Садова стежинка"></div><p class="legend">Мімі → подарунок · Клумби обходимо</p></div>
+      <div class="panel">
+        <p id="message" role="status" aria-live="polite">Обери напрямок для Мімі.</p>
+        <div id="directions" role="group" aria-label="Керування Мімі">
+          <button data-dir="up" class="up" aria-label="Угору"><span aria-hidden="true">↑</span><small>Угору</small></button>
+          <button data-dir="left" class="left" aria-label="Ліворуч"><span aria-hidden="true">←</span><small>Ліворуч</small></button>
+          <button data-dir="down" class="down" aria-label="Униз"><span aria-hidden="true">↓</span><small>Униз</small></button>
+          <button data-dir="right" class="right" aria-label="Праворуч"><span aria-hidden="true">→</span><small>Праворуч</small></button>
+        </div>
+        <div class="tools"><button id="hint"><svg width="17" height="20" viewBox="0 0 24 28" aria-hidden="true"><path d="M8 21v-3C-2 10 5 2 12 2s14 8 4 16v3Z" fill="#ffe19c" stroke="#7954a7" stroke-width="2"/><path d="M8 24h8m-6 3h4" stroke="#7954a7" stroke-width="2"/></svg> Підказка</button><button id="undo">↶ Назад</button><button id="reset">Спочатку</button><button id="listen">Послухати</button></div>
+        <button id="next" class="primary" hidden>Наступна стежинка</button>
+        <p class="small keyboard-note">На ноутбуці можна керувати стрілками клавіатури.</p>
+      </div>
+    </div>
+  </section>
+  <section id="finish" hidden>
+    <img class="final-mimi" src="../../../../mimi-home.png" alt="Мімі з рюкзачком">
+    <p class="stars" aria-hidden="true">★ ★ ★</p><h2 tabindex="-1">Усі подарунки знайдено!</h2>
+    <p>Усі 12 стежинок позаду!<br>Дякую за чудову пригоду!</p>
+    <button id="again" class="primary">Нові стежинки</button><a class="exit" href="../../../../mimi-adventures.html">До інших ігор</a>
+  </section>
+  <p id="audioError" hidden role="status">Звук не запустився. Натисни «Послухати» або продовжуй за текстовими підказками.</p>
+</main>
+<script type="module" src="game.js"></script>
+</body></html>
