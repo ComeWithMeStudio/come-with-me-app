@@ -22,7 +22,7 @@ const {chromium}=require('playwright');
   const wrong=await page.evaluate(()=>levels[1][index].options.find(x=>x!==levels[1][index].result));
   await page.locator('.choice[data-color="'+wrong+'"]').click();
   await page.waitForFunction(()=>!busy&&!!document.querySelector('.choice'),{timeout:16000});
-  if(await page.evaluate(()=>level!==1||index!==0)throw Error('Wrong answer advanced second level');
+  if(await page.evaluate(()=>level!==1||index!==0))throw Error('Wrong answer advanced second level');
   console.log('Pixel rejected wrong three-color mix');
   for(let i=0;i<total;i++){
    await page.waitForFunction(()=>!busy&&!!document.querySelector('.choice'),{timeout:20000});
