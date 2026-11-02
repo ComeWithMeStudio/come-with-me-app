@@ -129,3 +129,9 @@ jobs:
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pixel-aquarium.log 2>&1 &
           sleep 2
           bash tools/pixel_report.sh node tools/pixel_aquarium.cjs
+
+      - name: Pixel tests Colors Workshop birthday cake
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pixel-cake.log 2>&1 &
+          sleep 2
+          bash tools/pixel_report.sh node tools/pixel_cake.cjs
