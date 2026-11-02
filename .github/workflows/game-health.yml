@@ -147,3 +147,9 @@ jobs:
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pixel-garage.log 2>&1 &
           sleep 2
           bash tools/pixel_report.sh node tools/pixel_garage.cjs
+
+      - name: Pixel tests Colors Workshop beach
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pixel-beach.log 2>&1 &
+          sleep 2
+          bash tools/pixel_report.sh node tools/pixel_beach.cjs
