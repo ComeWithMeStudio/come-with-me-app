@@ -105,3 +105,9 @@ jobs:
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pixel-train.log 2>&1 &
           sleep 2
           node tools/pixel_train.cjs
+
+      - name: Pixel tests Colors Workshop butterfly
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pixel-butterfly.log 2>&1 &
+          sleep 2
+          node tools/pixel_butterfly.cjs
