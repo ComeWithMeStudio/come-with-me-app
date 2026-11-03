@@ -1,0 +1,46 @@
+name: Copy approved fairy tale to Supabase Storage
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out existing media (read only)
+        uses: actions/checkout@v4
+
+      - name: Upload fairy tale without overwriting
+        env:
+          SUPABASE_STORAGE_KEY: ${{ secrets.CWM_SUPABASE_STORAGE_KEY }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "${SUPABASE_STORAGE_KEY:-}" ]]; then
+            echo "Missing CWM_SUPABASE_STORAGE_KEY repository secret" >&2
+            exit 1
+          fi
+          file="media/tykhishe/kazky/mimi-i-nich-yaka-zahubyla-tyshu/mimi-i-nich-yaka-zahubyla-tyshu.mp3"
+          test -s "$file"
+          endpoint="https://tpnryxgnkchbqpgjbtsh.supabase.co/storage/v1/object/cwm-media/kazky/mimi-i-nich-yaka-zahubyla-tyshu.mp3"
+          status=$(curl --silent --show-error --output /tmp/cwm-upload-response.json --write-out '%{http_code}' \
+            --request POST \
+            --header "Authorization: Bearer $SUPABASE_STORAGE_KEY" \
+            --header "apikey: $SUPABASE_STORAGE_KEY" \
+            --header "Content-Type: audio/mpeg" \
+            --header "x-upsert: false" \
+            --data-binary "@$file" \
+            "$endpoint")
+          if [[ "$status" != "200" && "$status" != "201" ]]; then
+            echo "Upload failed with HTTP $status" >&2
+            cat /tmp/cwm-upload-response.json >&2
+            exit 1
+          fi
+          echo "Upload succeeded (HTTP $status). Original GitHub file unchanged."
+          public_url="https://tpnryxgnkchbqpgjbtsh.supabase.co/storage/v1/object/public/cwm-media/kazky/mimi-i-nich-yaka-zahubyla-tyshu.mp3"
+          curl --fail --silent --show-error --head "$public_url" >/dev/null
+          echo "Public audio URL verified: $public_url"
