@@ -2,6 +2,10 @@ name: Copy approved fairy tale to Supabase Storage
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/cwm-supabase-media-upload.yml'
 
 permissions:
   contents: read
