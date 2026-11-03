@@ -1,0 +1,44 @@
+name: Organize nature song in Supabase Storage
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/cwm-organize-nature-song.yml'
+permissions:
+  contents: read
+jobs:
+  copy-song:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Copy existing public MP3 into organized folder
+        env:
+          SUPABASE_STORAGE_KEY: ${{ secrets.CWM_SUPABASE_STORAGE_KEY }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "${SUPABASE_STORAGE_KEY:-}" ]]; then
+            echo "Missing CWM_SUPABASE_STORAGE_KEY repository secret" >&2
+            exit 1
+          fi
+          base="https://tpnryxgnkchbqpgjbtsh.supabase.co/storage/v1/object"
+          source="$base/public/cwm-media/mama-pospishaye-do-loshati.mp3"
+          target="$base/cwm-media/pohraimo/pryroda/pisni/mama-pospishaye-do-loshati.mp3"
+          curl --fail --silent --show-error --location "$source" --output /tmp/nature-song.mp3
+          test -s /tmp/nature-song.mp3
+          status=$(curl --silent --show-error --output /tmp/cwm-upload-response.json --write-out '%{http_code}' \
+            --request POST \
+            --header "Authorization: Bearer $SUPABASE_STORAGE_KEY" \
+            --header "apikey: $SUPABASE_STORAGE_KEY" \
+            --header "Content-Type: audio/mpeg" \
+            --header "x-upsert: false" \
+            --data-binary @/tmp/nature-song.mp3 \
+            "$target")
+          if [[ "$status" != "200" && "$status" != "201" ]]; then
+            echo "Upload failed HTTP $status" >&2
+            cat /tmp/cwm-upload-response.json >&2
+            exit 1
+          fi
+          curl --fail --silent --show-error --head "$base/public/cwm-media/pohraimo/pryroda/pisni/mama-pospishaye-do-loshati.mp3" >/dev/null
+          echo "Verified organized song; original remains unchanged"
