@@ -6,6 +6,7 @@ on:
     paths:
       - .github/workflows/build-pwa-icons.yml
       - scripts/build_pwa_icons.py
+      - icons/cwm-app-icon.svg
       - cwm-logo.png
   workflow_dispatch:
 permissions:
