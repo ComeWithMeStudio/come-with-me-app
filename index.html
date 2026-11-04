@@ -7,6 +7,15 @@
     <meta name="supported-color-schemes" content="light" />
     <meta name="theme-color" content="#f8f2ec" />
     <link rel="manifest" href="/manifest.webmanifest" />
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/service-worker.js").catch(error => {
+            console.warn("PWA service worker registration failed:", error);
+          });
+        });
+      }
+    </script>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <title>Come With Me</title>
