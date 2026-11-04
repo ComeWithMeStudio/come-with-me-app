@@ -33,3 +33,5 @@ jobs:
             git commit -m "PWA: generate approved 192px and 512px logo icons"
             git push
           fi
+
+# Rebuild corrected aspect-ratio icons for PWA device testing.
