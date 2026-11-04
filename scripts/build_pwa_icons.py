@@ -13,12 +13,14 @@ OUT.mkdir(exist_ok=True)
 
 with Image.open(ROOT / "cwm-logo.png") as source:
     logo = source.convert("RGBA")
-    # Matches the optically centered, user-approved 512x512 SVG preview:
-    # x=-44, y=41, width=512, height=342.
+    # Preserve original artwork aspect ratio (1756x1034), no horizontal squeeze.
+    # Keep the approved horizontal position and vertical optical center.
     for size in (192, 512):
         scale = size / 512
-        width, height = round(512 * scale), round(342 * scale)
-        x, y = round(-44 * scale), round(41 * scale)
+        width = round(512 * scale)
+        height = round(width * logo.height / logo.width)
+        x = round(-44 * scale)
+        y = round((512 - height / scale) / 2 * scale)
         fitted = logo.resize((width, height), Image.Resampling.LANCZOS)
         canvas = Image.new("RGBA", (size, size), "#f8f2ec")
         canvas.alpha_composite(fitted, (x, y))
