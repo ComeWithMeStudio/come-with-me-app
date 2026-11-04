@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="uk">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Годинник Мімі</title>
+<style>
+*{box-sizing:border-box}body{margin:0;padding:16px;background:linear-gradient(#eae1f4,#dff4ed);min-height:100vh;color:#40344e;font:1.15rem system-ui}main{max-width:620px;margin:auto;text-align:center}nav,.choices{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}button,a{font:inherit;color:inherit;background:#fff9e8;border:2px solid white;border-radius:16px;padding:10px 14px;min-height:48px}button{cursor:pointer}a{text-decoration:none}button:focus-visible,a:focus-visible{outline:3px solid #6543a2}h1{margin:.2em 0}.mimi{width:105px;height:105px;object-fit:contain}.clock{width:min(220px,70vw);display:block;margin:8px auto}.choices button{flex:1}#feedback{min-height:3em}button:disabled{opacity:.7}progress{width:100%;accent-color:#7249a5}
+</style>
+<main>
+<nav><a href="/mimi-adventures.html">← Ігри</a><button id="sound" aria-pressed="true">Звук увімкнено</button></nav>
+<img class="mimi" src="/mimi-home.png" alt="Мімі">
+<h1>Годинник Мімі</h1>
+<p id="scene" tabindex="-1">Допоможи Мімі дізнатися, котра година. Коротка стрілка показує години, довга — хвилини.</p>
+<progress id="progress" max="8" value="0" aria-label="Пройдені завдання" hidden></progress>
+<div id="face"></div>
+<div class="choices" id="choices"></div>
+<p id="feedback" role="status"></p>
+<button id="next">Почати</button>
+</main>
+<script>
+const byId = id => document.getElementById(id);
+const [scene, progress, face, choices, feedback, next, sound] =
+  ['scene','progress','face','choices','feedback','next','sound'].map(byId);
+const rounds = [
+  [7,0,'Мімі прокидається'], [8,0,'Мімі снідає'],
+  [10,0,'Мімі йде гуляти'], [12,0,'Мімі сідає обідати'],
+  [1,30,'Мімі читає казку після обіду'], [3,30,'Мімі малює'],
+  [6,30,'Мімі вечеряє'], [8,30,'Мімі готується до сну']
+];
+const clips = ['correct-1','retry-1'].map(name => new Audio('/audio/games/common/'+name+'.mp3'));
+const music = new Audio('/audio/games/find-for-mimi/music/level-1.mp3');
+music.loop = true;
+music.volume = .1;
+let muted = false;
+let index = -1;
+function pauseAudio() {
+  [music,...clips].forEach(clip => clip.pause());
+}
+function play(clip) {
+  if (!muted && !document.hidden) clip.play().catch(() => {});
+}
+sound.onclick = () => {
+  muted = !muted;
+  sound.textContent = muted ? 'Звук вимкнено' : 'Звук увімкнено';
+  sound.setAttribute('aria-pressed', String(!muted));
+  if (muted) pauseAudio();
+  else if (index >= 0 && index < rounds.length) play(music);
+};
+window.addEventListener('pagehide', pauseAudio);
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) pauseAudio();
+  else if (index >= 0 && index < rounds.length) play(music);
+});
+function clock(hour, minute) {
+  const numbers = Array.from({length:12}, (_, i) => {
+    const angle = i * Math.PI / 6;
+    return '<text x="'+(100 + 76 * Math.sin(angle))+'" y="'+(100 - 76 * Math.cos(angle))+'">'+(i || 12)+'</text>';
+  }).join('');
+  return '<svg class="clock" viewBox="0 0 200 200" role="img" aria-label="Циферблат зі стрілками">'+
+    '<circle cx="100" cy="100" r="96" fill="#fff9e8" stroke="#8057b5" stroke-width="5"/>'+
+    '<g text-anchor="middle" dominant-baseline="central" font-size="16" fill="#40344e">'+numbers+'</g>'+
+    '<line x1="100" y1="100" x2="100" y2="58" stroke="#483465" stroke-width="9" stroke-linecap="round" transform="rotate('+(hour*30+minute*.5)+' 100 100)"/>'+
+    '<line x1="100" y1="100" x2="100" y2="40" stroke="#08786c" stroke-width="5" stroke-linecap="round" transform="rotate('+(minute*6)+' 100 100)"/>'+
+    '<circle cx="100" cy="100" r="5" fill="#483465"/></svg>';
+}
+function render() {
+  feedback.textContent = '';
+  choices.replaceChildren();
+  face.replaceChildren();
+  scene.focus();
+  if (index === rounds.length) {
+    music.pause();
+    scene.textContent = 'Чудово! Ти допоміг Мімі прожити цілий день за годинником!';
+    next.textContent = 'Зіграємо ще';
+    return;
+  }
+  play(music);
+  next.hidden = true;
+  const [hour, minute, activity] = rounds[index];
+  scene.textContent = activity + '. Котра година?';
+  face.innerHTML = clock(hour, minute);
+  const options = [[hour,minute],[hour,30-minute],[hour%12+1,minute]];
+  for (let i = options.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [options[i],options[j]] = [options[j],options[i]];
+  }
+  for (const [h,m] of options) {
+    const button = document.createElement('button');
+    button.textContent = h + ':' + String(m).padStart(2,'0');
+    button.onclick = () => {
+      clips.forEach(clip => { clip.pause(); clip.currentTime = 0; });
+      if (h !== hour || m !== minute) {
+        feedback.textContent = 'Спробуй ще! Довга стрілка на 12 — рівно, на 6 — пів години.';
+        play(clips[1]);
+        return;
+      }
+      feedback.textContent = 'Так, правильно! Мімі дякує.';
+      play(clips[0]);
+      progress.value = index + 1;
+      for (const option of choices.children) option.disabled = true;
+      next.textContent = index === rounds.length-1 ? 'Завершити' : 'Далі';
+      next.hidden = false;
+      next.focus();
+    };
+    choices.append(button);
+  }
+}
+next.onclick = () => {
+  if (index === rounds.length) {
+    index = -1;
+    progress.value = 0;
+  }
+  index++;
+  progress.hidden = false;
+  render();
+};
+</script>
+</html>
