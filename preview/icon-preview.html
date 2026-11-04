@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CWM — перевірка іконки</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#29312c;background:#f5f4f0}
+*{box-sizing:border-box}body{margin:0;padding:24px 14px 48px}h1{font-size:clamp(22px,5vw,34px);text-align:center;margin:12px 0 8px}
+p{max-width:650px;margin:0 auto 24px;text-align:center;line-height:1.5;color:#58615b}
+.preview{display:flex;flex-wrap:wrap;justify-content:center;gap:28px}
+.phone{width: min(340px,100%);height:620px;border:9px solid #242a2e;border-radius:42px;background:linear-gradient(160deg,#b9d7d0,#d7d7f0 55%,#eacbb8);box-shadow:0 18px 45px #2223;position:relative;overflow:hidden;padding:45px 20px}
+.phone:before{content:"";position:absolute;top:12px;left:50%;transform:translateX(-50%);width:92px;height:19px;border-radius:30px;background:#242a2e}
+.label{text-align:center;font-weight:700;margin:0 0 24px}.apps{display:grid;grid-template-columns:repeat(4,1fr);gap:15px 10px}
+.app{text-align:center;font-size:11px;color:#252d31;text-shadow:0 1px 1px #fff8}.tile{width:58px;height:58px;margin:auto auto 5px;display:grid;place-items:center;box-shadow:0 3px 8px #0003;overflow:hidden;background:#f8f2ec}
+.rounded .tile{border-radius:15px}.circular .tile{border-radius:50%}
+.logo{width:100%;height:100%;object-fit:contain;display:block}
+.placeholder{font-size:25px;color:white}.blue{background:#4285f4}.green{background:#40b49a}.orange{background:#e4a34a}.purple{background:#9673c6}.pink{background:#e888a7}.gray{background:#778998}
+.note{font-size:13px;max-width:680px;margin:25px auto;text-align:center;color:#555}
+</style></head><body>
+<h1>Come With Me Studio — тест іконки</h1>
+<p>Наш оригінальний логотип у приблизному розмірі іконки телефона. Форма залежить від системи та лаунчера.</p>
+<div class="preview">
+<section class="phone rounded"><div class="label">Заокруглена форма</div><div class="apps">
+<div class="app"><div class="tile"><img class="logo" src="../cwm-logo.png" alt="CWM"></div>Come With Me</div>
+<div class="app"><div class="tile blue placeholder">✉</div>Пошта</div>
+<div class="app"><div class="tile green placeholder">♫</div>Музика</div>
+<div class="app"><div class="tile orange placeholder">☀</div>Погода</div>
+<div class="app"><div class="tile purple placeholder">✿</div>Фото</div>
+<div class="app"><div class="tile pink placeholder">♥</div>Ігри</div>
+<div class="app"><div class="tile gray placeholder">⚙</div>Налаштування</div>
+</div></section>
+<section class="phone circular"><div class="label">Кругла форма</div><div class="apps">
+<div class="app"><div class="tile"><img class="logo" src="../cwm-logo.png" alt="CWM"></div>Come With Me</div>
+<div class="app"><div class="tile blue placeholder">✉</div>Пошта</div>
+<div class="app"><div class="tile green placeholder">♫</div>Музика</div>
+<div class="app"><div class="tile orange placeholder">☀</div>Погода</div>
+<div class="app"><div class="tile purple placeholder">✿</div>Фото</div>
+<div class="app"><div class="tile pink placeholder">♥</div>Ігри</div>
+<div class="app"><div class="tile gray placeholder">⚙</div>Налаштування</div>
+</div></section></div>
+<p class="note">Це дизайнерський перегляд, а не встановлений застосунок. Фінальна іконка може трохи відрізнятися залежно від пристрою.</p>
+</body></html>
