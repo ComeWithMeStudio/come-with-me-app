@@ -12,6 +12,7 @@
 <h1>Годинник Мімі</h1>
 <p id="scene" tabindex="-1">Допоможи Мімі дізнатися, котра година. Коротка стрілка показує години, довга — хвилини.</p>
 <progress id="progress" max="8" value="0" aria-label="Пройдені завдання" hidden></progress>
+<p id="level" hidden></p>
 <div id="face"></div>
 <div class="choices" id="choices"></div>
 <p id="feedback" role="status"></p>
@@ -24,8 +25,8 @@ const [scene, progress, face, choices, feedback, next, sound] =
 const rounds = [
   [7,0,'Мімі прокидається'], [8,0,'Мімі снідає'],
   [10,0,'Мімі йде гуляти'], [12,0,'Мімі сідає обідати'],
-  [1,30,'Мімі читає казку після обіду'], [3,30,'Мімі малює'],
-  [6,30,'Мімі вечеряє'], [8,30,'Мімі готується до сну']
+  [1,30,'Мімі читає казку після обіду'], [3,0,'Мімі малює'],
+  [6,30,'Мімі вечеряє'], [9,15,'Мімі готується до сну']
 ];
 const clips = ['correct-1','retry-1'].map(name => new Audio('/audio/games/common/'+name+'.mp3'));
 const music = new Audio('/audio/games/find-for-mimi/music/level-1.mp3');
@@ -33,6 +34,7 @@ music.loop = true;
 music.volume = .1;
 let muted = false;
 let index = -1;
+const levelLabel = byId('level');
 function pauseAudio() {
   [music,...clips].forEach(clip => clip.pause());
 }
@@ -70,6 +72,7 @@ function render() {
   scene.focus();
   if (index === rounds.length) {
     music.pause();
+    levelLabel.hidden = true;
     scene.textContent = 'Чудово! Ти допоміг Мімі прожити цілий день за годинником!';
     next.textContent = 'Зіграємо ще';
     return;
@@ -77,9 +80,14 @@ function render() {
   play(music);
   next.hidden = true;
   const [hour, minute, activity] = rounds[index];
+  levelLabel.hidden = false;
+  levelLabel.textContent = 'Рівень ' + (index < 4 ? '1' : '2') + ' з 2 · Завдання ' + (index % 4 + 1) + ' з 4';
   scene.textContent = activity + '. Котра година?';
   face.innerHTML = clock(hour, minute);
-  const options = [[hour,minute],[hour,30-minute],[hour%12+1,minute]];
+  const nextHour = hour % 12 + 1;
+  const options = index < 4
+    ? [[hour, 0], [nextHour, 0], [nextHour % 12 + 1, 0]]
+    : [[hour, minute], [hour, minute === 0 ? 30 : 0], [nextHour, minute]];
   for (let i = options.length-1; i > 0; i--) {
     const j = Math.floor(Math.random()*(i+1));
     [options[i],options[j]] = [options[j],options[i]];
@@ -90,7 +98,7 @@ function render() {
     button.onclick = () => {
       clips.forEach(clip => { clip.pause(); clip.currentTime = 0; });
       if (h !== hour || m !== minute) {
-        feedback.textContent = 'Спробуй ще! Довга стрілка на 12 — рівно, на 6 — пів години.';
+        feedback.textContent = 'Спробуй ще! Довга стрілка на 12 — рівно, на 3 — 15 хвилин, на 6 — 30 хвилин.';
         play(clips[1]);
         return;
       }
@@ -98,7 +106,7 @@ function render() {
       play(clips[0]);
       progress.value = index + 1;
       for (const option of choices.children) option.disabled = true;
-      next.textContent = index === rounds.length-1 ? 'Завершити' : 'Далі';
+      next.textContent = index === rounds.length-1 ? 'Завершити' : index === 3 ? 'До рівня 2' : 'Далі';
       next.hidden = false;
       next.focus();
     };
