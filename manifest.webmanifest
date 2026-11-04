@@ -1,0 +1,20 @@
+{
+  "id": "/",
+  "name": "Come With Me Studio — дитячі ігри",
+  "short_name": "Come With Me",
+  "description": "Ігри, пісні та пригоди Мімі для дітей",
+  "lang": "uk",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f8f2ec",
+  "theme_color": "#f8f2ec",
+  "icons": [
+    {
+      "src": "/cwm-logo.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
