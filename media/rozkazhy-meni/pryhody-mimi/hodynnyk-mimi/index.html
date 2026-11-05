@@ -11,7 +11,7 @@
 <img class="mimi" src="/mimi-home.png" alt="Мімі">
 <h1>Годинник Мімі</h1>
 <p id="scene" tabindex="-1">Допоможи Мімі дізнатися, котра година. Коротка стрілка показує години, довга — хвилини.</p>
-<progress id="progress" max="8" value="0" aria-label="Пройдені завдання" hidden></progress>
+<progress id="progress" max="16" value="0" aria-label="Пройдені завдання" hidden></progress>
 <p id="level" hidden></p>
 <div id="face"></div>
 <div class="choices" id="choices"></div>
@@ -22,12 +22,16 @@
 const byId = id => document.getElementById(id);
 const [scene, progress, face, choices, feedback, next, sound] =
   ['scene','progress','face','choices','feedback','next','sound'].map(byId);
-const rounds = [
-  [7,0,'Мімі прокидається'], [8,0,'Мімі снідає'],
-  [10,0,'Мімі йде гуляти'], [12,0,'Мімі сідає обідати'],
-  [1,30,'Мімі читає казку після обіду'], [3,0,'Мімі малює'],
-  [6,30,'Мімі вечеряє'], [9,15,'Мімі готується до сну']
+const scenes = ['Мімі прокидається', 'Мімі снідає', 'Мімі йде гуляти',
+  'Мімі сідає обідати', 'Мімі читає казку', 'Мімі малює',
+  'Мімі вечеряє', 'Мімі готується до сну'];
+const levels = [
+  [[7,0],[8,0],[10,0],[12,0],[1,0],[3,0],[6,0],[9,0]],
+  [[7,15],[8,30],[10,0],[12,15],[2,30],[4,0],[6,30],[9,15]]
 ];
+const perLevel = scenes.length;
+const rounds = levels.flatMap(times => times.map(([hour, minute], i) =>
+  [hour, minute, scenes[i]]));
 const clips = ['correct-1','retry-1'].map(name => new Audio('/audio/games/common/'+name+'.mp3'));
 const music = new Audio('/audio/games/find-for-mimi/music/level-1.mp3');
 music.loop = true;
@@ -81,11 +85,11 @@ function render() {
   next.hidden = true;
   const [hour, minute, activity] = rounds[index];
   levelLabel.hidden = false;
-  levelLabel.textContent = 'Рівень ' + (index < 4 ? '1' : '2') + ' з 2 · Завдання ' + (index % 4 + 1) + ' з 4';
+  levelLabel.textContent = 'Рівень ' + (index < perLevel ? '1' : '2') + ' з 2 · Завдання ' + (index % perLevel + 1) + ' з ' + perLevel;
   scene.textContent = activity + '. Котра година?';
   face.innerHTML = clock(hour, minute);
   const nextHour = hour % 12 + 1;
-  const options = index < 4
+  const options = index < perLevel
     ? [[hour, 0], [nextHour, 0], [nextHour % 12 + 1, 0]]
     : [[hour, minute], [hour, minute === 0 ? 30 : 0], [nextHour, minute]];
   for (let i = options.length-1; i > 0; i--) {
@@ -98,7 +102,9 @@ function render() {
     button.onclick = () => {
       clips.forEach(clip => { clip.pause(); clip.currentTime = 0; });
       if (h !== hour || m !== minute) {
-        feedback.textContent = 'Спробуй ще! Довга стрілка на 12 — рівно, на 3 — 15 хвилин, на 6 — 30 хвилин.';
+        feedback.textContent = 'Спробуй ще! ' + (index < perLevel
+          ? 'Довга стрілка на 12. Поглянь, на яке число вказує коротка.'
+          : 'Довга стрілка на 12 — рівно, на 3 — 15 хвилин, на 6 — 30 хвилин.');
         play(clips[1]);
         return;
       }
@@ -106,7 +112,7 @@ function render() {
       play(clips[0]);
       progress.value = index + 1;
       for (const option of choices.children) option.disabled = true;
-      next.textContent = index === rounds.length-1 ? 'Завершити' : index === 3 ? 'До рівня 2' : 'Далі';
+      next.textContent = index === rounds.length-1 ? 'Завершити' : index === perLevel - 1 ? 'До рівня 2' : 'Далі';
       next.hidden = false;
       next.focus();
     };
