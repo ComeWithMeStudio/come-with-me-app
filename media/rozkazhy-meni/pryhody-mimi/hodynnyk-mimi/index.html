@@ -9,7 +9,7 @@
 <main>
 <nav><a href="/mimi-adventures.html">← Ігри</a><button id="sound" aria-pressed="true">Звук увімкнено</button></nav>
 <img class="mimi" src="/mimi-home.png" alt="Мімі">
-<h1>Годинник Мімі</h1>
+<h1>Годинник Мімі</h1><nav aria-label="Вибір рівня" id="modes"><button data-mode="all" aria-pressed="true">Уся гра</button><button data-mode="1" aria-pressed="false">Рівень 1</button><button data-mode="2" aria-pressed="false">Рівень 2</button></nav>
 <p id="scene" tabindex="-1">Допоможи Мімі дізнатися, котра година. Коротка стрілка показує години, довга — хвилини.</p>
 <progress id="progress" max="16" value="0" aria-label="Пройдені завдання" hidden></progress>
 <p id="level" hidden></p>
@@ -38,6 +38,30 @@ music.loop = true;
 music.volume = .1;
 let muted = false;
 let index = -1;
+let mode = 'all';
+let startIndex = 0;
+let endIndex = rounds.length;
+let transition = false;
+let finished = false;
+function start(selectedMode) {
+  pauseAudio();
+  mode = selectedMode;
+  startIndex = mode === '2' ? perLevel : 0;
+  endIndex = mode === '1' ? perLevel : rounds.length;
+  index = startIndex;
+  transition = false;
+  finished = false;
+  progress.max = endIndex - startIndex;
+  progress.value = 0;
+  progress.hidden = false;
+  for (const button of byId('modes').children) {
+    button.setAttribute('aria-pressed', String(button.dataset.mode === mode));
+  }
+  render();
+}
+for (const button of byId('modes').children) {
+  button.onclick = () => start(button.dataset.mode);
+}
 const levelLabel = byId('level');
 function pauseAudio() {
   [music,...clips].forEach(clip => clip.pause());
@@ -74,10 +98,14 @@ function render() {
   choices.replaceChildren();
   face.replaceChildren();
   scene.focus();
-  if (index === rounds.length) {
-    music.pause();
+  if (index === endIndex) {
+    pauseAudio();
+    finished = true;
+    next.hidden = false;
     levelLabel.hidden = true;
-    scene.textContent = 'Чудово! Ти допоміг Мімі прожити цілий день за годинником!';
+    scene.textContent = mode === 'all'
+      ? 'Чудово! Обидва рівні пройдено. Мімі дякує за гру!'
+      : 'Чудово! Рівень ' + mode + ' пройдено. Мімі дякує за гру!';
     next.textContent = 'Зіграємо ще';
     return;
   }
@@ -110,9 +138,9 @@ function render() {
       }
       feedback.textContent = 'Так, правильно! Мімі дякує.';
       play(clips[0]);
-      progress.value = index + 1;
+      progress.value = index - startIndex + 1;
       for (const option of choices.children) option.disabled = true;
-      next.textContent = index === rounds.length-1 ? 'Завершити' : index === perLevel - 1 ? 'До рівня 2' : 'Далі';
+      next.textContent = index === endIndex-1 ? 'Завершити' : index === perLevel - 1 ? 'Завершити рівень 1' : 'Далі';
       next.hidden = false;
       next.focus();
     };
@@ -120,12 +148,29 @@ function render() {
   }
 }
 next.onclick = () => {
-  if (index === rounds.length) {
-    index = -1;
-    progress.value = 0;
+  if (finished || index === -1) {
+    start(mode);
+    return;
+  }
+  if (transition) {
+    transition = false;
+    index = perLevel;
+    render();
+    return;
+  }
+  if (mode === 'all' && index === perLevel - 1) {
+    transition = true;
+    pauseAudio();
+    face.replaceChildren();
+    choices.replaceChildren();
+    feedback.textContent = '';
+    levelLabel.hidden = true;
+    scene.textContent = 'Перший рівень пройдено! Тепер познайомимося з хвилинами. Довга стрілка на 3 — 15 хвилин, на 6 — 30 хвилин.';
+    next.textContent = 'Почати рівень 2';
+    scene.focus();
+    return;
   }
   index++;
-  progress.hidden = false;
   render();
 };
 </script>
