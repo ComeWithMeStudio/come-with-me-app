@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="uk"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Місточок Мімі</title>
+<style>
+*{box-sizing:border-box}body{margin:0;padding:16px;background:linear-gradient(#e4f5ff,#e5f4ce);color:#243f35;font:1.15rem system-ui;min-height:100vh}main{max-width:640px;margin:auto;text-align:center}nav,#answers{display:flex;justify-content:center;flex-wrap:wrap;gap:10px}nav{justify-content:space-between}button,a{font:inherit;color:inherit;background:#fff8de;border:2px solid white;border-radius:16px;padding:10px 14px;min-height:48px}a{text-decoration:none}button{cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #285268}h1{margin:.25em 0}.mimi{height:110px;max-width:100%;object-fit:contain}.river{background:#82d5eb;border-radius:22px;padding:16px 10px;display:grid;gap:4px;margin:14px 0}.slot{height:52px;border:2px dashed #23556a;border-radius:5px}.filled{background:linear-gradient(#b77a44,#e7b272);border:2px solid #744624}.choice{min-width:64px}.choice:disabled{opacity:.7}#feedback{min-height:2.8em}
+</style>
+<main><nav><a href="/mimi-adventures.html">← Ігри</a><button id="sound" aria-pressed="true">Звук увімкнено</button></nav>
+<img class="mimi" src="/mimi-home.png" alt="Мімі"><h1>Місточок Мімі</h1>
+<p id="prompt" tabindex="-1">Полагодь місточки через струмок. Полічи порожні місця та обери, скільки дощечок треба додати.</p>
+<div id="bridge" class="river" hidden></div><div id="answers"></div><p id="feedback" role="status"></p><button id="next">Рушаймо!</button></main>
+<script>
+const byId = id => document.getElementById(id);
+const [prompt, bridge, answers, feedback, next, sound] =
+  ['prompt','bridge','answers','feedback','next','sound'].map(byId);
+const puzzles = ['101','1001','01011','11010','001101','1001010','0100101','00101010'];
+const correct = new Audio('/audio/games/common/correct-1.mp3');
+const retry = new Audio('/audio/games/common/retry-1.mp3');
+const music = new Audio('/audio/games/find-for-mimi/music/level-1.mp3');
+music.volume = .12;
+music.loop = true;
+let round = -1;
+let muted = false;
+function stop() {
+  [correct,retry,music].forEach(clip => clip.pause());
+}
+function play(clip) {
+  if (!muted && !document.hidden) clip.play().catch(() => {});
+}
+sound.onclick = () => {
+  muted = !muted;
+  sound.textContent = muted ? 'Звук вимкнено' : 'Звук увімкнено';
+  sound.setAttribute('aria-pressed', String(!muted));
+  if (muted) stop();
+  else if (round >= 0 && round < puzzles.length) play(music);
+};
+window.addEventListener('pagehide', stop);
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) stop();
+  else if (round >= 0 && round < puzzles.length) play(music);
+});
+function draw(pattern) {
+  bridge.style.gridTemplateColumns = 'repeat(' + pattern.length + ',minmax(0,1fr))';
+  bridge.replaceChildren();
+  for (const cell of pattern) {
+    const slot = document.createElement('span');
+    slot.className = cell === '1' ? 'slot filled' : 'slot';
+    slot.setAttribute('role','img');
+    slot.setAttribute('aria-label', cell === '1' ? 'Дощечка' : 'Порожнє місце');
+    bridge.append(slot);
+  }
+}
+function showRound() {
+  answers.replaceChildren();
+  feedback.textContent = '';
+  const finished = round === puzzles.length;
+  bridge.style.display = finished ? 'none' : 'grid';
+  next.hidden = !finished;
+  if (finished) {
+    stop();
+    prompt.textContent = 'Усі 8 місточків полагоджено! Мімі дістався додому. Дякую за допомогу!';
+    next.textContent = 'Зіграти ще раз';
+    prompt.focus();
+    return;
+  }
+  const pattern = puzzles[round];
+  const missing = [...pattern].filter(cell => cell === '0').length;
+  prompt.textContent = 'Місточок ' + (round + 1) + ' з 8. Скільки дощечок бракує?';
+  prompt.focus();
+  draw(pattern);
+  const choices = missing === 1 ? [1,2,3] : [missing-1,missing,missing+1];
+  const shift = round % choices.length;
+  for (const count of choices.slice(shift).concat(choices.slice(0,shift))) {
+    const button = document.createElement('button');
+    button.className = 'choice';
+    button.textContent = count;
+    button.onclick = () => {
+      [correct,retry].forEach(clip => {clip.pause();clip.currentTime = 0;});
+      if (count !== missing) {
+        feedback.textContent = 'Спробуй ще. Полічи тільки порожні місця з пунктиром.';
+        play(retry);
+        return;
+      }
+      draw('1'.repeat(pattern.length));
+      feedback.textContent = 'Чудово! Місточок готовий.';
+      play(correct);
+      for (const choice of answers.children) choice.disabled = true;
+      next.textContent = round === puzzles.length - 1 ? 'Додому!' : 'Наступний місточок';
+      next.hidden = false;
+      next.focus();
+    };
+    answers.append(button);
+  }
+}
+next.onclick = () => {
+  if (round === puzzles.length) round = -1;
+  round++;
+  if (round < puzzles.length) play(music);
+  showRound();
+};
+</script></html>
