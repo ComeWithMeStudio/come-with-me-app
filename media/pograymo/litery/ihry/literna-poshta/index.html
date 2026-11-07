@@ -1,0 +1,73 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Літерна пошта Мімі</title>
+<style>body{margin:0;background:#fff0cf;color:#44332d;font:1.15rem system-ui}main{max-width:620px;margin:auto;padding:16px;text-align:center}nav,#cards{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}button,a{font:inherit;padding:12px;border:2px solid #b97b55;background:#fff9eb;color:inherit;border-radius:15px;text-decoration:none;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #382584}.mascot{height:104px;margin-top:12px}#letter{font-size:3rem;margin:8px}.icon{display:block;font-size:2.3rem}#status{min-height:2.8em}</style></head>
+<body><main><nav><a href="/letters.html">← Літери</a><button id="sound" aria-pressed="true">Звук увімкнено</button></nav>
+<img class="mascot" src="/mimi-home.png" alt="Мімі"><h1>Літерна пошта Мімі</h1><p id="task" tabindex="-1">Допоможи Мімі рознести листи. Обирай картинку, назва якої починається з літери на конверті.</p>
+<div id="letter"></div><div id="cards"></div><p id="status" role="status"></p><button id="next">Рознести листи</button></main>
+<script>
+const rounds = [["А","Автобус","Кіт","Груша"],["К","Кіт","Слон","Лис"],["С","Слон","Кіт","Миша"],["Л","Лис","Риба","Сова"],["М","Миша","Лис","Риба"],["Р","Риба","Сова","Кіт"]];
+const icons = {"Кіт":"🐈","Груша":"🍐","Слон":"🐘","Лис":"🦊","Миша":"🐭","Риба":"🐟","Сова":"🦉","Автобус":"🚌"};
+const [task, letter, cards, status, next, sound] = ['task','letter','cards','status','next','sound'].map(id => document.getElementById(id));
+const praise = new Audio('/audio/games/common/correct-1.mp3');
+const retry = new Audio('/audio/games/common/retry-1.mp3');
+let step = 0;
+let muted = false;
+function stop() {
+  praise.pause();
+  retry.pause();
+}
+function play(clip) {
+  stop();
+  if (muted || document.hidden) return;
+  clip.currentTime = 0;
+  clip.play().catch(() => {});
+}
+sound.onclick = () => {
+  muted = !muted;
+  sound.textContent = muted ? 'Звук вимкнено' : 'Звук увімкнено';
+  sound.setAttribute('aria-pressed', String(!muted));
+  if (muted) stop();
+};
+window.addEventListener('pagehide', stop);
+document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
+next.onclick = () => {
+  cards.replaceChildren();
+  letter.textContent = '';
+  status.textContent = '';
+  if (step === rounds.length) {
+    task.textContent = 'Усі шість листів доставлено! Мімі дякує за допомогу.';
+    next.textContent = 'Зіграти ще раз';
+    step = 0;
+    task.focus();
+    return;
+  }
+  const [initial, ...words] = rounds[step];
+  const offset = step % words.length;
+  letter.textContent = '✉ ' + initial;
+  task.textContent = 'Лист ' + (step + 1) + ' з 6. Яка назва починається на «' + initial + '»?';
+  next.hidden = true;
+  task.focus();
+  for (const word of words.slice(offset).concat(words.slice(0,offset))) {
+    const button = document.createElement('button');
+    const icon = document.createElement('span');
+    icon.className = 'icon';
+    icon.setAttribute('aria-hidden','true');
+    icon.textContent = icons[word];
+    button.append(icon, word);
+    button.onclick = () => {
+      if (!word.startsWith(initial)) {
+        status.textContent = 'Спробуй ще. Поглянь на першу літеру назви.';
+        play(retry);
+        return;
+      }
+      status.textContent = 'Так! «' + word + '» починається на «' + initial + '». Лист доставлено!';
+      play(praise);
+      for (const card of cards.children) card.disabled = true;
+      step++;
+      next.textContent = step === rounds.length ? 'Завершити' : 'Наступний лист';
+      next.hidden = false;
+      next.focus();
+    };
+    cards.append(button);
+  }
+};
+</script></body></html>
