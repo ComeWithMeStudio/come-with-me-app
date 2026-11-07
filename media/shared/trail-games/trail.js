@@ -9,8 +9,8 @@ const prompts={log:'На стежці колода. Як подолаємо її
 let phase='intro', level=0,index=0,paused=false,muted=true,ctx=null,animation=null;
 let tasks=[],last=0,elapsed=0,foot=0;
 function later(fn,ms){tasks.push({fn,at:elapsed+ms});}
-function tick(t){const dt=last?Math.max(0,t-last):0;last=t;if(!paused){elapsed+=dt;const due=tasks.filter(a=>a.at<=elapsed);tasks=tasks.filter(a=>a.at>elapsed);due.forEach(a=>a.fn());if(phase==='run'&&elapsed-foot>330){foot=elapsed;tone(horse?160:240,.035,.025);}}requestAnimationFrame(tick);}
-requestAnimationFrame(tick);
+function tick(t){const dt=last?Math.max(0,t-last):0;last=t;if(!paused){elapsed+=dt;const due=tasks.filter(a=>a.at<=elapsed);tasks=tasks.filter(a=>a.at>elapsed);due.forEach(a=>a.fn());if(phase==='run'&&elapsed-foot>330){foot=elapsed;tone(horse?160:240,.035,.025);}}setTimeout(()=>tick(performance.now()),40);}
+setTimeout(()=>tick(performance.now()),40);
 function tone(freq,duration=.12,volume=.05,delay=0){if(muted||!ctx)return;const o=ctx.createOscillator(),g=ctx.createGain(),t=ctx.currentTime+delay;o.type='sine';o.frequency.setValueAtTime(freq,t);g.gain.setValueAtTime(volume,t);g.gain.exponentialRampToValueAtTime(.001,t+duration);o.connect(g);g.connect(ctx.destination);o.start(t);o.stop(t+duration+.02);}
 function chime(){[523,659,784].forEach((f,i)=>tone(f,.18,.06,i*.09));}
 function audioReady(){if(!ctx){const AC=window.AudioContext||window.webkitAudioContext;if(AC)ctx=new AC();}if(ctx?.state==='suspended')ctx.resume().catch(()=>{});}
