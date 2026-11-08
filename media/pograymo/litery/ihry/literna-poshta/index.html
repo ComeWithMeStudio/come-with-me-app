@@ -1,10 +1,10 @@
 <!doctype html><html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Літерна пошта Мімі</title>
 <style>body{margin:0;background:#fff0cf;color:#44332d;font:1.15rem system-ui}main{max-width:620px;margin:auto;padding:16px;text-align:center}nav,#cards{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}button,a{font:inherit;padding:12px;border:2px solid #b97b55;background:#fff9eb;color:inherit;border-radius:15px;text-decoration:none;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #382584}.mascot{height:104px;margin-top:12px}#letter{font-size:3rem;margin:8px}.icon{display:block;width:110px;height:110px;object-fit:contain;margin:0 auto 8px}#cards button{flex:1 1 140px;max-width:190px}*{box-sizing:border-box}button:disabled{opacity:.75}@media(max-width:380px){.icon{width:80px;height:80px}#cards button{flex-basis:110px}}#status{min-height:2.8em}</style></head>
-<body><main><nav><a href="/letters.html">← Літери</a><button id="sound" aria-pressed="true">Звук увімкнено</button></nav>
+<body><main><nav><a href="/letter-games.html">← Ігри з літерами</a><button id="sound" aria-pressed="true">Звук увімкнено</button></nav>
 <img class="mascot" src="/mimi-home.png" alt="Мімі"><h1>Літерна пошта Мімі</h1><p id="task" tabindex="-1">Допоможи Мімі рознести листи. Обирай картинку, назва якої починається з літери на конверті.</p>
 <div id="letter"></div><div id="cards"></div><p id="status" role="status"></p><button id="next">Рознести листи</button></main>
 <script>
-const rounds = [["А","Автобус","Кіт","Груша"],["К","Кіт","Слон","Лис"],["С","Слон","Кіт","Ведмідь"],["Л","Лис","Риба","Сова"],["В","Ведмідь","Лис","Риба"],["Р","Риба","Сова","Кіт"]];
+const rounds = [["А","Автобус","Кіт","Груша"],["К","Кіт","Слон","Ведмідь"],["С","Слон","Кіт","Груша"],["Л","Лис","Риба","Сова"],["В","Ведмідь","Лис","Риба"],["Р","Риба","Сова","Кіт"],["Г","Груша","Автобус","Лис"],["С","Сова","Ведмідь","Риба"],["К","Кіт","Груша","Автобус"],["А","Автобус","Слон","Сова"],["В","Ведмідь","Кіт","Груша"],["Л","Лис","Автобус","Риба"]];
 const pictures = {"Кіт":"/media/pograymo/pryroda/assets/farm/cat.webp","Груша":"/media/pograymo/assets/illustrations/fruits/pear-green.webp","Слон":"/media/pograymo/pryroda/assets/africa/african-elephant-gray-walking.webp","Лис":"/media/pograymo/pryroda/assets/forest/red-fox-standing.webp","Ведмідь":"/media/pograymo/pryroda/assets/forest/brown-bear-walking.webp","Риба":"/media/pograymo/pryroda/assets/aquatic/fish/fish-goldfish-orange.webp","Сова":"/media/pograymo/pryroda/assets/forest/tawny-owl-standing.webp","Автобус":"/media/pograymo/assets/illustrations/transport/road/city-bus-yellow.webp"};
 const [task, letter, cards, status, next, sound] = ['task','letter','cards','status','next','sound'].map(id => document.getElementById(id));
 const praise = new Audio('/audio/games/common/correct-1.mp3');
@@ -34,16 +34,16 @@ next.onclick = () => {
   letter.textContent = '';
   status.textContent = '';
   if (step === rounds.length) {
-    task.textContent = 'Усі шість листів доставлено! Мімі дякує за допомогу.';
+    task.textContent = 'Усі 12 листів доставлено! Мімі дякує за допомогу.';
     next.textContent = 'Зіграти ще раз';
     step = 0;
     task.focus();
     return;
   }
   const [initial, ...words] = rounds[step];
-  const offset = step % words.length;
+  const offset = Math.floor(Math.random() * words.length);
   letter.textContent = '✉ ' + initial;
-  task.textContent = 'Лист ' + (step + 1) + ' з 6. Яка назва починається на «' + initial + '»?';
+  task.textContent = 'Лист ' + (step + 1) + ' з ' + rounds.length + '. Яка назва починається на «' + initial + '»?';
   next.hidden = true;
   task.focus();
   for (const word of words.slice(offset).concat(words.slice(0,offset))) {
