@@ -1,0 +1,46 @@
+name: Audio storage audit
+on:
+  push:
+    paths:
+      - '.github/workflows/audio-storage-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Count audio files by folder
+        shell: python
+        run: |
+          from pathlib import Path
+          from collections import defaultdict
+          extensions = {'.mp3','.m4a','.wav','.ogg','.opus','.aac','.flac','.wma'}
+          items = []
+          for p in Path('.').rglob('*'):
+              if not p.is_file() or '.git' in p.parts or p.suffix.lower() not in extensions:
+                  continue
+              items.append((p.as_posix(), p.stat().st_size))
+          groups = defaultdict(lambda: [0,0])
+          for path, size in items:
+              folder = str(Path(path).parent)
+              groups[folder][0] += 1
+              groups[folder][1] += size
+          def mb(n): return f'{n / 1048576:.2f}'
+          print(f'ALL AUDIO: {len(items)} files, {mb(sum(s for _,s in items))} MiB')
+          lines = ['# Audio file storage audit', '', f'**All audio:** {len(items)} files, {mb(sum(s for _,s in items))} MiB', '', '| Folder | Files | MiB |', '|---|---:|---:|']
+          for folder, (count, size) in sorted(groups.items(), key=lambda x: -x[1][1]):
+              lines.append(f'| `{folder}` | {count} | {mb(size)} |')
+          lines.extend(['', '## All audio files', '', '| File | MiB |', '|---|---:|'])
+          for path, size in sorted(items):
+              lines.append(f'| `{path}` | {mb(size)} |')
+          Path('audio-storage-audit.md').write_text('\n'.join(lines), encoding='utf-8')
+          with open(__import__('os').environ['GITHUB_STEP_SUMMARY'], 'a') as f:
+              f.write('\n'.join(lines[:6+len(groups)]))
+      - uses: actions/upload-artifact@v4
+        with:
+          name: audio-storage-audit
+          path: audio-storage-audit.md
