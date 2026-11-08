@@ -3,7 +3,7 @@
   "short_name": "Come With Me",
   "description": "Дитячі пісні, колискові, казки та ігри Come With Me",
   "lang": "uk",
-  "start_url": "/?preview=alona",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#f8f2ec",
@@ -21,5 +21,6 @@
       "type": "image/png",
       "purpose": "any"
     }
-  ]
+  ],
+  "id": "/"
 }
