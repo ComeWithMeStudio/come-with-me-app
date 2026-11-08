@@ -1,0 +1,19 @@
+{
+  "name": "Come With Me",
+  "short_name": "Come With Me",
+  "description": "Дитячі пісні, колискові, казки та ігри Come With Me",
+  "lang": "uk",
+  "start_url": "/?preview=alona",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f8f2ec",
+  "theme_color": "#f8f2ec",
+  "icons": [
+    {
+      "src": "/cwm-logo.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
