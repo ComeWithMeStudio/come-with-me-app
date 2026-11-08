@@ -1,0 +1,84 @@
+rules:
+  - id: browser-input-to-executable-or-html-sink
+    languages: [javascript, typescript]
+    mode: taint
+    message: Review browser-controlled data reaching an executable or HTML sink.
+    severity: ERROR
+    pattern-sources:
+      - pattern: location.search
+      - pattern: location.hash
+      - pattern: document.referrer
+      - pattern: new URLSearchParams(...).get(...)
+    pattern-sinks:
+      - pattern: eval(...)
+      - pattern: new Function(...)
+      - pattern: document.write(...)
+      - pattern: $EL.innerHTML = $VALUE
+      - pattern: $EL.outerHTML = $VALUE
+      - pattern: $EL.insertAdjacentHTML(...)
+  - id: dynamic-code-review
+    languages: [generic]
+    message: Review runtime code evaluation; do not execute untrusted input.
+    severity: WARNING
+    pattern-regex: '\b(?:eval|Function)\s*\('
+    paths:
+      include: ['**/*.js', '**/*.mjs', '**/*.cjs', '**/*.html']
+  - id: wildcard-message-destination
+    languages: [generic]
+    message: Review wildcard postMessage destinations and origin validation.
+    severity: WARNING
+    pattern-regex: 'postMessage\([^;\n]*,[\s]*["\x27]\*["\x27]'
+    paths:
+      include: ['**/*.js', '**/*.html']
+  - id: insecure-active-resource
+    languages: [generic]
+    message: Active resources should use HTTPS.
+    severity: ERROR
+    pattern-regex: '(?:src|href)\s*=\s*["\x27]http://'
+    paths:
+      include: ['**/*.html']
+  - id: client-privileged-cloud-key
+    languages: [generic]
+    message: Review privileged cloud credential material in browser code; never log its value.
+    severity: ERROR
+    pattern-regex: '\b(?:sb_secret_[A-Za-z0-9_-]{16,}|service_role)\b'
+    paths:
+      include: ['**/*.js', '**/*.html']
+  - id: client-preview-authorization-review
+    languages: [generic]
+    message: A browser-controlled preview switch must not grant production authorization.
+    severity: WARNING
+    pattern-regex: '\.get\(["\x27]preview["\x27]\)'
+    paths:
+      include: ['**/*.js', '**/*.html']
+  - id: browser-persistence-privacy-review
+    languages: [generic]
+    message: Review browser persistence for child privacy; preferences alone are not a vulnerability.
+    severity: INFO
+    pattern-regex: '(?:localStorage|sessionStorage)\.(?:getItem|setItem)\('
+    paths:
+      include: ['**/*.js', '**/*.html']
+  - id: analytics-resource-review
+    languages: [generic]
+    message: Review third-party analytics consent, data minimization and child-audience boundaries.
+    severity: WARNING
+    pattern-regex: 'https://(?:www\.)?(?:googletagmanager\.com|google-analytics\.com)/'
+    paths:
+      include: ['**/*.js', '**/*.html']
+  - id: python-disabled-tls-verification
+    languages: [python]
+    message: TLS verification must remain enabled.
+    severity: ERROR
+    pattern: $CLIENT.$METHOD(..., verify=False, ...)
+  - id: python-shell-command-review
+    languages: [python]
+    message: Review subprocess shell execution and untrusted interpolation.
+    severity: WARNING
+    pattern: subprocess.$METHOD(..., shell=True, ...)
+  - id: privileged-pr-workflow-review
+    languages: [generic]
+    message: A privileged PR workflow must never execute untrusted checkout contents.
+    severity: ERROR
+    pattern-regex: '^\s*pull_request_target\s*:'
+    paths:
+      include: ['.github/workflows/*.yml', '.github/workflows/*.yaml']

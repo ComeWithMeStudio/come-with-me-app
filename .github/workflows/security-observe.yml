@@ -1,0 +1,121 @@
+name: Security observation (non-blocking)
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: security-observe-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  scanners:
+    name: Gitleaks, Semgrep and applicable npm audit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - name: Check for tracked npm dependencies
+        id: inventory
+        run: python .github/security/observe.py inventory
+      - name: Install checksum-verified Gitleaks CLI
+        id: gitleaks
+        continue-on-error: true
+        run: bash .github/security/install-gitleaks.sh
+      - name: Install Semgrep CE in an isolated environment
+        id: semgrep
+        continue-on-error: true
+        shell: bash
+        run: |
+          python -m venv "$RUNNER_TEMP/cwm-semgrep"
+          "$RUNNER_TEMP/cwm-semgrep/bin/pip" install --disable-pip-version-check 'semgrep==1.184.0' > "$RUNNER_TEMP/cwm-semgrep-install.log" 2>&1
+          echo "$RUNNER_TEMP/cwm-semgrep/bin" >> "$GITHUB_PATH"
+      - name: Gitleaks observation
+        run: python .github/security/observe.py gitleaks
+      - name: Semgrep observation (local rules, no cloud upload)
+        run: python .github/security/observe.py semgrep
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        if: steps.inventory.outputs.npm == 'true'
+        with:
+          node-version: '22'
+      - name: npm audit observation (no install or lifecycle scripts)
+        run: python .github/security/observe.py npm
+      - name: Verify report redaction and observation helpers
+        run: python -m unittest discover -s .github/security -p 'test_*.py'
+      - name: Explain observation mode
+        if: always()
+        run: |
+          echo '### Observation stage' >> "$GITHUB_STEP_SUMMARY"
+          echo 'No deployment workflow depends on these jobs. Do not mark these checks required during this stage. Findings and scanner failures require review; missing/incomplete scans are not clean results. Raw scanner logs and reports are not uploaded.' >> "$GITHUB_STEP_SUMMARY"
+
+  codeql:
+    name: CodeQL observation (${{ matrix.language }})
+    # Public repositories are eligible without Code Security purchase. Private
+    # repositories require an owner to verify entitlement before opting in.
+    if: github.event.repository.private == false || vars.CWM_PRIVATE_CODEQL_ENABLED == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    continue-on-error: true
+    permissions:
+      contents: read
+      actions: read
+      security-events: read
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [javascript-typescript, python]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Avoid duplicating GitHub default CodeQL setup
+        id: availability
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/security/observe.py codeql-preflight
+      - name: Initialize CodeQL without building or executing application code
+        if: steps.availability.outputs.run == 'true'
+        uses: github/codeql-action/init@33d7b85da1a04171e211befe2c739303b9a4c066 # v4
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: none
+          queries: security-extended
+          setup-python-dependencies: false
+          dependency-caching: false
+          trap-caching: false
+      - name: Analyze without uploading raw SARIF
+        if: steps.availability.outputs.run == 'true'
+        uses: github/codeql-action/analyze@33d7b85da1a04171e211befe2c739303b9a4c066 # v4
+        with:
+          upload: never
+          upload-database: false
+          add-snippets: false
+          output: ${{ runner.temp }}/cwm-codeql-raw
+          category: /language:${{ matrix.language }}
+      - name: Retain location metadata only
+        if: steps.availability.outputs.run == 'true'
+        shell: bash
+        run: |
+          python3 .github/security/observe.py sanitize-sarif \
+            "$RUNNER_TEMP/cwm-codeql-raw" \
+            "$RUNNER_TEMP/cwm-codeql-safe"
+      # Stage 1 deliberately does not upload alerts to Code scanning: existing
+      # organization rulesets could enforce them despite continue-on-error.
+      # Sanitized locations are available in the step summary, including fork PRs.
+      - name: Remove raw CodeQL outputs
+        if: always()
+        shell: bash
+        run: rm -rf -- "$RUNNER_TEMP/cwm-codeql-raw" "$RUNNER_TEMP/cwm-codeql-safe"
