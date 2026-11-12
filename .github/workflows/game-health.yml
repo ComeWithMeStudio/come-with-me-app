@@ -16,7 +16,7 @@ permissions:
 jobs:
   verify-game-assets:
     name: Verify game asset references
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - name: Checkout repository
@@ -32,7 +32,7 @@ jobs:
 
   browser-smoke:
     name: Open app and linked games in mobile browser
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
