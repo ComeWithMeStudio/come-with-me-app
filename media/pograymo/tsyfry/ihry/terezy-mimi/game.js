@@ -32,4 +32,4 @@ document.querySelectorAll('.to-menu').forEach(b=>b.onclick=()=>{stopAll();show('
 $('listen').onclick=()=>{startMusic();say('level'+level);};
 $('hint').onclick=()=>{const q=question();$('message').textContent=level===1?'Зліва '+q.target+' '+cubeWord(q.target)+'. Обери гирю '+q.target+'.':'До '+q.base+' додай '+(q.target-q.base)+', щоб отримати '+q.target+'.';say('hint');};
 $('sound').onclick=()=>{muted=!muted;$('sound').textContent=muted?'Звук: вимкнено':'Звук: увімкнено';$('sound').setAttribute('aria-pressed',String(!muted));if(muted)stopAll();else startMusic();};
-window.addEventListener('pagehide',stopAll);document.addEventListener('visibilitychange',()=>{if(document.hidden)stopAll();});
+window.addEventListener('blur',stopAll);window.addEventListener('pagehide',stopAll);document.addEventListener('visibilitychange',()=>{if(document.hidden)stopAll();});
