@@ -1,5 +1,5 @@
 <!doctype html><html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Літерна пошта Мімі</title>
-<style>body{margin:0;background:#fff0cf;color:#44332d;font:1.15rem system-ui}main{max-width:620px;margin:auto;padding:16px;text-align:center}nav,#cards{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}button,a{font:inherit;padding:12px;border:2px solid #b97b55;background:#fff9eb;color:inherit;border-radius:15px;text-decoration:none;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #382584}.mascot{height:104px;margin-top:12px}#letter{font-size:3rem;margin:8px}.icon{display:block;width:110px;height:110px;object-fit:contain;margin:0 auto 8px}#cards button{flex:1 1 140px;max-width:190px}*{box-sizing:border-box}button:disabled{opacity:.75}@media(max-width:380px){.icon{width:80px;height:80px}#cards button{flex-basis:110px}}#status{min-height:2.8em}.word-card{display:flex;flex-direction:column;gap:6px;flex:1 1 140px;max-width:190px}.word-card button{width:100%}#cards .word-card>button{max-width:none;flex:none}.word-card>button:last-child{font-size:.9rem;padding:8px}</style></head>
+<style>body{margin:0;background:#fff0cf;color:#44332d;font:1.15rem system-ui}main{max-width:620px;margin:auto;padding:16px;text-align:center}nav,#cards{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}button,a{font:inherit;padding:12px;border:2px solid #b97b55;background:#fff9eb;color:inherit;border-radius:15px;text-decoration:none;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #382584}.mascot{height:104px;margin-top:12px}#letter{font-size:3rem;margin:8px}.icon{display:block;width:110px;height:110px;object-fit:contain;margin:0 auto 8px}#cards button{flex:1 1 140px;max-width:190px}*{box-sizing:border-box}button:disabled{opacity:.75}@media(max-width:380px){.icon{width:80px;height:80px}#cards button{flex-basis:110px}}#status{min-height:2.8em}.word-card{display:flex;flex-direction:column;gap:6px;flex:1 1 140px;max-width:190px}.word-card button{width:100%}#cards .word-card>button{max-width:none;flex:none}.word-card>button:last-child{font-size:.9rem;padding:8px}@media(max-width:520px){h1{font-size:1.8rem;margin:18px 0}.mascot{height:80px}nav{font-size:1rem}.word-card{flex:1 1 0;min-width:0;max-width:none}.word-card>button:first-child{padding:8px 4px;font-size:clamp(14px,4vw,18px)}.icon{width:100%;height:88px;margin-bottom:6px}.word-card>button:last-child{min-height:44px;padding:8px 2px}.listen-label{display:none}#letter{font-size:2.6rem}#status{font-size:1rem}} </style></head>
 <body><main><nav><a href="/letter-games.html">← Ігри з літерами</a><button id="sound" aria-pressed="true">Звук увімкнено</button></nav>
 <img class="mascot" src="/mimi-home.png" alt="Мімі"><h1>Літерна пошта Мімі</h1><p id="task" tabindex="-1">Допоможи Мімі рознести листи. Обирай картинку, назва якої починається з літери на конверті.</p>
 <button id="listen">Послухати правила</button><div id="letter"></div><div id="cards"></div><p id="status" role="status"></p><button id="next">Рознести листи</button></main>
@@ -94,7 +94,11 @@ next.onclick = () => {
     card.className = 'word-card';
     const listen = document.createElement('button');
     listen.type = 'button';
-    listen.textContent = '🔊 Послухати';
+    listen.append('🔊 ');
+    const label = document.createElement('span');
+    label.className = 'listen-label';
+    label.textContent = 'Послухати';
+    listen.append(label);
     listen.setAttribute('aria-label', 'Послухати слово ' + word);
     listen.onclick = () => play(wordVoices[word]);
     card.append(button, listen);
