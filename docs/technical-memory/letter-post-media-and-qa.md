@@ -30,3 +30,8 @@ Pages успішно опублікував денні зміни fa12f16. На�
 - Перевірено верстку при 320, 390, 768 і 1280 CSS px. scrollWidth дорівнює clientWidth; три картки в одному рядку, кнопки звуку 44 px на вузькому екрані.
 - Знімки: docs/qa/letter-post-mobile-390.jpg та docs/qa/letter-post-wide-1280.jpg.
 - Не робити висновку про бездоганну вимову з readyState: суб'єктивне прослуховування і фізичні iOS/Android тут не перевірялися.
+
+## Точний запит до вбудованого генератора автобуса
+Use case: illustration-story. Asset type: picture card for a Ukrainian children's learning game, ages 6. Draw one cheerful yellow city bus, isolated on a genuinely transparent background, centered, entire vehicle visible, side three-quarter view, large readable silhouette. Polished softly painted children's storybook 3D illustration, warm yellow body, blue windows, two visible dark rubber wheels, friendly rounded proportions, consistent with detailed painted animal and fruit picture cards. No eyes or face, no people, no text, no logo, no watermark, no scenery. Bus should occupy most of the square canvas with small safe transparent margins.
+
+Файл у проєкті: media/pograymo/litery/ihry/literna-poshta/assets/bus-v2.webp. Згенерований PNG збережено до масштабування; фінальний WebP 512×512 зі збереженою прозорістю завантажено в GitHub. Не замінювали спільний пошкоджений оригінал.
