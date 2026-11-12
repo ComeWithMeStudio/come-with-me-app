@@ -4,3 +4,5 @@
 .welcome-scale{margin:18px auto;width:min(380px,100%);font-size:0}.welcome-scale img{display:block;width:100%;border:3px solid white;border-radius:24px}
 
 .welcome-scale{position:relative}.welcome-scale .cover-mimi{position:absolute;left:3%;top:10%;width:42%;height:74%;object-fit:contain;border:0;border-radius:0}
+
+@media(min-width:521px){#scale{width:min(540px,100%)}.heading{margin:12px 0}#message{min-height:2.5em}}
