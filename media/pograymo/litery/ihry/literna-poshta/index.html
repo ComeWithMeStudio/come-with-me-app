@@ -5,15 +5,16 @@
 <button id="listen">Послухати правила</button><div id="letter"></div><div id="cards"></div><p id="status" role="status"></p><button id="next">Рознести листи</button></main>
 <script>
 const rounds = [["А","Автобус","Кіт","Груша"],["К","Кіт","Слон","Ведмідь"],["С","Слон","Кіт","Груша"],["Л","Лис","Риба","Сова"],["В","Ведмідь","Лис","Риба"],["Р","Риба","Сова","Кіт"],["Г","Груша","Автобус","Лис"],["С","Сова","Ведмідь","Риба"],["К","Кіт","Груша","Автобус"],["А","Автобус","Слон","Сова"],["В","Ведмідь","Кіт","Груша"],["Л","Лис","Автобус","Риба"]];
-const pictures = {"Кіт":"/media/pograymo/pryroda/assets/farm/cat.webp","Груша":"/media/pograymo/assets/illustrations/fruits/pear-green.webp","Слон":"/media/pograymo/pryroda/assets/africa/african-elephant-gray-walking.webp","Лис":"/media/pograymo/pryroda/assets/forest/red-fox-standing.webp","Ведмідь":"/media/pograymo/pryroda/assets/forest/brown-bear-walking.webp","Риба":"/media/pograymo/pryroda/assets/aquatic/fish/fish-goldfish-orange.webp","Сова":"/media/pograymo/pryroda/assets/forest/tawny-owl-standing.webp","Автобус":"/media/pograymo/assets/illustrations/transport/road/city-bus-yellow.webp"};
+const pictures = {"Кіт":"/media/pograymo/pryroda/assets/farm/cat.webp","Груша":"/media/pograymo/assets/illustrations/fruits/pear-green.webp","Слон":"/media/pograymo/pryroda/assets/africa/african-elephant-gray-walking.webp","Лис":"/media/pograymo/pryroda/assets/forest/red-fox-standing.webp","Ведмідь":"/media/pograymo/pryroda/assets/forest/brown-bear-walking.webp","Риба":"/media/pograymo/pryroda/assets/aquatic/fish/fish-goldfish-orange.webp","Сова":"/media/pograymo/pryroda/assets/forest/tawny-owl-standing.webp","Автобус":"assets/bus-v2.webp"};
 const [task, letter, cards, status, next, sound] = ['task','letter','cards','status','next','sound'].map(id => document.getElementById(id));
-const praise = new Audio('/audio/games/common/correct-1.mp3');
-const retry = new Audio('/audio/games/common/retry-1.mp3');
-const intro = new Audio('audio/intro.mp3');
-const finalVoice = new Audio('audio/final.mp3');
+function clip(url) { const audio = new Audio(url); audio.hidden = true; audio.preload = 'metadata'; document.body.append(audio); return audio; }
+const praise = clip('/audio/games/common/correct-1.mp3');
+const retry = clip('/audio/games/common/retry-1.mp3');
+const intro = clip('audio/intro.mp3');
+const finalVoice = clip('audio/final.mp3');
 const wordVoices = Object.fromEntries(Object.entries({
 'Автобус':'bus','Кіт':'cat','Груша':'pear','Слон':'elephant','Лис':'fox','Ведмідь':'bear','Риба':'fish','Сова':'owl'
-}).map(([word,file]) => [word,new Audio('audio/'+file+'.mp3')]));
+}).map(([word,file]) => [word,clip('audio/'+file+'.mp3')]));
 let finished = false;
 document.getElementById('listen').onclick = () => play(finished ? finalVoice : intro);
 let step = 0;
@@ -40,6 +41,7 @@ sound.onclick = () => {
 window.addEventListener('pagehide', stop);
 document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
 next.onclick = () => {
+  stop();
   cards.replaceChildren();
   letter.textContent = '';
   status.textContent = '';
@@ -48,19 +50,25 @@ next.onclick = () => {
     next.textContent = 'Зіграти ще раз';
     step = 0;
     finished = true;
+    document.getElementById('listen').textContent = 'Послухати привітання';
     play(finalVoice);
     task.focus();
     return;
   }
   if (step === 0) play(intro);
   finished = false;
+  document.getElementById('listen').textContent = 'Послухати правила';
   const [initial, ...words] = rounds[step];
-  const offset = Math.floor(Math.random() * words.length);
+  const choices = [...words];
+  for (let i = choices.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [choices[i], choices[j]] = [choices[j], choices[i]];
+  }
   letter.textContent = '✉ ' + initial;
   task.textContent = 'Лист ' + (step + 1) + ' з ' + rounds.length + '. Яка назва починається на «' + initial + '»?';
   next.hidden = true;
   task.focus();
-  for (const word of words.slice(offset).concat(words.slice(0,offset))) {
+  for (const word of choices) {
     const button = document.createElement('button');
     const icon = document.createElement('img');
     icon.className = 'icon';
