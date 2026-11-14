@@ -69,6 +69,12 @@
           document.body.classList.add('play-open');
           window.scrollTo(0,0);
         }
+        if(new URLSearchParams(location.search).get('section')==='play') {
+          window.addEventListener('load',function(){
+            var button=document.querySelector('[data-world="play"]');
+            if(button)button.click();
+          });
+        }
         openFigures();
         window.addEventListener('load',openFigures);
         window.addEventListener('hashchange',openFigures);
